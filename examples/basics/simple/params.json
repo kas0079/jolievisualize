@@ -1,0 +1,5 @@
+{
+	"test": {
+		"loc": "socket://localhost:9876"
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"name": "jolievisualize",
+	"version": "0.0.1",
+	"description": "Tool for visualizing and refactoring Jolie architecture",
+	"type": "module",
+	"main": "index.js",
+	"keywords": [],
+	"author": {
+		"name": "Emil Ovcina",
+		"email": "emovc18@student.sdu.dk"
+	},
+	"license": "ISC",
+	"jolie": {
+		"dependencies": {},
+		"maven": {
+			"dependencies": {},
+			"indirectDependencies": {}
+		}
+	}
+}

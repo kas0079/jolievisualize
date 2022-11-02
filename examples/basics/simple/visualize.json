@@ -1,0 +1,8 @@
+[
+	{
+		"name": "Server",
+		"file": "server.ol",
+		"instances": 1,
+		"params": "params.json"
+	}
+]

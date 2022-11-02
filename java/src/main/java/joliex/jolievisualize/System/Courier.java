@@ -1,0 +1,64 @@
+package joliex.jolievisualize.System;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.simple.JSONObject;
+
+public class Courier {
+    public String name;
+    public List<String> interfaceOneWay = new ArrayList<>();
+    public List<String> interfaceReqRes = new ArrayList<>();
+    public List<String> operationOneWay = new ArrayList<>();
+    public List<String> operationReqRes = new ArrayList<>();
+
+    public JSONObject toJSON() {
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("name", name);
+
+        if (interfaceOneWay.size() > 0) {
+            List<JSONObject> iooTmp = new ArrayList<>();
+            for (String s : interfaceOneWay) {
+                Map<String, Object> _t = new HashMap<>();
+                _t.put("name", s);
+                iooTmp.add(new JSONObject(_t));
+            }
+            map.put("interfaceOneWay", iooTmp);
+        }
+
+        if (interfaceReqRes.size() > 0) {
+            List<JSONObject> irrTmp = new ArrayList<>();
+            for (String s : interfaceReqRes) {
+                Map<String, Object> _t = new HashMap<>();
+                _t.put("name", s);
+                irrTmp.add(new JSONObject(_t));
+            }
+            map.put("interfaceReqRes", irrTmp);
+        }
+
+        if (operationOneWay.size() > 0) {
+            List<JSONObject> iooTmp = new ArrayList<>();
+            for (String s : operationOneWay) {
+                Map<String, Object> _t = new HashMap<>();
+                _t.put("name", s);
+                iooTmp.add(new JSONObject(_t));
+            }
+            map.put("operationOneWay", iooTmp);
+        }
+
+        if (operationReqRes.size() > 0) {
+            List<JSONObject> irrTmp = new ArrayList<>();
+            for (String s : operationReqRes) {
+                Map<String, Object> _t = new HashMap<>();
+                _t.put("name", s);
+                irrTmp.add(new JSONObject(_t));
+            }
+            map.put("operationReqRes", irrTmp);
+        }
+
+        return new JSONObject(map);
+    }
+}

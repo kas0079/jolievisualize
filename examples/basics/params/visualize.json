@@ -1,0 +1,8 @@
+[
+	{
+		"name": "MyService",
+		"instances": 2,
+		"file": "service.ol",
+		"params": "params.json"
+	}
+]
