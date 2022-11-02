@@ -7,12 +7,15 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
+import joliex.jolievisualize.PlaceGraph.PlaceGraph;
+
 public class JolieSystem {
     private long highestID = -1;
     public String name;
     public List<Service> listOfServices = new ArrayList<>();
     public List<Interface> listOfInterfaces = new ArrayList<>();
     public List<Type> listOfTypes = new ArrayList<>();
+    public PlaceGraph placeGraph = new PlaceGraph();
 
     public long getNextID() {
         return ++highestID;
