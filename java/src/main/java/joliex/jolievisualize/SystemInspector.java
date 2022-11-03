@@ -15,6 +15,7 @@ import jolie.lang.parse.ast.ExecutionInfo;
 import jolie.lang.parse.ast.InputPortInfo;
 import jolie.lang.parse.ast.InputPortInfo.AggregationItemInfo;
 import jolie.lang.parse.ast.InterfaceDefinition;
+import jolie.lang.parse.ast.InterfaceExtenderDefinition;
 import jolie.lang.parse.ast.OLSyntaxNode;
 import jolie.lang.parse.ast.OneWayOperationDeclaration;
 import jolie.lang.parse.ast.OutputPortInfo;
@@ -93,7 +94,8 @@ public class SystemInspector {
                 if (!system.listOfServices.contains(s)) {
                     system.listOfServices.add(s);
                     if (tld.getFilename() != null) {
-                        s.node = network.addNode(tld.getName(), NodeType.SERVICE);
+                        s.node = network.addNode(sn.name().equals("Main") ? tld.getName() : sn.name(),
+                                NodeType.SERVICE);
                         topLevelServices.add(s);
                     }
                 }
@@ -318,8 +320,22 @@ public class SystemInspector {
             aggr.name = aii.outputPortList()[0];
         // Interface extender
         if (aii.interfaceExtender() != null)
-            aggr.extender = createInterface(aii.interfaceExtender());
+            aggr.extender = createInterfaceExtender(aii.interfaceExtender());
         return aggr;
+    }
+
+    private Interface createInterfaceExtender(InterfaceExtenderDefinition ied) {
+        Interface i = createInterface(ied);
+        if (ied.defaultRequestResponseOperation() != null) {
+            i.reqres.add(ied.defaultRequestResponseOperation());
+            seenTypes.add(ied.defaultRequestResponseOperation().requestType());
+            seenTypes.add(ied.defaultRequestResponseOperation().responseType());
+        }
+        if (ied.defaultOneWayOperation() != null) {
+            i.oneway.add(ied.defaultOneWayOperation());
+            seenTypes.add(ied.defaultOneWayOperation().requestType());
+        }
+        return i;
     }
 
     private String getParamFromPath(VariablePathNode vpn, JSONObject params) {
