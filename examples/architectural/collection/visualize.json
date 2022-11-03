@@ -1,0 +1,20 @@
+[
+	{
+		"file": "aggregator.ol"
+	},
+	{
+		"file": "client.ol"
+	},
+	{
+		"file": "fax.ol"
+	},
+	{
+		"file": "logger.ol"
+	},
+	{
+		"file": "printer1.ol"
+	},
+	{
+		"file": "printer2.ol"
+	}
+]
