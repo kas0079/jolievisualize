@@ -1,11 +1,11 @@
 package joliex.jolievisualize.PlaceGraph;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.simple.JSONObject;
+
+import joliex.jolievisualize.PlaceGraph.Node.NodeType;
 
 public class PlaceGraph {
     public List<Node> nodes = new ArrayList<>();
@@ -26,9 +26,19 @@ public class PlaceGraph {
         return ++highestSitekNode;
     }
 
-    public JSONObject toJSON() {
-        Map<String, Object> map = new HashMap<>();
+    public Node addNode(String name, NodeType type) {
+        Node n = new Node(name, type);
+        this.nodes.add(n);
+        return n;
+    }
 
-        return new JSONObject(map);
+    public List<JSONObject> toJSON() {
+        // Map<String, Object> map = new HashMap<>();
+
+        List<JSONObject> childrenTmp = new ArrayList<>();
+        for (Node n : nodes)
+            childrenTmp.add(n.toJSON());
+
+        return childrenTmp;
     }
 }

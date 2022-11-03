@@ -34,6 +34,8 @@ import jolie.lang.parse.ast.types.TypeDefinitionLink;
 import jolie.lang.parse.ast.types.TypeInlineDefinition;
 import jolie.lang.parse.util.ProgramInspector;
 import jolie.util.Pair;
+import joliex.jolievisualize.PlaceGraph.Node;
+import joliex.jolievisualize.PlaceGraph.Node.NodeType;
 import joliex.jolievisualize.System.Aggregate;
 import joliex.jolievisualize.System.Courier;
 import joliex.jolievisualize.System.InputPort;
@@ -74,12 +76,24 @@ public class SystemInspector {
         return system.toJSON();
     }
 
+    private Node initPlaceGraph() {
+        // system.placeGraph.addNode("site" + system.placeGraph.getNewSiteNodeID(),
+        // NodeType.SITE);
+        Node network = system.placeGraph.addNode("network" + system.placeGraph.getNewNetworkNodeID(), NodeType.NETWORK);
+        network.addNode("site" + system.placeGraph.getNewSiteNodeID(), NodeType.SITE);
+        return network;
+    }
+
     private void dissectInspectors(Map<TopLevelDeploy, Pair<ProgramInspector, JSONObject>> inspectors) {
+        Node network = initPlaceGraph();
         inspectors.forEach((tld, ins) -> {
             for (ServiceNode sn : ins.key().getServiceNodes()) {
+                Node pgSvcNode = network.addNode(tld.getName(), NodeType.SERVICE);
+                pgSvcNode.addNode("site" + system.placeGraph.getNewSiteNodeID(), NodeType.SITE);
                 Service s = createService(tld.getName(), sn, ins.key(), ins.value());
-                if (!system.listOfServices.contains(s))
+                if (!system.listOfServices.contains(s)) {
                     system.listOfServices.add(s);
+                }
             }
             for (InterfaceDefinition id : ins.key().getInterfaces()) {
                 if (inBlackList(id.name()))

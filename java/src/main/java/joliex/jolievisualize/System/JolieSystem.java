@@ -43,6 +43,8 @@ public class JolieSystem {
         map.put("services", serviceListTmp);
         map.put("interfaces", interfaceListTmp);
         map.put("types", typeListTmp);
+        // TODO change to array if more than one network exists on the top level
+        map.put("placegraph", placeGraph.toJSON());
         return new JSONObject(map);
     }
 }

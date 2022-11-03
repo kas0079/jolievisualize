@@ -1,0 +1,19 @@
+[
+	{
+		"name": "Client",
+		"file": "client.ol"
+	},
+	{
+		"name": "Aggregator",
+		"file": "aggregator.ol"
+	},
+	{
+		"file": "AggregatorInterface.ol"
+	},
+	{
+		"file": "PrinterInterface.ol"
+	},
+	{
+		"file": "FaxInterface.ol"
+	}
+]

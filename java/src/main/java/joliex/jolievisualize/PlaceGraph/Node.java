@@ -1,7 +1,11 @@
 package joliex.jolievisualize.PlaceGraph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.json.simple.JSONObject;
 
 public class Node {
     public enum NodeType {
@@ -16,5 +20,27 @@ public class Node {
         this.name = name;
         this.type = nodetype;
         children = new ArrayList<>();
+    }
+
+    public Node addNode(String name, NodeType type) {
+        Node n = new Node(name, type);
+        children.add(n);
+        return n;
+    }
+
+    public JSONObject toJSON() {
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("name", name);
+        map.put("type", type.toString().toLowerCase());
+
+        if (children.size() > 0) {
+            List<JSONObject> childrenTmp = new ArrayList<>();
+            for (Node n : children)
+                childrenTmp.add(n.toJSON());
+            map.put("nodes", childrenTmp);
+        }
+
+        return new JSONObject(map);
     }
 }
