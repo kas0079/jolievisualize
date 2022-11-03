@@ -24,8 +24,17 @@ public class Node {
 
     public Node addNode(String name, NodeType type) {
         Node n = new Node(name, type);
-        children.add(n);
+        this.children.add(n);
         return n;
+    }
+
+    public Node addNode(Node node) {
+        this.children.add(node);
+        return node;
+    }
+
+    public void addNodeList(List<Node> list) {
+        list.forEach((n) -> this.children.add(n));
     }
 
     public JSONObject toJSON() {

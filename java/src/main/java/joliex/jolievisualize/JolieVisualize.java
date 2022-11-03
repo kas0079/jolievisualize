@@ -8,8 +8,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,6 +25,8 @@ import jolie.JolieURLStreamHandlerFactory;
 import jolie.cli.CommandLineException;
 import jolie.cli.CommandLineParser;
 import jolie.lang.parse.ParserException;
+import jolie.lang.parse.ast.ImportStatement;
+import jolie.lang.parse.ast.OLSyntaxNode;
 import jolie.lang.parse.module.ModuleException;
 import jolie.lang.parse.module.ModuleParsingConfiguration;
 import jolie.lang.parse.module.Modules;
@@ -35,6 +41,8 @@ public class JolieVisualize {
 	}
 
 	private static Map<TopLevelDeploy, Pair<ProgramInspector, JSONObject>> allProgramInspectors = new HashMap<>();
+	private static Set<String> files = new HashSet<>();
+	private static Queue<String> queue = new LinkedList<>();
 
 	/**
 	 * @param args the command line arguments
@@ -66,6 +74,7 @@ public class JolieVisualize {
 		if (p.getFileName().toString().toLowerCase().endsWith(".json")) {
 			List<TopLevelDeploy> tlds = getTopLevelDeployment(p);
 			for (TopLevelDeploy tld : tlds) {
+				files.add(tld.getPath() + "/" + tld.getFilename());
 				Path paramPath;
 				if (tld.getParams() != null)
 					paramPath = Paths.get(tld.getPath() + "/" + tld.getParams());
@@ -78,7 +87,14 @@ public class JolieVisualize {
 							parseFile(tld.getFilename(), tld.getPath(), tld.getName(), args), readParams(paramPath)));
 				}
 			}
-
+			while (queue.size() > 0) {
+				String file = queue.remove();
+				String filename = file.substring(file.lastIndexOf("/") + 1, file.length());
+				String filepath = file.substring(0, file.lastIndexOf("/"));
+				allProgramInspectors.put(new TopLevelDeploy(filename.replace(".ol", "")),
+						new Pair<ProgramInspector, JSONObject>(
+								parseFile(filename, filepath, null, args), null));
+			}
 			SystemInspector si = new SystemInspector(allProgramInspectors);
 			JSONObject global = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
 			System.out.println(global.toJSONString());
@@ -154,8 +170,33 @@ public class JolieVisualize {
 		ModuleParsedResult mpr = Modules.parseModule(mpc, conf.inputStream(),
 				conf.programFilepath().toURI());
 
+		for (OLSyntaxNode ol : mpr.mainProgram().children())
+			if (ol instanceof ImportStatement)
+				getImportFileName(path, ((ImportStatement) ol).importTarget());
+
 		ProgramInspector inspector = ParsingUtils.createInspector(mpr.mainProgram());
 		cmdParser.close();
 		return inspector;
+	}
+
+	private static void getImportFileName(String p, List<String> importStmt) {
+		Path path = Paths.get(p);
+		if (importStmt.get(0).equals("")) { // relative path
+			int i = 1;
+			for (; i < importStmt.size() && importStmt.get(i).equals(""); i++) {
+				path = path.toAbsolutePath().getParent();
+			}
+			for (String s : importStmt.subList(i, importStmt.size())) {
+				if (!s.equals("")) {
+					path = path.resolve(s);
+				}
+			}
+		}
+		if (!path.toFile().isDirectory()) {
+			int size = files.size();
+			files.add(path.toAbsolutePath().toString() + ".ol");
+			if (size < files.size())
+				queue.add(path.toAbsolutePath().toString() + ".ol");
+		}
 	}
 }

@@ -11,6 +11,7 @@ import jolie.lang.parse.ast.EmbedServiceNode;
 import jolie.lang.parse.ast.EmbeddedServiceNode;
 import jolie.lang.parse.ast.ExecutionInfo;
 import jolie.lang.parse.ast.courier.CourierDefinitionNode;
+import joliex.jolievisualize.PlaceGraph.Node;
 
 public class Service {
     public JSONObject params;
@@ -18,6 +19,7 @@ public class Service {
     public long id;
     public String name;
     public ExecutionInfo executionInfo;
+    public Node node;
     public List<CourierDefinitionNode> couriers = new ArrayList<>();
     public List<EmbedServiceNode> embeds = new ArrayList<>();
     public List<EmbeddedServiceNode> internals = new ArrayList<>();

@@ -86,13 +86,16 @@ public class SystemInspector {
 
     private void dissectInspectors(Map<TopLevelDeploy, Pair<ProgramInspector, JSONObject>> inspectors) {
         Node network = initPlaceGraph();
+        List<Service> topLevelServices = new ArrayList<>();
         inspectors.forEach((tld, ins) -> {
             for (ServiceNode sn : ins.key().getServiceNodes()) {
-                Node pgSvcNode = network.addNode(tld.getName(), NodeType.SERVICE);
-                pgSvcNode.addNode("site" + system.placeGraph.getNewSiteNodeID(), NodeType.SITE);
                 Service s = createService(tld.getName(), sn, ins.key(), ins.value());
                 if (!system.listOfServices.contains(s)) {
                     system.listOfServices.add(s);
+                    if (tld.getFilename() != null) {
+                        s.node = network.addNode(tld.getName(), NodeType.SERVICE);
+                        topLevelServices.add(s);
+                    }
                 }
             }
             for (InterfaceDefinition id : ins.key().getInterfaces()) {
@@ -106,6 +109,27 @@ public class SystemInspector {
         seenTypes.forEach((type) -> {
             system.listOfTypes.add(createType(type));
         });
+        topLevelServices.forEach((tls) -> {
+            addPlaceGraphChildren(tls);
+        });
+    }
+
+    private void addPlaceGraphChildren(Service s) {
+        s.node.addNode("site" + system.placeGraph.getNewSiteNodeID(), NodeType.SITE);
+        for (EmbedServiceNode esn : s.embeds) {
+            Service tmp = findServiceByName(esn.serviceName());
+            if (tmp.node == null)
+                tmp.node = new Node(tmp.name, NodeType.SERVICE);
+            s.node.addNode(tmp.node);
+            addPlaceGraphChildren(tmp);
+        }
+        for (EmbeddedServiceNode esn : s.internals) {
+            Service tmp = findServiceByName(esn.servicePath());
+            if (tmp.node == null)
+                tmp.node = new Node(tmp.name, NodeType.SERVICE);
+            s.node.addNode(tmp.node);
+            addPlaceGraphChildren(tmp);
+        }
     }
 
     private Type createType(TypeDefinition td) {
@@ -319,6 +343,10 @@ public class SystemInspector {
             if (interf.equals(i))
                 return true;
         return false;
+    }
+
+    private Service findServiceByName(String name) {
+        return system.listOfServices.stream().parallel().filter(t -> t.name.equals(name)).findFirst().get();
     }
 
     private boolean inBlackList(String name) {

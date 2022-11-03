@@ -7,6 +7,13 @@ public class TopLevelDeploy {
 	private String params;
 	private String path;
 
+	public TopLevelDeploy() {
+	}
+
+	public TopLevelDeploy(String name) {
+		this.name = name;
+	}
+
 	public TopLevelDeploy copy() {
 		TopLevelDeploy res = new TopLevelDeploy();
 		res.name = this.name;
