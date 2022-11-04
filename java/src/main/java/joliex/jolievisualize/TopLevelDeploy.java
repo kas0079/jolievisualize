@@ -8,10 +8,12 @@ public class TopLevelDeploy {
 	private String path;
 
 	public TopLevelDeploy() {
+		this.instances = 1;
 	}
 
 	public TopLevelDeploy(String name) {
 		this.name = name;
+		this.instances = 1;
 	}
 
 	public TopLevelDeploy copy() {

@@ -20,6 +20,7 @@ public class Service {
     public String name;
     public ExecutionInfo executionInfo;
     public Node node;
+    public boolean isUsedInPlaceGraph = false;
     public List<CourierDefinitionNode> couriers = new ArrayList<>();
     public List<EmbedServiceNode> embeds = new ArrayList<>();
     public List<EmbeddedServiceNode> internals = new ArrayList<>();

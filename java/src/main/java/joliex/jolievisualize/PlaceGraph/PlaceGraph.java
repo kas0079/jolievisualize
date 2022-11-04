@@ -26,9 +26,9 @@ public class PlaceGraph {
         return ++highestSitekNode;
     }
 
-    public Node addNode(String name, NodeType type) {
-        Node n = new Node(name, type);
-        this.nodes.add(n);
+    public Node addNode(long id, NodeType type) {
+        Node n = new Node(id, type);
+        nodes.add(n);
         return n;
     }
 

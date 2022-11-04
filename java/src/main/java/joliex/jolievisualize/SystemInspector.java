@@ -50,6 +50,7 @@ public class SystemInspector {
 
     private final String[] blackList = {
             "ConsoleInterface",
+            "ConsoleIface",
             "ConsoleInputInterface",
             "ConsoleInputPort",
             "StringUtilsInterface",
@@ -80,23 +81,22 @@ public class SystemInspector {
     private Node initPlaceGraph() {
         // system.placeGraph.addNode("site" + system.placeGraph.getNewSiteNodeID(),
         // NodeType.SITE);
-        Node network = system.placeGraph.addNode("network" + system.placeGraph.getNewNetworkNodeID(), NodeType.NETWORK);
-        network.addNode("site" + system.placeGraph.getNewSiteNodeID(), NodeType.SITE);
+        Node network = system.placeGraph.addNode(system.placeGraph.getNewNetworkNodeID(), NodeType.NETWORK);
+        network.addNode(system.placeGraph.getNewSiteNodeID(), NodeType.SITE);
         return network;
     }
 
     private void dissectInspectors(Map<TopLevelDeploy, Pair<ProgramInspector, JSONObject>> inspectors) {
         Node network = initPlaceGraph();
-        List<Service> topLevelServices = new ArrayList<>();
         inspectors.forEach((tld, ins) -> {
-            for (ServiceNode sn : ins.key().getServiceNodes()) {
-                Service s = createService(tld.getName(), sn, ins.key(), ins.value());
-                if (!system.listOfServices.contains(s)) {
+            for (int i = 0; i < tld.getNumberOfInstances(); i++) {
+                for (ServiceNode sn : ins.key().getServiceNodes()) {
+                    Service s = createService(tld.getName(), sn, ins.key(), ins.value());
                     system.listOfServices.add(s);
                     if (tld.getFilename() != null) {
-                        s.node = network.addNode(sn.name().equals("Main") ? tld.getName() : sn.name(),
+                        s.node = network.addNode(s.id, sn.name().equals("Main") ? tld.getName() : sn.name(),
                                 NodeType.SERVICE);
-                        topLevelServices.add(s);
+                        system.topLevelServices.add(s);
                     }
                 }
             }
@@ -111,24 +111,31 @@ public class SystemInspector {
         seenTypes.forEach((type) -> {
             system.listOfTypes.add(createType(type));
         });
-        topLevelServices.forEach((tls) -> {
+        system.topLevelServices.forEach((tls) -> {
             addPlaceGraphChildren(tls);
         });
     }
 
     private void addPlaceGraphChildren(Service s) {
-        s.node.addNode("site" + system.placeGraph.getNewSiteNodeID(), NodeType.SITE);
+        if (!s.node.containsSite()) {
+            Node site = new Node(system.placeGraph.getNewSiteNodeID(), NodeType.SITE);
+            site.parent = s.node;
+            s.node.addNode(site);
+        }
         for (EmbedServiceNode esn : s.embeds) {
             Service tmp = findServiceByName(esn.serviceName());
             if (tmp.node == null)
-                tmp.node = new Node(tmp.name, NodeType.SERVICE);
+                tmp.node = new Node(tmp.id, tmp.name, NodeType.SERVICE);
+            tmp.isUsedInPlaceGraph = true;
+            tmp.node.parent = s.node;
             s.node.addNode(tmp.node);
             addPlaceGraphChildren(tmp);
         }
         for (EmbeddedServiceNode esn : s.internals) {
             Service tmp = findServiceByName(esn.servicePath());
             if (tmp.node == null)
-                tmp.node = new Node(tmp.name, NodeType.SERVICE);
+                tmp.node = new Node(tmp.id, tmp.name, NodeType.SERVICE);
+            tmp.node.parent = s.node;
             s.node.addNode(tmp.node);
             addPlaceGraphChildren(tmp);
         }
@@ -177,7 +184,15 @@ public class SystemInspector {
         getSyntaxInformation(svc, sn);
         svc.inputPorts = getInputPorts(ins, params, svc);
         svc.outputPorts = getOutputPorts(ins, params);
+        svc.embeddings = inspectorEmbeddedServiceToList(ins);
         return svc;
+    }
+
+    private List<EmbeddedServiceNode> inspectorEmbeddedServiceToList(ProgramInspector pi) {
+        List<EmbeddedServiceNode> res = new ArrayList<>();
+        for (EmbeddedServiceNode esn : pi.getEmbeddedServices())
+            res.add(esn);
+        return res;
     }
 
     private void getSyntaxInformation(Service svc, ServiceNode sn) {
@@ -187,8 +202,8 @@ public class SystemInspector {
             else if (ol instanceof CourierDefinitionNode)
                 svc.couriers.add((CourierDefinitionNode) ol);
             else if (ol instanceof EmbedServiceNode) {
-                if (inBlackList(((EmbedServiceNode) ol).serviceName()))
-                    continue;
+                // if (inBlackList(((EmbedServiceNode) ol).serviceName()))
+                // continue;
                 svc.embeds.add((EmbedServiceNode) ol);
             } else if (ol instanceof EmbeddedServiceNode) {
                 if (((EmbeddedServiceNode) ol).servicePath().startsWith("joliex.")
@@ -356,13 +371,14 @@ public class SystemInspector {
 
     private boolean interfaceContains(List<Interface> list, Interface interf) {
         for (Interface i : list)
-            if (interf.equals(i))
+            if (interf.name.equals(i.name))
                 return true;
         return false;
     }
 
     private Service findServiceByName(String name) {
-        return system.listOfServices.stream().parallel().filter(t -> t.name.equals(name)).findFirst().get();
+        return system.listOfServices.stream().parallel().filter(t -> t.name.equals(name) && !t.isUsedInPlaceGraph)
+                .findFirst().get();
     }
 
     private boolean inBlackList(String name) {

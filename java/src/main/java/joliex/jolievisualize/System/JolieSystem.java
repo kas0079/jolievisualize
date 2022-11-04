@@ -12,6 +12,7 @@ import joliex.jolievisualize.PlaceGraph.PlaceGraph;
 public class JolieSystem {
     private long highestID = -1;
     public String name;
+    public List<Service> topLevelServices = new ArrayList<>();
     public List<Service> listOfServices = new ArrayList<>();
     public List<Interface> listOfInterfaces = new ArrayList<>();
     public List<Type> listOfTypes = new ArrayList<>();

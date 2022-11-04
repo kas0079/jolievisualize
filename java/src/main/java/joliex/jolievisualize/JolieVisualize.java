@@ -1,5 +1,6 @@
 package joliex.jolievisualize;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -80,12 +81,8 @@ public class JolieVisualize {
 					paramPath = Paths.get(tld.getPath() + "/" + tld.getParams());
 				else
 					paramPath = null;
-				long numInstances = tld.getNumberOfInstances() == 0 ? 1 : tld.getNumberOfInstances();
-				for (int i = 0; i < numInstances; i++) {
-					TopLevelDeploy tmp = tld.copy();
-					allProgramInspectors.put(tmp, new Pair<ProgramInspector, JSONObject>(
-							parseFile(tld.getFilename(), tld.getPath(), tld.getName(), args), readParams(paramPath)));
-				}
+				allProgramInspectors.put(tld, new Pair<ProgramInspector, JSONObject>(
+						parseFile(tld.getFilename(), tld.getPath(), tld.getName(), args), readParams(paramPath)));
 			}
 			while (queue.size() > 0) {
 				String file = queue.remove();
@@ -142,7 +139,6 @@ public class JolieVisualize {
 
 	private static ProgramInspector parseFile(String filePath, String path, String target, String[] args)
 			throws CommandLineException, IOException, ParserException, ModuleException {
-
 		List<String> argList = new ArrayList<>();
 		for (int i = 0; i < args.length - 1; i++)
 			argList.add(args[i]);
@@ -154,9 +150,8 @@ public class JolieVisualize {
 		argList.add(path + "/" + filePath);
 
 		String[] modifiedArgs = new String[argList.size()];
-		for (int i = 0; i < argList.size(); i++) {
+		for (int i = 0; i < argList.size(); i++)
 			modifiedArgs[i] = argList.get(i);
-		}
 
 		final CommandLineParser cmdParser = new CommandLineParser(modifiedArgs,
 				JolieVisualize.class.getClassLoader());
@@ -172,14 +167,14 @@ public class JolieVisualize {
 
 		for (OLSyntaxNode ol : mpr.mainProgram().children())
 			if (ol instanceof ImportStatement)
-				getImportFileName(path, ((ImportStatement) ol).importTarget());
+				getImportFileName(path, ((ImportStatement) ol).importTarget(), modifiedArgs[5].split(":")[0]);
 
 		ProgramInspector inspector = ParsingUtils.createInspector(mpr.mainProgram());
 		cmdParser.close();
 		return inspector;
 	}
 
-	private static void getImportFileName(String p, List<String> importStmt) {
+	private static void getImportFileName(String p, List<String> importStmt, String packagesPath) {
 		Path path = Paths.get(p);
 		if (importStmt.get(0).equals("")) { // relative path
 			int i = 1;
@@ -191,12 +186,24 @@ public class JolieVisualize {
 					path = path.resolve(s);
 				}
 			}
+		} else { // abosule path
+			for (String s : importStmt)
+				path = path.resolve(s);
+			if (!path.toFile().exists()) {
+				// TODO .jap files
+				// look in packages
+				path = Paths.get(packagesPath);
+				for (String s : importStmt)
+					path = path.resolve(s);
+			}
 		}
-		if (!path.toFile().isDirectory()) {
-			int size = files.size();
-			files.add(path.toAbsolutePath().toString() + ".ol");
-			if (size < files.size())
-				queue.add(path.toAbsolutePath().toString() + ".ol");
+		File f = path.resolveSibling(path.toAbsolutePath().getFileName() + ".ol").toFile();
+		if (!path.toFile().isDirectory() && f.exists()) {
+			// int size = files.size();
+			files.add(f.getAbsolutePath());
+			// if (size < files.size()) {
+			queue.add(f.getAbsolutePath());
+			// }
 		}
 	}
 }
