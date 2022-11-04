@@ -91,7 +91,8 @@ public class SystemInspector {
         inspectors.forEach((tld, ins) -> {
             for (int i = 0; i < tld.getNumberOfInstances(); i++) {
                 for (ServiceNode sn : ins.key().getServiceNodes()) {
-                    Service s = createService(tld.getName(), sn, ins.key(), ins.value());
+                    String name = tld.getName() == null ? sn.name() : sn.name();
+                    Service s = createService(name, sn, ins.key(), ins.value());
                     system.listOfServices.add(s);
                     if (tld.getFilename() != null) {
                         s.node = network.addNode(s.id, sn.name().equals("Main") ? tld.getName() : sn.name(),
@@ -217,8 +218,8 @@ public class SystemInspector {
     private List<OutputPort> getOutputPorts(ProgramInspector ins, JSONObject params) {
         List<OutputPort> list = new ArrayList<>();
         for (OutputPortInfo opi : ins.getOutputPorts()) {
-            if (inBlackList(opi.id()))
-                continue;
+            // if (inBlackList(opi.id()))
+            // continue;
             OutputPort op = new OutputPort();
             op.name = opi.id();
 
@@ -244,7 +245,8 @@ public class SystemInspector {
                                     1)
                             : opi.location().toString());
             }
-            op.interfaces = opi.getInterfaceList();
+            for (InterfaceDefinition id : opi.getInterfaceList())
+                op.interfaces.add(id.name());
             list.add(op);
         }
         return list;
@@ -253,8 +255,8 @@ public class SystemInspector {
     private List<InputPort> getInputPorts(ProgramInspector ins, JSONObject params, Service svc) {
         List<InputPort> list = new ArrayList<>();
         for (InputPortInfo ipi : ins.getInputPorts()) {
-            if (inBlackList(ipi.id()))
-                continue;
+            // if (inBlackList(ipi.id()))
+            // continue;
             InputPort ip = new InputPort();
             ip.name = ipi.id();
 

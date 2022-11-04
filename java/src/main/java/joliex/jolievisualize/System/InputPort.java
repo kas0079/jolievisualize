@@ -16,6 +16,17 @@ public class InputPort {
     public Map<String, String> redirects = new HashMap<>();
     public List<Courier> couriers = new ArrayList<>();
 
+    public boolean samePort(InputPort port) {
+        boolean intf = interfaces.size() == port.interfaces.size();
+        for (int i = 0; i < interfaces.size() && intf; i++) {
+            String i1 = interfaces.get(i);
+            String i2 = port.interfaces.get(i);
+            intf = i1.equals(i2);
+        }
+        return intf && port.name.equals(this.name) && port.protocol.equals(this.protocol)
+                && port.location.equals(this.location);
+    }
+
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 

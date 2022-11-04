@@ -7,13 +7,13 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 
 import org.json.simple.JSONArray;
@@ -43,7 +43,7 @@ public class JolieVisualize {
 
 	private static Map<TopLevelDeploy, Pair<ProgramInspector, JSONObject>> allProgramInspectors = new HashMap<>();
 	private static Set<String> files = new HashSet<>();
-	private static Queue<String> queue = new LinkedList<>();
+	private static Deque<String> queue = new ArrayDeque<>();
 
 	/**
 	 * @param args the command line arguments
@@ -85,7 +85,7 @@ public class JolieVisualize {
 						parseFile(tld.getFilename(), tld.getPath(), tld.getName(), args), readParams(paramPath)));
 			}
 			while (queue.size() > 0) {
-				String file = queue.remove();
+				String file = queue.pop();
 				String filename = file.substring(file.lastIndexOf("/") + 1, file.length());
 				String filepath = file.substring(0, file.lastIndexOf("/"));
 				allProgramInspectors.put(new TopLevelDeploy(filename.replace(".ol", "")),
@@ -202,7 +202,7 @@ public class JolieVisualize {
 			// int size = files.size();
 			files.add(f.getAbsolutePath());
 			// if (size < files.size()) {
-			queue.add(f.getAbsolutePath());
+			queue.push(f.getAbsolutePath());
 			// }
 		}
 	}
