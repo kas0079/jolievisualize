@@ -1,5 +1,8 @@
 <script lang="ts">
 	import Counter from './lib/Counter.svelte';
+	import json from './data';
+
+	console.log(json);
 </script>
 
 <main class="text-center">

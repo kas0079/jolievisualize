@@ -1,7 +1,7 @@
 import proc from "child_process";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-const __dirname = dirname(fileURLToPath(import.meta.url));
+export const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function promisedExec(exec) {
 	return new Promise((resolve) => {
@@ -20,6 +20,6 @@ async function checkForJolie() {
 export async function getData(visfile) {
 	if (!checkForJolie()) return "Jolie is not installed correctly";
 	const res = await promisedExec(`${__dirname}/visualize ${visfile}`);
-	if (res.error) return `ERROR ${res.stderr}`;
+	if (res.error || res.stderr) return `ERROR ${res.stderr}`;
 	return res.stdout;
 }

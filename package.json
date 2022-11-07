@@ -4,10 +4,15 @@
 	"description": "Tool for visualizing and refactoring Jolie architecture",
 	"type": "module",
 	"main": "index.js",
-	"keywords": [],
 	"author": {
 		"name": "Emil Ovcina",
 		"email": "emovc18@student.sdu.dk"
+	},
+	"scripts": {
+		"start": ""
+	},
+	"bin": {
+		"jolievisualize-server": "./server.js"
 	},
 	"license": "ISC",
 	"jolie": {
@@ -16,5 +21,8 @@
 			"dependencies": {},
 			"indirectDependencies": {}
 		}
+	},
+	"dependencies": {
+		"express": "^4.18.2"
 	}
 }
