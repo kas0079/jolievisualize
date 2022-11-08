@@ -3,23 +3,23 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 export const __dirname = dirname(fileURLToPath(import.meta.url));
 
-function promisedExec(exec) {
+const promisedExec = (exec) => {
 	return new Promise((resolve) => {
 		proc.exec(exec, (error, stdout, stderr) => {
 			resolve({ error, stdout, stderr });
 		});
 	});
-}
+};
 
-async function checkForJolie() {
+const checkForJolie = async () => {
 	const res = await promisedExec(`jolie --version`);
 	if (res.error) return false;
 	return true;
-}
+};
 
-export async function getData(visfile) {
+export const getData = async (visfile) => {
 	if (!checkForJolie()) return "Jolie is not installed correctly";
 	const res = await promisedExec(`${__dirname}/visualize ${visfile}`);
 	if (res.error || res.stderr) return `ERROR ${res.stderr}`;
 	return res.stdout;
-}
+};
