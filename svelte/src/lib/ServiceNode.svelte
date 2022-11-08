@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { pgRoot } from '../stores/placegraphRoot';
 	import { placegraph } from './data/data';
+	import { pgRoot } from './store';
 	import { initGrid } from './grid/grid';
 	import { drawService } from './system/service';
 
@@ -23,7 +23,7 @@
 	<svg class="overflow-visible w-1 h-1">
 		<path
 			d={drawString}
-			class="fill-orange-500 hover:cursor-pointer"
+			class="hover:cursor-pointer"
 			on:click|preventDefault|stopPropagation={setNewRoot}
 			on:keydown={setNewRoot}
 		/>
@@ -39,3 +39,9 @@
 		>
 	</svg>
 </div>
+
+<style>
+	div svg path {
+		fill: orange;
+	}
+</style>

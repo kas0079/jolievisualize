@@ -1,3 +1,4 @@
+import { readable, writable } from 'svelte/store';
 import { preprocess } from './preprocess';
 
 // const json: Data = JSON.parse(data);
@@ -8,8 +9,8 @@ const json: Data = JSON.parse(
 //pre-processing here
 const processedData: Data = preprocess(json);
 
-export const services: Service[] = processedData.services;
-export const interfaces: Interface[] = processedData.interfaces;
-export const types: Type[] = processedData.types;
-export const placegraph: pgNode[] = processedData.placegraph;
-export const name: string = processedData.name;
+export const services = processedData.services;
+export const interfaces = processedData.interfaces;
+export const types = processedData.types;
+export const placegraph = processedData.placegraph;
+export const name = processedData.name;

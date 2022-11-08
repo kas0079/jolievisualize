@@ -4,11 +4,11 @@
 	import { gridOptions } from './lib/grid/grid';
 	import ServiceNode from './lib/ServiceNode.svelte';
 	import { getServiceFromID } from './lib/system/service';
-	import { pgRoot } from './stores/placegraphRoot';
+	import { pgRoot } from './lib/store';
 	const gs = gridOptions.gridSize;
 
+	const services_tmp: Service[] = [];
 	const positionServices = (root: pgNode) => {
-		const services_tmp: Service[] = [];
 		root.nodes.forEach((node) => {
 			if (node.type === 'service') services_tmp.push(getServiceFromID(node.id));
 		});
@@ -31,7 +31,7 @@
 	<div>
 		{#each $pgRoot.nodes as node}
 			{#if node.type === 'service'}
-				<ServiceNode {node} service={getServiceFromID(node.id)} />
+				<ServiceNode {node} service={services_tmp.find((t) => t.id === node.id)} />
 			{/if}
 		{/each}
 	</div>
