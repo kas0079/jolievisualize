@@ -91,6 +91,8 @@ public class SystemInspector {
         inspectors.forEach((tld, ins) -> {
             for (int i = 0; i < tld.getNumberOfInstances(); i++) {
                 for (ServiceNode sn : ins.key().getServiceNodes()) {
+                    // if (tld.getName() != null && !sn.name().equals(tld.getName()))
+                    // continue;
                     String name = tld.getName() == null ? sn.name() : sn.name();
                     Service s = createService(name, sn, ins.key(), ins.value());
                     system.listOfServices.add(s);
@@ -125,6 +127,9 @@ public class SystemInspector {
         }
         for (EmbedServiceNode esn : s.embeds) {
             Service tmp = findServiceByName(esn.serviceName());
+            if (tmp == null) { // embedded service is from the same file and was not imported
+                continue;
+            }
             if (tmp.node == null)
                 tmp.node = new Node(tmp.id, tmp.name, NodeType.SERVICE);
             tmp.isUsedInPlaceGraph = true;
@@ -203,8 +208,6 @@ public class SystemInspector {
             else if (ol instanceof CourierDefinitionNode)
                 svc.couriers.add((CourierDefinitionNode) ol);
             else if (ol instanceof EmbedServiceNode) {
-                // if (inBlackList(((EmbedServiceNode) ol).serviceName()))
-                // continue;
                 svc.embeds.add((EmbedServiceNode) ol);
             } else if (ol instanceof EmbeddedServiceNode) {
                 if (((EmbeddedServiceNode) ol).servicePath().startsWith("joliex.")
@@ -380,7 +383,7 @@ public class SystemInspector {
 
     private Service findServiceByName(String name) {
         return system.listOfServices.stream().parallel().filter(t -> t.name.equals(name) && !t.isUsedInPlaceGraph)
-                .findFirst().get();
+                .findFirst().orElse(null);
     }
 
     private boolean inBlackList(String name) {

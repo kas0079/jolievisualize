@@ -1,4 +1,3 @@
-import { readable, writable } from 'svelte/store';
 import { preprocess } from './preprocess';
 
 // const json: Data = JSON.parse(data);

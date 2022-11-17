@@ -82,7 +82,7 @@ public class JolieVisualize {
 				else
 					paramPath = null;
 				allProgramInspectors.put(tld, new Pair<ProgramInspector, JSONObject>(
-						parseFile(tld.getFilename(), tld.getPath(), tld.getName(), args), readParams(paramPath)));
+						parseFile(tld.getFilename(), tld.getPath(), args), readParams(paramPath)));
 			}
 			while (queue.size() > 0) {
 				String file = queue.pop();
@@ -90,7 +90,7 @@ public class JolieVisualize {
 				String filepath = file.substring(0, file.lastIndexOf("/"));
 				allProgramInspectors.put(new TopLevelDeploy(filename.replace(".ol", "")),
 						new Pair<ProgramInspector, JSONObject>(
-								parseFile(filename, filepath, null, args), null));
+								parseFile(filename, filepath, args), null));
 			}
 			SystemInspector si = new SystemInspector(allProgramInspectors);
 			JSONObject global = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
@@ -137,16 +137,12 @@ public class JolieVisualize {
 		return tlds;
 	}
 
-	private static ProgramInspector parseFile(String filePath, String path, String target, String[] args)
+	private static ProgramInspector parseFile(String filePath, String path, String[] args)
 			throws CommandLineException, IOException, ParserException, ModuleException {
 		List<String> argList = new ArrayList<>();
 		for (int i = 0; i < args.length - 1; i++)
 			argList.add(args[i]);
 
-		if (target != null) {
-			argList.add("-s");
-			argList.add(target);
-		}
 		argList.add(path + "/" + filePath);
 
 		String[] modifiedArgs = new String[argList.size()];

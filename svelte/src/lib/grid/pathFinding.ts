@@ -1,3 +1,4 @@
+import { drawService } from '../system/service';
 import { Point, gridOptions, getGridCoord, grid } from './grid';
 
 class PQElement {
@@ -197,13 +198,15 @@ export const drawPath = (
 	];
 	const refX = marker_size;
 	const refY = refX / 2;
-	const svg = d3.select('.content').append('svg');
+	const svg = d3.select('main').append('svg');
 	const curve = d3.line().curve(curved ? d3.curveBasis : d3.curveLinear);
 
 	svg
 		.attr('class', 'arrow_svg')
 		.style('position', 'absolute')
 		.style('overflow', 'visible')
+		.style('width', 1)
+		.style('height', 1)
 		.style('top', 0)
 		.style('left', 0);
 	svg
@@ -223,7 +226,7 @@ export const drawPath = (
 		.attr('fill', colour)
 		.attr('d', d3.line()(arrowPoints) + ' Z');
 
-	svg
+	const arrow = svg
 		.append('path')
 		.attr('d', curve(path))
 		.style('stroke-dasharray', dotted ? '3,3' : '')
@@ -231,9 +234,95 @@ export const drawPath = (
 		.attr('marker-end', marker_size > 0 ? `url(#arrow_${colour})` : '')
 		.attr('marker-start', doubleArrow ? `url(#arrow_${colour})` : '')
 		.attr('fill', 'none');
+	return arrow;
 };
 
-export const findFirstIntersection = (paths: Point[][]): Point | undefined => {
+export const findFirstIntersectionBetweenPaths = (paths: Point[][]): Point | undefined => {
 	const result = paths.reduce((a, b) => a.filter((c) => b.includes(c)));
 	return result[0];
+};
+
+export const findPathServiceShapeIntersection = (
+	path: number[][],
+	input: Service,
+	output: Service
+) => {
+	const serviceLines = [...getLinesFromServiceShape(output), ...getLinesFromServiceShape(input)];
+	const pathLines = getLinesFromPath(path);
+	const res: number[][] = [];
+	for (let i = 0; i < pathLines.length; i++) {
+		for (let j = 0; j < serviceLines.length; j++) {
+			const int = lineLineIntersection(pathLines[i], serviceLines[j]);
+			if (int !== false) {
+				res.push([int.x, int.y]);
+				break;
+			}
+		}
+	}
+	return res;
+};
+
+const lineLineIntersection = (
+	line1: { x1: number; x2: number; y1: number; y2: number },
+	line2: { x1: number; x2: number; y1: number; y2: number }
+) => {
+	const x1 = line1.x1,
+		x2 = line1.x2,
+		x3 = line2.x1,
+		x4 = line2.x2;
+	const y1 = line1.y1,
+		y2 = line1.y2,
+		y3 = line2.y1,
+		y4 = line2.y2;
+	const denom = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+	const x = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
+	const y = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
+	if (denom !== 0) {
+		const point = new Point(x / denom, y / denom);
+		if (
+			between(point.x, x1, x2) &&
+			between(point.y, y1, y2) &&
+			between(point.x, x3, x4) &&
+			between(point.y, y3, y4)
+		) {
+			return point;
+		}
+	}
+	return false;
+};
+
+const between = (a: number, b1: number, b2: number) => {
+	if (a >= b1 && a <= b2) {
+		return true;
+	}
+	if (a >= b2 && a <= b1) {
+		return true;
+	}
+	return false;
+};
+
+const getLinesFromPath = (path: number[][]) => {
+	const res: { x1: number; x2: number; y1: number; y2: number }[] = [];
+	for (let i = 0; i < path.length - 1; i++) {
+		const p1 = path[i];
+		const p2 = path[i + 1];
+		res.push({ x1: p1[0], x2: p2[0], y1: p1[1], y2: p2[1] });
+	}
+	return res;
+};
+
+const getLinesFromServiceShape = (svc: Service) => {
+	const res: { x1: number; x2: number; y1: number; y2: number }[] = [];
+	const height = svc.height;
+	const width = svc.width;
+	const x = svc.x;
+	const y = svc.y;
+
+	res.push({ x1: x, x2: x + width / 2, y1: y + height / 2, y2: y + height });
+	res.push({ x2: x + width / 2 + width, x1: x + width / 2, y2: y + height, y1: y + height });
+	res.push({ x1: x + width / 2 + width, x2: x + width * 2, y1: y + height, y2: y + height / 2 });
+	res.push({ x2: x + width / 2 + width, x1: x + width * 2, y2: y, y1: y + height / 2 });
+	res.push({ x1: x + width / 2 + width, x2: x + width / 2, y1: y, y2: y });
+	res.push({ x2: x, x1: x + width / 2, y2: y + height / 2, y1: y });
+	return res;
 };

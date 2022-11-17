@@ -6,10 +6,12 @@ export const gridOptions = {
 	maxGridSize: 18,
 	gridOffsetX: 5,
 	gridOffsetY: 5,
-	leftMargin: 20,
-	leftOffset: 13,
-	topMargin: 13,
-	topOffset: 5
+	leftMargin: 5,
+	topMargin: 5,
+	leftOffset: 0,
+	topOffset: 0,
+	servicePadding: 2,
+	cellPadding: 5
 };
 
 export class Point {
@@ -60,4 +62,15 @@ export const getGridCoord = (x: number, y: number): Point => {
 
 export const setGridWall = (x: number, y: number, bool = true) => {
 	grid[`${[x, y]}`].isWall = bool;
+};
+
+export const getGridBox = (services: Service[]) => {
+	let w: number = Number.NEGATIVE_INFINITY;
+	let h: number = Number.NEGATIVE_INFINITY;
+	services.forEach((svc) => {
+		const height = svc.height;
+		w = svc.x + gridOptions.gridSize * 18 > w ? svc.x + gridOptions.gridSize * 18 : w;
+		h = svc.y + height > h ? svc.y + height : h;
+	});
+	return { w, h };
 };

@@ -14,7 +14,9 @@ type Data = {
 type Service = {
 	x: number;
 	y: number;
-	center: number[];
+	center: Point;
+	width: number;
+	height: number;
 	id: number;
 	embeddings: Embed[];
 	embeddingType: string;
