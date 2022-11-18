@@ -1,17 +1,19 @@
 [
-	{
-		"file": "client.ol"
-	},
-	{
-		"file": "aggregator.ol"
-	},
-	{
-		"file": "printer.ol"
-	},
-	{
-		"file": "fax.ol"
-	},
-	{
-		"file": "logger.ol"
-	}
+	[
+		{
+			"file": "client.ol"
+		},
+		{
+			"file": "aggregator.ol"
+		},
+		{
+			"file": "printer.ol"
+		},
+		{
+			"file": "fax.ol"
+		},
+		{
+			"file": "logger.ol"
+		}
+	]
 ]

@@ -1,8 +1,10 @@
 [
-	{
-		"file": "client.ol"
-	},
-	{
-		"file": "clean_div.ol"
-	}
+	[
+		{
+			"file": "client.ol"
+		},
+		{
+			"file": "clean_div.ol"
+		}
+	]
 ]

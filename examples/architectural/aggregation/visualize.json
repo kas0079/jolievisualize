@@ -1,27 +1,16 @@
 [
-	{
-		"name": "Client",
-		"file": "client.ol"
-	},
-	{
-		"name": "Aggregator",
-		"file": "aggregator.ol"
-	},
-	{
-		"name": "Fax",
-		"file": "fax.ol"
-	},
-	{
-		"name": "Printer",
-		"file": "printer.ol"
-	},
-	{
-		"file": "AggregatorInterface.ol"
-	},
-	{
-		"file": "PrinterInterface.ol"
-	},
-	{
-		"file": "FaxInterface.ol"
-	}
+	[
+		{
+			"file": "client.ol"
+		},
+		{
+			"file": "aggregator.ol"
+		},
+		{
+			"file": "fax.ol"
+		},
+		{
+			"file": "printer.ol"
+		}
+	]
 ]

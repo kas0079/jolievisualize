@@ -1,8 +1,10 @@
 [
-	{
-		"file": "service.ol"
-	},
-	{
-		"file": "other.ol"
-	}
+	[
+		{
+			"file": "service.ol"
+		},
+		{
+			"file": "other.ol"
+		}
+	]
 ]

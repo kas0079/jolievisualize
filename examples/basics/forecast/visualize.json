@@ -1,14 +1,16 @@
 [
-	{
-		"file": "client.ol"
-	},
-	{
-		"file": "forecast.ol"
-	},
-	{
-		"file": "info.ol"
-	},
-	{
-		"file": "traffic.ol"
-	}
+	[
+		{
+			"file": "client.ol"
+		},
+		{
+			"file": "forecast.ol"
+		},
+		{
+			"file": "info.ol"
+		},
+		{
+			"file": "traffic.ol"
+		}
+	]
 ]
