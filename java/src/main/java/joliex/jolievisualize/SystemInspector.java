@@ -1,16 +1,12 @@
 package joliex.jolievisualize;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.json.simple.JSONObject;
 
 import jolie.lang.NativeType;
 import jolie.lang.parse.ast.EmbedServiceNode;
-import jolie.lang.parse.ast.EmbeddedServiceNode;
 import jolie.lang.parse.ast.ExecutionInfo;
 import jolie.lang.parse.ast.InputPortInfo;
 import jolie.lang.parse.ast.InputPortInfo.AggregationItemInfo;
@@ -33,10 +29,7 @@ import jolie.lang.parse.ast.expression.VariableExpressionNode;
 import jolie.lang.parse.ast.types.TypeDefinition;
 import jolie.lang.parse.ast.types.TypeDefinitionLink;
 import jolie.lang.parse.ast.types.TypeInlineDefinition;
-import jolie.lang.parse.util.ProgramInspector;
 import jolie.util.Pair;
-import joliex.jolievisualize.PlaceGraph.Node;
-import joliex.jolievisualize.PlaceGraph.Node.NodeType;
 import joliex.jolievisualize.System.Aggregate;
 import joliex.jolievisualize.System.Courier;
 import joliex.jolievisualize.System.InputPort;
@@ -47,282 +40,115 @@ import joliex.jolievisualize.System.Service;
 import joliex.jolievisualize.System.Type;
 
 public class SystemInspector {
-
-    private final String[] blackList = {
-            "ConsoleInterface",
-            "ConsoleIface",
-            "ConsoleInputInterface",
-            "ConsoleInputPort",
-            "StringUtilsInterface",
-            "StringUtils",
-            "Console",
-            "File",
-            "FileInterface",
-            "Time",
-            "TimeInterface"
-    };
-
-    private final Map<TopLevelDeploy, Pair<ProgramInspector, JSONObject>> inspectors;
-    private final Set<TypeDefinition> seenTypes;
     private final JolieSystem system;
 
-    public SystemInspector(Map<TopLevelDeploy, Pair<ProgramInspector, JSONObject>> inspectors) {
-        this.inspectors = inspectors;
-        seenTypes = new HashSet<>();
-        system = new JolieSystem();
+    public SystemInspector(List<Network> networks) {
+        system = new JolieSystem(networks);
     }
 
     public JSONObject createJSON(String name) {
-        system.name = name;
-        dissectInspectors(inspectors);
+        system.setName(name);
+        inspectNetworks();
         return system.toJSON();
     }
 
-    private Node initPlaceGraph() {
-        // system.placeGraph.addNode("site" + system.placeGraph.getNewSiteNodeID(),
-        // NodeType.SITE);
-        Node network = system.placeGraph.addNode(system.placeGraph.getNewNetworkNodeID(), NodeType.NETWORK);
-        network.addNode(system.placeGraph.getNewSiteNodeID(), NodeType.SITE);
-        return network;
+    private void inspectNetworks() {
+        system.getNetworks().forEach(n -> {
+            inspectServiceNodes(n);
+        });
     }
 
-    private void dissectInspectors(Map<TopLevelDeploy, Pair<ProgramInspector, JSONObject>> inspectors) {
-        Node network = initPlaceGraph();
-        inspectors.forEach((tld, ins) -> {
+    private void inspectServiceNodes(Network n) {
+        n.getNetwork().forEach((tld, pair) -> {
             for (int i = 0; i < tld.getNumberOfInstances(); i++) {
-                for (ServiceNode sn : ins.key().getServiceNodes()) {
-                    // if (tld.getName() != null && !sn.name().equals(tld.getName()))
-                    // continue;
-                    String name = tld.getName() == null ? sn.name() : sn.name();
-                    Service s = createService(name, sn, ins.key(), ins.value());
-                    system.listOfServices.add(s);
-                    if (tld.getFilename() != null) {
-                        s.node = network.addNode(s.id, sn.name().equals("Main") ? tld.getName() : sn.name(),
-                                NodeType.SERVICE);
-                        system.topLevelServices.add(s);
-                    }
-                }
+                Service svc = createService(pair.key(), pair.value());
+                n.addService(svc);
             }
-            for (InterfaceDefinition id : ins.key().getInterfaces()) {
-                if (inBlackList(id.name()))
-                    continue;
-                Interface i = createInterface(id);
-                if (!interfaceContains(system.listOfInterfaces, i))
-                    system.listOfInterfaces.add(i);
-            }
-        });
-        seenTypes.forEach((type) -> {
-            system.listOfTypes.add(createType(type));
-        });
-        system.topLevelServices.forEach((tls) -> {
-            addPlaceGraphChildren(tls);
         });
     }
 
-    private void addPlaceGraphChildren(Service s) {
-        if (!s.node.containsSite()) {
-            Node site = new Node(system.placeGraph.getNewSiteNodeID(), NodeType.SITE);
-            site.parent = s.node;
-            s.node.addNode(site);
-        }
-        for (EmbedServiceNode esn : s.embeds) {
-            Service tmp = findServiceByName(esn.serviceName());
-            if (tmp == null) { // embedded service is from the same file and was not imported
-                continue;
+    private Service createService(ServiceNode sn, JSONObject params) {
+        Service s = new Service(system.getNextID());
+        s.setName(sn.name());
+        for (OLSyntaxNode ol : sn.program().children()) {
+            if (ol instanceof ExecutionInfo)
+                s.setExectionInfo((ExecutionInfo) ol);
+            if (ol instanceof OutputPortInfo)
+                s.addOutputPort(createOutputPort((OutputPortInfo) ol, params));
+            if (ol instanceof InputPortInfo)
+                s.addInputPort(createInputPort((InputPortInfo) ol, params, s));
+            if (ol instanceof CourierDefinitionNode)
+                s.addCourier(createCourier((CourierDefinitionNode) ol));
+            if (ol instanceof EmbedServiceNode) {
+                Service emb = createService(((EmbedServiceNode) ol).service(), null);
+                emb.setParent(s);
+                s.addChild(emb);
             }
-            if (tmp.node == null)
-                tmp.node = new Node(tmp.id, tmp.name, NodeType.SERVICE);
-            tmp.isUsedInPlaceGraph = true;
-            tmp.node.parent = s.node;
-            s.node.addNode(tmp.node);
-            addPlaceGraphChildren(tmp);
         }
-        for (EmbeddedServiceNode esn : s.internals) {
-            Service tmp = findServiceByName(esn.servicePath());
-            if (tmp.node == null)
-                tmp.node = new Node(tmp.id, tmp.name, NodeType.SERVICE);
-            tmp.node.parent = s.node;
-            s.node.addNode(tmp.node);
-            addPlaceGraphChildren(tmp);
-        }
+        return s;
     }
 
-    private Type createType(TypeDefinition td) {
-        Type type = new Type();
-        type.name = td.name();
-        if (td instanceof TypeDefinitionLink) {
-            TypeDefinitionLink tdl = (TypeDefinitionLink) td;
-            type.type = tdl.linkedTypeName();
-        } else if (td instanceof TypeInlineDefinition) {
-            TypeInlineDefinition tid = (TypeInlineDefinition) td;
-            type.type = tid.basicType().nativeType().name().toLowerCase();
-            if (tid.hasSubTypes())
-                for (Map.Entry<String, TypeDefinition> entry : tid.subTypes())
-                    type.subtypes.add(createType(entry.getValue()));
-        }
-        return type;
-    }
+    private InputPort createInputPort(InputPortInfo ipi, JSONObject params, Service service) {
+        String protocol = "";
+        String location = "";
+        if (ipi.protocol() instanceof VariableExpressionNode) {
+            String t = getParamFromPath(((VariableExpressionNode) ipi.protocol()).variablePath(), params);
+            if (!t.equals(""))
+                protocol = t;
+            else
+                protocol = !ipi.protocolId().equals("") ? ipi.protocolId() : "sodep";
+        } else
+            protocol = !ipi.protocolId().equals("") ? ipi.protocolId() : "sodep";
 
-    private Interface createInterface(InterfaceDefinition id) {
-        Interface result = new Interface();
-        result.name = id.name();
-        id.operationsMap().forEach((k, v) -> {
-            if (v instanceof RequestResponseOperationDeclaration) {
-                RequestResponseOperationDeclaration rrd = (RequestResponseOperationDeclaration) v;
-                result.reqres.add(rrd);
-                if (!NativeType.isNativeTypeKeyword(rrd.requestType().name()))
-                    seenTypes.add(rrd.requestType());
-                if (!NativeType.isNativeTypeKeyword(rrd.responseType().name()))
-                    seenTypes.add(rrd.responseType());
-            } else if (v instanceof OneWayOperationDeclaration) {
-                OneWayOperationDeclaration owod = (OneWayOperationDeclaration) v;
-                result.oneway.add(owod);
-                if (!NativeType.isNativeTypeKeyword(owod.requestType().name()))
-                    seenTypes.add(owod.requestType());
-            }
-        });
+        if (ipi.location() == null)
+            location = "local";
+        else {
+            if (ipi.location() instanceof VariableExpressionNode) {
+                String t = getParamFromPath(((VariableExpressionNode) ipi.location()).variablePath(), params);
+                if (!t.equals(""))
+                    location = t;
+            } else
+                location = (ipi.location().toString().endsWith("/")
+                        ? ipi.location().toString().substring(0, ipi.location().toString().length() -
+                                1)
+                        : ipi.location().toString());
+        }
+
+        InputPort result = new InputPort(ipi.id(), protocol, location);
+        for (InterfaceDefinition id : ipi.getInterfaceList())
+            result.addInterface(createInterface(id));
+
+        if (ipi.aggregationList() != null && ipi.aggregationList().length > 0)
+            for (AggregationItemInfo aii : ipi.aggregationList())
+                result.addAggregate(createAggregate(aii));
+
+        if (ipi.redirectionMap() != null && ipi.redirectionMap().size() > 0)
+            ipi.redirectionMap().forEach((sid, op) -> {
+                result.addRedirect(sid, op);
+            });
+
+        for (Courier c : service.getCouriers())
+            if (c.getName().equals(ipi.id()))
+                result.addCourier(c);
+
         return result;
     }
 
-    private Service createService(String name, ServiceNode sn, ProgramInspector ins, JSONObject params) {
-        Service svc = new Service(system.getNextID());
-        svc.name = sn.name().equals("Main") ? name : sn.name();
-        getSyntaxInformation(svc, sn);
-        svc.inputPorts = getInputPorts(ins, params, svc);
-        svc.outputPorts = getOutputPorts(ins, params);
-        svc.embeddings = inspectorEmbeddedServiceToList(ins);
-        return svc;
-    }
-
-    private List<EmbeddedServiceNode> inspectorEmbeddedServiceToList(ProgramInspector pi) {
-        List<EmbeddedServiceNode> res = new ArrayList<>();
-        for (EmbeddedServiceNode esn : pi.getEmbeddedServices())
-            res.add(esn);
-        return res;
-    }
-
-    private void getSyntaxInformation(Service svc, ServiceNode sn) {
-        for (OLSyntaxNode ol : sn.program().children()) {
-            if (ol instanceof ExecutionInfo)
-                svc.executionInfo = (ExecutionInfo) ol;
-            else if (ol instanceof CourierDefinitionNode)
-                svc.couriers.add((CourierDefinitionNode) ol);
-            else if (ol instanceof EmbedServiceNode) {
-                svc.embeds.add((EmbedServiceNode) ol);
-            } else if (ol instanceof EmbeddedServiceNode) {
-                if (((EmbeddedServiceNode) ol).servicePath().startsWith("joliex.")
-                        || ((EmbeddedServiceNode) ol).program() == null)
-                    continue;
-                svc.internals.add((EmbeddedServiceNode) ol);
-            }
-        }
-    }
-
-    private List<OutputPort> getOutputPorts(ProgramInspector ins, JSONObject params) {
-        List<OutputPort> list = new ArrayList<>();
-        for (OutputPortInfo opi : ins.getOutputPorts()) {
-            // if (inBlackList(opi.id()))
-            // continue;
-            OutputPort op = new OutputPort();
-            op.name = opi.id();
-
-            if (opi.protocol() instanceof VariableExpressionNode) {
-                String t = getParamFromPath(((VariableExpressionNode) opi.protocol()).variablePath(), params);
-                if (!t.equals(""))
-                    op.protocol = t;
-                else
-                    op.protocol = !opi.protocolId().equals("") ? opi.protocolId() : "sodep";
-            } else
-                op.protocol = !opi.protocolId().equals("") ? opi.protocolId() : "sodep";
-
-            if (opi.location() == null)
-                op.location = "local";
-            else {
-                if (opi.location() instanceof VariableExpressionNode) {
-                    String t = getParamFromPath(((VariableExpressionNode) opi.location()).variablePath(), params);
-                    if (!t.equals(""))
-                        op.location = t;
-                } else
-                    op.location = (opi.location().toString().endsWith("/")
-                            ? opi.location().toString().substring(0, opi.location().toString().length() -
-                                    1)
-                            : opi.location().toString());
-            }
-            for (InterfaceDefinition id : opi.getInterfaceList())
-                op.interfaces.add(id.name());
-            list.add(op);
-        }
-        return list;
-    }
-
-    private List<InputPort> getInputPorts(ProgramInspector ins, JSONObject params, Service svc) {
-        List<InputPort> list = new ArrayList<>();
-        for (InputPortInfo ipi : ins.getInputPorts()) {
-            // if (inBlackList(ipi.id()))
-            // continue;
-            InputPort ip = new InputPort();
-            ip.name = ipi.id();
-
-            if (ipi.protocol() instanceof VariableExpressionNode) {
-                String t = getParamFromPath(((VariableExpressionNode) ipi.protocol()).variablePath(), params);
-                if (!t.equals(""))
-                    ip.protocol = t;
-                else
-                    ip.protocol = !ipi.protocolId().equals("") ? ipi.protocolId() : "sodep";
-            } else
-                ip.protocol = !ipi.protocolId().equals("") ? ipi.protocolId() : "sodep";
-
-            if (ipi.location() == null)
-                ip.location = "local";
-            else {
-                if (ipi.location() instanceof VariableExpressionNode) {
-                    String t = getParamFromPath(((VariableExpressionNode) ipi.location()).variablePath(), params);
-                    if (!t.equals(""))
-                        ip.location = t;
-                } else
-                    ip.location = (ipi.location().toString().endsWith("/")
-                            ? ipi.location().toString().substring(0, ipi.location().toString().length() -
-                                    1)
-                            : ipi.location().toString());
-            }
-            for (InterfaceDefinition id : ipi.getInterfaceList())
-                ip.interfaces.add(id.name());
-
-            if (ipi.aggregationList() != null && ipi.aggregationList().length > 0)
-                for (AggregationItemInfo aii : ipi.aggregationList())
-                    ip.aggregates.add(createAggregate(aii));
-
-            if (ipi.redirectionMap() != null && ipi.redirectionMap().size() > 0)
-                ipi.redirectionMap().forEach((sid, op) -> {
-                    ip.redirects.put(sid, op);
-                });
-
-            if (svc.couriers.size() > 0)
-                for (CourierDefinitionNode cdn : svc.couriers)
-                    if (cdn.inputPortName().equals(ipi.id()))
-                        ip.couriers.add(createCourier(cdn));
-
-            list.add(ip);
-        }
-        return list;
-    }
-
     private Courier createCourier(CourierDefinitionNode cdn) {
-        Courier cou = new Courier();
-        cou.name = cdn.inputPortName();
+        Courier cou = new Courier(cdn.inputPortName());
         CourierChoiceStatement ccs = (CourierChoiceStatement) cdn.body();
         if (ccs.interfaceOneWayBranches().size() > 0)
             for (InterfaceOneWayBranch branch : ccs.interfaceOneWayBranches())
-                cou.interfaceOneWay.add(branch.interfaceDefinition.name());
+                cou.addInterfaceOneWay(branch.interfaceDefinition.name());
         if (ccs.interfaceRequestResponseBranches().size() > 0)
             for (InterfaceRequestResponseBranch branch : ccs.interfaceRequestResponseBranches())
-                cou.interfaceReqRes.add(branch.interfaceDefinition.name());
+                cou.addInterfaceReqRes(branch.interfaceDefinition.name());
         if (ccs.operationOneWayBranches().size() > 0)
             for (OperationOneWayBranch branch : ccs.operationOneWayBranches())
-                cou.operationOneWay.add(branch.operation);
+                cou.addOperationOneWay(branch.operation);
         if (ccs.operationRequestResponseBranches().size() > 0)
             for (OperationRequestResponseBranch branch : ccs.operationRequestResponseBranches())
-                cou.operationReqRes.add(branch.operation);
+                cou.addOperationReqRes(branch.operation);
         return cou;
     }
 
@@ -332,30 +158,96 @@ public class SystemInspector {
         if (aii.outputPortList().length >= 2) {
             String name = "";
             for (String s : aii.outputPortList()) {
-                aggr.collection.add(s);
+                aggr.addCollection(s);
                 name += s;
             }
-            aggr.name = name;
+            aggr.setName(name);
         } else
-            aggr.name = aii.outputPortList()[0];
+            aggr.setName(aii.outputPortList()[0]);
         // Interface extender
         if (aii.interfaceExtender() != null)
-            aggr.extender = createInterfaceExtender(aii.interfaceExtender());
+            aggr.setInterfaceExtension(createInterfaceExtender(aii.interfaceExtender()));
         return aggr;
     }
 
     private Interface createInterfaceExtender(InterfaceExtenderDefinition ied) {
         Interface i = createInterface(ied);
         if (ied.defaultRequestResponseOperation() != null) {
-            i.reqres.add(ied.defaultRequestResponseOperation());
-            seenTypes.add(ied.defaultRequestResponseOperation().requestType());
-            seenTypes.add(ied.defaultRequestResponseOperation().responseType());
+            i.addRequestResponse(ied.defaultRequestResponseOperation());
+            system.addTypeIfUnique(createType(ied.defaultRequestResponseOperation().requestType()));
+            system.addTypeIfUnique(createType(ied.defaultRequestResponseOperation().responseType()));
         }
         if (ied.defaultOneWayOperation() != null) {
-            i.oneway.add(ied.defaultOneWayOperation());
-            seenTypes.add(ied.defaultOneWayOperation().requestType());
+            i.addOneWay(ied.defaultOneWayOperation());
+            system.addTypeIfUnique(createType(ied.defaultOneWayOperation().requestType()));
         }
         return i;
+    }
+
+    private OutputPort createOutputPort(OutputPortInfo opi, JSONObject params) {
+        String protocol = "";
+        String location = "";
+        if (opi.protocol() instanceof VariableExpressionNode) {
+            String t = getParamFromPath(((VariableExpressionNode) opi.protocol()).variablePath(), params);
+            if (!t.equals(""))
+                protocol = t;
+            else
+                protocol = !opi.protocolId().equals("") ? opi.protocolId() : "sodep";
+        } else
+            protocol = !opi.protocolId().equals("") ? opi.protocolId() : "sodep";
+
+        if (opi.location() == null)
+            location = "local";
+        else {
+            if (opi.location() instanceof VariableExpressionNode) {
+                String t = getParamFromPath(((VariableExpressionNode) opi.location()).variablePath(), params);
+                if (!t.equals(""))
+                    location = t;
+            } else
+                location = (opi.location().toString().endsWith("/")
+                        ? opi.location().toString().substring(0, opi.location().toString().length() -
+                                1)
+                        : opi.location().toString());
+        }
+        OutputPort op = new OutputPort(opi.id(), protocol, location);
+        for (InterfaceDefinition id : opi.getInterfaceList())
+            op.addInterface(createInterface(id));
+        return op;
+    }
+
+    private Interface createInterface(InterfaceDefinition id) {
+        Interface result = new Interface(system.getNextInterfaceID(), id.name());
+        id.operationsMap().forEach((k, v) -> {
+            if (v instanceof RequestResponseOperationDeclaration) {
+                RequestResponseOperationDeclaration rrd = (RequestResponseOperationDeclaration) v;
+                result.addRequestResponse(rrd);
+                if (!NativeType.isNativeTypeKeyword(rrd.requestType().name()))
+                    system.addTypeIfUnique(createType(rrd.requestType()));
+                if (!NativeType.isNativeTypeKeyword(rrd.responseType().name()))
+                    system.addTypeIfUnique(createType(rrd.responseType()));
+            } else if (v instanceof OneWayOperationDeclaration) {
+                OneWayOperationDeclaration owod = (OneWayOperationDeclaration) v;
+                result.addOneWay(owod);
+                if (!NativeType.isNativeTypeKeyword(owod.requestType().name()))
+                    system.addTypeIfUnique(createType(owod.requestType()));
+            }
+        });
+        return system.addInterfaceIfUnique(result);
+    }
+
+    private Type createType(TypeDefinition td) {
+        Type type = new Type(td.name());
+        if (td instanceof TypeDefinitionLink) {
+            TypeDefinitionLink tdl = (TypeDefinitionLink) td;
+            type.setTypeName(tdl.linkedTypeName());
+        } else if (td instanceof TypeInlineDefinition) {
+            TypeInlineDefinition tid = (TypeInlineDefinition) td;
+            type.setTypeName(tid.basicType().nativeType().name().toLowerCase());
+            if (tid.hasSubTypes())
+                for (Map.Entry<String, TypeDefinition> entry : tid.subTypes())
+                    type.addSubType(createType(entry.getValue()));
+        }
+        return type;
     }
 
     private String getParamFromPath(VariablePathNode vpn, JSONObject params) {
@@ -374,23 +266,4 @@ public class SystemInspector {
         return "";
     }
 
-    private boolean interfaceContains(List<Interface> list, Interface interf) {
-        for (Interface i : list)
-            if (interf.name.equals(i.name))
-                return true;
-        return false;
-    }
-
-    private Service findServiceByName(String name) {
-        return system.listOfServices.stream().parallel().filter(t -> t.name.equals(name) && !t.isUsedInPlaceGraph)
-                .findFirst().orElse(null);
-    }
-
-    private boolean inBlackList(String name) {
-        boolean res = false;
-        for (String s : blackList)
-            if (name.equalsIgnoreCase(s))
-                res = true;
-        return res;
-    }
 }

@@ -8,15 +8,39 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 public class Courier {
-    public String name;
-    public List<String> interfaceOneWay = new ArrayList<>();
-    public List<String> interfaceReqRes = new ArrayList<>();
-    public List<String> operationOneWay = new ArrayList<>();
-    public List<String> operationReqRes = new ArrayList<>();
+
+    private String name;
+    private List<String> interfaceOneWay = new ArrayList<>();
+    private List<String> interfaceReqRes = new ArrayList<>();
+    private List<String> operationOneWay = new ArrayList<>();
+    private List<String> operationReqRes = new ArrayList<>();
+
+    public Courier(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void addInterfaceOneWay(String op) {
+        interfaceOneWay.add(op);
+    }
+
+    public void addInterfaceReqRes(String op) {
+        interfaceReqRes.add(op);
+    }
+
+    public void addOperationOneWay(String op) {
+        operationOneWay.add(op);
+    }
+
+    public void addOperationReqRes(String op) {
+        operationReqRes.add(op);
+    }
 
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
-
         map.put("name", name);
 
         if (interfaceOneWay.size() > 0) {

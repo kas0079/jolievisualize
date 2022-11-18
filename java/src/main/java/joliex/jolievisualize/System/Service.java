@@ -7,30 +7,98 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
-import jolie.lang.parse.ast.EmbedServiceNode;
-import jolie.lang.parse.ast.EmbeddedServiceNode;
 import jolie.lang.parse.ast.ExecutionInfo;
-import jolie.lang.parse.ast.courier.CourierDefinitionNode;
-import joliex.jolievisualize.PlaceGraph.Node;
 
 public class Service {
-    public JSONObject params;
+    private String name;
+    private long id;
+    private ExecutionInfo executionInfo;
 
-    public long id;
-    public String name;
-    public ExecutionInfo executionInfo;
-    public Node node;
-    public boolean isUsedInPlaceGraph = false;
-    public List<CourierDefinitionNode> couriers = new ArrayList<>();
-    public List<EmbedServiceNode> embeds = new ArrayList<>();
-    public List<EmbeddedServiceNode> internals = new ArrayList<>();
-    public List<EmbeddedServiceNode> embeddings = new ArrayList<>();
+    private List<OutputPort> outputPorts = new ArrayList<>();
+    private List<InputPort> inputPorts = new ArrayList<>();
+    private List<Courier> couriers = new ArrayList<>();
 
-    public List<InputPort> inputPorts;
-    public List<OutputPort> outputPorts;
+    private List<Service> children;
+    private Service parent;
 
     public Service(long id) {
         this.id = id;
+        children = new ArrayList<>();
+    }
+
+    public JSONObject toJSON() {
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("name", name);
+        map.put("execution", getExecution());
+        map.put("id", id);
+
+        if (outputPorts.size() > 0) {
+            List<JSONObject> opListTmp = new ArrayList<>();
+            for (OutputPort op : outputPorts)
+                opListTmp.add(op.toJSON());
+            map.put("outputPorts", opListTmp);
+        }
+
+        if (inputPorts.size() > 0) {
+            List<JSONObject> ipListTmp = new ArrayList<>();
+            for (InputPort ip : inputPorts)
+                ipListTmp.add(ip.toJSON());
+            map.put("inputPorts", ipListTmp);
+        }
+
+        if (children.size() > 0) {
+            List<JSONObject> childTmp = new ArrayList<>();
+            for (Service s : children)
+                childTmp.add(s.toJSON());
+            map.put("embeddings", childTmp);
+        }
+
+        return new JSONObject(map);
+    }
+
+    public List<Courier> getCouriers() {
+        return this.couriers;
+    }
+
+    public void addCourier(Courier c) {
+        couriers.add(c);
+    }
+
+    public void addOutputPort(OutputPort op) {
+        outputPorts.add(op);
+    }
+
+    public void addInputPort(InputPort ip) {
+        inputPorts.add(ip);
+    }
+
+    public void setName(String n) {
+        this.name = n;
+    }
+
+    public void setParent(Service s) {
+        parent = s;
+    }
+
+    public void addChild(Service s) {
+        children.add(s);
+    }
+
+    public void removeChildWithID(long id) {
+        for (int i = 0; i < children.size(); i++)
+            if (children.get(i).id == id) {
+                children.remove(i);
+                return;
+            }
+    }
+
+    public Service getParent() {
+        return parent;
+    }
+
+    public List<Service> getChildren() {
+        return children;
     }
 
     public String getExecution() {
@@ -39,84 +107,7 @@ public class Service {
         return executionInfo.mode().name().toLowerCase();
     }
 
-    public boolean equals(Service other) {
-        return this.id == other.id;
-    }
-
-    public JSONObject toJSON() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        map.put("execution", getExecution());
-
-        // Input ports
-        List<JSONObject> jsonIPS = new ArrayList<>();
-        for (InputPort ip : inputPorts)
-            jsonIPS.add(ip.toJSON());
-
-        // Output ports
-        List<JSONObject> jsonOPS = new ArrayList<>();
-        for (OutputPort op : outputPorts)
-            jsonOPS.add(op.toJSON());
-
-        // Embeddings
-        List<JSONObject> embedTmp = getEmbeddings();
-        if (embedTmp.size() > 0)
-            map.put("embeddings", embedTmp);
-
-        if (jsonIPS.size() > 0)
-            map.put("inputPorts", jsonIPS);
-        if (jsonOPS.size() > 0)
-            map.put("outputPorts", jsonOPS);
-
-        return new JSONObject(map);
-    }
-
-    private List<JSONObject> getEmbeddings() {
-        List<JSONObject> list = new ArrayList<>();
-        if (embeds.size() > 0) {
-            List<JSONObject> embedTmp = new ArrayList<>();
-            for (EmbedServiceNode esn : embeds)
-                embedTmp.add(getEmbeds(esn));
-            list.addAll(embedTmp);
-        }
-        if (internals.size() > 0) {
-            List<JSONObject> internalTmp = new ArrayList<>();
-            for (EmbeddedServiceNode esn : internals)
-                internalTmp.add(getInternals(esn));
-            list.addAll(internalTmp);
-        }
-        if (embeddings.size() > 0) {
-            List<JSONObject> embeddingTmp = new ArrayList<>();
-            for (EmbeddedServiceNode esn : embeddings)
-                embeddingTmp.add(getEmbeddingJSON(esn));
-            list.addAll(embeddingTmp);
-        }
-        return list;
-    }
-
-    private JSONObject getEmbeddingJSON(EmbeddedServiceNode esn) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", esn.servicePath().replaceAll("ol", ""));
-        map.put("port", esn.portId());
-        map.put("type", esn.type() == null ? "jolie" : esn.type().name().toLowerCase());
-        return new JSONObject(map);
-    };
-
-    private JSONObject getInternals(EmbeddedServiceNode esn) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", esn.servicePath().replaceAll("ol", ""));
-        map.put("port", esn.portId());
-        map.put("type", esn.type() == null ? "jolie" : esn.type().name().toLowerCase());
-        return new JSONObject(map);
-    }
-
-    private JSONObject getEmbeds(EmbedServiceNode esn) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", esn.serviceName());
-        if (esn.hasBindingPort())
-            map.put("port", esn.bindingPort().id());
-        map.put("type", "jolie");
-        return new JSONObject(map);
+    public void setExectionInfo(ExecutionInfo ei) {
+        this.executionInfo = ei;
     }
 }

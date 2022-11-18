@@ -8,9 +8,23 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 public class Type {
-    public String name;
-    public String type;
-    public List<Type> subtypes = new ArrayList<>();
+    private String name;
+    private String type;
+    private List<Type> subtypes = new ArrayList<>();
+
+    public Type(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Type))
+            return false;
+        Type other = (Type) o;
+        return this.toJSON().equals(other.toJSON());
+    }
 
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
@@ -28,5 +42,17 @@ public class Type {
         }
 
         return new JSONObject(map);
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void addSubType(Type type) {
+        subtypes.add(type);
+    }
+
+    public void setTypeName(String name) {
+        this.type = name;
     }
 }

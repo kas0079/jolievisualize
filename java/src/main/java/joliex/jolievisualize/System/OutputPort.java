@@ -8,20 +8,36 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 public class OutputPort {
-    public String name;
-    public String protocol;
-    public String location;
-    public List<String> interfaces = new ArrayList<>();
+    private String name;
+    private String protocol;
+    private String location;
 
-    public boolean samePort(OutputPort port) {
-        boolean intf = interfaces.size() == port.interfaces.size();
-        for (int i = 0; i < interfaces.size() && intf; i++) {
-            String i1 = interfaces.get(i);
-            String i2 = port.interfaces.get(i);
-            intf = i1.equals(i2);
-        }
-        return intf && port.name.equals(this.name) && port.protocol.equals(this.protocol)
-                && port.location.equals(this.location);
+    private Map<Long, String> interfaces = new HashMap<>();
+
+    public OutputPort(String name, String protocol, String location) {
+        this.name = name;
+        this.protocol = protocol;
+        this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public Map<Long, String> getInterfaces() {
+        return interfaces;
+    }
+
+    public void addInterface(Interface interf) {
+        interfaces.put(interf.getID(), interf.getName());
     }
 
     public JSONObject toJSON() {
@@ -32,13 +48,14 @@ public class OutputPort {
         map.put("location", location);
 
         if (interfaces.size() > 0) {
-            List<JSONObject> interfaceList = new ArrayList<>();
-            for (String id : interfaces) {
+            List<JSONObject> interfListTmp = new ArrayList<>();
+            interfaces.forEach((id, name) -> {
                 Map<String, Object> tmp = new HashMap<>();
-                tmp.put("name", id);
-                interfaceList.add(new JSONObject(tmp));
-            }
-            map.put("interfaces", interfaceList);
+                tmp.put("name", name);
+                tmp.put("id", id);
+                interfListTmp.add(new JSONObject(tmp));
+            });
+            map.put("interfaces", interfListTmp);
         }
 
         return new JSONObject(map);

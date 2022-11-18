@@ -11,13 +11,50 @@ import jolie.lang.parse.ast.OneWayOperationDeclaration;
 import jolie.lang.parse.ast.RequestResponseOperationDeclaration;
 
 public class Interface {
-    public String name;
-    public List<RequestResponseOperationDeclaration> reqres = new ArrayList<>();
-    public List<OneWayOperationDeclaration> oneway = new ArrayList<>();
+    private String name;
+    private long id;
+    private List<RequestResponseOperationDeclaration> reqres = new ArrayList<>();
+    private List<OneWayOperationDeclaration> oneway = new ArrayList<>();
+
+    public Interface(long id, String name) {
+        this.name = name;
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this)
+            return true;
+        if (!(other instanceof Interface))
+            return false;
+        long oldID = this.id;
+        Interface otherI = (Interface) other;
+        this.id = otherI.getID();
+        boolean res = this.toJSON().equals(otherI.toJSON());
+        this.id = oldID;
+        return res;
+    }
+
+    public long getID() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void addRequestResponse(RequestResponseOperationDeclaration rrod) {
+        reqres.add(rrod);
+    }
+
+    public void addOneWay(OneWayOperationDeclaration ood) {
+        oneway.add(ood);
+    }
 
     public JSONObject toJSON() {
         Map<String, Object> obj = new HashMap<>();
         obj.put("name", name);
+        obj.put("id", id);
 
         if (reqres.size() > 0) {
             List<JSONObject> reqresList = new ArrayList<>();

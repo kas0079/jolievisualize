@@ -7,41 +7,45 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
-public class InputPort {
-    public String name;
-    public String protocol;
-    public String location;
-    public List<Aggregate> aggregates = new ArrayList<>();
-    public List<String> interfaces = new ArrayList<>();
-    public Map<String, String> redirects = new HashMap<>();
-    public List<Courier> couriers = new ArrayList<>();
+public class InputPort extends OutputPort {
 
-    public boolean samePort(InputPort port) {
-        boolean intf = interfaces.size() == port.interfaces.size();
-        for (int i = 0; i < interfaces.size() && intf; i++) {
-            String i1 = interfaces.get(i);
-            String i2 = port.interfaces.get(i);
-            intf = i1.equals(i2);
-        }
-        return intf && port.name.equals(this.name) && port.protocol.equals(this.protocol)
-                && port.location.equals(this.location);
+    private List<Aggregate> aggregates = new ArrayList<>();
+    private List<Courier> couriers = new ArrayList<>();
+    private Map<String, String> redirects = new HashMap<>();
+
+    public InputPort(String name, String protocol, String location) {
+        super(name, protocol, location);
     }
 
+    public void addCourier(Courier c) {
+        couriers.add(c);
+    }
+
+    public void addRedirect(String name, String portName) {
+        redirects.put(name, portName);
+    }
+
+    public void addAggregate(Aggregate a) {
+        aggregates.add(a);
+    }
+
+    @Override
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 
-        map.put("name", name);
-        map.put("protocol", protocol);
-        map.put("location", location);
+        map.put("name", getName());
+        map.put("location", getLocation());
+        map.put("protocl", getProtocol());
 
-        if (interfaces.size() > 0) {
-            List<JSONObject> interfaceList = new ArrayList<>();
-            for (String id : interfaces) {
+        if (getInterfaces().size() > 0) {
+            List<JSONObject> interfacesTmp = new ArrayList<>();
+            getInterfaces().forEach((id, name) -> {
                 Map<String, Object> tmp = new HashMap<>();
-                tmp.put("name", id);
-                interfaceList.add(new JSONObject(tmp));
-            }
-            map.put("interfaces", interfaceList);
+                tmp.put("name", name);
+                tmp.put("id", id);
+                interfacesTmp.add(new JSONObject(tmp));
+            });
+            map.put("interfaces", interfacesTmp);
         }
 
         if (aggregates.size() > 0) {

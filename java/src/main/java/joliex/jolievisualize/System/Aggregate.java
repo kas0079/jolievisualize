@@ -8,9 +8,22 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 public class Aggregate {
-    public String name;
-    public List<String> collection = new ArrayList<>();
-    public Interface extender;
+
+    private String name;
+    private List<String> collection = new ArrayList<>();
+    private Interface extender;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void addCollection(String s) {
+        collection.add(s);
+    }
+
+    public void setInterfaceExtension(Interface inter) {
+        this.extender = inter;
+    }
 
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
