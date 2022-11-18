@@ -1,18 +1,16 @@
 [
-	{
-		"name": "Client",
-		"file": "client.ol"
-	},
-	{
-		"name": "Sum",
-		"file": "sum.ol"
-	},
-	{
-		"name": "Sub",
-		"file": "Sub.ol"
-	},
-	{
-		"name": "Redirector",
-		"file": "redirector.ol"
-	}
+	[
+		{
+			"file": "client.ol"
+		},
+		{
+			"file": "redirector.ol"
+		},
+		{
+			"file": "sum.ol"
+		},
+		{
+			"file": "sub.ol"
+		}
+	]
 ]
