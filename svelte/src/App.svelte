@@ -1,36 +1,46 @@
 <script lang="ts">
-	import { services } from './lib/data/data';
-	import Cell from './lib/Cell.svelte';
-	import { gridOptions, initGrid } from './lib/grid/grid';
-	import { pgRoot } from './lib/store';
-	import { getServiceFromID, setServicePosition, sizeServices } from './lib/system/service';
+	import ELK, { type ElkNode } from 'elkjs/lib/elk.bundled';
+	import Edge from './Edge.svelte';
+	import { services } from './lib/data';
+	import { handleExpandServiceEvent, handleShrinkServiceEvent } from './lib/eventHandlers';
+	import { createSystemGraph } from './lib/graph';
+	import Network from './Network.svelte';
+	import ZoomComp from './ZoomComp.svelte';
 
-	const gs = gridOptions.gridSize;
-	const visibleServices: Service[] = [];
-	const update = (pgroot: pgNode) => {
-		if (pgroot.nodes.length > 1) {
-			pgroot.nodes.forEach((node) => {
-				if (node.type !== 'service') return;
-				visibleServices.push(getServiceFromID(node.id, services));
-			});
-		}
-		sizeServices(visibleServices);
-		setServicePosition(visibleServices, pgroot);
-		initGrid();
+	const elk = new ELK();
+
+	let currentGraph: ElkNode | undefined;
+	let zoomComp: ZoomComp;
+
+	const layoutGraph = async () => {
+		currentGraph = await elk.layout(createSystemGraph(services));
+		console.log(currentGraph);
 	};
-	$: update($pgRoot);
+
+	const updateGraph = async (event: CustomEvent) => {
+		if (currentGraph === undefined) return;
+		if (event.detail.action === 'expandService') handleExpandServiceEvent(event, currentGraph);
+		if (event.detail.action === 'shrinkService') handleShrinkServiceEvent(event, currentGraph);
+		currentGraph = await elk.layout(currentGraph);
+		if (event.detail.action === 'expandService') zoomComp.zoomInto(event, currentGraph);
+	};
 </script>
 
-<main class="w-full h-screen bg-white" style="background-size: {gs}px {gs}px;">
-	{#if $pgRoot.nodes.length > 1}
-		<Cell root={$pgRoot} services={visibleServices} />
-	{/if}
-</main>
-
-<style>
-	main {
-		background-size: gs + 'px' gs + 'px';
-		background-image: linear-gradient(to right, #bbb 1px, transparent 1px),
-			linear-gradient(to bottom, #bbb 1px, transparent 1px);
-	}
-</style>
+{#await layoutGraph()}
+	<main><p>...loading</p></main>
+{:then _}
+	<main>
+		<svg class="w-screen h-screen">
+			<g>
+				<ZoomComp bind:this={zoomComp} />
+				{#each currentGraph.children as child}
+					<Network network={child} on:message={updateGraph} />
+				{/each}
+				{#each currentGraph.edges as edge}
+					<Edge {edge} />
+				{/each}
+			</g>
+		</svg>
+		<!-- TODO add sidebar here -->
+	</main>
+{/await}

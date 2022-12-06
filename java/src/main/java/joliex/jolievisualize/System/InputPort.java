@@ -35,7 +35,7 @@ public class InputPort extends OutputPort {
 
         map.put("name", getName());
         map.put("location", getLocation());
-        map.put("protocl", getProtocol());
+        map.put("protocol", getProtocol());
 
         if (getInterfaces().size() > 0) {
             List<JSONObject> interfacesTmp = new ArrayList<>();

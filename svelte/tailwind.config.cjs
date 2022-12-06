@@ -5,8 +5,11 @@ module.exports = {
 		extend: {},
 		colors: {
 			service: '#e9a727',
+			serviceStroke: '#5d4310', //%60
 			inputPort: '#e5dc60',
-			outputPort: '#db0000'
+			ipStroke: '#5c5826',
+			outputPort: '#db0000',
+			opStroke: '#580000'
 		}
 	},
 	plugins: []

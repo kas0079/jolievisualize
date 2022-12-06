@@ -3,5 +3,5 @@
 	"compilerOptions": {
 		"rootDir": "./src"
 	},
-	"exclude": ["node_modules/*", "__sapper__/*", "static/*"]
+	"exclude": ["__sapper__/*", "static/*"]
 }
