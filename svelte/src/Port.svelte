@@ -3,7 +3,12 @@
 	import { afterUpdate } from 'svelte';
 
 	export let portNode: ElkPort;
-	export let parentService: Service | undefined;
+	export let parentService: Service;
+
+	let port =
+		portNode.labels[0].text === 'ip'
+			? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
+			: parentService.outputPorts.find((t) => t.name == portNode.labels[1].text);
 
 	// //wrong---
 	// const port =
@@ -25,10 +30,14 @@
 
 	afterUpdate(async () => {
 		await drawPort();
+		port =
+			portNode.labels[0].text === 'ip'
+				? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
+				: parentService.outputPorts.find((t) => t.name == portNode.labels[1].text);
 	});
 
 	const printInfo = () => {
-		// console.log(port);
+		console.log(port);
 	};
 </script>
 

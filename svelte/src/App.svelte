@@ -14,7 +14,6 @@
 
 	const layoutGraph = async () => {
 		currentGraph = await elk.layout(createSystemGraph(services));
-		console.log(currentGraph);
 	};
 
 	const updateGraph = async (event: CustomEvent) => {

@@ -34,10 +34,10 @@
 				<Edge {edge} />
 			{/each}
 		{/if}
-		{#if network.ports && network.ports.length > 0}
+		<!-- {#if network.ports && network.ports.length > 0}
 			{#each network.ports as port}
 				<Port portNode={port} parentService={undefined} />
 			{/each}
-		{/if}
+		{/if} -->
 	</g>
 {/if}
