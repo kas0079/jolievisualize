@@ -16,11 +16,10 @@
 	afterUpdate(() => drawEdge());
 </script>
 
-<path id={edge.id} />
+<path id={edge.id} class="stroke-black" />
 
 <style>
 	path {
-		stroke: black;
 		stroke-width: 0.5;
 	}
 </style>

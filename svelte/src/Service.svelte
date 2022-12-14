@@ -97,7 +97,7 @@
 	<text class="servicename cursor-pointer">{service.name}</text>
 	{#if serviceNode.ports && serviceNode.ports.length > 0}
 		{#each serviceNode.ports as portNode}
-			<Port {portNode} parentService={service} />
+			<Port {portNode} parentService={service} on:opensidebar />
 		{/each}
 	{/if}
 	{#if expanded}

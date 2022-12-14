@@ -26,7 +26,7 @@
 		<rect class="outline-dashed fill-none outline-1" />
 		{#each network.children as child}
 			{#if child.id !== '!leaf'}
-				<Service serviceNode={child} on:message parent={undefined} />
+				<Service serviceNode={child} on:message parent={undefined} on:opensidebar />
 			{/if}
 		{/each}
 		{#if network.edges && network.edges.length > 0}
@@ -34,10 +34,10 @@
 				<Edge {edge} />
 			{/each}
 		{/if}
-		<!-- {#if network.ports && network.ports.length > 0}
+		{#if network.ports && network.ports.length > 0}
 			{#each network.ports as port}
 				<Port portNode={port} parentService={undefined} />
 			{/each}
-		{/if} -->
+		{/if}
 	</g>
 {/if}

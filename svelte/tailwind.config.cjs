@@ -9,7 +9,10 @@ module.exports = {
 			inputPort: '#e5dc60',
 			ipStroke: '#5c5826',
 			outputPort: '#db0000',
-			opStroke: '#580000'
+			opStroke: '#580000',
+			black: '#000',
+			white: '#fff',
+			bg: '#353535'
 		}
 	},
 	plugins: []

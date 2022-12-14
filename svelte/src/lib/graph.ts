@@ -179,8 +179,8 @@ const getNetworkNodes = (services: Service[][]): ElkNode[] => {
 				portConstraints: 'FIXED_SIDE',
 				'elk.layered.mergeEdge': 'true'
 			},
-			// ports,
 			children: getTopLevelServices(serviceList),
+			// ports,
 			edges: getTopLevelEdges(serviceList) //.concat(portEdges)
 		});
 		count++;

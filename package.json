@@ -2,7 +2,6 @@
 	"name": "jolievisualize",
 	"version": "0.0.1",
 	"description": "Tool for visualizing and refactoring Jolie architecture",
-	"type": "module",
 	"main": "index.js",
 	"author": {
 		"name": "Emil Ovcina",

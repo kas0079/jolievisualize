@@ -3,5 +3,5 @@
 	"compilerOptions": {
 		"rootDir": "./src"
 	},
-	"exclude": ["__sapper__/*", "static/*"]
+	"exclude": ["__sapper__/*", "static/*", "../jolievisualize.d.ts"]
 }
