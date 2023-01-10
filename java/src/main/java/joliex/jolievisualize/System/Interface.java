@@ -16,6 +16,8 @@ public class Interface {
     private List<RequestResponseOperationDeclaration> reqres = new ArrayList<>();
     private List<OneWayOperationDeclaration> oneway = new ArrayList<>();
 
+    private String uri;
+
     public Interface(long id, String name) {
         this.name = name;
         this.id = id;
@@ -43,6 +45,10 @@ public class Interface {
         return this.name;
     }
 
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
     public void addRequestResponse(RequestResponseOperationDeclaration rrod) {
         reqres.add(rrod);
     }
@@ -55,6 +61,9 @@ public class Interface {
         Map<String, Object> obj = new HashMap<>();
         obj.put("name", name);
         obj.put("id", id);
+
+        if (uri != null && uri.length() > 0)
+            obj.put("file", uri);
 
         if (reqres.size() > 0) {
             List<JSONObject> reqresList = new ArrayList<>();

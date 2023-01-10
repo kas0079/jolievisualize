@@ -1,6 +1,7 @@
 /// <reference types="svelte"/>
 
 declare const d3: D3;
+declare function acquireVsCodeApi();
 
 type Data = {
 	services: Service[][];
@@ -16,6 +17,9 @@ type Service = {
 	execution: string;
 	inputPorts: Port[];
 	outputPorts: Port[];
+	file: string;
+	parentPort: string | undefined;
+	parent: Service | undefined;
 };
 
 type Interface = {
@@ -23,23 +27,26 @@ type Interface = {
 	reqres: { name: string; req: string; res: string }[];
 	oneway: { name: string; req: string }[];
 	types: Type[];
+	file: string;
 };
 
 type Type = {
 	name: string;
 	type: string;
 	subTypes: Type[];
+	file: string;
 };
 
 type Port = {
 	name: string;
 	location: string;
 	protocol: string;
-	aggregates: Aggregate[];
-	couriers: Courier[];
-	redirects: Redirect[];
-	resource: string;
+	aggregates?: Aggregate[];
+	couriers?: Courier[];
+	redirects?: Redirect[];
+	resource?: string;
 	interfaces: { name: string }[];
+	file: string;
 };
 
 type Aggregate = {

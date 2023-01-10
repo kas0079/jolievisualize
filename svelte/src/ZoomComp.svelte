@@ -6,9 +6,12 @@
 
 	onMount(() => {
 		const networkScale = 5;
-		zoom = d3.zoom().on('zoom', (e: any) => {
-			d3.select('svg g').attr('transform', e.transform);
-		});
+		zoom = d3
+			.zoom()
+			.scaleExtent([1, 1000])
+			.on('zoom', (e: any) => {
+				d3.select('svg g').attr('transform', e.transform);
+			});
 		svg = d3.select('svg');
 		svg.call(zoom);
 		svg.call(zoom.scaleBy, networkScale);

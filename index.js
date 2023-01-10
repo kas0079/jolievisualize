@@ -1,7 +1,4 @@
-import proc from "child_process";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-export const __dirname = dirname(fileURLToPath(import.meta.url));
+const proc = require("child_process");
 
 const promisedExec = (exec) => {
 	return new Promise((resolve) => {
@@ -17,9 +14,15 @@ const checkForJolie = async () => {
 	return true;
 };
 
-export const getData = async (visfile) => {
+const getData = async (visfile, notExtension = true) => {
 	if (!checkForJolie()) return "Jolie is not installed correctly";
-	const res = await promisedExec(`${__dirname}/visualize ${visfile}`);
+	const res = await promisedExec(
+		`${__dirname}/visualize ${notExtension ? visfile : visfile[0].path}`
+	);
 	if (res.error || res.stderr) return `ERROR ${res.stderr}`;
 	return res.stdout;
+};
+
+module.exports = {
+	getData,
 };

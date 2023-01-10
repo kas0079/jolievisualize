@@ -1,1 +1,1 @@
-export declare function getData(visfile: string): Promise<string>;
+declare module "jolievisualize";

@@ -2,23 +2,6 @@ import type { ElkExtendedEdge, ElkNode, ElkPort } from 'elkjs/lib/elk-api';
 
 export const portSize = 5;
 
-export const childTest: ElkNode = {
-	id: 'console0',
-	layoutOptions: {
-		'elk.algorithm': 'layered',
-		interactiveLayout: 'true'
-	},
-	ports: [
-		{
-			id: 'console0-port1',
-			labels: [{ text: 'ip' }],
-			width: portSize,
-			height: portSize
-		}
-	],
-	children: [{ id: '!leaf' }]
-};
-
 export const getAllElkNodes = (root: ElkNode) => {
 	return root.children.flatMap((t) => getChildNodesRecursive(t));
 };
@@ -59,11 +42,11 @@ const getTopLevelServices = (services: Service[]): ElkNode[] => {
 	services.forEach((svc) => {
 		tls.push({
 			id: `${svc.name}${svc.id}`,
-			labels: [{ text: 'service' }],
+			labels: [{ text: 'service' }, { text: `${svc.id}` }],
 			ports: getElkPorts(svc),
 			children: [{ id: '!leaf' }],
 			layoutOptions: {
-				'elk.hierarchyHandling': 'SEPARATE_CHILDREN',
+				'elk.hierarchyHandling': 'INCLUDE_CHILDREN',
 				portConstraints: 'UNDEFINED'
 			}
 		});
@@ -71,7 +54,7 @@ const getTopLevelServices = (services: Service[]): ElkNode[] => {
 	return tls;
 };
 
-const getTopLevelEdges = (services: Service[]): ElkExtendedEdge[] => {
+export const getTopLevelEdges = (services: Service[]): ElkExtendedEdge[] => {
 	const tle: ElkExtendedEdge[] = [];
 	services.forEach((outputSvc) => {
 		if (outputSvc.outputPorts === undefined || outputSvc.outputPorts.length === 0) return;

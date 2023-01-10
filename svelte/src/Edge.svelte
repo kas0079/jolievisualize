@@ -3,6 +3,7 @@
 	import { afterUpdate } from 'svelte';
 
 	export let edge: ElkExtendedEdge;
+	export let white: boolean;
 
 	const drawEdge = () => {
 		let drawPath = `M${edge.sections[0].startPoint.x},${edge.sections[0].startPoint.y} `;
@@ -12,11 +13,10 @@
 
 		d3.select(`#${edge.id}`).attr('d', drawPath);
 	};
-
 	afterUpdate(() => drawEdge());
 </script>
 
-<path id={edge.id} class="stroke-black" />
+<path id={edge.id} class={white ? 'stroke-white' : 'stroke-black'} />
 
 <style>
 	path {

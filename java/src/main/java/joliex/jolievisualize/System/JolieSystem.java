@@ -33,6 +33,10 @@ public class JolieSystem {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public List<Network> getNetworks() {
         return networks;
     }

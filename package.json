@@ -8,7 +8,7 @@
 		"email": "emovc18@student.sdu.dk"
 	},
 	"scripts": {
-		"start": ""
+		"local": "npm pack && rm ../jolievisualize-0.0.1.tgz && mv jolievisualize-0.0.1.tgz ../jolievisualize-0.0.1.tgz"
 	},
 	"bin": {
 		"jolievisualize-server": "./server.js"

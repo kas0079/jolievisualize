@@ -67,21 +67,19 @@ function connectEmbedOutputPorts(service: Service) {
 function connectEmbeds(service: Service) {
 	if (service.embeddings === undefined) return;
 	service.embeddings.forEach((embed) => {
-		const corrOutputPort = service.outputPorts?.find((t) => embed.name === t.name);
+		connectEmbeds(embed);
+
+		const corrOutputPort = service.outputPorts?.find((t) => embed.parentPort === t.name);
 		if (corrOutputPort === undefined) return;
+		embed.parent = service;
 
 		const corrInputPort = embed.inputPorts?.find(
-			(t) =>
-				t.location === 'local' &&
-				t.location == corrOutputPort.location &&
-				sharesInterface(t, corrOutputPort)
+			(t) => t.location === 'local' && sharesInterface(t, corrOutputPort)
 		);
 		if (corrInputPort === undefined) return;
 
 		corrOutputPort.location = `!local_${embed.name}${embed.id}`;
 		corrInputPort.location = `!local_${embed.name}${embed.id}`;
-
-		connectEmbeds(embed);
 	});
 }
 

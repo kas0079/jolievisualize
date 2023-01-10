@@ -12,6 +12,8 @@ public class Type {
     private String type;
     private List<Type> subtypes = new ArrayList<>();
 
+    private String uri;
+
     public Type(String name) {
         this.name = name;
     }
@@ -26,12 +28,19 @@ public class Type {
         return this.toJSON().equals(other.toJSON());
     }
 
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 
         map.put("name", name);
         if (!type.equals("void"))
             map.put("type", type);
+
+        if (uri != null && uri.length() > 0)
+            map.put("file", uri);
 
         if (subtypes.size() > 0) {
             List<JSONObject> subtypesTmp = new ArrayList<>();

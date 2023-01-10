@@ -2,6 +2,7 @@
 	import type { ElkNode } from 'elkjs/lib/elk.bundled';
 	import { afterUpdate } from 'svelte';
 	import Edge from './Edge.svelte';
+	import { vscode } from './lib/data';
 	import Port from './Port.svelte';
 	import Service from './Service.svelte';
 
@@ -31,7 +32,7 @@
 		{/each}
 		{#if network.edges && network.edges.length > 0}
 			{#each network.edges as edge}
-				<Edge {edge} />
+				<Edge {edge} white={vscode !== undefined} />
 			{/each}
 		{/if}
 		{#if network.ports && network.ports.length > 0}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ElkPort } from 'elkjs/lib/elk.bundled';
 	import { afterUpdate, createEventDispatcher } from 'svelte';
-	import { SidebarElement } from './Sidebar/sidebar';
+	import { SidebarElement } from './lib/sidebar';
 
 	export let portNode: ElkPort;
 	export let parentService: Service;
@@ -29,13 +29,14 @@
 			portNode.labels[0].text === 'ip'
 				? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
 				: parentService.outputPorts.find((t) => t.name == portNode.labels[1].text);
+		if (parentService) port.file = parentService.file;
 	});
 
 	const dispatch = createEventDispatcher();
 	const openPortInSidebar = () => {
-		console.log(port);
 		const sbPort = new SidebarElement(1, port.name);
 		sbPort.port = port;
+		sbPort.port_parentID = parentService.id;
 		sbPort.portType = portNode.labels[0].text;
 		dispatch('opensidebar', {
 			elem: sbPort,
@@ -45,19 +46,13 @@
 </script>
 
 <g id={portNode.id}>
-	{#if portNode.labels[0].text === 'ip'}
-		<rect
-			class="fill-inputPort stroke-ipStroke cursor-pointer"
-			on:click={openPortInSidebar}
-			on:keypress={openPortInSidebar}
-		/>
-	{:else}
-		<rect
-			class="fill-outputPort stroke-opStroke cursor-pointer"
-			on:click={openPortInSidebar}
-			on:keypress={openPortInSidebar}
-		/>
-	{/if}
+	<rect
+		class={portNode.labels[0].text === 'ip'
+			? 'fill-inputPort stroke-ipStroke cursor-pointer'
+			: 'fill-outputPort stroke-opStroke cursor-pointer'}
+		on:click|stopPropagation={openPortInSidebar}
+		on:keypress={openPortInSidebar}
+	/>
 </g>
 
 <style>

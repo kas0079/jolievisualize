@@ -29,6 +29,7 @@ import jolie.lang.parse.ast.expression.VariableExpressionNode;
 import jolie.lang.parse.ast.types.TypeDefinition;
 import jolie.lang.parse.ast.types.TypeDefinitionLink;
 import jolie.lang.parse.ast.types.TypeInlineDefinition;
+import jolie.lang.parse.context.ParsingContext;
 import jolie.util.Pair;
 import joliex.jolievisualize.System.Aggregate;
 import joliex.jolievisualize.System.Courier;
@@ -70,6 +71,7 @@ public class SystemInspector {
     private Service createService(ServiceNode sn, JSONObject params) {
         Service s = new Service(system.getNextID());
         s.setName(sn.name());
+        s.setUri(getLocalUri(sn.context()));
         for (OLSyntaxNode ol : sn.program().children()) {
             if (ol instanceof ExecutionInfo)
                 s.setExectionInfo((ExecutionInfo) ol);
@@ -82,6 +84,7 @@ public class SystemInspector {
             if (ol instanceof EmbedServiceNode) {
                 Service emb = createService(((EmbedServiceNode) ol).service(), null);
                 emb.setParent(s);
+                emb.setBindingPortName(((EmbedServiceNode) ol).bindingPort().id());
                 s.addChild(emb);
             }
         }
@@ -217,6 +220,7 @@ public class SystemInspector {
 
     private Interface createInterface(InterfaceDefinition id) {
         Interface result = new Interface(system.getNextInterfaceID(), id.name());
+        result.setUri(getLocalUri(id.context()));
         id.operationsMap().forEach((k, v) -> {
             if (v instanceof RequestResponseOperationDeclaration) {
                 RequestResponseOperationDeclaration rrd = (RequestResponseOperationDeclaration) v;
@@ -237,6 +241,7 @@ public class SystemInspector {
 
     private Type createType(TypeDefinition td) {
         Type type = new Type(td.name());
+        type.setUri(getLocalUri(td.context()));
         if (td instanceof TypeDefinitionLink) {
             TypeDefinitionLink tdl = (TypeDefinitionLink) td;
             type.setTypeName(tdl.linkedTypeName());
@@ -266,4 +271,11 @@ public class SystemInspector {
         return "";
     }
 
+    private String getLocalUri(ParsingContext pc) {
+        String uriString = pc.source().toString();
+        String[] parts = uriString.split(system.getName(), 2);
+        if (parts.length < 2)
+            return "";
+        return parts[1];
+    }
 }
