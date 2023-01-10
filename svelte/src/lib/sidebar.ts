@@ -40,4 +40,4 @@ export class SidebarElement {
 }
 
 export const noSidebar = new SidebarElement(-1, '');
-export let current_sidebar_element = writable(noSidebar);
+export const current_sidebar_element = writable(noSidebar);

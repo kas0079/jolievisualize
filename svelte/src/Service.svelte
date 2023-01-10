@@ -4,6 +4,7 @@
 	import Edge from './Edge.svelte';
 	import { services } from './lib/data';
 	import { portSize } from './lib/graph';
+	import { getClickedNetworkGroupId } from './lib/network';
 	import { getHoveredPolygon, getServiceFromCoords, renderGhostNodeOnDrag } from './lib/service';
 	import { current_sidebar_element, noSidebar, SidebarElement } from './lib/sidebar';
 	import Port from './Port.svelte';
@@ -151,8 +152,16 @@
 		dragging = false;
 		dragged = 0;
 		const droppedOnSvc = getServiceFromCoords(e, services);
-		if (!droppedOnSvc || droppedOnSvc.id === service.id) return;
-		// console.log(service.name, 'Dropped on: ', droppedOnSvc);
+		if (!droppedOnSvc) {
+			//dropped on network
+			const network = getClickedNetworkGroupId(e);
+			if (!network) return;
+			// TODO add to network
+			console.log(service.name, 'joins network', network);
+			return;
+		}
+		if (droppedOnSvc.id === service.id) return;
+		console.log(service.name, 'embeds in', droppedOnSvc.name);
 		// TODO add embedding. change JSON visualize file
 	};
 

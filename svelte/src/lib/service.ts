@@ -5,18 +5,12 @@ export const getAllServices = (services: Service[][]) => {
 };
 
 export const getServiceFromCoords = (e: MouseEvent, services: Service[][]) => {
-	if (document.querySelector('#tmp'))
-		document.querySelector('#tmp').setAttribute('style', 'display: none;');
-	const elemBelow = document.elementFromPoint(e.clientX, e.clientY);
-	if (document.querySelector('#tmp')) document.querySelector('#tmp').removeAttribute('style');
-
+	const elemBelow = getElementBelowGhost(e)[0];
 	return elemBelow.tagName === 'polygon' ? getServiceFromPolygon(elemBelow, services) : undefined;
 };
 
 export const getHoveredPolygon = (e: MouseEvent) => {
-	document.querySelector('#tmp').setAttribute('style', 'display: none;');
-	const elemBelow = document.elementFromPoint(e.clientX, e.clientY);
-	document.querySelector('#tmp').removeAttribute('style');
+	const elemBelow = getElementBelowGhost(e)[0];
 	return elemBelow.tagName === 'polygon' ? elemBelow : undefined;
 };
 
@@ -54,6 +48,17 @@ export const renderGhostNodeOnDrag = (
 };
 
 export const addAsEmbedding = (service: Service, parent: Service) => {};
+
+export const removeAsEmbedding = (service: Service) => {};
+
+const getElementBelowGhost = (e: MouseEvent) => {
+	if (document.querySelector('#tmp'))
+		document.querySelector('#tmp').setAttribute('style', 'display: none;');
+	const elemBelow = document.elementsFromPoint(e.clientX, e.clientY);
+	if (document.querySelector('#tmp')) document.querySelector('#tmp').removeAttribute('style');
+
+	return elemBelow;
+};
 
 const getServiceFromPolygon = (elem: Element, services: Service[][]) => {
 	return getAllServices(services).find(
