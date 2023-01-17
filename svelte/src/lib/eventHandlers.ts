@@ -3,14 +3,18 @@ import { services } from './data';
 import { getAllElkNodes, getElkPorts, getTopLevelEdges } from './graph';
 import { getAllServices } from './service';
 
-export const rerenderGraph = async (graph: ElkNode) => {
+export const rerenderGraph = (graph: ElkNode) => {
 	const allSvcs = getAllServices(services);
 
 	graph.children.forEach((network) => {
 		network.children.forEach((serviceNode) => {
 			rerenderService(serviceNode, allSvcs);
 		});
-		network.edges = getTopLevelEdges(services.flat());
+		network.edges = getTopLevelEdges(
+			allSvcs.filter((svc) =>
+				network.children.flatMap((t) => t.labels[1].text)?.includes(`${svc.id}`)
+			)
+		);
 	});
 	graph.edges = getTopLevelEdges(services.flat());
 	return graph;

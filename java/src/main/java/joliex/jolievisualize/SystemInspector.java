@@ -63,6 +63,8 @@ public class SystemInspector {
         n.getNetwork().forEach((tld, pair) -> {
             for (int i = 0; i < tld.getNumberOfInstances(); i++) {
                 Service svc = createService(pair.key(), pair.value());
+                if (tld.getParams() != null)
+                    svc.setParamFile(tld.getParams());
                 n.addService(svc);
             }
         });

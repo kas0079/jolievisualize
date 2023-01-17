@@ -15,6 +15,7 @@ public class Service {
     private ExecutionInfo executionInfo;
 
     private String uri;
+    private String paramFile;
 
     private List<OutputPort> outputPorts = new ArrayList<>();
     private List<InputPort> inputPorts = new ArrayList<>();
@@ -38,6 +39,9 @@ public class Service {
 
         if (uri != null && uri.length() > 0)
             map.put("file", uri);
+
+        if (paramFile != null && paramFile.length() > 0)
+            map.put("paramFile", paramFile);
 
         if (bindingPortName != null)
             map.put("parentPort", bindingPortName);
@@ -100,6 +104,10 @@ public class Service {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public void setParamFile(String filename) {
+        this.paramFile = filename;
     }
 
     public void removeChildWithID(long id) {

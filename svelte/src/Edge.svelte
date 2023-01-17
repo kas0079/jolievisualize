@@ -8,6 +8,7 @@
 	const drawEdge = () => {
 		let drawPath = `M${edge.sections[0].startPoint.x},${edge.sections[0].startPoint.y} `;
 		edge.sections.forEach((s) => {
+			if (s.bendPoints) s.bendPoints.forEach((bp) => (drawPath += `L${bp.x},${bp.y} `));
 			drawPath += `L${s.endPoint.x},${s.endPoint.y} `;
 		});
 
@@ -21,5 +22,6 @@
 <style>
 	path {
 		stroke-width: 0.5;
+		fill: none;
 	}
 </style>

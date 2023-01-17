@@ -4,8 +4,19 @@
 	import Edge from './Edge.svelte';
 	import { services } from './lib/data';
 	import { portSize } from './lib/graph';
-	import { getClickedNetworkGroupId } from './lib/network';
-	import { getHoveredPolygon, getServiceFromCoords, renderGhostNodeOnDrag } from './lib/service';
+	import {
+		addServiceToNetwork,
+		getClickedNetworkGroupId,
+		getNumberOfNetworks,
+		getNumberOfServicesInNetwork,
+		getServiceNetworkId
+	} from './lib/network';
+	import {
+		disembed,
+		getHoveredPolygon,
+		getServiceFromCoords,
+		renderGhostNodeOnDrag
+	} from './lib/service';
 	import { current_sidebar_element, noSidebar, SidebarElement } from './lib/sidebar';
 	import Port from './Port.svelte';
 
@@ -144,7 +155,7 @@
 		}, 300);
 	};
 
-	const endDrag = (e: MouseEvent) => {
+	const endDrag = async (e: MouseEvent) => {
 		clearTimeout(pressTimer);
 		if (e.button !== 0 || e.shiftKey || dragged < 2) return;
 		const polygon = document.querySelector('#' + serviceNode.id).children[0];
@@ -154,10 +165,18 @@
 		const droppedOnSvc = getServiceFromCoords(e, services);
 		if (!droppedOnSvc) {
 			//dropped on network
-			const network = getClickedNetworkGroupId(e);
-			if (!network) return;
-			// TODO add to network
-			console.log(service.name, 'joins network', network);
+			const networkId = getClickedNetworkGroupId(e);
+			if (networkId === undefined) {
+				const svcNwId = getServiceNetworkId(service);
+				if (service.parent || getNumberOfServicesInNetwork(svcNwId) === 1) return;
+				addServiceToNetwork(service, getNumberOfNetworks());
+			} else {
+				if (!service.file) return;
+				const res = addServiceToNetwork(service, networkId);
+				if (!res) return;
+				await disembed(service);
+			}
+			dispatcher('message', { action: 'reset' });
 			return;
 		}
 		if (droppedOnSvc.id === service.id) return;
@@ -192,7 +211,6 @@
 </script>
 
 <svelte:window on:mousemove|stopPropagation={docListener} on:mouseup|stopPropagation={endDrag} />
-
 <g id={serviceNode.id}>
 	<polygon
 		class=" stroke-serviceStroke cursor-pointer {selected

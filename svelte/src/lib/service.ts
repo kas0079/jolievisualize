@@ -1,7 +1,17 @@
 import type { ElkNode } from 'elkjs/lib/elk-api';
+import { tick } from 'svelte';
 
 export const getAllServices = (services: Service[][]) => {
 	return services.flatMap((t) => t.flatMap((s) => getRecursiveEmbedding(s)));
+};
+
+export const disembed = async (service: Service) => {
+	if (!service.parent) return;
+	const parent = service.parent;
+	service.parent = undefined;
+	service.inputPorts = service.inputPorts.filter((ip) => !ip.location.startsWith('!local'));
+	await tick();
+	parent.embeddings = parent.embeddings.filter((t) => t.id !== service.id);
 };
 
 export const getServiceFromCoords = (e: MouseEvent, services: Service[][]) => {
@@ -46,10 +56,6 @@ export const renderGhostNodeOnDrag = (
 	tmp.setAttribute('transform', `scale(${scale}) translate(${sx},${sy})`);
 	document.querySelector('main').appendChild(tmp);
 };
-
-export const addAsEmbedding = (service: Service, parent: Service) => {};
-
-export const removeAsEmbedding = (service: Service) => {};
 
 const getElementBelowGhost = (e: MouseEvent) => {
 	if (document.querySelector('#tmp'))

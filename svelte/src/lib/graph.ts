@@ -2,17 +2,24 @@ import type { ElkExtendedEdge, ElkNode, ElkPort } from 'elkjs/lib/elk-api';
 
 export const portSize = 5;
 
-export const getAllElkNodes = (root: ElkNode) => {
-	return root.children.flatMap((t) => getChildNodesRecursive(t));
+export const createSystemGraph = (services: Service[][]): ElkNode => {
+	const children = getNetworkNodes(services);
+	const edges = getTopLevelEdges(services.flat());
+	return {
+		id: 'system',
+		layoutOptions: {
+			'elk.algorithm': 'layered',
+			interactiveLayout: 'true',
+			'elk.direction': 'RIGHT',
+			'elk.hierarchyHandling': 'INCLUDE_CHILDREN'
+		},
+		children,
+		edges
+	};
 };
 
-const getChildNodesRecursive = (node: ElkNode, result: ElkNode[] = []) => {
-	result.push(node);
-	node.children?.forEach((c) => {
-		if (c.id === '!leaf') return;
-		result.push(...getChildNodesRecursive(c));
-	});
-	return result;
+export const getAllElkNodes = (root: ElkNode) => {
+	return root.children.flatMap((t) => getChildNodesRecursive(t));
 };
 
 export const getElkPorts = (service: Service, omitLocals = true): ElkPort[] => {
@@ -35,23 +42,6 @@ export const getElkPorts = (service: Service, omitLocals = true): ElkPort[] => {
 		});
 	});
 	return ports;
-};
-
-const getTopLevelServices = (services: Service[]): ElkNode[] => {
-	const tls: ElkNode[] = [];
-	services.forEach((svc) => {
-		tls.push({
-			id: `${svc.name}${svc.id}`,
-			labels: [{ text: 'service' }, { text: `${svc.id}` }],
-			ports: getElkPorts(svc),
-			children: [{ id: '!leaf' }],
-			layoutOptions: {
-				'elk.hierarchyHandling': 'INCLUDE_CHILDREN',
-				portConstraints: 'UNDEFINED'
-			}
-		});
-	});
-	return tls;
 };
 
 export const getTopLevelEdges = (services: Service[]): ElkExtendedEdge[] => {
@@ -80,6 +70,32 @@ export const getTopLevelEdges = (services: Service[]): ElkExtendedEdge[] => {
 		});
 	});
 	return tle;
+};
+
+const getTopLevelServices = (services: Service[]): ElkNode[] => {
+	const tls: ElkNode[] = [];
+	services.forEach((svc) => {
+		tls.push({
+			id: `${svc.name}${svc.id}`,
+			labels: [{ text: 'service' }, { text: `${svc.id}` }],
+			ports: getElkPorts(svc),
+			children: [{ id: '!leaf' }],
+			layoutOptions: {
+				'elk.hierarchyHandling': 'INCLUDE_CHILDREN',
+				portConstraints: 'UNDEFINED'
+			}
+		});
+	});
+	return tls;
+};
+
+const getChildNodesRecursive = (node: ElkNode, result: ElkNode[] = []) => {
+	result.push(node);
+	node.children?.forEach((c) => {
+		if (c.id === '!leaf') return;
+		result.push(...getChildNodesRecursive(c));
+	});
+	return result;
 };
 
 const getNetworkPorts = (serviceList: Service[], networkName: string): ElkPort[] => {
@@ -160,7 +176,8 @@ const getNetworkNodes = (services: Service[][]): ElkNode[] => {
 			labels: [{ text: 'network' }],
 			layoutOptions: {
 				portConstraints: 'FIXED_SIDE',
-				'elk.layered.mergeEdge': 'true'
+				'elk.layered.mergeEdge': 'true',
+				'elk.hierarchyHandling': 'INCLUDE_CHILDREN'
 			},
 			children: getTopLevelServices(serviceList),
 			// ports,
@@ -169,20 +186,4 @@ const getNetworkNodes = (services: Service[][]): ElkNode[] => {
 		count++;
 	});
 	return children;
-};
-
-export const createSystemGraph = (services: Service[][]): ElkNode => {
-	const children = getNetworkNodes(services);
-	const edges = getTopLevelEdges(services.flat());
-	return {
-		id: 'system',
-		layoutOptions: {
-			'elk.algorithm': 'layered',
-			interactiveLayout: 'true',
-			'elk.direction': 'RIGHT',
-			'elk.hierarchyHandling': 'INCLUDE_CHILDREN'
-		},
-		children,
-		edges
-	};
 };

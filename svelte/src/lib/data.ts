@@ -24,3 +24,47 @@ export const setDataString = (data: string) => {
 	types = processedData.types;
 	name = processedData.name;
 };
+
+export const resetData = () => {
+	let pd: Data = preprocess(json);
+	services = pd.services;
+	interfaces = pd.interfaces;
+	types = pd.types;
+	name = pd.name;
+};
+
+export const generateVisFile = (): VisFile => {
+	const content: TLD[][] = [];
+	services.forEach((serviceList) => {
+		const tldList: TLD[] = [];
+		serviceList.forEach((svc) => {
+			const tld: TLD = {
+				file: svc.file,
+				target: svc.name,
+				instances: getNumberOfInstances(svc, serviceList)
+			};
+			if (svc.paramFile) tld.paramFile = svc.paramFile;
+			if (!tldIncludes(tldList, tld)) tldList.push(tld);
+		});
+		content.push(tldList);
+	});
+	return {
+		content
+	};
+};
+
+const tldIncludes = (tldList: TLD[], tld: TLD) => {
+	return (
+		tldList.find(
+			(t) => t.file === tld.file && t.target === tld.target && t.instances === tld.instances
+		) !== undefined
+	);
+};
+
+const getNumberOfInstances = (svc: Service, svcList: Service[]) => {
+	let res = 0;
+	svcList.forEach((os) => {
+		if (os.file === svc.file && os.name === svc.name) res += 1;
+	});
+	return res;
+};

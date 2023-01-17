@@ -3,6 +3,17 @@
 declare const d3: D3;
 declare function acquireVsCodeApi();
 
+type VisFile = {
+	content: TLD[][];
+};
+
+type TLD = {
+	file?: string;
+	target?: string;
+	instances?: number;
+	paramFile?: string;
+};
+
 type Data = {
 	services: Service[][];
 	interfaces: Interface[];
@@ -18,6 +29,7 @@ type Service = {
 	inputPorts: Port[];
 	outputPorts: Port[];
 	file: string;
+	paramFile?: string;
 	parentPort: string | undefined;
 	parent: Service | undefined;
 };

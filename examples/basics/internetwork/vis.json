@@ -1,12 +1,14 @@
 [
 	[
 		{
-			"file": "Service1.ol"
+			"file": "Service1.ol",
+			"instances": 1
 		}
 	],
 	[
 		{
-			"file": "Service2.ol"
+			"file": "Service2.ol",
+			"instances": 1
 		}
 	]
 ]

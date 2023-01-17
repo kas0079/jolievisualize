@@ -29,7 +29,7 @@
 			portNode.labels[0].text === 'ip'
 				? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
 				: parentService.outputPorts.find((t) => t.name == portNode.labels[1].text);
-		if (parentService) port.file = parentService.file;
+		if (parentService && port) port.file = parentService.file;
 	});
 
 	const dispatch = createEventDispatcher();
