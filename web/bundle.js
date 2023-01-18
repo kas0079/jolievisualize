@@ -7827,7 +7827,7 @@ function create_catch_block(ctx) {
 	return block;
 }
 
-// (99:0) {:then _}
+// (100:0) {:then _}
 function create_then_block(ctx) {
 	let main;
 	let svg;
@@ -7852,10 +7852,10 @@ function create_then_block(ctx) {
 			if (if_block1) if_block1.c();
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			if (if_block2) if_block2.c();
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 101, 3, 11026);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 102, 3, 11595);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "class", "w-screen h-screen");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 100, 2, 10991);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 99, 1, 10982);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 101, 2, 11560);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 100, 1, 11551);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, main, anchor);
@@ -7965,14 +7965,14 @@ function create_then_block(ctx) {
 		block,
 		id: create_then_block.name,
 		type: "then",
-		source: "(99:0) {:then _}",
+		source: "(100:0) {:then _}",
 		ctx
 	});
 
 	return block;
 }
 
-// (104:4) {#if currentGraph}
+// (105:4) {#if currentGraph}
 function create_if_block_2(ctx) {
 	let each0_anchor;
 	let each1_anchor;
@@ -8126,14 +8126,14 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(104:4) {#if currentGraph}",
+		source: "(105:4) {#if currentGraph}",
 		ctx
 	});
 
 	return block;
 }
 
-// (105:5) {#each currentGraph.children as child}
+// (106:5) {#each currentGraph.children as child}
 function create_each_block_1(ctx) {
 	let network;
 	let current;
@@ -8177,14 +8177,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(105:5) {#each currentGraph.children as child}",
+		source: "(106:5) {#each currentGraph.children as child}",
 		ctx
 	});
 
 	return block;
 }
 
-// (108:5) {#each currentGraph.edges as edge}
+// (109:5) {#each currentGraph.edges as edge}
 function create_each_block(ctx) {
 	let edge;
 	let current;
@@ -8228,14 +8228,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(108:5) {#each currentGraph.edges as edge}",
+		source: "(109:5) {#each currentGraph.edges as edge}",
 		ctx
 	});
 
 	return block;
 }
 
-// (114:2) {#if $current_sidebar_element.hist_type >= 0}
+// (115:2) {#if $current_sidebar_element.hist_type >= 0}
 function create_if_block_1(ctx) {
 	let sidebar;
 	let current;
@@ -8270,14 +8270,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(114:2) {#if $current_sidebar_element.hist_type >= 0}",
+		source: "(115:2) {#if $current_sidebar_element.hist_type >= 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (117:2) {#if $current_popup.values.length > 0}
+// (118:2) {#if $current_popup.values.length > 0}
 function create_if_block(ctx) {
 	let popup;
 	let current;
@@ -8309,14 +8309,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(117:2) {#if $current_popup.values.length > 0}",
+		source: "(118:2) {#if $current_popup.values.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (97:22)   <main><p>...loading</p></main> {:then _}
+// (98:22)   <main><p>...loading</p></main> {:then _}
 function create_pending_block(ctx) {
 	let main;
 	let p;
@@ -8326,8 +8326,8 @@ function create_pending_block(ctx) {
 			main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
 			p = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("p");
 			p.textContent = "...loading";
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 97, 7, 10946);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 97, 1, 10940);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 98, 7, 11515);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 98, 1, 11509);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, main, anchor);
@@ -8345,7 +8345,7 @@ function create_pending_block(ctx) {
 		block,
 		id: create_pending_block.name,
 		type: "pending",
-		source: "(97:22)   <main><p>...loading</p></main> {:then _}",
+		source: "(98:22)   <main><p>...loading</p></main> {:then _}",
 		ctx
 	});
 
@@ -8453,7 +8453,8 @@ function instance($$self, $$props, $$invalidate) {
 			(0,_lib_data__WEBPACK_IMPORTED_MODULE_3__.setDataString)(// `{"name":"internetwork","interfaces":[{"name":"service2Inter","file":"\/Service1.ol","id":0,"reqres":[{"name":"test","res":"int","req":"int"}]},{"name":"service1Inter","file":"\/Service2.ol","id":1,"reqres":[{"name":"test","res":"int","req":"int"}]}],"types":[],"services":[[{"name":"One","execution":"single","file":"\/Service1.ol","id":0,"outputPorts":[{"name":"Output","protocol":"sodep","interfaces":[{"name":"service2Inter","id":0}],"location":"socket:\/\/localhost:9000"}]},{"name":"One","execution":"single","file":"\/Service1.ol","id":1,"outputPorts":[{"name":"Output","protocol":"sodep","interfaces":[{"name":"service2Inter","id":0}],"location":"socket:\/\/localhost:9000"}]}],[{"name":"Two","execution":"single","inputPorts":[{"name":"Input","protocol":"sodep","interfaces":[{"name":"service1Inter","id":1}],"location":"socket:\/\/localhost:9000"}],"file":"\/Service2.ol","id":2}]]}`
 			// `{"name":"internetwork","interfaces":[{"name":"service2Inter","file":"\/Service1.ol","id":0,"reqres":[{"name":"test","res":"int","req":"int"}]},{"name":"service1Inter","file":"\/Service2.ol","id":1,"reqres":[{"name":"test","res":"int","req":"int"}]}],"types":[],"services":[[{"name":"One","execution":"single","file":"\/Service1.ol","id":0,"outputPorts":[{"name":"Output","protocol":"sodep","interfaces":[{"name":"service2Inter","id":0}],"location":"socket:\/\/localhost:9000"}]}],[{"name":"Two","execution":"single","inputPorts":[{"name":"Input","protocol":"sodep","interfaces":[{"name":"service1Inter","id":1}],"location":"socket:\/\/localhost:9000"}],"file":"\/Service2.ol","id":1}]]}`
 			// `{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"PrinterInterface","file":"\/aggregator.ol","id":1,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/aggregator.ol","id":2,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"FaxInterface","file":"\/fax.ol","id":3,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/printer.ol","id":4,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"AggregatorInterface","file":"\/aggregator.ol","id":5,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"AggregatorInterface","file":"\/client.ol","id":6,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"PrinterInterface","file":"\/client.ol","id":7,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/client.ol","id":8,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]},{"name":"PrintRequest","subTypes":[{"name":"content","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"PrintResponse","file":"\/PrinterInterface.ol","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"FaxRequest","subTypes":[{"name":"destination","file":"\/FaxInterface.ol","type":"string"},{"name":"content","file":"\/FaxInterface.ol","type":"string"}],"file":"\/FaxInterface.ol"},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","file":"\/AggregatorInterface.ol","type":"PrintRequest"},{"name":"fax","file":"\/AggregatorInterface.ol","type":"FaxRequest"}],"file":"\/AggregatorInterface.ol"}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":1},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":3}],"execution":"concurrent","file":"\/fax.ol","parentPort":"Fax","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"name":"Fax","inputPorts":[{"name":"FaxInput","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":3}],"location":"socket:\/\/localhost:9001"}],"id":2},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"concurrent","file":"\/printer.ol","parentPort":"printer","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"name":"Printer","inputPorts":[{"name":"PrinterInput","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":4}],"location":"socket:\/\/localhost:9000"}],"id":4}],"execution":"concurrent","file":"\/aggregator.ol","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":1}],"location":"socket:\/\/localhost:9000"},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":2}],"location":"socket:\/\/localhost:9001"}],"name":"Aggregator","inputPorts":[{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":5}],"location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}]}],"id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":7}],"execution":"single","file":"\/client.ol","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":6},{"name":"PrinterInterface","id":7},{"name":"FaxInterface","id":8}],"location":"socket:\/\/localhost:9002"}],"name":"Client","id":6}]]}`
-			`{"name":"disembed","interfaces":[{"name":"dummy","file":"\/s2.ol","id":0,"reqres":[{"name":"hello","res":"int","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":1}],"execution":"single","file":"\/s1.ol","outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceOne","id":0},{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"S2","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":3}],"execution":"single","file":"\/s3.ol","outputPorts":[{"name":"S2","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceThree","id":2}]]}`);
+			// `{"name":"disembed","interfaces":[{"name":"dummy","file":"\/s2.ol","id":0,"reqres":[{"name":"hello","res":"int","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":1}],"execution":"single","file":"\/s1.ol","outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceOne","id":0},{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"S2","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":3}],"execution":"single","file":"\/s3.ol","outputPorts":[{"name":"S2","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceThree","id":2}]]}`
+			`{"name":"disembed","interfaces":[{"name":"dummy","file":"\/s2.ol","id":0,"reqres":[{"name":"hello","res":"int","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":1}],"execution":"single","file":"\/s1.ol","outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceOne","id":0}]]}`);
 
 			$$invalidate(0, currentGraph = await elk.layout((0,_lib_graph__WEBPACK_IMPORTED_MODULE_5__.createSystemGraph)(_lib_data__WEBPACK_IMPORTED_MODULE_3__.services)));
 		}
@@ -8512,7 +8513,7 @@ function instance($$self, $$props, $$invalidate) {
 
 	const handleKeyboard = async event => {
 		if (event.key === 't') {
-			await resetGraph();
+			console.log((0,_lib_data__WEBPACK_IMPORTED_MODULE_3__.generateVisFile)());
 		}
 
 		if (event.key === 'r') {
@@ -15692,7 +15693,7 @@ const generateVisFile = () => {
             if (!tldIncludes(tldList, tld))
                 tldList.push(tld);
         });
-        content.push(tldList);
+        content.push(tldList.sort((a, b) => (a.file > b.file ? 1 : a.file < b.file ? -1 : 0)));
     });
     return {
         content
@@ -16233,6 +16234,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "renderGhostNodeOnDrag": () => (/* binding */ renderGhostNodeOnDrag)
 /* harmony export */ });
 /* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/index.mjs");
+/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./data */ "./src/lib/data.ts");
+
 
 const getAllServices = (services) => {
     return services.flatMap((t) => t.flatMap((s) => getRecursiveEmbedding(s)));
@@ -16242,6 +16245,22 @@ const disembed = async (service) => {
         return;
     const parent = service.parent;
     service.parent = undefined;
+    if (_data__WEBPACK_IMPORTED_MODULE_1__.vscode) {
+        if (getNumberOfTotalInstances(service) === 1) {
+            const portsToRemove = service.inputPorts
+                .filter((ip) => ip.location.startsWith('!local'))
+                .map((ip) => {
+                return {
+                    filename: ip.file,
+                    portName: ip.name,
+                    portType: 'inputPort',
+                    serviceName: service.name
+                };
+            });
+            if (portsToRemove.length > 0)
+                _data__WEBPACK_IMPORTED_MODULE_1__.vscode.postMessage({ command: 'removePorts', ports: portsToRemove });
+        }
+    }
     service.inputPorts = service.inputPorts.filter((ip) => !ip.location.startsWith('!local'));
     await (0,svelte__WEBPACK_IMPORTED_MODULE_0__.tick)();
     parent.embeddings = parent.embeddings.filter((t) => t.id !== service.id);
@@ -16294,6 +16313,10 @@ const getRecursiveEmbedding = (service, result = []) => {
         result = result.concat(getRecursiveEmbedding(embed));
     });
     return result;
+};
+const getNumberOfTotalInstances = (service) => {
+    const allServices = getAllServices(_data__WEBPACK_IMPORTED_MODULE_1__.services);
+    return allServices.filter((t) => t.name === service.name && t.file === service.file).length - 1;
 };
 
 

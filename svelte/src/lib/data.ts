@@ -46,7 +46,7 @@ export const generateVisFile = (): VisFile => {
 			if (svc.paramFile) tld.paramFile = svc.paramFile;
 			if (!tldIncludes(tldList, tld)) tldList.push(tld);
 		});
-		content.push(tldList);
+		content.push(tldList.sort((a, b) => (a.file > b.file ? 1 : a.file < b.file ? -1 : 0)));
 	});
 	return {
 		content

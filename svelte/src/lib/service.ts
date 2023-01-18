@@ -1,5 +1,6 @@
 import type { ElkNode } from 'elkjs/lib/elk-api';
 import { tick } from 'svelte';
+import { services, vscode } from './data';
 
 export const getAllServices = (services: Service[][]) => {
 	return services.flatMap((t) => t.flatMap((s) => getRecursiveEmbedding(s)));
@@ -9,6 +10,24 @@ export const disembed = async (service: Service) => {
 	if (!service.parent) return;
 	const parent = service.parent;
 	service.parent = undefined;
+
+	if (vscode) {
+		if (getNumberOfTotalInstances(service) === 1) {
+			const portsToRemove = service.inputPorts
+				.filter((ip) => ip.location.startsWith('!local'))
+				.map((ip) => {
+					return {
+						filename: ip.file,
+						portName: ip.name,
+						portType: 'inputPort',
+						serviceName: service.name
+					};
+				});
+
+			if (portsToRemove.length > 0)
+				vscode.postMessage({ command: 'removePorts', ports: portsToRemove });
+		}
+	}
 	service.inputPorts = service.inputPorts.filter((ip) => !ip.location.startsWith('!local'));
 	await tick();
 	parent.embeddings = parent.embeddings.filter((t) => t.id !== service.id);
@@ -78,4 +97,9 @@ const getRecursiveEmbedding = (service: Service, result: Service[] = []) => {
 		result = result.concat(getRecursiveEmbedding(embed));
 	});
 	return result;
+};
+
+const getNumberOfTotalInstances = (service: Service) => {
+	const allServices = getAllServices(services);
+	return allServices.filter((t) => t.name === service.name && t.file === service.file).length - 1;
 };
