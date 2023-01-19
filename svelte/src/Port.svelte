@@ -11,7 +11,7 @@
 			? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
 			: parentService.outputPorts.find((t) => t.name == portNode.labels[1].text);
 
-	const drawPort = async () => {
+	const drawPort = () => {
 		d3.select(`#${portNode.id}`).attr(
 			'transform',
 			`translate(${portNode.x ?? 0}, ${portNode.y ?? 0})`
@@ -23,8 +23,8 @@
 			.attr('height', portNode.height ?? 0);
 	};
 
-	afterUpdate(async () => {
-		await drawPort();
+	afterUpdate(() => {
+		drawPort();
 		port =
 			portNode.labels[0].text === 'ip'
 				? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)

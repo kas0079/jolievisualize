@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ElkNode } from 'elkjs/lib/elk.bundled';
-	import { afterUpdate, beforeUpdate, createEventDispatcher } from 'svelte';
+	import { afterUpdate, beforeUpdate, createEventDispatcher, tick } from 'svelte';
 	import Edge from './Edge.svelte';
 	import { services } from './lib/data';
 	import { portSize } from './lib/graph';
@@ -9,10 +9,13 @@
 		getClickedNetworkGroupId,
 		getNumberOfNetworks,
 		getNumberOfServicesInNetwork,
-		getServiceNetworkId
+		getServiceNetworkId,
+		removeFromNetwork
 	} from './lib/network';
 	import {
 		disembed,
+		embed,
+		getAllServices,
 		getHoveredPolygon,
 		getServiceFromCoords,
 		renderGhostNodeOnDrag
@@ -163,11 +166,11 @@
 		dragging = false;
 		dragged = 0;
 		const droppedOnSvc = getServiceFromCoords(e, services);
+		const networkId = getClickedNetworkGroupId(e);
+		const svcNwId = getServiceNetworkId(service);
 		if (!droppedOnSvc) {
 			//dropped on network
-			const networkId = getClickedNetworkGroupId(e);
 			if (networkId === undefined) {
-				const svcNwId = getServiceNetworkId(service);
 				if (service.parent || getNumberOfServicesInNetwork(svcNwId) === 1) return;
 				addServiceToNetwork(service, getNumberOfNetworks());
 			} else {
@@ -180,13 +183,15 @@
 			return;
 		}
 		if (droppedOnSvc.id === service.id) return;
-		console.log(service.name, 'embeds in', droppedOnSvc.name);
-		// TODO add embedding. change JSON visualize file
+		await tick();
+		removeFromNetwork(service, svcNwId);
+		await embed(service, droppedOnSvc, svcNwId);
+		dispatcher('message', { action: 'reset' });
 	};
 
 	let prevPoly: Element;
 
-	const docListener = (e: MouseEvent) => {
+	const dragListener = (e: MouseEvent) => {
 		if (!dragging) return;
 		renderGhostNodeOnDrag(serviceNode, e, startX, startY);
 		const polyUnder = getHoveredPolygon(e);
@@ -202,7 +207,8 @@
 	beforeUpdate(() => {
 		service = parent
 			? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
-			: services.flat().find((t) => t.name + '' + t.id === serviceNode.id);
+			: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
+		// : services.flat().find((t) => t.name + '' + t.id === serviceNode.id);
 	});
 
 	afterUpdate(() => {
@@ -210,7 +216,7 @@
 	});
 </script>
 
-<svelte:window on:mousemove|stopPropagation={docListener} on:mouseup|stopPropagation={endDrag} />
+<svelte:window on:mousemove|stopPropagation={dragListener} on:mouseup|stopPropagation={endDrag} />
 <g id={serviceNode.id}>
 	<polygon
 		class=" stroke-serviceStroke cursor-pointer {selected

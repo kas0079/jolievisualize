@@ -1,4 +1,4 @@
-import { generateVisFile, services } from './data';
+import { services } from './data';
 
 export const getClickedNetworkGroupId = (e: MouseEvent): number | undefined => {
 	const allNetworkNodes = document.querySelectorAll('svg > g > g');
@@ -18,10 +18,9 @@ export const addServiceToNetwork = (svc: Service, networkId: number) => {
 };
 
 export const getServiceNetworkId = (svc: Service) => {
-	const group = document.querySelector(`g#${svc.name}${svc.id}`);
-	let parent = group.parentElement;
-	while (parent.id.startsWith('!network')) parent = parent.parentElement;
-	return +parent.id.replace('network', '');
+	let parent = svc.parent ?? svc;
+	while (parent.parent) parent = parent.parent;
+	return services.findIndex((t) => t.find((s) => s.id === parent.id));
 };
 
 export const getNumberOfServicesInNetwork = (networkId: number) => {
@@ -38,7 +37,7 @@ export const getRoot = (svc: Service): Service => {
 	return svc;
 };
 
-const removeFromNetwork = (svc: Service, networkId: number) => {
+export const removeFromNetwork = (svc: Service, networkId: number) => {
 	if (svc.parent || !services[networkId]) return;
 	services[networkId] = services[networkId].filter((t) => t.id !== svc.id);
 	if (services[networkId].length === 0) services.splice(networkId, 1);

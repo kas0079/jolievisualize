@@ -7827,7 +7827,7 @@ function create_catch_block(ctx) {
 	return block;
 }
 
-// (100:0) {:then _}
+// (108:0) {:then _}
 function create_then_block(ctx) {
 	let main;
 	let svg;
@@ -7838,8 +7838,8 @@ function create_then_block(ctx) {
 	let current;
 	zoom = new _Zoom_svelte__WEBPACK_IMPORTED_MODULE_11__["default"]({ $$inline: true });
 	let if_block0 = /*currentGraph*/ ctx[0] && create_if_block_2(ctx);
-	let if_block1 = /*$current_sidebar_element*/ ctx[1].hist_type >= 0 && create_if_block_1(ctx);
-	let if_block2 = /*$current_popup*/ ctx[2].values.length > 0 && create_if_block(ctx);
+	let if_block1 = /*$current_sidebar_element*/ ctx[2].hist_type >= 0 && create_if_block_1(ctx);
+	let if_block2 = /*$current_popup*/ ctx[1].values.length > 0 && create_if_block(ctx);
 
 	const block = {
 		c: function create() {
@@ -7852,10 +7852,10 @@ function create_then_block(ctx) {
 			if (if_block1) if_block1.c();
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			if (if_block2) if_block2.c();
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 102, 3, 11595);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 110, 3, 11472);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "class", "w-screen h-screen");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 101, 2, 11560);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 100, 1, 11551);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 109, 2, 11437);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 108, 1, 11428);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, main, anchor);
@@ -7893,11 +7893,11 @@ function create_then_block(ctx) {
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
 			}
 
-			if (/*$current_sidebar_element*/ ctx[1].hist_type >= 0) {
+			if (/*$current_sidebar_element*/ ctx[2].hist_type >= 0) {
 				if (if_block1) {
 					if_block1.p(ctx, dirty);
 
-					if (dirty & /*$current_sidebar_element*/ 2) {
+					if (dirty & /*$current_sidebar_element*/ 4) {
 						(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
 					}
 				} else {
@@ -7916,9 +7916,11 @@ function create_then_block(ctx) {
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
 			}
 
-			if (/*$current_popup*/ ctx[2].values.length > 0) {
+			if (/*$current_popup*/ ctx[1].values.length > 0) {
 				if (if_block2) {
-					if (dirty & /*$current_popup*/ 4) {
+					if_block2.p(ctx, dirty);
+
+					if (dirty & /*$current_popup*/ 2) {
 						(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
 					}
 				} else {
@@ -7965,14 +7967,14 @@ function create_then_block(ctx) {
 		block,
 		id: create_then_block.name,
 		type: "then",
-		source: "(100:0) {:then _}",
+		source: "(108:0) {:then _}",
 		ctx
 	});
 
 	return block;
 }
 
-// (105:4) {#if currentGraph}
+// (113:4) {#if currentGraph}
 function create_if_block_2(ctx) {
 	let each0_anchor;
 	let each1_anchor;
@@ -8030,7 +8032,7 @@ function create_if_block_2(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*currentGraph, updateGraph, openSidebar*/ 193) {
+			if (dirty & /*currentGraph, updateGraph, openSidebar*/ 385) {
 				each_value_1 = /*currentGraph*/ ctx[0].children;
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_1);
 				let i;
@@ -8126,14 +8128,14 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(105:4) {#if currentGraph}",
+		source: "(113:4) {#if currentGraph}",
 		ctx
 	});
 
 	return block;
 }
 
-// (106:5) {#each currentGraph.children as child}
+// (114:5) {#each currentGraph.children as child}
 function create_each_block_1(ctx) {
 	let network;
 	let current;
@@ -8143,8 +8145,8 @@ function create_each_block_1(ctx) {
 			$$inline: true
 		});
 
-	network.$on("message", /*updateGraph*/ ctx[6]);
-	network.$on("opensidebar", /*openSidebar*/ ctx[7]);
+	network.$on("message", /*updateGraph*/ ctx[7]);
+	network.$on("opensidebar", /*openSidebar*/ ctx[8]);
 
 	const block = {
 		c: function create() {
@@ -8177,14 +8179,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(106:5) {#each currentGraph.children as child}",
+		source: "(114:5) {#each currentGraph.children as child}",
 		ctx
 	});
 
 	return block;
 }
 
-// (109:5) {#each currentGraph.edges as edge}
+// (117:5) {#each currentGraph.edges as edge}
 function create_each_block(ctx) {
 	let edge;
 	let current;
@@ -8228,20 +8230,20 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(109:5) {#each currentGraph.edges as edge}",
+		source: "(117:5) {#each currentGraph.edges as edge}",
 		ctx
 	});
 
 	return block;
 }
 
-// (115:2) {#if $current_sidebar_element.hist_type >= 0}
+// (123:2) {#if $current_sidebar_element.hist_type >= 0}
 function create_if_block_1(ctx) {
 	let sidebar;
 	let current;
 	sidebar = new _Sidebar_Sidebar_svelte__WEBPACK_IMPORTED_MODULE_10__["default"]({ $$inline: true });
-	sidebar.$on("reloadgraph", /*rerender*/ ctx[5]);
-	sidebar.$on("opensidebar", /*openSidebar*/ ctx[7]);
+	sidebar.$on("reloadgraph", /*rerender*/ ctx[6]);
+	sidebar.$on("opensidebar", /*openSidebar*/ ctx[8]);
 
 	const block = {
 		c: function create() {
@@ -8270,18 +8272,19 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(115:2) {#if $current_sidebar_element.hist_type >= 0}",
+		source: "(123:2) {#if $current_sidebar_element.hist_type >= 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (118:2) {#if $current_popup.values.length > 0}
+// (126:2) {#if $current_popup.values.length > 0}
 function create_if_block(ctx) {
 	let popup;
 	let current;
 	popup = new _Popup_svelte__WEBPACK_IMPORTED_MODULE_9__["default"]({ $$inline: true });
+	popup.$on("cancel", /*resetGraph*/ ctx[4]);
 
 	const block = {
 		c: function create() {
@@ -8291,6 +8294,7 @@ function create_if_block(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.mount_component)(popup, target, anchor);
 			current = true;
 		},
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
 		i: function intro(local) {
 			if (current) return;
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(popup.$$.fragment, local);
@@ -8309,14 +8313,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(118:2) {#if $current_popup.values.length > 0}",
+		source: "(126:2) {#if $current_popup.values.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (98:22)   <main><p>...loading</p></main> {:then _}
+// (106:22)   <main><p>...loading</p></main> {:then _}
 function create_pending_block(ctx) {
 	let main;
 	let p;
@@ -8326,8 +8330,8 @@ function create_pending_block(ctx) {
 			main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
 			p = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("p");
 			p.textContent = "...loading";
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 98, 7, 11515);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 98, 1, 11509);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 106, 7, 11392);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 106, 1, 11386);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, main, anchor);
@@ -8345,7 +8349,7 @@ function create_pending_block(ctx) {
 		block,
 		id: create_pending_block.name,
 		type: "pending",
-		source: "(98:22)   <main><p>...loading</p></main> {:then _}",
+		source: "(106:22)   <main><p>...loading</p></main> {:then _}",
 		ctx
 	});
 
@@ -8371,7 +8375,7 @@ function create_fragment(ctx) {
 		blocks: [,,,]
 	};
 
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.handle_promise)(promise = /*layoutGraph*/ ctx[4](), info);
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.handle_promise)(promise = /*layoutGraph*/ ctx[5](), info);
 
 	const block = {
 		c: function create() {
@@ -8390,7 +8394,7 @@ function create_fragment(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(window, "keydown", /*handleKeyboard*/ ctx[8], false, false, false),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(window, "keydown", /*handleKeyboard*/ ctx[9], false, false, false),
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(window, "message", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*vsCodeMessage*/ ctx[3]), false, false, true)
 				];
 
@@ -8436,12 +8440,12 @@ function create_fragment(ctx) {
 }
 
 function instance($$self, $$props, $$invalidate) {
-	let $current_sidebar_element;
 	let $current_popup;
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.current_sidebar_element, 'current_sidebar_element');
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.current_sidebar_element, $$value => $$invalidate(1, $current_sidebar_element = $$value));
+	let $current_sidebar_element;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_popup__WEBPACK_IMPORTED_MODULE_6__.current_popup, 'current_popup');
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_popup__WEBPACK_IMPORTED_MODULE_6__.current_popup, $$value => $$invalidate(2, $current_popup = $$value));
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_popup__WEBPACK_IMPORTED_MODULE_6__.current_popup, $$value => $$invalidate(1, $current_popup = $$value));
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.current_sidebar_element, 'current_sidebar_element');
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.current_sidebar_element, $$value => $$invalidate(2, $current_sidebar_element = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_slots)('App', slots, []);
 	const elk = new (elkjs_lib_elk_bundled__WEBPACK_IMPORTED_MODULE_1___default())();
@@ -8452,9 +8456,8 @@ function instance($$self, $$props, $$invalidate) {
 			// Mock
 			(0,_lib_data__WEBPACK_IMPORTED_MODULE_3__.setDataString)(// `{"name":"internetwork","interfaces":[{"name":"service2Inter","file":"\/Service1.ol","id":0,"reqres":[{"name":"test","res":"int","req":"int"}]},{"name":"service1Inter","file":"\/Service2.ol","id":1,"reqres":[{"name":"test","res":"int","req":"int"}]}],"types":[],"services":[[{"name":"One","execution":"single","file":"\/Service1.ol","id":0,"outputPorts":[{"name":"Output","protocol":"sodep","interfaces":[{"name":"service2Inter","id":0}],"location":"socket:\/\/localhost:9000"}]},{"name":"One","execution":"single","file":"\/Service1.ol","id":1,"outputPorts":[{"name":"Output","protocol":"sodep","interfaces":[{"name":"service2Inter","id":0}],"location":"socket:\/\/localhost:9000"}]}],[{"name":"Two","execution":"single","inputPorts":[{"name":"Input","protocol":"sodep","interfaces":[{"name":"service1Inter","id":1}],"location":"socket:\/\/localhost:9000"}],"file":"\/Service2.ol","id":2}]]}`
 			// `{"name":"internetwork","interfaces":[{"name":"service2Inter","file":"\/Service1.ol","id":0,"reqres":[{"name":"test","res":"int","req":"int"}]},{"name":"service1Inter","file":"\/Service2.ol","id":1,"reqres":[{"name":"test","res":"int","req":"int"}]}],"types":[],"services":[[{"name":"One","execution":"single","file":"\/Service1.ol","id":0,"outputPorts":[{"name":"Output","protocol":"sodep","interfaces":[{"name":"service2Inter","id":0}],"location":"socket:\/\/localhost:9000"}]}],[{"name":"Two","execution":"single","inputPorts":[{"name":"Input","protocol":"sodep","interfaces":[{"name":"service1Inter","id":1}],"location":"socket:\/\/localhost:9000"}],"file":"\/Service2.ol","id":1}]]}`
-			// `{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"PrinterInterface","file":"\/aggregator.ol","id":1,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/aggregator.ol","id":2,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"FaxInterface","file":"\/fax.ol","id":3,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/printer.ol","id":4,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"AggregatorInterface","file":"\/aggregator.ol","id":5,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"AggregatorInterface","file":"\/client.ol","id":6,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"PrinterInterface","file":"\/client.ol","id":7,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/client.ol","id":8,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]},{"name":"PrintRequest","subTypes":[{"name":"content","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"PrintResponse","file":"\/PrinterInterface.ol","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"FaxRequest","subTypes":[{"name":"destination","file":"\/FaxInterface.ol","type":"string"},{"name":"content","file":"\/FaxInterface.ol","type":"string"}],"file":"\/FaxInterface.ol"},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","file":"\/AggregatorInterface.ol","type":"PrintRequest"},{"name":"fax","file":"\/AggregatorInterface.ol","type":"FaxRequest"}],"file":"\/AggregatorInterface.ol"}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":1},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":3}],"execution":"concurrent","file":"\/fax.ol","parentPort":"Fax","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"name":"Fax","inputPorts":[{"name":"FaxInput","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":3}],"location":"socket:\/\/localhost:9001"}],"id":2},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"concurrent","file":"\/printer.ol","parentPort":"printer","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"name":"Printer","inputPorts":[{"name":"PrinterInput","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":4}],"location":"socket:\/\/localhost:9000"}],"id":4}],"execution":"concurrent","file":"\/aggregator.ol","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":1}],"location":"socket:\/\/localhost:9000"},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":2}],"location":"socket:\/\/localhost:9001"}],"name":"Aggregator","inputPorts":[{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":5}],"location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}]}],"id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":7}],"execution":"single","file":"\/client.ol","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":6},{"name":"PrinterInterface","id":7},{"name":"FaxInterface","id":8}],"location":"socket:\/\/localhost:9002"}],"name":"Client","id":6}]]}`
-			// `{"name":"disembed","interfaces":[{"name":"dummy","file":"\/s2.ol","id":0,"reqres":[{"name":"hello","res":"int","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":1}],"execution":"single","file":"\/s1.ol","outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceOne","id":0},{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"S2","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":3}],"execution":"single","file":"\/s3.ol","outputPorts":[{"name":"S2","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceThree","id":2}]]}`
-			`{"name":"disembed","interfaces":[{"name":"dummy","file":"\/s2.ol","id":0,"reqres":[{"name":"hello","res":"int","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":1}],"execution":"single","file":"\/s1.ol","outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceOne","id":0}]]}`);
+			`{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"PrinterInterface","file":"\/aggregator.ol","id":1,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/aggregator.ol","id":2,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"FaxInterface","file":"\/fax.ol","id":3,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/printer.ol","id":4,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"AggregatorInterface","file":"\/aggregator.ol","id":5,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"AggregatorInterface","file":"\/client.ol","id":6,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"PrinterInterface","file":"\/client.ol","id":7,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/client.ol","id":8,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]},{"name":"PrintRequest","subTypes":[{"name":"content","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"PrintResponse","file":"\/PrinterInterface.ol","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"FaxRequest","subTypes":[{"name":"destination","file":"\/FaxInterface.ol","type":"string"},{"name":"content","file":"\/FaxInterface.ol","type":"string"}],"file":"\/FaxInterface.ol"},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","file":"\/AggregatorInterface.ol","type":"PrintRequest"},{"name":"fax","file":"\/AggregatorInterface.ol","type":"FaxRequest"}],"file":"\/AggregatorInterface.ol"}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":1},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":3}],"execution":"concurrent","file":"\/fax.ol","parentPort":"Fax","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"name":"Fax","inputPorts":[{"name":"FaxInput","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":3}],"location":"socket:\/\/localhost:9001"}],"id":2},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"concurrent","file":"\/printer.ol","parentPort":"printer","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"name":"Printer","inputPorts":[{"name":"PrinterInput","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":4}],"location":"socket:\/\/localhost:9000"}],"id":4}],"execution":"concurrent","file":"\/aggregator.ol","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":1}],"location":"socket:\/\/localhost:9000"},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":2}],"location":"socket:\/\/localhost:9001"}],"name":"Aggregator","inputPorts":[{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":5}],"location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}]}],"id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":7}],"execution":"single","file":"\/client.ol","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":6},{"name":"PrinterInterface","id":7},{"name":"FaxInterface","id":8}],"location":"socket:\/\/localhost:9002"}],"name":"Client","id":6}]]}`); // `{"name":"disembed","interfaces":[{"name":"dummy","file":"\/s2.ol","id":0,"reqres":[{"name":"hello","res":"int","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":1}],"execution":"single","file":"\/s1.ol","outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceOne","id":0},{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"S2","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":3}],"execution":"single","file":"\/s3.ol","outputPorts":[{"name":"S2","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceThree","id":2}]]}`
+			// `{"name":"embed","interfaces":[],"types":[],"services":[[{"name":"S2","execution":"single","file":"\/s1.ol","id":0},{"name":"S1","execution":"single","file":"\/s1.ol","id":1}]]}`
 
 			$$invalidate(0, currentGraph = await elk.layout((0,_lib_graph__WEBPACK_IMPORTED_MODULE_5__.createSystemGraph)(_lib_data__WEBPACK_IMPORTED_MODULE_3__.services)));
 		}
@@ -8513,7 +8516,7 @@ function instance($$self, $$props, $$invalidate) {
 
 	const handleKeyboard = async event => {
 		if (event.key === 't') {
-			console.log((0,_lib_data__WEBPACK_IMPORTED_MODULE_3__.generateVisFile)());
+			await resetGraph();
 		}
 
 		if (event.key === 'r') {
@@ -8521,9 +8524,17 @@ function instance($$self, $$props, $$invalidate) {
 			await rerender();
 		}
 
-		//close sidebar
+		//close sidebar & popup
 		if (event.key === 'Escape') {
 			_lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.current_sidebar_element.set(_lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.noSidebar);
+			$current_popup.cancel();
+			_lib_popup__WEBPACK_IMPORTED_MODULE_6__.current_popup.set(_lib_popup__WEBPACK_IMPORTED_MODULE_6__.noPopup);
+			await resetGraph();
+		}
+
+		if (event.key === 'Enter') {
+			_lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.current_sidebar_element.set(_lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.noSidebar);
+			$current_popup.confirm($current_popup.values);
 			_lib_popup__WEBPACK_IMPORTED_MODULE_6__.current_popup.set(_lib_popup__WEBPACK_IMPORTED_MODULE_6__.noPopup);
 		}
 	};
@@ -8564,8 +8575,8 @@ function instance($$self, $$props, $$invalidate) {
 		updateGraph,
 		openSidebar,
 		handleKeyboard,
-		$current_sidebar_element,
-		$current_popup
+		$current_popup,
+		$current_sidebar_element
 	});
 
 	$$self.$inject_state = $$props => {
@@ -8578,9 +8589,10 @@ function instance($$self, $$props, $$invalidate) {
 
 	return [
 		currentGraph,
-		$current_sidebar_element,
 		$current_popup,
+		$current_sidebar_element,
 		vsCodeMessage,
+		resetGraph,
 		layoutGraph,
 		rerender,
 		updateGraph,
@@ -9577,11 +9589,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/internal/index.mjs");
-/* harmony import */ var _lib_popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/popup */ "./src/lib/popup.ts");
-/* harmony import */ var _Users_emilovcina_Desktop_jvnode_svelte_node_modules_svelte_loader_lib_hot_api_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/svelte-loader/lib/hot-api.js */ "./node_modules/svelte-loader/lib/hot-api.js");
-/* harmony import */ var _Users_emilovcina_Desktop_jvnode_svelte_node_modules_svelte_hmr_runtime_proxy_adapter_dom_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/svelte-hmr/runtime/proxy-adapter-dom.js */ "./node_modules/svelte-hmr/runtime/proxy-adapter-dom.js");
+/* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/index.mjs");
+/* harmony import */ var _lib_popup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/popup */ "./src/lib/popup.ts");
+/* harmony import */ var _Users_emilovcina_Desktop_jvnode_svelte_node_modules_svelte_loader_lib_hot_api_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/svelte-loader/lib/hot-api.js */ "./node_modules/svelte-loader/lib/hot-api.js");
+/* harmony import */ var _Users_emilovcina_Desktop_jvnode_svelte_node_modules_svelte_hmr_runtime_proxy_adapter_dom_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/svelte-hmr/runtime/proxy-adapter-dom.js */ "./node_modules/svelte-hmr/runtime/proxy-adapter-dom.js");
 /* module decorator */ module = __webpack_require__.hmd(module);
 /* src/Popup.svelte generated by Svelte v3.55.1 */
+
 
 
 
@@ -9589,16 +9603,16 @@ const file = "src/Popup.svelte";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[4] = list[i];
-	child_ctx[5] = list;
-	child_ctx[6] = i;
+	child_ctx[5] = list[i];
+	child_ctx[6] = list;
+	child_ctx[7] = i;
 	return child_ctx;
 }
 
-// (14:3) {#each $current_popup.values as val}
+// (18:3) {#each $current_popup.values as val}
 function create_each_block(ctx) {
 	let p;
-	let t0_value = /*val*/ ctx[4].field + "";
+	let t0_value = /*val*/ ctx[5].field + "";
 	let t0;
 	let t1;
 	let t2;
@@ -9608,7 +9622,7 @@ function create_each_block(ctx) {
 	let dispose;
 
 	function input_input_handler() {
-		/*input_input_handler*/ ctx[2].call(input, /*each_value*/ ctx[5], /*val_index*/ ctx[6]);
+		/*input_input_handler*/ ctx[2].call(input, /*each_value*/ ctx[6], /*val_index*/ ctx[7]);
 	}
 
 	const block = {
@@ -9619,11 +9633,11 @@ function create_each_block(ctx) {
 			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(p, "class", "grid self-center");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 14, 4, 539);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 18, 4, 686);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(input, "class", "grid text-gray-900 p-2 rounded-sm self-center");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(input, "type", "text");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(input, "placeholder", input_placeholder_value = /*val*/ ctx[4].field);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(input, file, 15, 4, 588);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(input, "placeholder", input_placeholder_value = /*val*/ ctx[5].field);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(input, file, 19, 4, 735);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, p, anchor);
@@ -9631,7 +9645,7 @@ function create_each_block(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(p, t1);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t2, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, input, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*val*/ ctx[4].val);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*val*/ ctx[5].val);
 
 			if (!mounted) {
 				dispose = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(input, "input", input_input_handler);
@@ -9640,14 +9654,14 @@ function create_each_block(ctx) {
 		},
 		p: function update(new_ctx, dirty) {
 			ctx = new_ctx;
-			if (dirty & /*$current_popup*/ 1 && t0_value !== (t0_value = /*val*/ ctx[4].field + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
+			if (dirty & /*$current_popup*/ 1 && t0_value !== (t0_value = /*val*/ ctx[5].field + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
 
-			if (dirty & /*$current_popup*/ 1 && input_placeholder_value !== (input_placeholder_value = /*val*/ ctx[4].field)) {
+			if (dirty & /*$current_popup*/ 1 && input_placeholder_value !== (input_placeholder_value = /*val*/ ctx[5].field)) {
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(input, "placeholder", input_placeholder_value);
 			}
 
-			if (dirty & /*$current_popup*/ 1 && input.value !== /*val*/ ctx[4].val) {
-				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*val*/ ctx[4].val);
+			if (dirty & /*$current_popup*/ 1 && input.value !== /*val*/ ctx[5].val) {
+				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_input_value)(input, /*val*/ ctx[5].val);
 			}
 		},
 		d: function destroy(detaching) {
@@ -9663,7 +9677,7 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(14:3) {#each $current_popup.values as val}",
+		source: "(18:3) {#each $current_popup.values as val}",
 		ctx
 	});
 
@@ -9714,23 +9728,23 @@ function create_fragment(ctx) {
 			button1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
 			button1.textContent = "Confirm";
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h2, "class", "text-center text-xl my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h2, file, 11, 2, 352);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h2, file, 15, 2, 499);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div0, "class", "px-5 grid gap-2 mt-4");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div0, "grid-template-columns", "auto 1fr");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div0, file, 12, 2, 419);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div0, file, 16, 2, 566);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(button0, "class", "bg-service p-2 m-2 rounded-md hover:bg-serviceHighlight");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(button0, file, 25, 3, 809);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(button0, file, 29, 3, 956);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(button1, "class", "bg-service p-2 m-2 rounded-md hover:bg-serviceHighlight");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(button1, file, 28, 3, 927);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(button1, file, 32, 3, 1074);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div1, "class", "flex text-gray-900 justify-end mt-4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div1, file, 24, 2, 756);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div1, file, 28, 2, 903);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div2, "class", "absolute bg-gray-800 text-white top-12 rounded-md");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div2, "left", "50%");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div2, "transform", "translateX(-50%)");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div2, file, 7, 1, 234);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div2, file, 11, 1, 381);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div3, "class", "w-full h-full absolute top-0 left-0");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div3, "background-color", "rgba(0,0,0,0.8)");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div3, file, 6, 0, 141);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div3, file, 10, 0, 288);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9812,13 +9826,16 @@ function create_fragment(ctx) {
 
 function instance($$self, $$props, $$invalidate) {
 	let $current_popup;
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_popup__WEBPACK_IMPORTED_MODULE_1__.current_popup, 'current_popup');
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_popup__WEBPACK_IMPORTED_MODULE_1__.current_popup, $$value => $$invalidate(0, $current_popup = $$value));
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_popup__WEBPACK_IMPORTED_MODULE_2__.current_popup, 'current_popup');
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_popup__WEBPACK_IMPORTED_MODULE_2__.current_popup, $$value => $$invalidate(0, $current_popup = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_slots)('Popup', slots, []);
+	const dispatcher = (0,svelte__WEBPACK_IMPORTED_MODULE_1__.createEventDispatcher)();
 
 	const cancel = () => {
-		_lib_popup__WEBPACK_IMPORTED_MODULE_1__.current_popup.set(_lib_popup__WEBPACK_IMPORTED_MODULE_1__.noPopup);
+		$current_popup.cancel();
+		_lib_popup__WEBPACK_IMPORTED_MODULE_2__.current_popup.set(_lib_popup__WEBPACK_IMPORTED_MODULE_2__.noPopup);
+		dispatcher('cancel');
 	};
 
 	const writable_props = [];
@@ -9829,17 +9846,19 @@ function instance($$self, $$props, $$invalidate) {
 
 	function input_input_handler(each_value, val_index) {
 		each_value[val_index].val = this.value;
-		_lib_popup__WEBPACK_IMPORTED_MODULE_1__.current_popup.set($current_popup);
+		_lib_popup__WEBPACK_IMPORTED_MODULE_2__.current_popup.set($current_popup);
 	}
 
 	const click_handler = () => {
 		$current_popup.confirm($current_popup.values);
-		_lib_popup__WEBPACK_IMPORTED_MODULE_1__.current_popup.set(_lib_popup__WEBPACK_IMPORTED_MODULE_1__.noPopup);
+		_lib_popup__WEBPACK_IMPORTED_MODULE_2__.current_popup.set(_lib_popup__WEBPACK_IMPORTED_MODULE_2__.noPopup);
 	};
 
 	$$self.$capture_state = () => ({
-		current_popup: _lib_popup__WEBPACK_IMPORTED_MODULE_1__.current_popup,
-		noPopup: _lib_popup__WEBPACK_IMPORTED_MODULE_1__.noPopup,
+		createEventDispatcher: svelte__WEBPACK_IMPORTED_MODULE_1__.createEventDispatcher,
+		current_popup: _lib_popup__WEBPACK_IMPORTED_MODULE_2__.current_popup,
+		noPopup: _lib_popup__WEBPACK_IMPORTED_MODULE_2__.noPopup,
+		dispatcher,
 		cancel,
 		$current_popup
 	});
@@ -9913,9 +9932,9 @@ function create_fragment(ctx) {
 			? 'fill-inputPort stroke-ipStroke cursor-pointer'
 			: 'fill-outputPort stroke-opStroke cursor-pointer') + " svelte-12kgg6p"));
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect, file, 39, 1, 1583);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect, file, 39, 1, 1565);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(g, "id", g_id_value = /*portNode*/ ctx[0].id);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 38, 0, 1561);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 38, 0, 1543);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9974,7 +9993,7 @@ function instance($$self, $$props, $$invalidate) {
 	? parentService.inputPorts.find(t => t.name == portNode.labels[1].text)
 	: parentService.outputPorts.find(t => t.name == portNode.labels[1].text);
 
-	const drawPort = async () => {
+	const drawPort = () => {
 		var _a, _b, _c, _d;
 		d3.select(`#${portNode.id}`).attr('transform', `translate(${(_a = portNode.x) !== null && _a !== void 0 ? _a : 0}, ${(_b = portNode.y) !== null && _b !== void 0 ? _b : 0})`);
 
@@ -9983,8 +10002,8 @@ function instance($$self, $$props, $$invalidate) {
 		: 0);
 	};
 
-	(0,svelte__WEBPACK_IMPORTED_MODULE_1__.afterUpdate)(async () => {
-		await drawPort();
+	(0,svelte__WEBPACK_IMPORTED_MODULE_1__.afterUpdate)(() => {
+		drawPort();
 
 		port = portNode.labels[0].text === 'ip'
 		? parentService.inputPorts.find(t => t.name == portNode.labels[1].text)
@@ -10112,7 +10131,7 @@ __webpack_require__.r(__webpack_exports__);
 /* src/Service.svelte generated by Svelte v3.55.1 */
 
 
-const { console: console_1, window: window_1 } = svelte_internal__WEBPACK_IMPORTED_MODULE_0__.globals;
+const { window: window_1 } = svelte_internal__WEBPACK_IMPORTED_MODULE_0__.globals;
 
 
 
@@ -10144,7 +10163,7 @@ function get_each_context_2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (199:1) {#if service.embeddings && service.embeddings.length > 0}
+// (202:1) {#if service.embeddings && service.embeddings.length > 0}
 function create_if_block_5(ctx) {
 	let g;
 	let rect0;
@@ -10174,7 +10193,7 @@ function create_if_block_5(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect0, "width", rect0_width_value = 5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect0, "height", rect0_height_value = 5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect0, "class", "fill-serviceStroke cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect0, file, 200, 3, 7429);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect0, file, 203, 3, 7592);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "x", rect1_x_value = (/*serviceNode*/ ctx[0].width ?? 0) - 7 + 0.5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "y", rect1_y_value = (/*serviceNode*/ ctx[0].height ?? 0) - 7 + (2.5 - 0.4));
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "width", rect1_width_value = 4.0);
@@ -10182,8 +10201,8 @@ function create_if_block_5(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "rx", rect1_rx_value = 0.5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "ry", rect1_ry_value = 1);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "class", "fill-white cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect1, file, 222, 3, 8130);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 199, 2, 7422);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect1, file, 225, 3, 8293);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 202, 2, 7585);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, g, anchor);
@@ -10298,14 +10317,14 @@ function create_if_block_5(ctx) {
 		block,
 		id: create_if_block_5.name,
 		type: "if",
-		source: "(199:1) {#if service.embeddings && service.embeddings.length > 0}",
+		source: "(202:1) {#if service.embeddings && service.embeddings.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (210:3) {#if !expanded}
+// (213:3) {#if !expanded}
 function create_if_block_6(ctx) {
 	let rect;
 	let rect_x_value;
@@ -10327,7 +10346,7 @@ function create_if_block_6(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "rx", rect_rx_value = 1);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "ry", rect_ry_value = 0.5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "class", "fill-white cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect, file, 210, 4, 7761);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect, file, 213, 4, 7924);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, rect, anchor);
@@ -10389,14 +10408,14 @@ function create_if_block_6(ctx) {
 		block,
 		id: create_if_block_6.name,
 		type: "if",
-		source: "(210:3) {#if !expanded}",
+		source: "(213:3) {#if !expanded}",
 		ctx
 	});
 
 	return block;
 }
 
-// (242:1) {#if serviceNode.edges && serviceNode.edges.length > 0}
+// (245:1) {#if serviceNode.edges && serviceNode.edges.length > 0}
 function create_if_block_3(ctx) {
 	let each_1_anchor;
 	let current;
@@ -10485,14 +10504,14 @@ function create_if_block_3(ctx) {
 		block,
 		id: create_if_block_3.name,
 		type: "if",
-		source: "(242:1) {#if serviceNode.edges && serviceNode.edges.length > 0}",
+		source: "(245:1) {#if serviceNode.edges && serviceNode.edges.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (244:3) {#if edge.sections}
+// (247:3) {#if edge.sections}
 function create_if_block_4(ctx) {
 	let edge;
 	let current;
@@ -10533,14 +10552,14 @@ function create_if_block_4(ctx) {
 		block,
 		id: create_if_block_4.name,
 		type: "if",
-		source: "(244:3) {#if edge.sections}",
+		source: "(247:3) {#if edge.sections}",
 		ctx
 	});
 
 	return block;
 }
 
-// (243:2) {#each serviceNode.edges as edge}
+// (246:2) {#each serviceNode.edges as edge}
 function create_each_block_2(ctx) {
 	let if_block_anchor;
 	let current;
@@ -10599,14 +10618,14 @@ function create_each_block_2(ctx) {
 		block,
 		id: create_each_block_2.name,
 		type: "each",
-		source: "(243:2) {#each serviceNode.edges as edge}",
+		source: "(246:2) {#each serviceNode.edges as edge}",
 		ctx
 	});
 
 	return block;
 }
 
-// (249:1) {#if serviceNode.ports && serviceNode.ports.length > 0}
+// (252:1) {#if serviceNode.ports && serviceNode.ports.length > 0}
 function create_if_block_2(ctx) {
 	let each_1_anchor;
 	let current;
@@ -10695,14 +10714,14 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(249:1) {#if serviceNode.ports && serviceNode.ports.length > 0}",
+		source: "(252:1) {#if serviceNode.ports && serviceNode.ports.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (250:2) {#each serviceNode.ports as portNode}
+// (253:2) {#each serviceNode.ports as portNode}
 function create_each_block_1(ctx) {
 	let port;
 	let current;
@@ -10749,14 +10768,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(250:2) {#each serviceNode.ports as portNode}",
+		source: "(253:2) {#each serviceNode.ports as portNode}",
 		ctx
 	});
 
 	return block;
 }
 
-// (254:1) {#if expanded}
+// (257:1) {#if expanded}
 function create_if_block_1(ctx) {
 	let each_1_anchor;
 	let current;
@@ -10845,14 +10864,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(254:1) {#if expanded}",
+		source: "(257:1) {#if expanded}",
 		ctx
 	});
 
 	return block;
 }
 
-// (255:2) {#each serviceNode.children as embed}
+// (258:2) {#each serviceNode.children as embed}
 function create_each_block(ctx) {
 	let service_1;
 	let current;
@@ -10900,14 +10919,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(255:2) {#each serviceNode.children as embed}",
+		source: "(258:2) {#each serviceNode.children as embed}",
 		ctx
 	});
 
 	return block;
 }
 
-// (266:0) {#if dragging}
+// (269:0) {#if dragging}
 function create_if_block(ctx) {
 	let svg;
 	let polygon;
@@ -10918,12 +10937,12 @@ function create_if_block(ctx) {
 			svg = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("svg");
 			polygon = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("polygon");
 			text_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("text");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 267, 2, 9346);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 270, 2, 9509);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(text_1, "text-anchor", "middle");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 268, 2, 9360);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 271, 2, 9523);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "id", "tmp");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "class", "absolute top-0 left-0 w-1 h-1 overflow-visible");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 266, 1, 9274);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 269, 1, 9437);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, svg, anchor);
@@ -10939,7 +10958,7 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(266:0) {#if dragging}",
+		source: "(269:0) {#if dragging}",
 		ctx
 	});
 
@@ -10988,11 +11007,11 @@ function create_fragment(ctx) {
 			: 'fill-service'));
 
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(polygon, "stroke-width", "0.4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 189, 1, 7067);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 192, 1, 7230);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(text_1, "class", "cursor-pointer select-none");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 235, 1, 8494);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 238, 1, 8657);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(g, "id", g_id_value = /*serviceNode*/ ctx[0].id);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 188, 0, 7042);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 191, 0, 7205);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -11015,7 +11034,7 @@ function create_fragment(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(window_1, "mousemove", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*docListener*/ ctx[11]), false, false, true),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(window_1, "mousemove", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*dragListener*/ ctx[11]), false, false, true),
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(window_1, "mouseup", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*endDrag*/ ctx[10]), false, false, true),
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(polygon, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*openServiceInSidebar*/ ctx[7]), false, false, true),
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(polygon, "keypress", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*openServiceInSidebar*/ ctx[7]), false, false, true),
@@ -11322,13 +11341,12 @@ function instance($$self, $$props, $$invalidate) {
 		$$invalidate(4, dragging = false);
 		dragged = 0;
 		const droppedOnSvc = (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.getServiceFromCoords)(e, _lib_data__WEBPACK_IMPORTED_MODULE_3__.services);
+		const networkId = (0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.getClickedNetworkGroupId)(e);
+		const svcNwId = (0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.getServiceNetworkId)(service);
 
 		if (!droppedOnSvc) {
 			//dropped on network
-			const networkId = (0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.getClickedNetworkGroupId)(e);
-
 			if (networkId === undefined) {
-				const svcNwId = (0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.getServiceNetworkId)(service);
 				if (service.parent || (0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.getNumberOfServicesInNetwork)(svcNwId) === 1) return;
 				(0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.addServiceToNetwork)(service, (0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.getNumberOfNetworks)());
 			} else {
@@ -11343,12 +11361,15 @@ function instance($$self, $$props, $$invalidate) {
 		}
 
 		if (droppedOnSvc.id === service.id) return;
-		console.log(service.name, 'embeds in', droppedOnSvc.name);
-	}; // TODO add embedding. change JSON visualize file
+		await (0,svelte__WEBPACK_IMPORTED_MODULE_1__.tick)();
+		(0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.removeFromNetwork)(service, svcNwId);
+		await (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.embed)(service, droppedOnSvc, svcNwId);
+		dispatcher('message', { action: 'reset' });
+	};
 
 	let prevPoly;
 
-	const docListener = e => {
+	const dragListener = e => {
 		if (!dragging) return;
 		(0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.renderGhostNodeOnDrag)(serviceNode, e, startX, startY);
 		const polyUnder = (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.getHoveredPolygon)(e);
@@ -11366,8 +11387,8 @@ function instance($$self, $$props, $$invalidate) {
 	(0,svelte__WEBPACK_IMPORTED_MODULE_1__.beforeUpdate)(() => {
 		$$invalidate(1, service = parent
 		? parent.embeddings.find(t => t.name + '' + t.id === serviceNode.id)
-		: _lib_data__WEBPACK_IMPORTED_MODULE_3__.services.flat().find(t => t.name + '' + t.id === serviceNode.id));
-	});
+		: (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.getAllServices)(_lib_data__WEBPACK_IMPORTED_MODULE_3__.services).find(t => t.name + '' + t.id === serviceNode.id));
+	}); // : services.flat().find((t) => t.name + '' + t.id === serviceNode.id);
 
 	(0,svelte__WEBPACK_IMPORTED_MODULE_1__.afterUpdate)(() => {
 		drawService();
@@ -11375,18 +11396,18 @@ function instance($$self, $$props, $$invalidate) {
 
 	$$self.$$.on_mount.push(function () {
 		if (serviceNode === undefined && !('serviceNode' in $$props || $$self.$$.bound[$$self.$$.props['serviceNode']])) {
-			console_1.warn("<Service> was created without expected prop 'serviceNode'");
+			console.warn("<Service> was created without expected prop 'serviceNode'");
 		}
 
 		if (parent === undefined && !('parent' in $$props || $$self.$$.bound[$$self.$$.props['parent']])) {
-			console_1.warn("<Service> was created without expected prop 'parent'");
+			console.warn("<Service> was created without expected prop 'parent'");
 		}
 	});
 
 	const writable_props = ['serviceNode', 'parent'];
 
 	Object.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<Service> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Service> was created with unknown prop '${key}'`);
 	});
 
 	function opensidebar_handler(event) {
@@ -11406,6 +11427,7 @@ function instance($$self, $$props, $$invalidate) {
 		afterUpdate: svelte__WEBPACK_IMPORTED_MODULE_1__.afterUpdate,
 		beforeUpdate: svelte__WEBPACK_IMPORTED_MODULE_1__.beforeUpdate,
 		createEventDispatcher: svelte__WEBPACK_IMPORTED_MODULE_1__.createEventDispatcher,
+		tick: svelte__WEBPACK_IMPORTED_MODULE_1__.tick,
 		Edge: _Edge_svelte__WEBPACK_IMPORTED_MODULE_2__["default"],
 		services: _lib_data__WEBPACK_IMPORTED_MODULE_3__.services,
 		portSize: _lib_graph__WEBPACK_IMPORTED_MODULE_4__.portSize,
@@ -11414,7 +11436,10 @@ function instance($$self, $$props, $$invalidate) {
 		getNumberOfNetworks: _lib_network__WEBPACK_IMPORTED_MODULE_5__.getNumberOfNetworks,
 		getNumberOfServicesInNetwork: _lib_network__WEBPACK_IMPORTED_MODULE_5__.getNumberOfServicesInNetwork,
 		getServiceNetworkId: _lib_network__WEBPACK_IMPORTED_MODULE_5__.getServiceNetworkId,
+		removeFromNetwork: _lib_network__WEBPACK_IMPORTED_MODULE_5__.removeFromNetwork,
 		disembed: _lib_service__WEBPACK_IMPORTED_MODULE_6__.disembed,
+		embed: _lib_service__WEBPACK_IMPORTED_MODULE_6__.embed,
+		getAllServices: _lib_service__WEBPACK_IMPORTED_MODULE_6__.getAllServices,
 		getHoveredPolygon: _lib_service__WEBPACK_IMPORTED_MODULE_6__.getHoveredPolygon,
 		getServiceFromCoords: _lib_service__WEBPACK_IMPORTED_MODULE_6__.getServiceFromCoords,
 		renderGhostNodeOnDrag: _lib_service__WEBPACK_IMPORTED_MODULE_6__.renderGhostNodeOnDrag,
@@ -11441,7 +11466,7 @@ function instance($$self, $$props, $$invalidate) {
 		startDrag,
 		endDrag,
 		prevPoly,
-		docListener,
+		dragListener,
 		$current_sidebar_element
 	});
 
@@ -11483,7 +11508,7 @@ function instance($$self, $$props, $$invalidate) {
 		handleChildEvent,
 		startDrag,
 		endDrag,
-		docListener,
+		dragListener,
 		parent,
 		$current_sidebar_element,
 		opensidebar_handler,
@@ -13236,17 +13261,9 @@ function get_each_context_2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (121:0) {#if service.inputPorts}
+// (135:0) {#if service.inputPorts}
 function create_if_block_2(ctx) {
-	let hr;
-	let t0;
-	let h4;
-	let t1;
-	let span;
-	let t3;
 	let ul;
-	let mounted;
-	let dispose;
 	let each_value_2 = /*service*/ ctx[0].inputPorts;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_2);
 	let each_blocks = [];
@@ -13257,47 +13274,20 @@ function create_if_block_2(ctx) {
 
 	const block = {
 		c: function create() {
-			hr = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
-			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			h4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
-			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Input Ports: ");
-			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
-			span.textContent = "+";
-			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			ul = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("ul");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 121, 1, 4786);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span, "class", "float-right cursor-pointer text-3xl");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 123, 15, 4841);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mt-1 mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 122, 1, 4794);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "mb-4 list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 129, 1, 4990);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 135, 1, 5164);
 		},
 		m: function mount(target, anchor) {
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t0, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h4, t1);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h4, span);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t3, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, ul, anchor);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].m(ul, null);
-			}
-
-			if (!mounted) {
-				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "click", /*click_handler*/ ctx[7], false, false, false),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", /*keydown_handler_1*/ ctx[8], false, false, false)
-				];
-
-				mounted = true;
 			}
 		},
 		p: function update(ctx, dirty) {
@@ -13326,14 +13316,8 @@ function create_if_block_2(ctx) {
 			}
 		},
 		d: function destroy(detaching) {
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t0);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h4);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t3);
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(ul);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
-			mounted = false;
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
 		}
 	};
 
@@ -13341,14 +13325,14 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(121:0) {#if service.inputPorts}",
+		source: "(135:0) {#if service.inputPorts}",
 		ctx
 	});
 
 	return block;
 }
 
-// (131:2) {#each service.inputPorts as ip}
+// (137:2) {#each service.inputPorts as ip}
 function create_each_block_2(ctx) {
 	let li;
 	let t0_value = /*ip*/ ctx[25].name + "";
@@ -13375,7 +13359,7 @@ function create_each_block_2(ctx) {
 			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
 			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 131, 3, 5061);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 137, 3, 5235);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -13414,24 +13398,16 @@ function create_each_block_2(ctx) {
 		block,
 		id: create_each_block_2.name,
 		type: "each",
-		source: "(131:2) {#each service.inputPorts as ip}",
+		source: "(137:2) {#each service.inputPorts as ip}",
 		ctx
 	});
 
 	return block;
 }
 
-// (144:0) {#if service.outputPorts}
+// (158:0) {#if service.outputPorts}
 function create_if_block_1(ctx) {
-	let hr;
-	let t0;
-	let h4;
-	let t1;
-	let span;
-	let t3;
 	let ul;
-	let mounted;
-	let dispose;
 	let each_value_1 = /*service*/ ctx[0].outputPorts;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_1);
 	let each_blocks = [];
@@ -13442,47 +13418,20 @@ function create_if_block_1(ctx) {
 
 	const block = {
 		c: function create() {
-			hr = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
-			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			h4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
-			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Output Ports: ");
-			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
-			span.textContent = "+";
-			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			ul = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("ul");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 144, 1, 5402);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span, "class", "float-right cursor-pointer text-3xl");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 146, 16, 5458);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mt-1 mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 145, 1, 5410);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "mb-4 list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 152, 1, 5609);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 158, 1, 5775);
 		},
 		m: function mount(target, anchor) {
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t0, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h4, t1);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h4, span);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t3, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, ul, anchor);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].m(ul, null);
-			}
-
-			if (!mounted) {
-				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "click", /*click_handler_2*/ ctx[11], false, false, false),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", /*keydown_handler_3*/ ctx[12], false, false, false)
-				];
-
-				mounted = true;
 			}
 		},
 		p: function update(ctx, dirty) {
@@ -13511,14 +13460,8 @@ function create_if_block_1(ctx) {
 			}
 		},
 		d: function destroy(detaching) {
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t0);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h4);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t3);
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(ul);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
-			mounted = false;
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
 		}
 	};
 
@@ -13526,14 +13469,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(144:0) {#if service.outputPorts}",
+		source: "(158:0) {#if service.outputPorts}",
 		ctx
 	});
 
 	return block;
 }
 
-// (154:2) {#each service.outputPorts as op}
+// (160:2) {#each service.outputPorts as op}
 function create_each_block_1(ctx) {
 	let li;
 	let t0_value = /*op*/ ctx[22].name + "";
@@ -13560,7 +13503,7 @@ function create_each_block_1(ctx) {
 			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
 			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 154, 3, 5681);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 160, 3, 5847);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -13599,14 +13542,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(154:2) {#each service.outputPorts as op}",
+		source: "(160:2) {#each service.outputPorts as op}",
 		ctx
 	});
 
 	return block;
 }
 
-// (167:0) {#if service.embeddings}
+// (173:0) {#if service.embeddings}
 function create_if_block(ctx) {
 	let hr;
 	let t0;
@@ -13634,11 +13577,11 @@ function create_if_block(ctx) {
 				each_blocks[i].c();
 			}
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 167, 1, 6020);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 173, 1, 6186);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mt-1 mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 168, 1, 6028);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 174, 1, 6194);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "mb-4 list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 169, 1, 6077);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 175, 1, 6243);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
@@ -13690,14 +13633,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(167:0) {#if service.embeddings}",
+		source: "(173:0) {#if service.embeddings}",
 		ctx
 	});
 
 	return block;
 }
 
-// (171:2) {#each service.embeddings as embed}
+// (177:2) {#each service.embeddings as embed}
 function create_each_block(ctx) {
 	let li;
 	let t0_value = /*embed*/ ctx[19].name + "";
@@ -13720,7 +13663,7 @@ function create_each_block(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 171, 3, 6151);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 177, 3, 6317);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -13751,7 +13694,7 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(171:2) {#each service.embeddings as embed}",
+		source: "(177:2) {#each service.embeddings as embed}",
 		ctx
 	});
 
@@ -13770,8 +13713,20 @@ function create_fragment(ctx) {
 	let t5_value = /*service*/ ctx[0].execution + "";
 	let t5;
 	let t6;
+	let hr0;
 	let t7;
+	let h42;
 	let t8;
+	let span0;
+	let t10;
+	let t11;
+	let hr1;
+	let t12;
+	let h43;
+	let t13;
+	let span1;
+	let t15;
+	let t16;
 	let if_block2_anchor;
 	let mounted;
 	let dispose;
@@ -13791,18 +13746,42 @@ function create_fragment(ctx) {
 			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Execution: ");
 			t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t5_value);
 			t6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			if (if_block0) if_block0.c();
+			hr0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
 			t7 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			h42 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			t8 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Input Ports: ");
+			span0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+			span0.textContent = "+";
+			t10 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block0) if_block0.c();
+			t11 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			hr1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
+			t12 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			h43 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			t13 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Output Ports: ");
+			span1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+			span1.textContent = "+";
+			t15 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			if (if_block1) if_block1.c();
-			t8 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			t16 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			if (if_block2) if_block2.c();
 			if_block2_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h1, "class", "text-center text-4xl mt-1 mb-4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 111, 0, 4492);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 117, 0, 4674);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h40, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 118, 0, 4653);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 124, 0, 4835);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h41, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 119, 0, 4698);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 125, 0, 4880);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr0, file, 126, 0, 4942);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span0, "class", "float-right cursor-pointer text-3xl");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span0, file, 128, 14, 4995);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h42, "class", "text-2xl mt-1 mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h42, file, 127, 0, 4949);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr1, file, 149, 0, 5549);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span1, "class", "float-right cursor-pointer text-3xl");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span1, file, 151, 15, 5603);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h43, "class", "text-2xl mt-1 mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h43, file, 150, 0, 5556);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -13817,17 +13796,33 @@ function create_fragment(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, t4);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, t5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t6, anchor);
-			if (if_block0) if_block0.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr0, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t7, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h42, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h42, t8);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h42, span0);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t10, anchor);
+			if (if_block0) if_block0.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t11, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr1, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t12, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h43, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h43, t13);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h43, span1);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t15, anchor);
 			if (if_block1) if_block1.m(target, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t8, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t16, anchor);
 			if (if_block2) if_block2.m(target, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, if_block2_anchor, anchor);
 
 			if (!mounted) {
 				dispose = [
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(h1, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*saveInnerHTML*/ ctx[1]), false, false, true),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(h1, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*keydown_handler*/ ctx[6]), false, false, true)
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(h1, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*keydown_handler*/ ctx[6]), false, false, true),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span0, "click", /*click_handler*/ ctx[7], false, false, false),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span0, "keydown", /*keydown_handler_1*/ ctx[8], false, false, false),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span1, "click", /*click_handler_2*/ ctx[11], false, false, false),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span1, "keydown", /*keydown_handler_3*/ ctx[12], false, false, false)
 				];
 
 				mounted = true;
@@ -13843,7 +13838,7 @@ function create_fragment(ctx) {
 				} else {
 					if_block0 = create_if_block_2(ctx);
 					if_block0.c();
-					if_block0.m(t7.parentNode, t7);
+					if_block0.m(t11.parentNode, t11);
 				}
 			} else if (if_block0) {
 				if_block0.d(1);
@@ -13856,7 +13851,7 @@ function create_fragment(ctx) {
 				} else {
 					if_block1 = create_if_block_1(ctx);
 					if_block1.c();
-					if_block1.m(t8.parentNode, t8);
+					if_block1.m(t16.parentNode, t16);
 				}
 			} else if (if_block1) {
 				if_block1.d(1);
@@ -13885,10 +13880,18 @@ function create_fragment(ctx) {
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t3);
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h41);
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t6);
-			if (if_block0) if_block0.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr0);
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t7);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h42);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t10);
+			if (if_block0) if_block0.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t11);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr1);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t12);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h43);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t15);
 			if (if_block1) if_block1.d(detaching);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t8);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t16);
 			if (if_block2) if_block2.d(detaching);
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(if_block2_anchor);
 			mounted = false;
@@ -14006,7 +14009,14 @@ function instance($$self, $$props, $$invalidate) {
 					file: service.file
 				};
 
-				if (type === 'Input') service.inputPorts.push(newPort); else service.outputPorts.push(newPort);
+				if (type === 'Input') {
+					if (!service.inputPorts) $$invalidate(0, service.inputPorts = [], service);
+					service.inputPorts.push(newPort);
+				} else {
+					if (!service.outputPorts) $$invalidate(0, service.outputPorts = [], service);
+					service.outputPorts.push(newPort);
+				}
+
 				dispatcher('reloadgraph');
 				_lib_sidebar__WEBPACK_IMPORTED_MODULE_5__.current_sidebar_element.set(_lib_sidebar__WEBPACK_IMPORTED_MODULE_5__.noSidebar);
 				if (_lib_data__WEBPACK_IMPORTED_MODULE_2__.vscode === undefined) return;
@@ -16020,7 +16030,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getNumberOfNetworks": () => (/* binding */ getNumberOfNetworks),
 /* harmony export */   "getNumberOfServicesInNetwork": () => (/* binding */ getNumberOfServicesInNetwork),
 /* harmony export */   "getRoot": () => (/* binding */ getRoot),
-/* harmony export */   "getServiceNetworkId": () => (/* binding */ getServiceNetworkId)
+/* harmony export */   "getServiceNetworkId": () => (/* binding */ getServiceNetworkId),
+/* harmony export */   "removeFromNetwork": () => (/* binding */ removeFromNetwork)
 /* harmony export */ });
 /* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./data */ "./src/lib/data.ts");
 
@@ -16042,11 +16053,11 @@ const addServiceToNetwork = (svc, networkId) => {
     return true;
 };
 const getServiceNetworkId = (svc) => {
-    const group = document.querySelector(`g#${svc.name}${svc.id}`);
-    let parent = group.parentElement;
-    while (parent.id.startsWith('!network'))
-        parent = parent.parentElement;
-    return +parent.id.replace('network', '');
+    var _a;
+    let parent = (_a = svc.parent) !== null && _a !== void 0 ? _a : svc;
+    while (parent.parent)
+        parent = parent.parent;
+    return _data__WEBPACK_IMPORTED_MODULE_0__.services.findIndex((t) => t.find((s) => s.id === parent.id));
 };
 const getNumberOfServicesInNetwork = (networkId) => {
     return _data__WEBPACK_IMPORTED_MODULE_0__.services[networkId].length;
@@ -16092,15 +16103,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var svelte_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/store */ "./node_modules/svelte/store/index.mjs");
 
 class PopUp {
-    constructor(title, fields, sbWidth, confirm = (vals) => { }) {
+    constructor(title, fields, sbWidth, confirm = (vals) => { }, cancel = () => { }) {
         this.title = '';
         this.sbWidth = 0;
         this.values = [];
         this.confirm = (vals) => { };
+        this.cancel = () => { };
         this.title = title;
         this.sbWidth = sbWidth;
         fields.forEach((f) => this.values.push({ field: f, val: '' }));
         this.confirm = confirm;
+        this.cancel = cancel;
     }
 }
 const noPopup = new PopUp('', [], 0);
@@ -16172,7 +16185,7 @@ const connectRedirectResources = (outputPorts) => {
         p.resource = url[1];
     });
 };
-function connectEmbedOutputPorts(service) {
+const connectEmbedOutputPorts = (service) => {
     var _a;
     let newListOfOPs = service.outputPorts;
     let embeds = [];
@@ -16185,8 +16198,8 @@ function connectEmbedOutputPorts(service) {
         embeds.push(corrOutputPort);
     });
     service.outputPorts = embeds.concat(newListOfOPs);
-}
-function connectEmbeds(service) {
+};
+const connectEmbeds = (service) => {
     if (service.embeddings === undefined)
         return;
     service.embeddings.forEach((embed) => {
@@ -16202,8 +16215,8 @@ function connectEmbeds(service) {
         corrOutputPort.location = `!local_${embed.name}${embed.id}`;
         corrInputPort.location = `!local_${embed.name}${embed.id}`;
     });
-}
-function sharesInterface(p1, p2) {
+};
+const sharesInterface = (p1, p2) => {
     if (p1.interfaces === undefined && p2.interfaces === undefined)
         return true;
     const listP1 = p1.interfaces.flatMap((t) => t.name);
@@ -16213,7 +16226,7 @@ function sharesInterface(p1, p2) {
             if (listP1[i] === listP2[j])
                 return true;
     return false;
-}
+};
 
 
 /***/ }),
@@ -16228,6 +16241,7 @@ function sharesInterface(p1, p2) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "disembed": () => (/* binding */ disembed),
+/* harmony export */   "embed": () => (/* binding */ embed),
 /* harmony export */   "getAllServices": () => (/* binding */ getAllServices),
 /* harmony export */   "getHoveredPolygon": () => (/* binding */ getHoveredPolygon),
 /* harmony export */   "getServiceFromCoords": () => (/* binding */ getServiceFromCoords),
@@ -16235,17 +16249,64 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/index.mjs");
 /* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./data */ "./src/lib/data.ts");
+/* harmony import */ var _popup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./popup */ "./src/lib/popup.ts");
+/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./network */ "./src/lib/network.ts");
+
+
 
 
 const getAllServices = (services) => {
     return services.flatMap((t) => t.flatMap((s) => getRecursiveEmbedding(s)));
 };
-const disembed = async (service) => {
-    if (!service.parent)
+const embed = async (service, parent, netwrkId) => {
+    await disembed(service, true);
+    service.parent = parent;
+    if (!parent.embeddings)
+        parent.embeddings = [];
+    if (!service.inputPorts)
+        service.inputPorts = [];
+    if (!parent.outputPorts)
+        parent.outputPorts = [];
+    parent.embeddings.push(service);
+    if (isConnected(service, parent))
         return;
+    _popup__WEBPACK_IMPORTED_MODULE_2__.current_popup.set(new _popup__WEBPACK_IMPORTED_MODULE_2__.PopUp(`Create new local ports for ${service.name} and ${parent.name}`, ['input port name', 'output port name', 'protocol', 'interfaces'], 300, (vals) => {
+        var _a;
+        const tmp_interfaces = [];
+        (_a = vals
+            .find((t) => t.field === 'interfaces')) === null || _a === void 0 ? void 0 : _a.val.split(',').forEach((str) => tmp_interfaces.push({ name: str.trim() }));
+        const newIP = {
+            file: service.file,
+            location: `!local_${service.name}${service.id}`,
+            protocol: vals.find((t) => t.field === 'protocol').val,
+            name: vals.find((t) => t.field === 'input port name').val,
+            interfaces: tmp_interfaces
+        };
+        const newOP = {
+            file: service.file,
+            location: `!local_${service.name}${service.id}`,
+            protocol: vals.find((t) => t.field === 'protocol').val,
+            name: vals.find((t) => t.field === 'output port name').val,
+            interfaces: tmp_interfaces
+        };
+        service.parentPort = vals.find((t) => t.field === 'output port name').val;
+        service.inputPorts.push(newIP);
+        parent.outputPorts.push(newOP);
+    }, async () => {
+        //TODO disembed
+        (0,_network__WEBPACK_IMPORTED_MODULE_3__.addServiceToNetwork)(service, netwrkId);
+        await disembed(service, true);
+    }));
+};
+const disembed = async (service, isEmbedSubroutine = false) => {
+    if (!service.parent)
+        return false;
     const parent = service.parent;
     service.parent = undefined;
-    if (_data__WEBPACK_IMPORTED_MODULE_1__.vscode) {
+    const parentPort = parent.outputPorts.find((t) => t.name === service.parentPort);
+    // if (parent.outputPorts && parentPort.location.startsWith('!local'))
+    // parent.outputPorts = parent.outputPorts.filter((t) => t.name !== parentPort.name);
+    if (!isEmbedSubroutine) {
         if (getNumberOfTotalInstances(service) === 1) {
             const portsToRemove = service.inputPorts
                 .filter((ip) => ip.location.startsWith('!local'))
@@ -16257,13 +16318,51 @@ const disembed = async (service) => {
                     serviceName: service.name
                 };
             });
-            if (portsToRemove.length > 0)
-                _data__WEBPACK_IMPORTED_MODULE_1__.vscode.postMessage({ command: 'removePorts', ports: portsToRemove });
+            if (portsToRemove.length > 0 && _data__WEBPACK_IMPORTED_MODULE_1__.vscode)
+                _data__WEBPACK_IMPORTED_MODULE_1__.vscode.postMessage({ command: 'removePorts', detail: { ports: portsToRemove } });
         }
+        else {
+            _popup__WEBPACK_IMPORTED_MODULE_2__.current_popup.set(new _popup__WEBPACK_IMPORTED_MODULE_2__.PopUp(`Create new port`, ['name', 'protocol', 'location'], 300, (vals) => {
+                const oldPort = {
+                    name: parentPort.name,
+                    location: parentPort.location,
+                    protocol: parentPort.protocol,
+                    file: parentPort.file,
+                    interfaces: parentPort.interfaces
+                };
+                parentPort.location = vals.find((t) => t.field === 'location').val;
+                if (_data__WEBPACK_IMPORTED_MODULE_1__.vscode)
+                    _data__WEBPACK_IMPORTED_MODULE_1__.vscode.postMessage({
+                        command: 'renamePort',
+                        detail: {
+                            editType: 'location',
+                            oldPort,
+                            newPort: parentPort
+                        }
+                    });
+                // TODO add aggregator
+            }, () => {
+                //TODO embed service
+            }));
+        }
+        if (_data__WEBPACK_IMPORTED_MODULE_1__.vscode)
+            _data__WEBPACK_IMPORTED_MODULE_1__.vscode.postMessage({
+                command: 'removeEmbed',
+                detail: {
+                    filename: parent.file,
+                    serviceName: parent.name,
+                    embedName: service.name,
+                    embedPort: service.parentPort
+                }
+            });
     }
-    service.inputPorts = service.inputPorts.filter((ip) => !ip.location.startsWith('!local'));
+    service.parentPort = undefined;
+    if (service.inputPorts)
+        service.inputPorts = service.inputPorts.filter((ip) => !ip.location.startsWith('!local'));
     await (0,svelte__WEBPACK_IMPORTED_MODULE_0__.tick)();
-    parent.embeddings = parent.embeddings.filter((t) => t.id !== service.id);
+    if (parent.embeddings)
+        parent.embeddings = parent.embeddings.filter((t) => t.id !== service.id);
+    return true;
 };
 const getServiceFromCoords = (e, services) => {
     const elemBelow = getElementBelowGhost(e)[0];
@@ -16317,6 +16416,22 @@ const getRecursiveEmbedding = (service, result = []) => {
 const getNumberOfTotalInstances = (service) => {
     const allServices = getAllServices(_data__WEBPACK_IMPORTED_MODULE_1__.services);
     return allServices.filter((t) => t.name === service.name && t.file === service.file).length - 1;
+};
+const isConnected = (inSvc, outSvc) => {
+    if (!outSvc.outputPorts || !inSvc.inputPorts)
+        return false;
+    let res = false;
+    outSvc.outputPorts.forEach((op) => {
+        if (res)
+            return;
+        inSvc.inputPorts.forEach((ip) => {
+            if (ip.location === op.location) {
+                res = true;
+                return;
+            }
+        });
+    });
+    return res;
 };
 
 

@@ -1,8 +1,12 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import { current_popup, noPopup } from './lib/popup';
 
+	const dispatcher = createEventDispatcher();
 	const cancel = () => {
+		$current_popup.cancel();
 		current_popup.set(noPopup);
+		dispatcher('cancel');
 	};
 </script>
 

@@ -1,7 +1,6 @@
 [
 	[
-		{
-			"file": "service.ol"
-		}
+		{ "file": "s1.ol", "target": "S1" },
+		{ "file": "s1.ol", "target": "S2" }
 	]
 ]

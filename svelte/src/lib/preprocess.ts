@@ -52,7 +52,7 @@ const connectRedirectResources = (outputPorts: Port[]) => {
 	});
 };
 
-function connectEmbedOutputPorts(service: Service) {
+const connectEmbedOutputPorts = (service: Service) => {
 	let newListOfOPs: Port[] = service.outputPorts;
 	let embeds: Port[] = [];
 	service.embeddings?.forEach((embed) => {
@@ -62,9 +62,9 @@ function connectEmbedOutputPorts(service: Service) {
 		embeds.push(corrOutputPort);
 	});
 	service.outputPorts = embeds.concat(newListOfOPs);
-}
+};
 
-function connectEmbeds(service: Service) {
+const connectEmbeds = (service: Service) => {
 	if (service.embeddings === undefined) return;
 	service.embeddings.forEach((embed) => {
 		connectEmbeds(embed);
@@ -81,13 +81,13 @@ function connectEmbeds(service: Service) {
 		corrOutputPort.location = `!local_${embed.name}${embed.id}`;
 		corrInputPort.location = `!local_${embed.name}${embed.id}`;
 	});
-}
+};
 
-function sharesInterface(p1: Port, p2: Port): boolean {
+const sharesInterface = (p1: Port, p2: Port) => {
 	if (p1.interfaces === undefined && p2.interfaces === undefined) return true;
 	const listP1 = p1.interfaces.flatMap((t) => t.name);
 	const listP2 = p2.interfaces.flatMap((t) => t.name);
 	for (let i = 0; i < listP1.length; i++)
 		for (let j = 0; j < listP2.length; j++) if (listP1[i] === listP2[j]) return true;
 	return false;
-}
+};

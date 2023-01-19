@@ -94,8 +94,13 @@
 						file: service.file
 					};
 
-					if (type === 'Input') service.inputPorts.push(newPort);
-					else service.outputPorts.push(newPort);
+					if (type === 'Input') {
+						if (!service.inputPorts) service.inputPorts = [];
+						service.inputPorts.push(newPort);
+					} else {
+						if (!service.outputPorts) service.outputPorts = [];
+						service.outputPorts.push(newPort);
+					}
 
 					dispatcher('reloadgraph');
 					current_sidebar_element.set(noSidebar);
@@ -129,15 +134,15 @@
 </h1>
 <h4 class="text-2xl mb-2">Type: Service</h4>
 <h4 class="text-2xl mb-2">Execution: {service.execution}</h4>
+<hr />
+<h4 class="text-2xl mt-1 mb-2">
+	Input Ports: <span
+		class="float-right cursor-pointer text-3xl"
+		on:click={() => addPort('Input')}
+		on:keydown={() => addPort('Input')}>+</span
+	>
+</h4>
 {#if service.inputPorts}
-	<hr />
-	<h4 class="text-2xl mt-1 mb-2">
-		Input Ports: <span
-			class="float-right cursor-pointer text-3xl"
-			on:click={() => addPort('Input')}
-			on:keydown={() => addPort('Input')}>+</span
-		>
-	</h4>
 	<ul class="mb-4 list-disc mx-6">
 		{#each service.inputPorts as ip}
 			<li
@@ -152,15 +157,15 @@
 		{/each}
 	</ul>
 {/if}
+<hr />
+<h4 class="text-2xl mt-1 mb-2">
+	Output Ports: <span
+		class="float-right cursor-pointer text-3xl"
+		on:click={() => addPort('Output')}
+		on:keydown={() => addPort('Output')}>+</span
+	>
+</h4>
 {#if service.outputPorts}
-	<hr />
-	<h4 class="text-2xl mt-1 mb-2">
-		Output Ports: <span
-			class="float-right cursor-pointer text-3xl"
-			on:click={() => addPort('Output')}
-			on:keydown={() => addPort('Output')}>+</span
-		>
-	</h4>
 	<ul class="mb-4 list-disc mx-6">
 		{#each service.outputPorts as op}
 			<li
