@@ -18,6 +18,7 @@
 		getAllServices,
 		getHoveredPolygon,
 		getServiceFromCoords,
+		isAncestor,
 		renderGhostNodeOnDrag
 	} from './lib/service';
 	import { current_sidebar_element, noSidebar, SidebarElement } from './lib/sidebar';
@@ -175,14 +176,14 @@
 				addServiceToNetwork(service, getNumberOfNetworks());
 			} else {
 				if (!service.file) return;
-				const res = addServiceToNetwork(service, networkId);
-				if (!res) return;
+				addServiceToNetwork(service, networkId);
+				await tick();
 				await disembed(service);
 			}
 			dispatcher('message', { action: 'reset' });
 			return;
 		}
-		if (droppedOnSvc.id === service.id) return;
+		if (droppedOnSvc.id === service.id || isAncestor(service, droppedOnSvc)) return;
 		await tick();
 		removeFromNetwork(service, svcNwId);
 		await embed(service, droppedOnSvc, svcNwId);
@@ -208,7 +209,6 @@
 		service = parent
 			? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
 			: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
-		// : services.flat().find((t) => t.name + '' + t.id === serviceNode.id);
 	});
 
 	afterUpdate(() => {

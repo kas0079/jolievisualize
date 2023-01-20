@@ -3,8 +3,8 @@
 	import { current_popup, noPopup } from './lib/popup';
 
 	const dispatcher = createEventDispatcher();
-	const cancel = () => {
-		$current_popup.cancel();
+	const cancel = async () => {
+		await $current_popup.cancel();
 		current_popup.set(noPopup);
 		dispatcher('cancel');
 	};

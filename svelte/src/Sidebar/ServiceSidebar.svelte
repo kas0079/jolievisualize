@@ -7,6 +7,8 @@
 
 	export let service: Service;
 
+	console.log(service);
+
 	let tmp = '';
 	const saveInnerHTML = (event: MouseEvent) => {
 		if (service.file === undefined && vscode === undefined) return;
@@ -142,7 +144,7 @@
 		on:keydown={() => addPort('Input')}>+</span
 	>
 </h4>
-{#if service.inputPorts}
+{#if service.inputPorts && service.inputPorts.length > 0}
 	<ul class="mb-4 list-disc mx-6">
 		{#each service.inputPorts as ip}
 			<li
@@ -165,7 +167,7 @@
 		on:keydown={() => addPort('Output')}>+</span
 	>
 </h4>
-{#if service.outputPorts}
+{#if service.outputPorts && service.outputPorts.length > 0}
 	<ul class="mb-4 list-disc mx-6">
 		{#each service.outputPorts as op}
 			<li
@@ -180,7 +182,7 @@
 		{/each}
 	</ul>
 {/if}
-{#if service.embeddings}
+{#if service.embeddings && service.embeddings.length > 0}
 	<hr />
 	<h4 class="text-2xl mt-1 mb-2">Embeddings:</h4>
 	<ul class="mb-4 list-disc mx-6">

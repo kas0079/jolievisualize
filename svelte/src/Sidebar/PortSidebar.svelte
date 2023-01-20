@@ -97,14 +97,14 @@
 		{port.protocol}</span
 	>
 </h4>
-{#if !port.location.startsWith('!local')}
-	<h4 class="text-2xl mb-2">
-		Location: <span
-			on:click|stopPropagation={saveInnerHTML}
-			on:keydown|stopPropagation={(e) => finishEdit(e, 'location')}>{port.location}</span
-		>
-	</h4>
-{/if}
+<!-- {#if !port.location.startsWith('!local')} -->
+<h4 class="text-2xl mb-2">
+	Location: <span
+		on:click|stopPropagation={saveInnerHTML}
+		on:keydown|stopPropagation={(e) => finishEdit(e, 'location')}>{port.location}</span
+	>
+</h4>
+<!-- {/if} -->
 
 <h4 class="text-2xl mb-2">Interfaces:</h4>
 <ul class="list-disc mx-6">
