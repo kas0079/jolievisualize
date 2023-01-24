@@ -23,32 +23,35 @@
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
-			const oldPort: Port = {
-				name: port.name,
-				location: port.location,
-				protocol: port.protocol,
-				aggregates: port.aggregates,
-				interfaces: port.interfaces,
-				couriers: port.couriers,
-				redirects: port.redirects,
-				resource: port.resource,
-				file: port.file
-			};
+			const oldName = port.name;
+			let oldLine = '';
+			let newLine = '';
 			switch (editType) {
 				case 'port_name':
+					oldLine = port.name;
 					port.name = change;
+					newLine = change;
 					break;
 				case 'protocol':
+					oldLine = `rotocol: ${port.protocol}`;
 					port.protocol = change;
+					newLine = `rotocol: ${change}`;
 					break;
 				case 'location':
+					oldLine = `ocation: "${port.location}"`;
 					port.location = change;
+					newLine = `ocation: "${change}"`;
 					break;
 			}
+			const svc = getAllServices(services).find((t) => t.id === parentID);
+			if (!svc) return;
 			dispatcher('editPort', {
-				oldPort,
-				newPort: port,
-				portType,
+				filename: port.file,
+				serviceName: svc.name,
+				oldLine,
+				newLine,
+				portName: oldName,
+				portType: portType === 'ip' ? 'inputPort' : 'outputPort',
 				editType
 			});
 		}
@@ -56,6 +59,7 @@
 
 	const openInterface = (interfName: string) => {
 		const interf = interfaces.find((t) => t.name === interfName);
+		if (!interf) return;
 		const sbElem = new SidebarElement(2, interfName);
 		sbElem.interf = interf;
 		dispatcher('opensidebar', {
@@ -97,14 +101,14 @@
 		{port.protocol}</span
 	>
 </h4>
-<!-- {#if !port.location.startsWith('!local')} -->
-<h4 class="text-2xl mb-2">
-	Location: <span
-		on:click|stopPropagation={saveInnerHTML}
-		on:keydown|stopPropagation={(e) => finishEdit(e, 'location')}>{port.location}</span
-	>
-</h4>
-<!-- {/if} -->
+{#if !port.location.startsWith('!local')}
+	<h4 class="text-2xl mb-2">
+		Location: <span
+			on:click|stopPropagation={saveInnerHTML}
+			on:keydown|stopPropagation={(e) => finishEdit(e, 'location')}>{port.location}</span
+		>
+	</h4>
+{/if}
 
 <h4 class="text-2xl mb-2">Interfaces:</h4>
 <ul class="list-disc mx-6">

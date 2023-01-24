@@ -113,24 +113,23 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 				['name', 'protocol', 'location'],
 				300,
 				(vals) => {
-					const oldPort: Port = {
-						name: parentPort.name,
-						location: parentPort.location,
-						protocol: parentPort.protocol,
-						file: parentPort.file,
-						interfaces: parentPort.interfaces
-					};
-					parentPort.location = vals.find((t) => t.field === 'location').val;
+					const newLocation = vals.find((t) => t.field === 'location').val;
 					if (vscode)
 						vscode.postMessage({
 							command: 'renamePort',
 							detail: {
-								editType: 'location',
-								oldPort,
-								newPort: parentPort
+								filename: parentPort.file,
+								serviceName: service.name,
+								oldLine: `ocation: "${parentPort.location}"`,
+								newLine: `ocation: "${newLocation}"`,
+								portName: parentPort.name,
+								portType: 'outputPort',
+								editType: 'location'
 							}
 						});
+					parentPort.location = newLocation;
 					parent.outputPorts.push(parentPort);
+
 					// TODO add aggregator
 					createAggregator([service]);
 				},

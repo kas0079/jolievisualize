@@ -24,23 +24,12 @@
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
-			// TODO make deep copy function
-			const oldService: Service = {
-				id: service.id,
-				embeddings: service.embeddings ?? [],
-				file: service.file,
-				execution: service.execution,
-				inputPorts: service.inputPorts ?? [],
-				outputPorts: service.outputPorts ?? [],
-				name: service.name,
-				parentPort: service.parentPort ?? '',
-				parent: service.parent
-			};
+			const oldname = service.name;
 			service.name = change;
-
 			dispatcher('editService', {
-				oldService,
-				newService: service
+				filename: service.file,
+				oldServiceName: oldname,
+				newServiceName: change
 			});
 		}
 	};
@@ -81,7 +70,6 @@
 				300,
 				(vals) => {
 					// TODO validate inputs
-
 					const tmp_interfaces = [];
 					vals
 						.find((t) => t.field === 'interfaces')
@@ -107,12 +95,13 @@
 					dispatcher('reloadgraph');
 					current_sidebar_element.set(noSidebar);
 
-					if (vscode === undefined) return;
+					if (!vscode) return;
 					vscode.postMessage({
-						command: `new${type}Port`,
+						command: `newPort`,
 						detail: {
 							serviceName: service.name,
 							file: service.file,
+							portType: type === 'Input' ? 'inputPort' : 'outputPort',
 							port: {
 								name: vals.find((t) => t.field === 'name')?.val,
 								protocol: vals.find((t) => t.field === 'protocol')?.val,
