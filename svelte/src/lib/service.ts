@@ -20,6 +20,16 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	const parentPort = getParentPortName(service, parent);
 	if (parentPort) {
 		service.parentPort = parentPort;
+		if (vscode)
+			vscode.postMessage({
+				command: 'addEmbed',
+				detail: {
+					filename: parent.file,
+					serviceName: parent.name,
+					embedName: service.name,
+					embedPort: service.parentPort
+				}
+			});
 		return;
 	}
 	current_popup.set(
@@ -54,6 +64,46 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 
 				service.inputPorts.push(newIP);
 				parent.outputPorts.push(newOP);
+
+				if (vscode && parent) {
+					// vscode.postMessage({
+					// 	command: 'newPort',
+					// 	detail: {
+					// 		file: parent.file,
+					// 		serviceName: parent.name,
+					// 		portType: 'outputPort',
+					// 		port: {
+					// 			name: newOP.name,
+					// 			location: 'local',
+					// 			protocol: newOP.protocol,
+					// 			interface: vals.find((t) => t.field === 'interfaces')
+					// 		}
+					// 	}
+					// });
+					// vscode.postMessage({
+					// 	command: 'newPort',
+					// 	detail: {
+					// 		file: service.file,
+					// 		serviceName: service.name,
+					// 		portType: 'inputPort',
+					// 		port: {
+					// 			name: newIP.name,
+					// 			location: 'local',
+					// 			protocol: newIP.protocol,
+					// 			interface: vals.find((t) => t.field === 'interfaces')
+					// 		}
+					// 	}
+					// });
+					vscode.postMessage({
+						command: 'addEmbed',
+						detail: {
+							filename: parent.file,
+							serviceName: parent.name,
+							embedName: service.name,
+							embedPort: service.parentPort
+						}
+					});
+				}
 			},
 			async () => {
 				if (oldParent) {
