@@ -7,8 +7,6 @@
 
 	export let service: Service;
 
-	console.log(service);
-
 	let tmp = '';
 	const saveInnerHTML = (event: MouseEvent) => {
 		if (service.file === undefined && vscode === undefined) return;
@@ -127,11 +125,14 @@
 <h4 class="text-2xl mb-2">Execution: {service.execution}</h4>
 <hr />
 <h4 class="text-2xl mt-1 mb-2">
-	Input Ports: <span
-		class="float-right cursor-pointer text-3xl"
-		on:click={() => addPort('Input')}
-		on:keydown={() => addPort('Input')}>+</span
-	>
+	Input Ports:
+	{#if service.file}
+		<span
+			class="float-right cursor-pointer text-3xl"
+			on:click={() => addPort('Input')}
+			on:keydown={() => addPort('Input')}>+</span
+		>
+	{/if}
 </h4>
 {#if service.inputPorts && service.inputPorts.length > 0}
 	<ul class="mb-4 list-disc mx-6">
@@ -150,11 +151,14 @@
 {/if}
 <hr />
 <h4 class="text-2xl mt-1 mb-2">
-	Output Ports: <span
-		class="float-right cursor-pointer text-3xl"
-		on:click={() => addPort('Output')}
-		on:keydown={() => addPort('Output')}>+</span
-	>
+	Output Ports:
+	{#if service.file}
+		<span
+			class="float-right cursor-pointer text-3xl"
+			on:click={() => addPort('Output')}
+			on:keydown={() => addPort('Output')}>+</span
+		>
+	{/if}
 </h4>
 {#if service.outputPorts && service.outputPorts.length > 0}
 	<ul class="mb-4 list-disc mx-6">
