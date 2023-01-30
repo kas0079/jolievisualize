@@ -33,7 +33,7 @@ service Aggregator {
         Aggregates: printer, Fax
     }
 
-    init {
+     init {
         println@Console("Aggregator started")();
         install(Aborted => nullProcess)
     }

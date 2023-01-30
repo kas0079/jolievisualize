@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { interfaces, services, vscode } from '../lib/data';
-	import { getAllServices } from '../lib/service';
+	import { findAndRemoveRange, getAllServices } from '../lib/service';
 	import { SidebarElement } from '../lib/sidebar';
 
 	export let port: Port;
@@ -52,7 +52,8 @@
 				newLine,
 				portName: oldName,
 				portType: portType === 'ip' ? 'inputPort' : 'outputPort',
-				editType
+				editType,
+				range: findAndRemoveRange(port, editType).range
 			});
 		}
 	};

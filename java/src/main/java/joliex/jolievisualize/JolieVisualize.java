@@ -18,6 +18,7 @@ import jolie.Interpreter;
 import jolie.JolieURLStreamHandlerFactory;
 import jolie.cli.CommandLineException;
 import jolie.cli.CommandLineParser;
+import jolie.lang.CodeCheckException;
 import jolie.lang.parse.ParserException;
 import jolie.lang.parse.ast.OLSyntaxNode;
 import jolie.lang.parse.ast.ServiceNode;
@@ -42,7 +43,7 @@ public class JolieVisualize {
      */
     public static void main(String[] args)
             throws FileNotFoundException, IOException, ParseException, CommandLineException, ParserException,
-            ModuleException {
+            ModuleException, CodeCheckException {
 
         if (args.length <= 6) {
             System.out.println("Invalid arguments, usage: jolievisualize path/to/visualize.json");
@@ -129,7 +130,7 @@ public class JolieVisualize {
     }
 
     private static List<ServiceNode> parseFile(String filePath, String path, String[] args)
-            throws CommandLineException, IOException, ParserException, ModuleException {
+            throws CommandLineException, IOException, ParserException, ModuleException, CodeCheckException {
         List<String> argList = new ArrayList<>();
         for (int i = 0; i < args.length - 1; i++)
             argList.add(args[i]);
@@ -145,12 +146,24 @@ public class JolieVisualize {
 
         Interpreter.Configuration conf = cmdParser.getInterpreterConfiguration();
 
+        // Program program = ParsingUtils.parseProgram(conf.inputStream(),
+        // conf.programFilepath().toURI(), conf.charset(),
+        // conf.includePaths(), conf.packagePaths(), conf.jolieClassLoader(),
+        // conf.constants(),
+        // conf.executionTarget(), false);
+
         ModuleParsingConfiguration mpc = new ModuleParsingConfiguration(
                 conf.charset(), conf.includePaths(),
-                conf.packagePaths(), conf.jolieClassLoader(), conf.constants(), false);
+                conf.packagePaths(), conf.jolieClassLoader(), conf.constants(), true);
 
         ModuleParsedResult mpr = Modules.parseModule(mpc, conf.inputStream(),
                 conf.programFilepath().toURI());
+
+        // ProgramInspector pi = ParsingUtils.createInspector(program);
+        // for (InputPortInfo ipi : pi.getInputPorts()) {
+        // if (ipi.protocol() != null)
+        // System.out.println(ipi.protocol().context());
+        // }
 
         List<ServiceNode> res = new ArrayList<>();
         for (OLSyntaxNode ol : mpr.mainProgram().children())

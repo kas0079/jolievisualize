@@ -134,7 +134,8 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 					filename: ip.file,
 					portName: ip.name,
 					portType: 'inputPort',
-					serviceName: service.name
+					serviceName: service.name,
+					ranges: ip.ranges
 				};
 			});
 
@@ -143,7 +144,8 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 				filename: parentPort.file,
 				portName: parentPortName,
 				portType: 'outputPort',
-				serviceName: parent.name
+				serviceName: parent.name,
+				ranges: parentPort.ranges
 			});
 			if (parent.outputPorts)
 				parent.outputPorts = parent.outputPorts.filter((t) => t.name !== parentPortName);
@@ -155,6 +157,7 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 		if (portsToRemove.length > 0 && vscode)
 			vscode.postMessage({ command: 'removePorts', detail: { ports: portsToRemove } });
 	} else {
+		//! -------- This does not work
 		if (parent.outputPorts)
 			parent.outputPorts = parent.outputPorts.filter((t) => t.name !== parentPortName);
 		current_popup.set(
@@ -174,7 +177,8 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 								newLine: `ocation: "${newLocation}"`,
 								portName: parentPort.name,
 								portType: 'outputPort',
-								editType: 'location'
+								editType: 'location',
+								range: findAndRemoveRange(parentPort, 'location').range
 							}
 						});
 					parentPort.location = newLocation;
@@ -201,7 +205,8 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 				filename: parent.file,
 				serviceName: parent.name,
 				embedName: service.name,
-				embedPort: service.parentPort
+				embedPort: service.parentPort,
+				range: findAndRemoveRange(service, `embed_${service.name}`)
 			}
 		});
 	service.parentPort = undefined;
@@ -211,11 +216,18 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 
 export const getServiceFromCoords = (e: MouseEvent, services: Service[][]) => {
 	const elemBelow = getElementBelowGhost(e)[0];
+	if (elemBelow.tagName === 'text')
+		return getServiceFromPolygon(
+			elemBelow.parentElement.getElementsByTagName('polygon').item(0),
+			services
+		);
 	return elemBelow.tagName === 'polygon' ? getServiceFromPolygon(elemBelow, services) : undefined;
 };
 
 export const getHoveredPolygon = (e: MouseEvent) => {
 	const elemBelow = getElementBelowGhost(e)[0];
+	if (elemBelow.tagName === 'text')
+		return elemBelow.parentElement.getElementsByTagName('polygon').item(0);
 	return elemBelow.tagName === 'polygon' ? elemBelow : undefined;
 };
 
@@ -227,6 +239,12 @@ export const isAncestor = (child: Service, anc: Service) => {
 		parent = parent.parent;
 	}
 	return parent.id === anc.id;
+};
+
+export const findAndRemoveRange = (obj: Service | Port, name: string) => {
+	const res = obj.ranges.find((t) => t.name === name);
+	obj.ranges = obj.ranges.filter((t) => t.name !== name);
+	return res;
 };
 
 export const renderGhostNodeOnDrag = (

@@ -61,28 +61,9 @@
 	};
 
 	const openServiceInSidebar = (event: Event) => {
+		if (event instanceof PointerEvent && event.shiftKey) return;
 		if (dragged > 1) {
 			dragged = 0;
-			return;
-		}
-		if (event instanceof PointerEvent && event.shiftKey) {
-			if (selected) {
-				const tmp = new SidebarElement(4, 'Selection');
-				tmp.serviceList = $current_sidebar_element.serviceList.filter((t) => t.id !== service.id);
-				selected = false;
-				current_sidebar_element.set(tmp.serviceList.length == 0 ? new SidebarElement(-1, '') : tmp);
-				return;
-			}
-			const sbElem =
-				$current_sidebar_element.hist_type == 4
-					? $current_sidebar_element
-					: new SidebarElement(4, 'Selection');
-			if (sbElem.serviceList === undefined) sbElem.serviceList = [];
-			sbElem.serviceList.push(service);
-			dispatcher('opensidebar', {
-				elem: sbElem,
-				action: 'sidebar_open'
-			});
 			return;
 		}
 		const sbElem = new SidebarElement(0, service.name);
@@ -146,7 +127,27 @@
 	let startX: number, startY: number;
 
 	const startDrag = (e: MouseEvent) => {
-		if (e.button !== 0 || e.shiftKey) return;
+		if (e.button !== 0) return;
+		if (e.shiftKey) {
+			if (selected) {
+				const tmp = new SidebarElement(4, 'Selection');
+				tmp.serviceList = $current_sidebar_element.serviceList.filter((t) => t.id !== service.id);
+				selected = false;
+				current_sidebar_element.set(tmp.serviceList.length == 0 ? new SidebarElement(-1, '') : tmp);
+				return;
+			}
+			const sbElem =
+				$current_sidebar_element.hist_type == 4
+					? $current_sidebar_element
+					: new SidebarElement(4, 'Selection');
+			if (sbElem.serviceList === undefined) sbElem.serviceList = [];
+			sbElem.serviceList.push(service);
+			dispatcher('opensidebar', {
+				elem: sbElem,
+				action: 'sidebar_open'
+			});
+		}
+		if (e.shiftKey || !service.file) return;
 		dragged = 1;
 		pressTimer = window.setTimeout(() => {
 			const polygon = document.querySelector('#' + serviceNode.id).children[0];
@@ -156,7 +157,7 @@
 			startX = e.pageX;
 			startY = e.pageY;
 			current_sidebar_element.set(noSidebar);
-		}, 300);
+		}, 50);
 	};
 
 	const endDrag = async (e: MouseEvent) => {
@@ -172,10 +173,14 @@
 		if (!droppedOnSvc) {
 			//dropped on network
 			if (networkId === undefined) {
-				if (service.parent || getNumberOfServicesInNetwork(svcNwId) === 1) return;
+				if (getNumberOfServicesInNetwork(svcNwId) === 1 && !service.parent) return;
 				addServiceToNetwork(service, getNumberOfNetworks());
+				if (service.parent) {
+					await tick();
+					await disembed(service);
+				}
 			} else {
-				if (!service.file) return;
+				if (!service.file || (networkId === svcNwId && !service.parent)) return;
 				addServiceToNetwork(service, networkId);
 				await tick();
 				await disembed(service);
@@ -183,7 +188,8 @@
 			dispatcher('message', { action: 'reset' });
 			return;
 		}
-		if (droppedOnSvc.id === service.id || isAncestor(service, droppedOnSvc)) return;
+		if (droppedOnSvc.id === service.id || isAncestor(service, droppedOnSvc) || !droppedOnSvc.file)
+			return;
 		await tick();
 		removeFromNetwork(service, svcNwId);
 		await embed(service, droppedOnSvc, svcNwId);
@@ -209,6 +215,8 @@
 		service = parent
 			? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
 			: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
+
+		console.log(service.name, service.ranges);
 	});
 
 	afterUpdate(() => {
@@ -223,8 +231,7 @@
 			? 'fill-serviceHighlight'
 			: 'fill-service'}"
 		style="stroke-width: 0.4"
-		on:click|stopPropagation={openServiceInSidebar}
-		on:keypress|stopPropagation={openServiceInSidebar}
+		on:dblclick|stopPropagation={openServiceInSidebar}
 		on:mousedown|stopPropagation={startDrag}
 	/>
 	{#if service.embeddings && service.embeddings.length > 0}
@@ -266,8 +273,7 @@
 	{/if}
 	<text
 		class="cursor-pointer select-none"
-		on:click|stopPropagation={openServiceInSidebar}
-		on:keypress|stopPropagation={openServiceInSidebar}
+		on:dblclick|stopPropagation={openServiceInSidebar}
 		on:mousedown|stopPropagation={startDrag}>{service.name}</text
 	>
 	{#if serviceNode.edges && serviceNode.edges.length > 0}

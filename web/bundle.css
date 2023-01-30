@@ -1,5 +1,6 @@
-path.svelte-2aunlv{stroke-width:0.5;fill:none}
-rect.svelte-n30qhx{stroke-width:0.4}rect.svelte-n30qhx:hover{stroke-width:0.8}
+/*!***********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./src/index.css ***!
+  \***********************************************************************************************************/
 /*
 ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com
 *//*
@@ -514,6 +515,9 @@ video {
 .mb-2 {
   margin-bottom: 0.5rem;
 }
+.-mt-1 {
+  margin-top: -0.25rem;
+}
 .flex {
   display: flex;
 }
@@ -528,6 +532,9 @@ video {
 }
 .h-1 {
   height: 0.25rem;
+}
+.h-0 {
+  height: 0px;
 }
 .w-screen {
   width: 100vw;
@@ -572,20 +579,32 @@ video {
 .list-disc {
   list-style-type: disc;
 }
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
 .justify-end {
   justify-content: flex-end;
+}
+.justify-between {
+  justify-content: space-between;
 }
 .gap-2 {
   gap: 0.5rem;
 }
+.gap-5 {
+  gap: 1.25rem;
+}
 .self-center {
   align-self: center;
 }
-.overflow-hidden {
-  overflow: hidden;
-}
 .overflow-visible {
   overflow: visible;
+}
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+.overflow-y-scroll {
+  overflow-y: scroll;
 }
 .rounded-md {
   border-radius: 0.375rem;

@@ -26,6 +26,8 @@ type Service = {
 	embeddings: Service[];
 	name: string;
 	execution: string;
+	annotation?: string;
+	ranges?: CodeRange[];
 	inputPorts: Port[];
 	outputPorts: Port[];
 	file: string;
@@ -55,6 +57,7 @@ type Port = {
 	protocol: string;
 	aggregates?: Aggregate[];
 	couriers?: Courier[];
+	ranges?: CodeRange[];
 	redirects?: Redirect[];
 	resource?: string;
 	interfaces: { name: string }[];
@@ -78,4 +81,12 @@ type Courier = {
 	interfaceOneWay: { name: string }[];
 	operationReqRes: { name: string }[];
 	operationOneWay: { name: string }[];
+};
+
+type CodeRange = {
+	name: string;
+	range: {
+		start: { line: number; char: number };
+		end: { line: number; char: number };
+	};
 };

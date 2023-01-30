@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { services, vscode } from '../lib/data';
 	import { current_popup, PopUp } from '../lib/popup';
-	import { getAllServices } from '../lib/service';
+	import { findAndRemoveRange, getAllServices } from '../lib/service';
 	import { current_sidebar_element, noSidebar, SidebarElement } from '../lib/sidebar';
 
 	export let service: Service;
@@ -27,7 +27,8 @@
 			dispatcher('editService', {
 				filename: service.file,
 				oldServiceName: oldname,
-				newServiceName: change
+				newServiceName: change,
+				range: findAndRemoveRange(service, 'svc_name').range
 			});
 		}
 	};

@@ -23,15 +23,6 @@
 			.attr('height', portNode.height ?? 0);
 	};
 
-	afterUpdate(() => {
-		drawPort();
-		port =
-			portNode.labels[0].text === 'ip'
-				? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
-				: parentService.outputPorts.find((t) => t.name == portNode.labels[1].text);
-		if (parentService && port) port.file = parentService.file;
-	});
-
 	const dispatch = createEventDispatcher();
 	const openPortInSidebar = () => {
 		const sbPort = new SidebarElement(1, port.name);
@@ -43,6 +34,15 @@
 			action: 'sidebar_open'
 		});
 	};
+
+	afterUpdate(() => {
+		drawPort();
+		port =
+			portNode.labels[0].text === 'ip'
+				? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
+				: parentService.outputPorts.find((t) => t.name == portNode.labels[1].text);
+		if (parentService && port) port.file = parentService.file;
+	});
 </script>
 
 <g id={portNode.id}>
@@ -51,7 +51,8 @@
 			? 'fill-inputPort stroke-ipStroke cursor-pointer'
 			: 'fill-outputPort stroke-opStroke cursor-pointer'}
 		on:click|stopPropagation={openPortInSidebar}
-		on:keypress={openPortInSidebar}
+		on:keydown|stopPropagation={openPortInSidebar}
+		on:dblclick|stopPropagation={() => {}}
 	/>
 </g>
 

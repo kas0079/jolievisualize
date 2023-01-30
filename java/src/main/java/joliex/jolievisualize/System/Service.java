@@ -8,6 +8,7 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 import jolie.lang.parse.ast.ExecutionInfo;
+import joliex.jolievisualize.CodeRange;
 
 public class Service {
     private String name;
@@ -17,6 +18,7 @@ public class Service {
     private String uri;
     private String paramFile;
 
+    private String annotation;
     private List<OutputPort> outputPorts = new ArrayList<>();
     private List<InputPort> inputPorts = new ArrayList<>();
     private List<Courier> couriers = new ArrayList<>();
@@ -24,6 +26,8 @@ public class Service {
     private List<Service> children;
     private Service parent;
     private String bindingPortName;
+
+    private List<CodeRange> codeRanges = new ArrayList<>();
 
     public Service(long id) {
         this.id = id;
@@ -36,6 +40,17 @@ public class Service {
         map.put("name", name);
         map.put("execution", getExecution());
         map.put("id", id);
+
+        if (annotation != null && annotation.length() > 0)
+            map.put("annotation", annotation);
+
+        if (codeRanges.size() > 0 && uri != null && uri.length() > 0) {
+            List<JSONObject> codeRangeTmp = new ArrayList<>();
+            codeRanges.forEach(cr -> {
+                codeRangeTmp.add(cr.toJSON());
+            });
+            map.put("ranges", codeRangeTmp);
+        }
 
         if (uri != null && uri.length() > 0)
             map.put("file", uri);
@@ -126,6 +141,10 @@ public class Service {
         return children;
     }
 
+    public String getUri() {
+        return uri;
+    }
+
     public String getExecution() {
         if (executionInfo == null)
             return "single";
@@ -134,5 +153,13 @@ public class Service {
 
     public void setExectionInfo(ExecutionInfo ei) {
         this.executionInfo = ei;
+    }
+
+    public void addCodeRange(CodeRange cr) {
+        codeRanges.add(cr);
+    }
+
+    public void addAnnotation(String anno) {
+        this.annotation = anno;
     }
 }

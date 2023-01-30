@@ -41,3 +41,16 @@ export class SidebarElement {
 
 export const noSidebar = new SidebarElement(-1, '');
 export const current_sidebar_element = writable(noSidebar);
+
+export const sidebarHistory: SidebarElement[] = [];
+
+// TODO create interface for sidebar. Open, Clear, Back etc... use update() function to set history
+
+export const clearSidebar = () => {
+	current_sidebar_element.set(noSidebar);
+	clearHistory();
+};
+
+const clearHistory = () => {
+	while (sidebarHistory.length > 0) sidebarHistory.pop();
+};

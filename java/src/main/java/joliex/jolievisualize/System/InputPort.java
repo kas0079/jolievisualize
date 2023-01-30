@@ -37,6 +37,14 @@ public class InputPort extends OutputPort {
         map.put("location", getLocation());
         map.put("protocol", getProtocol());
 
+        if (getCodeRanges().size() > 0) {
+            List<JSONObject> codeRangeTmp = new ArrayList<>();
+            getCodeRanges().forEach(cr -> {
+                codeRangeTmp.add(cr.toJSON());
+            });
+            map.put("ranges", codeRangeTmp);
+        }
+
         if (getInterfaces().size() > 0) {
             List<JSONObject> interfacesTmp = new ArrayList<>();
             getInterfaces().forEach((id, name) -> {

@@ -73,20 +73,23 @@ public class SystemInspector {
     private Service createService(ServiceNode sn, JSONObject params) {
         Service s = new Service(system.getNextID());
         s.setName(sn.name());
+        s.addCodeRange(getCodeRange("svc_name", sn.context()));
         s.setUri(getLocalUri(sn.context()));
         for (OLSyntaxNode ol : sn.program().children()) {
             if (ol instanceof ExecutionInfo)
                 s.setExectionInfo((ExecutionInfo) ol);
-            if (ol instanceof OutputPortInfo)
-                s.addOutputPort(createOutputPort((OutputPortInfo) ol, params));
-            if (ol instanceof InputPortInfo)
+            else if (ol instanceof OutputPortInfo) {
+                s.addOutputPort(createOutputPort((OutputPortInfo) ol, params, s));
+            } else if (ol instanceof InputPortInfo)
                 s.addInputPort(createInputPort((InputPortInfo) ol, params, s));
-            if (ol instanceof CourierDefinitionNode)
+            else if (ol instanceof CourierDefinitionNode)
                 s.addCourier(createCourier((CourierDefinitionNode) ol));
-            if (ol instanceof EmbedServiceNode) {
-                Service emb = createService(((EmbedServiceNode) ol).service(), null);
+            else if (ol instanceof EmbedServiceNode) {
+                EmbedServiceNode esn = ((EmbedServiceNode) ol);
+                Service emb = createService(esn.service(), null);
+                s.addCodeRange(getEmbedCodeRange(esn));
                 emb.setParent(s);
-                emb.setBindingPortName(((EmbedServiceNode) ol).bindingPort().id());
+                emb.setBindingPortName(esn.bindingPort().id());
                 s.addChild(emb);
             }
         }
@@ -96,6 +99,11 @@ public class SystemInspector {
     private InputPort createInputPort(InputPortInfo ipi, JSONObject params, Service service) {
         String protocol = "";
         String location = "";
+        if (ipi.getDocumentation().isPresent()) {
+            String doc = ipi.getDocumentation().get();
+            if (doc.startsWith("@jolievisualize"))
+                service.addAnnotation(doc.replaceFirst("@jolievisualize", ""));
+        }
         if (ipi.protocol() instanceof VariableExpressionNode) {
             String t = getParamFromPath(((VariableExpressionNode) ipi.protocol()).variablePath(), params);
             if (!t.equals(""))
@@ -123,6 +131,14 @@ public class SystemInspector {
         for (InterfaceDefinition id : ipi.getInterfaceList())
             result.addInterface(createInterface(id));
 
+        if (service.getUri() != null && service.getUri().length() > 0) {
+            if (ipi.protocol() != null) {
+                result.addCodeRange(getCodeRange("protocol", ipi.protocol().context()));
+            }
+            if (ipi.location() != null)
+                result.addCodeRange(getCodeRange("location", ipi.location().context()));
+            result.addCodeRange(getCodeRange("port", ipi.context()));
+        }
         if (ipi.aggregationList() != null && ipi.aggregationList().length > 0)
             for (AggregationItemInfo aii : ipi.aggregationList())
                 result.addAggregate(createAggregate(aii));
@@ -189,7 +205,7 @@ public class SystemInspector {
         return i;
     }
 
-    private OutputPort createOutputPort(OutputPortInfo opi, JSONObject params) {
+    private OutputPort createOutputPort(OutputPortInfo opi, JSONObject params, Service service) {
         String protocol = "";
         String location = "";
         if (opi.protocol() instanceof VariableExpressionNode) {
@@ -198,6 +214,7 @@ public class SystemInspector {
                 protocol = t;
             else
                 protocol = !opi.protocolId().equals("") ? opi.protocolId() : "sodep";
+
         } else
             protocol = !opi.protocolId().equals("") ? opi.protocolId() : "sodep";
 
@@ -215,6 +232,16 @@ public class SystemInspector {
                         : opi.location().toString());
         }
         OutputPort op = new OutputPort(opi.id(), protocol, location);
+
+        if (service.getUri() != null && service.getUri().length() > 0) {
+            if (opi.protocol() != null) {
+                op.addCodeRange(getCodeRange("protocol", opi.protocol().context()));
+            }
+            if (opi.location() != null)
+                op.addCodeRange(getCodeRange("location", opi.location().context()));
+            op.addCodeRange(getCodeRange("port", opi.context()));
+        }
+
         for (InterfaceDefinition id : opi.getInterfaceList())
             op.addInterface(createInterface(id));
         return op;
@@ -279,5 +306,15 @@ public class SystemInspector {
         if (parts.length < 2)
             return "";
         return parts[1];
+    }
+
+    private CodeRange getEmbedCodeRange(EmbedServiceNode esn) {
+        return new CodeRange("embed_" + esn.serviceName(), esn.bindingPort().context().startLine(),
+                esn.bindingPort().context().endLine(), esn.context().startColumn(),
+                esn.bindingPort().context().endColumn());
+    }
+
+    private CodeRange getCodeRange(String name, ParsingContext context) {
+        return new CodeRange(name, context.startLine(), context.endLine(), context.startColumn(), context.endColumn());
     }
 }
