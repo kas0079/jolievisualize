@@ -20,6 +20,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	const parentPort = getParentPortName(service, parent);
 	if (parentPort) {
 		service.parentPort = parentPort;
+		const pport = parent.outputPorts.find((t) => t.name === parentPort);
 		if (vscode)
 			vscode.postMessage({
 				command: 'addEmbed',
@@ -27,7 +28,8 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 					filename: parent.file,
 					serviceName: parent.name,
 					embedName: service.name,
-					embedPort: service.parentPort
+					embedPort: service.parentPort,
+					range: findRange(pport, 'port')
 				}
 			});
 		return;
@@ -66,6 +68,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 				parent.outputPorts.push(newOP);
 
 				if (vscode && parent) {
+					//TODO: make it ONE request
 					// vscode.postMessage({
 					// 	command: 'newPort',
 					// 	detail: {
@@ -94,15 +97,15 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 					// 		}
 					// 	}
 					// });
-					vscode.postMessage({
-						command: 'addEmbed',
-						detail: {
-							filename: parent.file,
-							serviceName: parent.name,
-							embedName: service.name,
-							embedPort: service.parentPort
-						}
-					});
+					// vscode.postMessage({
+					// 	command: 'addEmbed',
+					// 	detail: {
+					// 		filename: parent.file,
+					// 		serviceName: parent.name,
+					// 		embedName: service.name,
+					// 		embedPort: service.parentPort
+					// 	}
+					// });
 				}
 			},
 			async () => {
@@ -123,6 +126,7 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 	if (!service.parent) return false;
 	const parent = service.parent;
 	service.parent = undefined;
+	const range = findRange(service, `embed_${service.name}`);
 
 	const parentPort = parent.outputPorts.find((t) => t.name === service.parentPort);
 	const parentPortName = parentPort?.name;
@@ -132,20 +136,16 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 			.map((ip) => {
 				return {
 					filename: ip.file,
-					portName: ip.name,
 					portType: 'inputPort',
-					serviceName: service.name,
-					ranges: ip.ranges
+					range: findRange(ip, 'port')
 				};
 			});
 
 		if (parentPort && parentPort.location.startsWith('!local')) {
 			portsToRemove.push({
 				filename: parentPort.file,
-				portName: parentPortName,
 				portType: 'outputPort',
-				serviceName: parent.name,
-				ranges: parentPort.ranges
+				range: findRange(parentPort, 'port')
 			});
 			if (parent.outputPorts)
 				parent.outputPorts = parent.outputPorts.filter((t) => t.name !== parentPortName);
@@ -158,45 +158,44 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 			vscode.postMessage({ command: 'removePorts', detail: { ports: portsToRemove } });
 	} else {
 		//! -------- This does not work
-		if (parent.outputPorts)
-			parent.outputPorts = parent.outputPorts.filter((t) => t.name !== parentPortName);
-		current_popup.set(
-			new PopUp(
-				`Create new port for aggregator`,
-				['name', 'protocol', 'location'],
-				300,
-				(vals) => {
-					const newLocation = vals.find((t) => t.field === 'location').val;
-					if (vscode)
-						vscode.postMessage({
-							command: 'renamePort',
-							detail: {
-								filename: parentPort.file,
-								serviceName: service.name,
-								oldLine: `ocation: "${parentPort.location}"`,
-								newLine: `ocation: "${newLocation}"`,
-								portName: parentPort.name,
-								portType: 'outputPort',
-								editType: 'location',
-								range: findAndRemoveRange(parentPort, 'location').range
-							}
-						});
-					parentPort.location = newLocation;
-					parent.outputPorts.push(parentPort);
-
-					// TODO add aggregator
-					createAggregator([service]);
-				},
-				async () => {
-					const tmpSvcNetworkId = getServiceNetworkId(service);
-					removeFromNetwork(service, tmpSvcNetworkId);
-					service.parent = parent;
-					parent.outputPorts.push(parentPort);
-					parent.embeddings.push(service);
-					service.parentPort = getParentPortName(service, parent);
-				}
-			)
-		);
+		// if (parent.outputPorts)
+		// 	parent.outputPorts = parent.outputPorts.filter((t) => t.name !== parentPortName);
+		// current_popup.set(
+		// 	new PopUp(
+		// 		`Create new port for aggregator`,
+		// 		['name', 'protocol', 'location'],
+		// 		300,
+		// 		(vals) => {
+		// 			const newLocation = vals.find((t) => t.field === 'location').val;
+		// 			if (vscode)
+		// 				vscode.postMessage({
+		// 					command: 'renamePort',
+		// 					detail: {
+		// 						filename: parentPort.file,
+		// 						serviceName: service.name,
+		// 						oldLine: `ocation: "${parentPort.location}"`,
+		// 						newLine: `ocation: "${newLocation}"`,
+		// 						portName: parentPort.name,
+		// 						portType: 'outputPort',
+		// 						editType: 'location',
+		// 						range: findRange(parentPort, 'location')
+		// 					}
+		// 				});
+		// 			parentPort.location = newLocation;
+		// 			parent.outputPorts.push(parentPort);
+		// 			// TODO add aggregator
+		// 			createAggregator([service]);
+		// 		},
+		// 		async () => {
+		// 			const tmpSvcNetworkId = getServiceNetworkId(service);
+		// 			removeFromNetwork(service, tmpSvcNetworkId);
+		// 			service.parent = parent;
+		// 			parent.outputPorts.push(parentPort);
+		// 			parent.embeddings.push(service);
+		// 			service.parentPort = getParentPortName(service, parent);
+		// 		}
+		// 	)
+		// );
 	}
 	if (vscode && parent)
 		vscode.postMessage({
@@ -206,7 +205,7 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 				serviceName: parent.name,
 				embedName: service.name,
 				embedPort: service.parentPort,
-				range: findAndRemoveRange(service, `embed_${service.name}`)
+				range
 			}
 		});
 	service.parentPort = undefined;
@@ -241,10 +240,8 @@ export const isAncestor = (child: Service, anc: Service) => {
 	return parent.id === anc.id;
 };
 
-export const findAndRemoveRange = (obj: Service | Port, name: string) => {
-	const res = obj.ranges.find((t) => t.name === name);
-	obj.ranges = obj.ranges.filter((t) => t.name !== name);
-	return res;
+export const findRange = (obj: Service | Port, name: string) => {
+	return obj.ranges.find((t) => t.name === name).range;
 };
 
 export const renderGhostNodeOnDrag = (

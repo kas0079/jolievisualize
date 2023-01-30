@@ -2,11 +2,11 @@
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { vscode } from '../lib/data';
+	import { clearSidebar, current_sidebar_element } from '../lib/sidebar';
 	import InterfaceSidebar from './InterfaceSidebar.svelte';
 	import PortSidebar from './PortSidebar.svelte';
 	import SelectionSidebar from './SelectionSidebar.svelte';
 	import ServiceSidebar from './ServiceSidebar.svelte';
-	import { clearSidebar, current_sidebar_element, sidebarHistory } from '../lib/sidebar';
 	import TypeSidebar from './TypeSidebar.svelte';
 
 	let resizeMode = false;

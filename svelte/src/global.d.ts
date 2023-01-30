@@ -85,8 +85,10 @@ type Courier = {
 
 type CodeRange = {
 	name: string;
-	range: {
-		start: { line: number; char: number };
-		end: { line: number; char: number };
-	};
+	range: SimpleRange;
+};
+
+type SimpleRange = {
+	start: { line: number; char: number };
+	end: { line: number; char: number };
 };

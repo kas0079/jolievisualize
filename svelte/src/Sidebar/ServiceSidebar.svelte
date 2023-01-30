@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { services, vscode } from '../lib/data';
 	import { current_popup, PopUp } from '../lib/popup';
-	import { findAndRemoveRange, getAllServices } from '../lib/service';
+	import { findRange, getAllServices } from '../lib/service';
 	import { current_sidebar_element, noSidebar, SidebarElement } from '../lib/sidebar';
 
 	export let service: Service;
@@ -28,7 +28,7 @@
 				filename: service.file,
 				oldServiceName: oldname,
 				newServiceName: change,
-				range: findAndRemoveRange(service, 'svc_name').range
+				range: findRange(service, 'svc_name')
 			});
 		}
 	};
@@ -83,11 +83,21 @@
 						file: service.file
 					};
 
+					let isFirst = true;
+					let range: CodeRange;
 					if (type === 'Input') {
 						if (!service.inputPorts) service.inputPorts = [];
+						isFirst = service.inputPorts.length === 0;
+						range = isFirst
+							? service.ranges.find((t) => t.name === 'svc_name')
+							: service.inputPorts[0].ranges.find((t) => t.name === 'port');
 						service.inputPorts.push(newPort);
 					} else {
 						if (!service.outputPorts) service.outputPorts = [];
+						isFirst = service.outputPorts.length === 0;
+						range = isFirst
+							? service.ranges.find((t) => t.name === 'svc_name')
+							: service.outputPorts[0].ranges.find((t) => t.name === 'port');
 						service.outputPorts.push(newPort);
 					}
 
@@ -98,9 +108,10 @@
 					vscode.postMessage({
 						command: `newPort`,
 						detail: {
-							serviceName: service.name,
 							file: service.file,
 							portType: type === 'Input' ? 'inputPort' : 'outputPort',
+							isFirst,
+							range: range.range,
 							port: {
 								name: vals.find((t) => t.field === 'name')?.val,
 								protocol: vals.find((t) => t.field === 'protocol')?.val,

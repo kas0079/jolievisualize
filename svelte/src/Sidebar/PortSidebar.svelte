@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { interfaces, services, vscode } from '../lib/data';
-	import { findAndRemoveRange, getAllServices } from '../lib/service';
+	import { findRange, getAllServices } from '../lib/service';
 	import { SidebarElement } from '../lib/sidebar';
 
 	export let port: Port;
@@ -45,6 +45,7 @@
 			}
 			const svc = getAllServices(services).find((t) => t.id === parentID);
 			if (!svc) return;
+			//TODO: change to vscode post message
 			dispatcher('editPort', {
 				filename: port.file,
 				serviceName: svc.name,
@@ -53,7 +54,7 @@
 				portName: oldName,
 				portType: portType === 'ip' ? 'inputPort' : 'outputPort',
 				editType,
-				range: findAndRemoveRange(port, editType).range
+				range: findRange(port, editType)
 			});
 		}
 	};

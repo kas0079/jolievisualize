@@ -215,8 +215,6 @@
 		service = parent
 			? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
 			: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
-
-		console.log(service.name, service.ranges);
 	});
 
 	afterUpdate(() => {

@@ -9,7 +9,6 @@
 	} from './lib/eventHandlers';
 	import { createSystemGraph } from './lib/graph';
 	import { current_popup, noPopup } from './lib/popup';
-	import { getAllServices } from './lib/service';
 	import { clearSidebar, current_sidebar_element, noSidebar } from './lib/sidebar';
 	import Network from './Network.svelte';
 	import Popup from './Popup.svelte';
@@ -91,15 +90,6 @@
 	};
 
 	const handleKeyboard = async (event: KeyboardEvent) => {
-		if (event.key === 't') {
-			await resetGraph();
-		}
-		if (event.key === 'r') {
-			await rerender();
-		}
-		if (event.key === 'q') {
-			getAllServices(services).forEach((t) => console.log(t.ranges));
-		}
 		//close sidebar & popup
 		if (event.key === 'Escape') {
 			if ($current_sidebar_element.hist_type >= 0) {
