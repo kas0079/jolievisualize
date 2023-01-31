@@ -1,8 +1,7 @@
 import type { ElkNode } from 'elkjs/lib/elk-api';
 import { services, vscode } from './data';
-import { addServiceToNetwork, getServiceNetworkId, removeFromNetwork } from './network';
+import { addServiceToNetwork } from './network';
 import { PopUp, current_popup } from './popup';
-import { createAggregator } from './patterns';
 
 export const getAllServices = (services: Service[][]) => {
 	return services.flatMap((t) => t.flatMap((s) => getRecursiveEmbedding(s)));
@@ -21,17 +20,16 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	if (parentPort) {
 		service.parentPort = parentPort;
 		const pport = parent.outputPorts.find((t) => t.name === parentPort);
-		if (vscode)
-			vscode.postMessage({
-				command: 'addEmbed',
-				detail: {
-					filename: parent.file,
-					serviceName: parent.name,
-					embedName: service.name,
-					embedPort: service.parentPort,
-					range: findRange(pport, 'port')
-				}
-			});
+		if (!vscode) return;
+		vscode.postMessage({
+			command: 'addEmbed',
+			detail: {
+				filename: parent.file,
+				embedName: service.name,
+				embedPort: service.parentPort,
+				range: findRange(pport, 'port')
+			}
+		});
 		return;
 	}
 	current_popup.set(
@@ -69,43 +67,43 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 
 				if (vscode && parent) {
 					//TODO: make it ONE request
-					// vscode.postMessage({
-					// 	command: 'newPort',
-					// 	detail: {
-					// 		file: parent.file,
-					// 		serviceName: parent.name,
-					// 		portType: 'outputPort',
-					// 		port: {
-					// 			name: newOP.name,
-					// 			location: 'local',
-					// 			protocol: newOP.protocol,
-					// 			interface: vals.find((t) => t.field === 'interfaces')
-					// 		}
-					// 	}
-					// });
-					// vscode.postMessage({
-					// 	command: 'newPort',
-					// 	detail: {
-					// 		file: service.file,
-					// 		serviceName: service.name,
-					// 		portType: 'inputPort',
-					// 		port: {
-					// 			name: newIP.name,
-					// 			location: 'local',
-					// 			protocol: newIP.protocol,
-					// 			interface: vals.find((t) => t.field === 'interfaces')
-					// 		}
-					// 	}
-					// });
-					// vscode.postMessage({
-					// 	command: 'addEmbed',
-					// 	detail: {
-					// 		filename: parent.file,
-					// 		serviceName: parent.name,
-					// 		embedName: service.name,
-					// 		embedPort: service.parentPort
-					// 	}
-					// });
+					vscode.postMessage({
+						command: 'newPort',
+						detail: {
+							file: parent.file,
+							serviceName: parent.name,
+							portType: 'outputPort',
+							port: {
+								name: newOP.name,
+								location: 'local',
+								protocol: newOP.protocol,
+								interface: vals.find((t) => t.field === 'interfaces')
+							}
+						}
+					});
+					vscode.postMessage({
+						command: 'newPort',
+						detail: {
+							file: service.file,
+							serviceName: service.name,
+							portType: 'inputPort',
+							port: {
+								name: newIP.name,
+								location: 'local',
+								protocol: newIP.protocol,
+								interface: vals.find((t) => t.field === 'interfaces')
+							}
+						}
+					});
+					vscode.postMessage({
+						command: 'addEmbed',
+						detail: {
+							filename: parent.file,
+							serviceName: parent.name,
+							embedName: service.name,
+							embedPort: service.parentPort
+						}
+					});
 				}
 			},
 			async () => {
@@ -126,7 +124,6 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 	if (!service.parent) return false;
 	const parent = service.parent;
 	service.parent = undefined;
-	const range = findRange(service, `embed_${service.name}`);
 
 	const parentPort = parent.outputPorts.find((t) => t.name === service.parentPort);
 	const parentPortName = parentPort?.name;
@@ -154,63 +151,61 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 		if (service.inputPorts)
 			service.inputPorts = service.inputPorts.filter((ip) => !ip.location.startsWith('!local'));
 
-		if (portsToRemove.length > 0 && vscode)
-			vscode.postMessage({ command: 'removePorts', detail: { ports: portsToRemove } });
-	} else {
-		//! -------- This does not work
-		// if (parent.outputPorts)
-		// 	parent.outputPorts = parent.outputPorts.filter((t) => t.name !== parentPortName);
-		// current_popup.set(
-		// 	new PopUp(
-		// 		`Create new port for aggregator`,
-		// 		['name', 'protocol', 'location'],
-		// 		300,
-		// 		(vals) => {
-		// 			const newLocation = vals.find((t) => t.field === 'location').val;
-		// 			if (vscode)
-		// 				vscode.postMessage({
-		// 					command: 'renamePort',
-		// 					detail: {
-		// 						filename: parentPort.file,
-		// 						serviceName: service.name,
-		// 						oldLine: `ocation: "${parentPort.location}"`,
-		// 						newLine: `ocation: "${newLocation}"`,
-		// 						portName: parentPort.name,
-		// 						portType: 'outputPort',
-		// 						editType: 'location',
-		// 						range: findRange(parentPort, 'location')
-		// 					}
-		// 				});
-		// 			parentPort.location = newLocation;
-		// 			parent.outputPorts.push(parentPort);
-		// 			// TODO add aggregator
-		// 			createAggregator([service]);
-		// 		},
-		// 		async () => {
-		// 			const tmpSvcNetworkId = getServiceNetworkId(service);
-		// 			removeFromNetwork(service, tmpSvcNetworkId);
-		// 			service.parent = parent;
-		// 			parent.outputPorts.push(parentPort);
-		// 			parent.embeddings.push(service);
-		// 			service.parentPort = getParentPortName(service, parent);
-		// 		}
-		// 	)
-		// );
+		service.parentPort = undefined;
+		if (parent.embeddings) parent.embeddings = parent.embeddings.filter((t) => t.id !== service.id);
+		if (vscode) {
+			if (portsToRemove.length > 0)
+				vscode.postMessage({ command: 'removePorts', detail: { ports: portsToRemove } });
+			if (parent)
+				vscode.postMessage({
+					command: 'removeEmbed',
+					detail: {
+						filename: parent.file,
+						range: findRange(parent, `embed_${service.name}`)
+					}
+				});
+		}
+		return parent;
 	}
-	if (vscode && parent)
-		vscode.postMessage({
-			command: 'removeEmbed',
-			detail: {
-				filename: parent.file,
-				serviceName: parent.name,
-				embedName: service.name,
-				embedPort: service.parentPort,
-				range
-			}
-		});
-	service.parentPort = undefined;
-	if (parent.embeddings) parent.embeddings = parent.embeddings.filter((t) => t.id !== service.id);
-	return parent;
+	//! -------- This does not work
+	// if (parent.outputPorts)
+	// 	parent.outputPorts = parent.outputPorts.filter((t) => t.name !== parentPortName);
+	// current_popup.set(
+	// 	new PopUp(
+	// 		`Create new port for aggregator`,
+	// 		['name', 'protocol', 'location'],
+	// 		300,
+	// 		(vals) => {
+	// 			const newLocation = vals.find((t) => t.field === 'location').val;
+	// 			if (vscode)
+	// 				vscode.postMessage({
+	// 					command: 'renamePort',
+	// 					detail: {
+	// 						filename: parentPort.file,
+	// 						serviceName: service.name,
+	// 						oldLine: `ocation: "${parentPort.location}"`,
+	// 						newLine: `ocation: "${newLocation}"`,
+	// 						portName: parentPort.name,
+	// 						portType: 'outputPort',
+	// 						editType: 'location',
+	// 						range: findRange(parentPort, 'location')
+	// 					}
+	// 				});
+	// 			parentPort.location = newLocation;
+	// 			parent.outputPorts.push(parentPort);
+	// 			// TODO add aggregator
+	// 			createAggregator([service]);
+	// 		},
+	// 		async () => {
+	// 			const tmpSvcNetworkId = getServiceNetworkId(service);
+	// 			removeFromNetwork(service, tmpSvcNetworkId);
+	// 			service.parent = parent;
+	// 			parent.outputPorts.push(parentPort);
+	// 			parent.embeddings.push(service);
+	// 			service.parentPort = getParentPortName(service, parent);
+	// 		}
+	// 	)
+	// );
 };
 
 export const getServiceFromCoords = (e: MouseEvent, services: Service[][]) => {

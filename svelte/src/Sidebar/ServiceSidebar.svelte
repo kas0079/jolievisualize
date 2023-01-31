@@ -22,13 +22,16 @@
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
-			const oldname = service.name;
 			service.name = change;
-			dispatcher('editService', {
-				filename: service.file,
-				oldServiceName: oldname,
-				newServiceName: change,
-				range: findRange(service, 'svc_name')
+			dispatcher('reloadgraph');
+			if (!vscode) return;
+			vscode.postMessage({
+				command: `renameService`,
+				detail: {
+					filename: service.file,
+					newServiceName: change,
+					range: findRange(service, 'svc_name')
+				}
 			});
 		}
 	};

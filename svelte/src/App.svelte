@@ -71,7 +71,7 @@
 
 	const rerender = async () => {
 		currentGraph = await elk.layout(rerenderGraph(currentGraph));
-		if (vscode) await sendVisData();
+		// if (vscode) await sendVisData();
 	};
 
 	const updateGraph = async (event: CustomEvent) => {

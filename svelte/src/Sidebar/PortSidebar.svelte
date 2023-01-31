@@ -23,38 +23,18 @@
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
-			const oldName = port.name;
-			let oldLine = '';
-			let newLine = '';
-			switch (editType) {
-				case 'port_name':
-					oldLine = port.name;
-					port.name = change;
-					newLine = change;
-					break;
-				case 'protocol':
-					oldLine = `rotocol: ${port.protocol}`;
-					port.protocol = change;
-					newLine = `rotocol: ${change}`;
-					break;
-				case 'location':
-					oldLine = `ocation: "${port.location}"`;
-					port.location = change;
-					newLine = `ocation: "${change}"`;
-					break;
-			}
 			const svc = getAllServices(services).find((t) => t.id === parentID);
 			if (!svc) return;
-			//TODO: change to vscode post message
-			dispatcher('editPort', {
-				filename: port.file,
-				serviceName: svc.name,
-				oldLine,
-				newLine,
-				portName: oldName,
-				portType: portType === 'ip' ? 'inputPort' : 'outputPort',
-				editType,
-				range: findRange(port, editType)
+			dispatcher('reloadgraph');
+			if (!vscode) return;
+			vscode.postMessage({
+				command: 'renamePort',
+				detail: {
+					filename: port.file,
+					newLine: change,
+					editType,
+					range: findRange(port, editType)
+				}
 			});
 		}
 	};

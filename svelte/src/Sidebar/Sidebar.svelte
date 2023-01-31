@@ -46,17 +46,6 @@
 			// TODO implement undo functionality
 		}
 	};
-
-	const dispatcher = createEventDispatcher();
-	const sendVSCodeCommand = (event: CustomEvent, command: string) => {
-		//TODO move down under vscode check
-		dispatcher('reloadgraph');
-		if (vscode === undefined) return;
-		vscode.postMessage({
-			command,
-			detail: event.detail
-		});
-	};
 </script>
 
 <svelte:window
@@ -101,8 +90,9 @@
 					port={$current_sidebar_element.port}
 					portType={$current_sidebar_element.portType}
 					parentID={$current_sidebar_element.port_parentID}
-					on:editPort={(e) => sendVSCodeCommand(e, 'renamePort')}
 					on:opensidebar
+					on:popup
+					on:reloadgraph
 				/>
 			{/if}
 			{#if $current_sidebar_element.hist_type === 0}
@@ -111,7 +101,6 @@
 					on:opensidebar
 					on:popup
 					on:reloadgraph
-					on:editService={(e) => sendVSCodeCommand(e, 'renameService')}
 				/>
 			{/if}
 			{#if $current_sidebar_element.hist_type === 2}
