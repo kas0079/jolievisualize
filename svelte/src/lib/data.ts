@@ -1,3 +1,4 @@
+import { writable } from 'svelte/store';
 import { preprocess } from './preprocess';
 
 export const vscode = acquireVsCodeApi();

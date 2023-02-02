@@ -211,6 +211,14 @@
 		prevPoly = polyUnder;
 	};
 
+	const test = (svc: Service[][]) => {
+		service = parent
+			? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
+			: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
+	};
+
+	$: test(services);
+
 	beforeUpdate(() => {
 		service = parent
 			? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)

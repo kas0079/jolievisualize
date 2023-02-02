@@ -40,12 +40,6 @@
 		if (!resizeMode) return;
 		x -= event.movementX;
 	};
-
-	const undoChange = async (event: MessageEvent<any>) => {
-		if (event.data.command === 'undo') {
-			// TODO implement undo functionality
-		}
-	};
 </script>
 
 <svelte:window
@@ -53,7 +47,6 @@
 		resizeMode = false;
 	}}
 	on:mousemove={resize}
-	on:message|stopPropagation={undoChange}
 />
 {#if $current_sidebar_element.hist_type >= 0}
 	<div

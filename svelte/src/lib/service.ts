@@ -3,6 +3,17 @@ import { services, vscode } from './data';
 import { addServiceToNetwork } from './network';
 import { PopUp, current_popup } from './popup';
 
+export const updateRanges = (data: Data) => {
+	const allSvc = getAllServices(services);
+	const newSvcs = data.services.flatMap((t) => t.flatMap((s) => getRecursiveEmbedding(s)));
+	newSvcs.forEach((newSvc) => {
+		const s = allSvc.find((t) => t.id === newSvc.id);
+		if (!s || !newSvc.ranges) return;
+		s.ranges = deepCopyRanges(newSvc.ranges);
+		updatePortRanges(s, newSvc);
+	});
+};
+
 export const getAllServices = (services: Service[][]) => {
 	return services.flatMap((t) => t.flatMap((s) => getRecursiveEmbedding(s)));
 };
@@ -236,6 +247,7 @@ export const isAncestor = (child: Service, anc: Service) => {
 };
 
 export const findRange = (obj: Service | Port, name: string) => {
+	if (!vscode) return { start: { line: 1, char: 1 }, end: { line: 1, char: 1 } };
 	return obj.ranges.find((t) => t.name === name).range;
 };
 
@@ -287,11 +299,41 @@ const getServiceFromPolygon = (elem: Element, services: Service[][]) => {
 	);
 };
 
+const updatePortRanges = (oldSvc: Service, newService: Service) => {
+	oldSvc.inputPorts?.forEach((ip) => {
+		newService.inputPorts?.forEach((newIp) => {
+			if (ip.name !== newIp.name || !newIp.ranges) return;
+			ip.ranges = deepCopyRanges(newIp.ranges);
+		});
+	});
+	oldSvc.outputPorts?.forEach((ip) => {
+		newService.outputPorts?.forEach((newOp) => {
+			if (ip.name !== newOp.name || !newOp.ranges) return;
+			ip.ranges = deepCopyRanges(newOp.ranges);
+		});
+	});
+};
+
+const deepCopyRanges = (newSvc: CodeRange[]) => {
+	const res: CodeRange[] = [];
+	newSvc?.forEach((r) => {
+		res.push({
+			name: r.name,
+			range: {
+				start: { line: r.range.start.line, char: r.range.start.char },
+				end: { line: r.range.end.line, char: r.range.end.char }
+			}
+		});
+	});
+	return res;
+};
+
 const getRecursiveEmbedding = (service: Service, result: Service[] = []) => {
 	result.push(service);
-	service.embeddings?.forEach((embed) => {
-		result = result.concat(getRecursiveEmbedding(embed));
-	});
+	if (service.embeddings)
+		service.embeddings.forEach((embed) => {
+			result = result.concat(getRecursiveEmbedding(embed));
+		});
 	return result;
 };
 
