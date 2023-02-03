@@ -7792,23 +7792,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const file = "src/App.svelte";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[15] = list[i];
+	child_ctx[16] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[18] = list[i];
-	child_ctx[19] = list;
-	child_ctx[20] = i;
+	child_ctx[19] = list[i];
+	child_ctx[20] = list;
+	child_ctx[21] = i;
 	return child_ctx;
 }
 
-// (1:0) <script lang="ts">import ELK from 'elkjs/lib/elk.bundled'; import Edge from './Edge.svelte'; import { generateVisFile, services, setDataString, vscode }
+// (1:0) <script lang="ts">import ELK from 'elkjs/lib/elk.bundled'; import Edge from './Edge.svelte'; import { generateVisFile, loading, services, setDataString, vscode }
 function create_catch_block(ctx) {
 	const block = {
 		c: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
@@ -7823,14 +7824,14 @@ function create_catch_block(ctx) {
 		block,
 		id: create_catch_block.name,
 		type: "catch",
-		source: "(1:0) <script lang=\\\"ts\\\">import ELK from 'elkjs/lib/elk.bundled'; import Edge from './Edge.svelte'; import { generateVisFile, services, setDataString, vscode }",
+		source: "(1:0) <script lang=\\\"ts\\\">import ELK from 'elkjs/lib/elk.bundled'; import Edge from './Edge.svelte'; import { generateVisFile, loading, services, setDataString, vscode }",
 		ctx
 	});
 
 	return block;
 }
 
-// (112:0) {:then _}
+// (108:0) {:then _}
 function create_then_block(ctx) {
 	let main;
 	let svg;
@@ -7838,11 +7839,13 @@ function create_then_block(ctx) {
 	let zoom;
 	let t0;
 	let t1;
+	let t2;
 	let current;
 	zoom = new _Zoom_svelte__WEBPACK_IMPORTED_MODULE_12__["default"]({ $$inline: true });
-	let if_block0 = /*currentGraph*/ ctx[0] && create_if_block_2(ctx);
-	let if_block1 = /*$current_sidebar_element*/ ctx[2].hist_type >= 0 && create_if_block_1(ctx);
-	let if_block2 = /*$current_popup*/ ctx[1].values.length > 0 && create_if_block(ctx);
+	let if_block0 = /*currentGraph*/ ctx[0] && create_if_block_3(ctx);
+	let if_block1 = /*$current_sidebar_element*/ ctx[2].hist_type >= 0 && create_if_block_2(ctx);
+	let if_block2 = /*$loading*/ ctx[3] && create_if_block_1(ctx);
+	let if_block3 = /*$current_popup*/ ctx[1].values.length > 0 && create_if_block(ctx);
 
 	const block = {
 		c: function create() {
@@ -7855,10 +7858,12 @@ function create_then_block(ctx) {
 			if (if_block1) if_block1.c();
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			if (if_block2) if_block2.c();
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 114, 3, 21194);
+			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block3) if_block3.c();
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 110, 3, 12972);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "class", "w-screen h-screen");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 113, 2, 21159);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 112, 1, 21150);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 109, 2, 12937);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 108, 1, 12928);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, main, anchor);
@@ -7870,6 +7875,8 @@ function create_then_block(ctx) {
 			if (if_block1) if_block1.m(main, null);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(main, t1);
 			if (if_block2) if_block2.m(main, null);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(main, t2);
+			if (if_block3) if_block3.m(main, null);
 			current = true;
 		},
 		p: function update(ctx, dirty) {
@@ -7881,7 +7888,7 @@ function create_then_block(ctx) {
 						(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
 					}
 				} else {
-					if_block0 = create_if_block_2(ctx);
+					if_block0 = create_if_block_3(ctx);
 					if_block0.c();
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0, 1);
 					if_block0.m(g, null);
@@ -7904,7 +7911,7 @@ function create_then_block(ctx) {
 						(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
 					}
 				} else {
-					if_block1 = create_if_block_1(ctx);
+					if_block1 = create_if_block_2(ctx);
 					if_block1.c();
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1, 1);
 					if_block1.m(main, t1);
@@ -7919,24 +7926,37 @@ function create_then_block(ctx) {
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
 			}
 
-			if (/*$current_popup*/ ctx[1].values.length > 0) {
+			if (/*$loading*/ ctx[3]) {
 				if (if_block2) {
-					if_block2.p(ctx, dirty);
-
-					if (dirty & /*$current_popup*/ 2) {
-						(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
-					}
+					
 				} else {
-					if_block2 = create_if_block(ctx);
+					if_block2 = create_if_block_1(ctx);
 					if_block2.c();
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2, 1);
-					if_block2.m(main, null);
+					if_block2.m(main, t2);
 				}
 			} else if (if_block2) {
+				if_block2.d(1);
+				if_block2 = null;
+			}
+
+			if (/*$current_popup*/ ctx[1].values.length > 0) {
+				if (if_block3) {
+					if_block3.p(ctx, dirty);
+
+					if (dirty & /*$current_popup*/ 2) {
+						(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block3, 1);
+					}
+				} else {
+					if_block3 = create_if_block(ctx);
+					if_block3.c();
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block3, 1);
+					if_block3.m(main, null);
+				}
+			} else if (if_block3) {
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.group_outros)();
 
-				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2, 1, 1, () => {
-					if_block2 = null;
+				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block3, 1, 1, () => {
+					if_block3 = null;
 				});
 
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.check_outros)();
@@ -7947,14 +7967,14 @@ function create_then_block(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(zoom.$$.fragment, local);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block0);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block1);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block2);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_in)(if_block3);
 			current = true;
 		},
 		o: function outro(local) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(zoom.$$.fragment, local);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block0);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block1);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block2);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.transition_out)(if_block3);
 			current = false;
 		},
 		d: function destroy(detaching) {
@@ -7963,6 +7983,7 @@ function create_then_block(ctx) {
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
 			if (if_block2) if_block2.d();
+			if (if_block3) if_block3.d();
 		}
 	};
 
@@ -7970,15 +7991,15 @@ function create_then_block(ctx) {
 		block,
 		id: create_then_block.name,
 		type: "then",
-		source: "(112:0) {:then _}",
+		source: "(108:0) {:then _}",
 		ctx
 	});
 
 	return block;
 }
 
-// (117:4) {#if currentGraph}
-function create_if_block_2(ctx) {
+// (113:4) {#if currentGraph}
+function create_if_block_3(ctx) {
 	let each0_anchor;
 	let each1_anchor;
 	let current;
@@ -8035,7 +8056,7 @@ function create_if_block_2(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*currentGraph, updateGraph, openSidebar*/ 385) {
+			if (dirty & /*currentGraph, updateGraph, openSidebar*/ 769) {
 				each_value_1 = /*currentGraph*/ ctx[0].children;
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_1);
 				let i;
@@ -8129,35 +8150,35 @@ function create_if_block_2(ctx) {
 
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_2.name,
+		id: create_if_block_3.name,
 		type: "if",
-		source: "(117:4) {#if currentGraph}",
+		source: "(113:4) {#if currentGraph}",
 		ctx
 	});
 
 	return block;
 }
 
-// (118:5) {#each currentGraph.children as child}
+// (114:5) {#each currentGraph.children as child}
 function create_each_block_1(ctx) {
 	let network;
 	let updating_network;
 	let current;
 
 	function network_network_binding(value) {
-		/*network_network_binding*/ ctx[10](value, /*child*/ ctx[18], /*each_value_1*/ ctx[19], /*child_index*/ ctx[20]);
+		/*network_network_binding*/ ctx[11](value, /*child*/ ctx[19], /*each_value_1*/ ctx[20], /*child_index*/ ctx[21]);
 	}
 
 	let network_props = {};
 
-	if (/*child*/ ctx[18] !== void 0) {
-		network_props.network = /*child*/ ctx[18];
+	if (/*child*/ ctx[19] !== void 0) {
+		network_props.network = /*child*/ ctx[19];
 	}
 
 	network = new _Network_svelte__WEBPACK_IMPORTED_MODULE_9__["default"]({ props: network_props, $$inline: true });
 	svelte_internal__WEBPACK_IMPORTED_MODULE_0__.binding_callbacks.push(() => (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.bind)(network, 'network', network_network_binding));
-	network.$on("message", /*updateGraph*/ ctx[7]);
-	network.$on("opensidebar", /*openSidebar*/ ctx[8]);
+	network.$on("message", /*updateGraph*/ ctx[8]);
+	network.$on("opensidebar", /*openSidebar*/ ctx[9]);
 
 	const block = {
 		c: function create() {
@@ -8173,7 +8194,7 @@ function create_each_block_1(ctx) {
 
 			if (!updating_network && dirty & /*currentGraph*/ 1) {
 				updating_network = true;
-				network_changes.network = /*child*/ ctx[18];
+				network_changes.network = /*child*/ ctx[19];
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_flush_callback)(() => updating_network = false);
 			}
 
@@ -8197,21 +8218,21 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(118:5) {#each currentGraph.children as child}",
+		source: "(114:5) {#each currentGraph.children as child}",
 		ctx
 	});
 
 	return block;
 }
 
-// (121:5) {#each currentGraph.edges as edge}
+// (117:5) {#each currentGraph.edges as edge}
 function create_each_block(ctx) {
 	let edge;
 	let current;
 
 	edge = new _Edge_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
 			props: {
-				edge: /*edge*/ ctx[15],
+				edge: /*edge*/ ctx[16],
 				white: _lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode !== undefined
 			},
 			$$inline: true
@@ -8227,7 +8248,7 @@ function create_each_block(ctx) {
 		},
 		p: function update(ctx, dirty) {
 			const edge_changes = {};
-			if (dirty & /*currentGraph*/ 1) edge_changes.edge = /*edge*/ ctx[15];
+			if (dirty & /*currentGraph*/ 1) edge_changes.edge = /*edge*/ ctx[16];
 			edge.$set(edge_changes);
 		},
 		i: function intro(local) {
@@ -8248,20 +8269,20 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(121:5) {#each currentGraph.edges as edge}",
+		source: "(117:5) {#each currentGraph.edges as edge}",
 		ctx
 	});
 
 	return block;
 }
 
-// (127:2) {#if $current_sidebar_element.hist_type >= 0}
-function create_if_block_1(ctx) {
+// (123:2) {#if $current_sidebar_element.hist_type >= 0}
+function create_if_block_2(ctx) {
 	let sidebar;
 	let current;
 	sidebar = new _Sidebar_Sidebar_svelte__WEBPACK_IMPORTED_MODULE_11__["default"]({ $$inline: true });
-	sidebar.$on("reloadgraph", /*rerender*/ ctx[6]);
-	sidebar.$on("opensidebar", /*openSidebar*/ ctx[8]);
+	sidebar.$on("reloadgraph", /*rerender*/ ctx[7]);
+	sidebar.$on("opensidebar", /*openSidebar*/ ctx[9]);
 
 	const block = {
 		c: function create() {
@@ -8288,21 +8309,50 @@ function create_if_block_1(ctx) {
 
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_1.name,
+		id: create_if_block_2.name,
 		type: "if",
-		source: "(127:2) {#if $current_sidebar_element.hist_type >= 0}",
+		source: "(123:2) {#if $current_sidebar_element.hist_type >= 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (130:2) {#if $current_popup.values.length > 0}
+// (126:2) {#if $loading}
+function create_if_block_1(ctx) {
+	let div;
+
+	const block = {
+		c: function create() {
+			div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div, "class", "absolute top-0 left-0 w-screen h-screen");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div, file, 126, 3, 13439);
+		},
+		m: function mount(target, anchor) {
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, div, anchor);
+		},
+		d: function destroy(detaching) {
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(div);
+		}
+	};
+
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
+		block,
+		id: create_if_block_1.name,
+		type: "if",
+		source: "(126:2) {#if $loading}",
+		ctx
+	});
+
+	return block;
+}
+
+// (129:2) {#if $current_popup.values.length > 0}
 function create_if_block(ctx) {
 	let popup;
 	let current;
 	popup = new _Popup_svelte__WEBPACK_IMPORTED_MODULE_10__["default"]({ $$inline: true });
-	popup.$on("cancel", /*resetGraph*/ ctx[4]);
+	popup.$on("cancel", /*resetGraph*/ ctx[5]);
 
 	const block = {
 		c: function create() {
@@ -8331,14 +8381,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(130:2) {#if $current_popup.values.length > 0}",
+		source: "(129:2) {#if $current_popup.values.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (110:22)   <main><p>...loading</p></main> {:then _}
+// (106:22)   <main><p>...loading</p></main> {:then _}
 function create_pending_block(ctx) {
 	let main;
 	let p;
@@ -8348,8 +8398,8 @@ function create_pending_block(ctx) {
 			main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
 			p = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("p");
 			p.textContent = "...loading";
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 110, 7, 21114);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 110, 1, 21108);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 106, 7, 12892);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 106, 1, 12886);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, main, anchor);
@@ -8367,7 +8417,7 @@ function create_pending_block(ctx) {
 		block,
 		id: create_pending_block.name,
 		type: "pending",
-		source: "(110:22)   <main><p>...loading</p></main> {:then _}",
+		source: "(106:22)   <main><p>...loading</p></main> {:then _}",
 		ctx
 	});
 
@@ -8389,11 +8439,11 @@ function create_fragment(ctx) {
 		pending: create_pending_block,
 		then: create_then_block,
 		catch: create_catch_block,
-		value: 14,
+		value: 15,
 		blocks: [,,,]
 	};
 
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.handle_promise)(promise = /*layoutGraph*/ ctx[5](), info);
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.handle_promise)(promise = /*layoutGraph*/ ctx[6](), info);
 
 	const block = {
 		c: function create() {
@@ -8412,8 +8462,8 @@ function create_fragment(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(window, "keydown", /*handleKeyboard*/ ctx[9], false, false, false),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(window, "message", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*vsCodeMessage*/ ctx[3]), false, false, true)
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(window, "keydown", /*handleKeyboard*/ ctx[10], false, false, false),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(window, "message", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*vsCodeMessage*/ ctx[4]), false, false, true)
 				];
 
 				mounted = true;
@@ -8460,10 +8510,13 @@ function create_fragment(ctx) {
 function instance($$self, $$props, $$invalidate) {
 	let $current_popup;
 	let $current_sidebar_element;
+	let $loading;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_popup__WEBPACK_IMPORTED_MODULE_6__.current_popup, 'current_popup');
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_popup__WEBPACK_IMPORTED_MODULE_6__.current_popup, $$value => $$invalidate(1, $current_popup = $$value));
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_sidebar__WEBPACK_IMPORTED_MODULE_8__.current_sidebar_element, 'current_sidebar_element');
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_sidebar__WEBPACK_IMPORTED_MODULE_8__.current_sidebar_element, $$value => $$invalidate(2, $current_sidebar_element = $$value));
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_data__WEBPACK_IMPORTED_MODULE_3__.loading, 'loading');
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_data__WEBPACK_IMPORTED_MODULE_3__.loading, $$value => $$invalidate(3, $loading = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_slots)('App', slots, []);
 	const elk = new (elkjs_lib_elk_bundled__WEBPACK_IMPORTED_MODULE_1___default())();
@@ -8472,13 +8525,9 @@ function instance($$self, $$props, $$invalidate) {
 	const getData = async () => {
 		if (_lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode) _lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode.postMessage({ command: 'getData' }); else {
 			// Mock
-			(0,_lib_data__WEBPACK_IMPORTED_MODULE_3__.setDataString)(// `{"name":"internetwork","interfaces":[{"name":"service2Inter","file":"\/Service1.ol","id":0,"reqres":[{"name":"test","res":"int","req":"int"}]},{"name":"service1Inter","file":"\/Service2.ol","id":1,"reqres":[{"name":"test","res":"int","req":"int"}]}],"types":[],"services":[[{"name":"One","execution":"single","file":"\/Service1.ol","id":0,"outputPorts":[{"name":"Output","protocol":"sodep","interfaces":[{"name":"service2Inter","id":0}],"location":"socket:\/\/localhost:9000"}]},{"name":"One","execution":"single","file":"\/Service1.ol","id":1,"outputPorts":[{"name":"Output","protocol":"sodep","interfaces":[{"name":"service2Inter","id":0}],"location":"socket:\/\/localhost:9000"}]}],[{"name":"Two","execution":"single","inputPorts":[{"name":"Input","protocol":"sodep","interfaces":[{"name":"service1Inter","id":1}],"location":"socket:\/\/localhost:9000"}],"file":"\/Service2.ol","id":2}]]}`
-			// `{"name":"internetwork","interfaces":[{"name":"service2Inter","file":"\/Service1.ol","id":0,"reqres":[{"name":"test","res":"int","req":"int"}]},{"name":"service1Inter","file":"\/Service2.ol","id":1,"reqres":[{"name":"test","res":"int","req":"int"}]}],"types":[],"services":[[{"name":"One","execution":"single","file":"\/Service1.ol","id":0,"outputPorts":[{"name":"Output","protocol":"sodep","interfaces":[{"name":"service2Inter","id":0}],"location":"socket:\/\/localhost:9000"}]}],[{"name":"Two","execution":"single","inputPorts":[{"name":"Input","protocol":"sodep","interfaces":[{"name":"service1Inter","id":1}],"location":"socket:\/\/localhost:9000"}],"file":"\/Service2.ol","id":1}]]}`
-			// `{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"PrinterInterface","file":"\/aggregator.ol","id":1,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/aggregator.ol","id":2,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"FaxInterface","file":"\/fax.ol","id":3,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/printer.ol","id":4,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"AggregatorInterface","file":"\/aggregator.ol","id":5,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"AggregatorInterface","file":"\/client.ol","id":6,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"PrinterInterface","file":"\/client.ol","id":7,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/client.ol","id":8,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]},{"name":"PrintRequest","subTypes":[{"name":"content","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"PrintResponse","file":"\/PrinterInterface.ol","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"FaxRequest","subTypes":[{"name":"destination","file":"\/FaxInterface.ol","type":"string"},{"name":"content","file":"\/FaxInterface.ol","type":"string"}],"file":"\/FaxInterface.ol"},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","file":"\/AggregatorInterface.ol","type":"PrintRequest"},{"name":"fax","file":"\/AggregatorInterface.ol","type":"FaxRequest"}],"file":"\/AggregatorInterface.ol"}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":1},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":3}],"execution":"concurrent","file":"\/fax.ol","parentPort":"Fax","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"name":"Fax","inputPorts":[{"name":"FaxInput","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":3}],"location":"socket:\/\/localhost:9001"}],"id":2},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"concurrent","file":"\/printer.ol","parentPort":"printer","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"name":"Printer","inputPorts":[{"name":"PrinterInput","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":4}],"location":"socket:\/\/localhost:9000"}],"id":4}],"execution":"concurrent","file":"\/aggregator.ol","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":1}],"location":"socket:\/\/localhost:9000"},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":2}],"location":"socket:\/\/localhost:9001"}],"name":"Aggregator","inputPorts":[{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":5}],"location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}]}],"id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":7}],"execution":"single","file":"\/client.ol","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":6},{"name":"PrinterInterface","id":7},{"name":"FaxInterface","id":8}],"location":"socket:\/\/localhost:9002"}],"name":"Client","id":6}]]}`
-			`{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"AggregatorInterface","file":"\/client.ol","id":1,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"PrinterInterface","file":"\/client.ol","id":2,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/client.ol","id":3,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/aggregator.ol","id":4,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/aggregator.ol","id":5,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"FaxInterface","file":"\/fax.ol","id":6,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/printer.ol","id":7,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"AggregatorInterface","file":"\/aggregator.ol","id":8,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","file":"\/AggregatorInterface.ol","type":"PrintRequest"},{"name":"fax","file":"\/AggregatorInterface.ol","type":"FaxRequest"}],"file":"\/AggregatorInterface.ol"},{"name":"PrintRequest","subTypes":[{"name":"content","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"PrintResponse","file":"\/PrinterInterface.ol","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"FaxRequest","subTypes":[{"name":"destination","file":"\/FaxInterface.ol","type":"string"},{"name":"content","file":"\/FaxInterface.ol","type":"string"}],"file":"\/FaxInterface.ol"}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":1}],"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":5,"char":8},"end":{"line":5,"char":14}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":1},{"name":"PrinterInterface","id":2},{"name":"FaxInterface","id":3}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":15},"end":{"line":14,"char":-1}}}]}],"name":"Client","id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":3},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"concurrent","file":"\/fax.ol","parentPort":"Fax","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":11}}},{"name":"embed_Console","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}]}],"name":"Fax","inputPorts":[{"name":"FaxInput","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":6}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":11,"char":8},"end":{"line":11,"char":18}}},{"name":"location","range":{"start":{"line":10,"char":-24},"end":{"line":10,"char":-1}}},{"name":"port","range":{"start":{"line":8,"char":14},"end":{"line":13,"char":-1}}}]}],"id":4},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":7}],"execution":"concurrent","file":"\/printer.ol","parentPort":"printer","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":15}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]}],"name":"Printer","inputPorts":[{"name":"PrinterInput","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":7}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":14},"end":{"line":14,"char":-1}}}]}],"id":6}],"execution":"concurrent","file":"\/aggregator.ol","ranges":[{"name":"svc_name","range":{"start":{"line":7,"char":8},"end":{"line":7,"char":18}}},{"name":"embed_Console","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}},{"name":"embed_Fax","range":{"start":{"line":25,"char":10},"end":{"line":26,"char":-1}}},{"name":"embed_Printer","range":{"start":{"line":26,"char":10},"end":{"line":27,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}}]},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":4}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":16,"char":8},"end":{"line":16,"char":18}}},{"name":"location","range":{"start":{"line":15,"char":-24},"end":{"line":15,"char":-1}}},{"name":"port","range":{"start":{"line":13,"char":15},"end":{"line":18,"char":-1}}}]},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":5}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":22,"char":8},"end":{"line":22,"char":18}}},{"name":"location","range":{"start":{"line":21,"char":-24},"end":{"line":21,"char":-1}}},{"name":"port","range":{"start":{"line":19,"char":15},"end":{"line":24,"char":-1}}}]}],"name":"Aggregator","inputPorts":[{"protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":8}],"ranges":[{"name":"protocol","range":{"start":{"line":31,"char":8},"end":{"line":31,"char":18}}},{"name":"location","range":{"start":{"line":30,"char":-24},"end":{"line":30,"char":-1}}},{"name":"port","range":{"start":{"line":28,"char":14},"end":{"line":34,"char":-1}}}],"name":"Aggregator","location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}]}],"id":2}]]}`); // `{"name":"disembed","interfaces":[{"name":"dummy","file":"\/s2.ol","id":0,"reqres":[{"name":"hello","res":"int","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":1}],"execution":"single","file":"\/s1.ol","outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceOne","id":0},{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"S2","name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"id":3}],"execution":"single","file":"\/s3.ol","outputPorts":[{"name":"S2","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local"}],"name":"ServiceThree","id":2}]]}`
-			// `{"name":"disembed","interfaces":[{"name":"dummy","file":"\/s2.ol","id":0,"reqres":[{"name":"hello","res":"int","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","ranges":[{"name":"svc_name","range":{"start":{"line":6,"char":8},"end":{"line":6,"char":18}}}],"name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"protocol","range":{"start":{"line":10,"char":8},"end":{"line":10,"char":18}}},{"name":"location","range":{"start":{"line":9,"char":-6},"end":{"line":9,"char":-1}}},{"name":"port","range":{"start":{"line":7,"char":14},"end":{"line":12,"char":-1}}}]}],"id":1}],"execution":"single","file":"\/s1.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":18}}},{"name":"embed_ServiceTwo","range":{"start":{"line":3,"char":10},"end":{"line":4,"char":-1}}}],"outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":3,"char":10},"end":{"line":4,"char":-1}}}]}],"name":"ServiceOne","id":0}]]}`
+			(0,_lib_data__WEBPACK_IMPORTED_MODULE_3__.setDataString)(// `{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"AggregatorInterface","file":"\/client.ol","id":1,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"PrinterInterface","file":"\/client.ol","id":2,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/client.ol","id":3,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/aggregator.ol","id":4,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/aggregator.ol","id":5,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"FaxInterface","file":"\/fax.ol","id":6,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/printer.ol","id":7,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"AggregatorInterface","file":"\/aggregator.ol","id":8,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","file":"\/AggregatorInterface.ol","type":"PrintRequest"},{"name":"fax","file":"\/AggregatorInterface.ol","type":"FaxRequest"}],"file":"\/AggregatorInterface.ol"},{"name":"PrintRequest","subTypes":[{"name":"content","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"PrintResponse","file":"\/PrinterInterface.ol","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"FaxRequest","subTypes":[{"name":"destination","file":"\/FaxInterface.ol","type":"string"},{"name":"content","file":"\/FaxInterface.ol","type":"string"}],"file":"\/FaxInterface.ol"}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":1}],"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":5,"char":8},"end":{"line":5,"char":14}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":1},{"name":"PrinterInterface","id":2},{"name":"FaxInterface","id":3}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":15},"end":{"line":14,"char":-1}}}]}],"name":"Client","id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":3},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"concurrent","file":"\/fax.ol","parentPort":"Fax","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":11}}},{"name":"embed_Console","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}]}],"name":"Fax","inputPorts":[{"name":"FaxInput","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":6}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":11,"char":8},"end":{"line":11,"char":18}}},{"name":"location","range":{"start":{"line":10,"char":-24},"end":{"line":10,"char":-1}}},{"name":"port","range":{"start":{"line":8,"char":14},"end":{"line":13,"char":-1}}}]}],"id":4},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":7}],"execution":"concurrent","file":"\/printer.ol","parentPort":"printer","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":15}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]}],"name":"Printer","inputPorts":[{"name":"PrinterInput","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":7}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":14},"end":{"line":14,"char":-1}}}]}],"id":6}],"execution":"concurrent","file":"\/aggregator.ol","ranges":[{"name":"svc_name","range":{"start":{"line":7,"char":8},"end":{"line":7,"char":18}}},{"name":"embed_Console","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}},{"name":"embed_Fax","range":{"start":{"line":25,"char":10},"end":{"line":26,"char":-1}}},{"name":"embed_Printer","range":{"start":{"line":26,"char":10},"end":{"line":27,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}}]},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":4}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":16,"char":8},"end":{"line":16,"char":18}}},{"name":"location","range":{"start":{"line":15,"char":-24},"end":{"line":15,"char":-1}}},{"name":"port","range":{"start":{"line":13,"char":15},"end":{"line":18,"char":-1}}}]},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":5}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":22,"char":8},"end":{"line":22,"char":18}}},{"name":"location","range":{"start":{"line":21,"char":-24},"end":{"line":21,"char":-1}}},{"name":"port","range":{"start":{"line":19,"char":15},"end":{"line":24,"char":-1}}}]}],"name":"Aggregator","inputPorts":[{"protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":8}],"ranges":[{"name":"protocol","range":{"start":{"line":31,"char":8},"end":{"line":31,"char":18}}},{"name":"location","range":{"start":{"line":30,"char":-24},"end":{"line":30,"char":-1}}},{"name":"port","range":{"start":{"line":28,"char":14},"end":{"line":34,"char":-1}}}],"name":"Aggregator","location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}]}],"id":2}]]}`
+			`{"name":"embed","interfaces":[{"name":"dummy","file":"\/s1.ol","id":0,"oneway":[{"name":"hi","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s1.ol","parentPort":"S2","ranges":[{"name":"svc_name","range":{"start":{"line":8,"char":8},"end":{"line":8,"char":10}}}],"name":"S2","inputPorts":[{"name":"Test","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-6},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":14},"end":{"line":14,"char":-1}}}]}],"id":1}],"execution":"single","file":"\/s1.ol","ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":10}}},{"name":"embed_S2","range":{"start":{"line":5,"char":10},"end":{"line":6,"char":-1}}}],"outputPorts":[{"name":"S2","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":5,"char":10},"end":{"line":6,"char":-1}}}]}],"name":"S1","id":0}]]}`);
 
-			// `{"name":"embed","interfaces":[],"types":[],"services":[[{"name":"S2","execution":"single","file":"\/s1.ol","id":0},{"name":"S1","execution":"single","file":"\/s1.ol","id":1}]]}`
 			$$invalidate(0, currentGraph = await elk.layout((0,_lib_graph__WEBPACK_IMPORTED_MODULE_5__.createSystemGraph)(_lib_data__WEBPACK_IMPORTED_MODULE_3__.services)));
 		}
 	};
@@ -8504,12 +8553,15 @@ function instance($$self, $$props, $$invalidate) {
 			(0,_lib_service__WEBPACK_IMPORTED_MODULE_7__.updateRanges)(JSON.parse(event.data.data));
 			await rerender();
 		}
+
+		_lib_data__WEBPACK_IMPORTED_MODULE_3__.loading.set(false);
 	};
 
 	const resetGraph = async () => {
 		$$invalidate(0, currentGraph = undefined);
 		$$invalidate(0, currentGraph = await elk.layout((0,_lib_graph__WEBPACK_IMPORTED_MODULE_5__.createSystemGraph)(_lib_data__WEBPACK_IMPORTED_MODULE_3__.services)));
-		if (_lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode) await sendVisData();
+		if (!_lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode) return;
+		await sendVisData();
 	};
 
 	const layoutGraph = async () => {
@@ -8573,6 +8625,7 @@ function instance($$self, $$props, $$invalidate) {
 		ELK: (elkjs_lib_elk_bundled__WEBPACK_IMPORTED_MODULE_1___default()),
 		Edge: _Edge_svelte__WEBPACK_IMPORTED_MODULE_2__["default"],
 		generateVisFile: _lib_data__WEBPACK_IMPORTED_MODULE_3__.generateVisFile,
+		loading: _lib_data__WEBPACK_IMPORTED_MODULE_3__.loading,
 		services: _lib_data__WEBPACK_IMPORTED_MODULE_3__.services,
 		setDataString: _lib_data__WEBPACK_IMPORTED_MODULE_3__.setDataString,
 		vscode: _lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode,
@@ -8602,7 +8655,8 @@ function instance($$self, $$props, $$invalidate) {
 		openSidebar,
 		handleKeyboard,
 		$current_popup,
-		$current_sidebar_element
+		$current_sidebar_element,
+		$loading
 	});
 
 	$$self.$inject_state = $$props => {
@@ -8617,6 +8671,7 @@ function instance($$self, $$props, $$invalidate) {
 		currentGraph,
 		$current_popup,
 		$current_sidebar_element,
+		$loading,
 		vsCodeMessage,
 		resetGraph,
 		layoutGraph,
@@ -10179,23 +10234,23 @@ const file = "src/Service.svelte";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[24] = list[i];
+	child_ctx[23] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[27] = list[i];
+	child_ctx[26] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[30] = list[i];
+	child_ctx[29] = list[i];
 	return child_ctx;
 }
 
-// (212:1) {#if service.embeddings && service.embeddings.length > 0}
+// (218:1) {#if service.embeddings && service.embeddings.length > 0}
 function create_if_block_5(ctx) {
 	let g;
 	let rect0;
@@ -10225,7 +10280,7 @@ function create_if_block_5(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect0, "width", rect0_width_value = 5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect0, "height", rect0_height_value = 5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect0, "class", "fill-serviceStroke cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect0, file, 213, 3, 7961);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect0, file, 219, 3, 8181);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "x", rect1_x_value = (/*serviceNode*/ ctx[0].width ?? 0) - 7 + 0.5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "y", rect1_y_value = (/*serviceNode*/ ctx[0].height ?? 0) - 7 + (2.5 - 0.4));
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "width", rect1_width_value = 4.0);
@@ -10233,8 +10288,8 @@ function create_if_block_5(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "rx", rect1_rx_value = 0.5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "ry", rect1_ry_value = 1);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "class", "fill-white cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect1, file, 235, 3, 8662);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 212, 2, 7954);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect1, file, 243, 3, 8969);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 218, 2, 8174);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, g, anchor);
@@ -10258,6 +10313,7 @@ function create_if_block_5(ctx) {
 						false,
 						true
 					),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(rect0, "dblclick", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(dblclick_handler), false, false, true),
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(
 						rect0,
 						"keypress",
@@ -10286,6 +10342,7 @@ function create_if_block_5(ctx) {
 						false,
 						true
 					),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(rect1, "dblclick", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(dblclick_handler_2), false, false, true),
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(
 						rect1,
 						"keypress",
@@ -10349,14 +10406,14 @@ function create_if_block_5(ctx) {
 		block,
 		id: create_if_block_5.name,
 		type: "if",
-		source: "(212:1) {#if service.embeddings && service.embeddings.length > 0}",
+		source: "(218:1) {#if service.embeddings && service.embeddings.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (223:3) {#if !expanded}
+// (230:3) {#if !expanded}
 function create_if_block_6(ctx) {
 	let rect;
 	let rect_x_value;
@@ -10378,7 +10435,7 @@ function create_if_block_6(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "rx", rect_rx_value = 1);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "ry", rect_ry_value = 0.5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "class", "fill-white cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect, file, 223, 4, 8293);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect, file, 230, 4, 8556);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, rect, anchor);
@@ -10399,6 +10456,7 @@ function create_if_block_6(ctx) {
 						false,
 						true
 					),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(rect, "dblclick", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(dblclick_handler_1), false, false, true),
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(
 						rect,
 						"keypress",
@@ -10440,14 +10498,14 @@ function create_if_block_6(ctx) {
 		block,
 		id: create_if_block_6.name,
 		type: "if",
-		source: "(223:3) {#if !expanded}",
+		source: "(230:3) {#if !expanded}",
 		ctx
 	});
 
 	return block;
 }
 
-// (254:1) {#if serviceNode.edges && serviceNode.edges.length > 0}
+// (263:1) {#if serviceNode.edges && serviceNode.edges.length > 0}
 function create_if_block_3(ctx) {
 	let each_1_anchor;
 	let current;
@@ -10536,20 +10594,20 @@ function create_if_block_3(ctx) {
 		block,
 		id: create_if_block_3.name,
 		type: "if",
-		source: "(254:1) {#if serviceNode.edges && serviceNode.edges.length > 0}",
+		source: "(263:1) {#if serviceNode.edges && serviceNode.edges.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (256:3) {#if edge.sections}
+// (265:3) {#if edge.sections}
 function create_if_block_4(ctx) {
 	let edge;
 	let current;
 
 	edge = new _Edge_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({
-			props: { edge: /*edge*/ ctx[30], white: false },
+			props: { edge: /*edge*/ ctx[29], white: false },
 			$$inline: true
 		});
 
@@ -10563,7 +10621,7 @@ function create_if_block_4(ctx) {
 		},
 		p: function update(ctx, dirty) {
 			const edge_changes = {};
-			if (dirty[0] & /*serviceNode*/ 1) edge_changes.edge = /*edge*/ ctx[30];
+			if (dirty[0] & /*serviceNode*/ 1) edge_changes.edge = /*edge*/ ctx[29];
 			edge.$set(edge_changes);
 		},
 		i: function intro(local) {
@@ -10584,18 +10642,18 @@ function create_if_block_4(ctx) {
 		block,
 		id: create_if_block_4.name,
 		type: "if",
-		source: "(256:3) {#if edge.sections}",
+		source: "(265:3) {#if edge.sections}",
 		ctx
 	});
 
 	return block;
 }
 
-// (255:2) {#each serviceNode.edges as edge}
+// (264:2) {#each serviceNode.edges as edge}
 function create_each_block_2(ctx) {
 	let if_block_anchor;
 	let current;
-	let if_block = /*edge*/ ctx[30].sections && create_if_block_4(ctx);
+	let if_block = /*edge*/ ctx[29].sections && create_if_block_4(ctx);
 
 	const block = {
 		c: function create() {
@@ -10608,7 +10666,7 @@ function create_each_block_2(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (/*edge*/ ctx[30].sections) {
+			if (/*edge*/ ctx[29].sections) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
@@ -10650,14 +10708,14 @@ function create_each_block_2(ctx) {
 		block,
 		id: create_each_block_2.name,
 		type: "each",
-		source: "(255:2) {#each serviceNode.edges as edge}",
+		source: "(264:2) {#each serviceNode.edges as edge}",
 		ctx
 	});
 
 	return block;
 }
 
-// (261:1) {#if serviceNode.ports && serviceNode.ports.length > 0}
+// (270:1) {#if serviceNode.ports && serviceNode.ports.length > 0}
 function create_if_block_2(ctx) {
 	let each_1_anchor;
 	let current;
@@ -10746,21 +10804,21 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(261:1) {#if serviceNode.ports && serviceNode.ports.length > 0}",
+		source: "(270:1) {#if serviceNode.ports && serviceNode.ports.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (262:2) {#each serviceNode.ports as portNode}
+// (271:2) {#each serviceNode.ports as portNode}
 function create_each_block_1(ctx) {
 	let port;
 	let current;
 
 	port = new _Port_svelte__WEBPACK_IMPORTED_MODULE_8__["default"]({
 			props: {
-				portNode: /*portNode*/ ctx[27],
+				portNode: /*portNode*/ ctx[26],
 				parentService: /*service*/ ctx[1]
 			},
 			$$inline: true
@@ -10778,7 +10836,7 @@ function create_each_block_1(ctx) {
 		},
 		p: function update(ctx, dirty) {
 			const port_changes = {};
-			if (dirty[0] & /*serviceNode*/ 1) port_changes.portNode = /*portNode*/ ctx[27];
+			if (dirty[0] & /*serviceNode*/ 1) port_changes.portNode = /*portNode*/ ctx[26];
 			if (dirty[0] & /*service*/ 2) port_changes.parentService = /*service*/ ctx[1];
 			port.$set(port_changes);
 		},
@@ -10800,14 +10858,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(262:2) {#each serviceNode.ports as portNode}",
+		source: "(271:2) {#each serviceNode.ports as portNode}",
 		ctx
 	});
 
 	return block;
 }
 
-// (266:1) {#if expanded}
+// (275:1) {#if expanded}
 function create_if_block_1(ctx) {
 	let each_1_anchor;
 	let current;
@@ -10896,21 +10954,21 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(266:1) {#if expanded}",
+		source: "(275:1) {#if expanded}",
 		ctx
 	});
 
 	return block;
 }
 
-// (267:2) {#each serviceNode.children as embed}
+// (276:2) {#each serviceNode.children as embed}
 function create_each_block(ctx) {
 	let service_1;
 	let current;
 
 	service_1 = new Service({
 			props: {
-				serviceNode: /*embed*/ ctx[24],
+				serviceNode: /*embed*/ ctx[23],
 				parent: /*service*/ ctx[1]
 			},
 			$$inline: true
@@ -10929,7 +10987,7 @@ function create_each_block(ctx) {
 		},
 		p: function update(ctx, dirty) {
 			const service_1_changes = {};
-			if (dirty[0] & /*serviceNode*/ 1) service_1_changes.serviceNode = /*embed*/ ctx[24];
+			if (dirty[0] & /*serviceNode*/ 1) service_1_changes.serviceNode = /*embed*/ ctx[23];
 			if (dirty[0] & /*service*/ 2) service_1_changes.parent = /*service*/ ctx[1];
 			service_1.$set(service_1_changes);
 		},
@@ -10951,14 +11009,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(267:2) {#each serviceNode.children as embed}",
+		source: "(276:2) {#each serviceNode.children as embed}",
 		ctx
 	});
 
 	return block;
 }
 
-// (278:0) {#if dragging}
+// (287:0) {#if dragging}
 function create_if_block(ctx) {
 	let svg;
 	let polygon;
@@ -10969,12 +11027,12 @@ function create_if_block(ctx) {
 			svg = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("svg");
 			polygon = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("polygon");
 			text_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("text");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 279, 2, 9828);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 288, 2, 10178);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(text_1, "text-anchor", "middle");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 280, 2, 9842);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 289, 2, 10192);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "id", "tmp");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "class", "absolute top-0 left-0 w-1 h-1 overflow-visible");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 278, 1, 9756);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 287, 1, 10106);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, svg, anchor);
@@ -10990,7 +11048,7 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(278:0) {#if dragging}",
+		source: "(287:0) {#if dragging}",
 		ctx
 	});
 
@@ -11039,11 +11097,11 @@ function create_fragment(ctx) {
 			: 'fill-service'));
 
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(polygon, "stroke-width", "0.4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 203, 1, 7649);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 209, 1, 7869);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(text_1, "class", "cursor-pointer select-none");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 248, 1, 9026);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 257, 1, 9376);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(g, "id", g_id_value = /*serviceNode*/ ctx[0].id);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 202, 0, 7624);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 208, 0, 7844);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -11223,6 +11281,18 @@ function create_fragment(ctx) {
 	return block;
 }
 
+const dblclick_handler = () => {
+	
+};
+
+const dblclick_handler_1 = () => {
+	
+};
+
+const dblclick_handler_2 = () => {
+	
+};
+
 function instance($$self, $$props, $$invalidate) {
 	let $current_sidebar_element;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.current_sidebar_element, 'current_sidebar_element');
@@ -11384,12 +11454,14 @@ function instance($$self, $$props, $$invalidate) {
 				(0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.addServiceToNetwork)(service, (0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.getNumberOfNetworks)());
 
 				if (service.parent) {
+					if (_lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode) _lib_data__WEBPACK_IMPORTED_MODULE_3__.loading.set(true);
 					await (0,svelte__WEBPACK_IMPORTED_MODULE_1__.tick)();
 					await (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.disembed)(service);
 				}
 			} else {
 				if (!service.file || networkId === svcNwId && !service.parent) return;
 				(0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.addServiceToNetwork)(service, networkId);
+				if (_lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode && service.parent) _lib_data__WEBPACK_IMPORTED_MODULE_3__.loading.set(true);
 				await (0,svelte__WEBPACK_IMPORTED_MODULE_1__.tick)();
 				await (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.disembed)(service);
 			}
@@ -11402,6 +11474,7 @@ function instance($$self, $$props, $$invalidate) {
 		await (0,svelte__WEBPACK_IMPORTED_MODULE_1__.tick)();
 		(0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.removeFromNetwork)(service, svcNwId);
 		await (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.embed)(service, droppedOnSvc, svcNwId);
+		if (_lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode) _lib_data__WEBPACK_IMPORTED_MODULE_3__.loading.set(true);
 		dispatcher('message', { action: 'reset' });
 	};
 
@@ -11422,12 +11495,12 @@ function instance($$self, $$props, $$invalidate) {
 		prevPoly = polyUnder;
 	};
 
-	const test = svc => {
-		$$invalidate(1, service = parent
-		? parent.embeddings.find(t => t.name + '' + t.id === serviceNode.id)
-		: (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.getAllServices)(_lib_data__WEBPACK_IMPORTED_MODULE_3__.services).find(t => t.name + '' + t.id === serviceNode.id));
-	};
-
+	// const test = (svc: Service[][]) => {
+	// 	service = parent
+	// 		? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
+	// 		: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
+	// };
+	// $: test(services);
 	(0,svelte__WEBPACK_IMPORTED_MODULE_1__.beforeUpdate)(() => {
 		$$invalidate(1, service = parent
 		? parent.embeddings.find(t => t.name + '' + t.id === serviceNode.id)
@@ -11473,7 +11546,9 @@ function instance($$self, $$props, $$invalidate) {
 		createEventDispatcher: svelte__WEBPACK_IMPORTED_MODULE_1__.createEventDispatcher,
 		tick: svelte__WEBPACK_IMPORTED_MODULE_1__.tick,
 		Edge: _Edge_svelte__WEBPACK_IMPORTED_MODULE_2__["default"],
+		loading: _lib_data__WEBPACK_IMPORTED_MODULE_3__.loading,
 		services: _lib_data__WEBPACK_IMPORTED_MODULE_3__.services,
+		vscode: _lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode,
 		portSize: _lib_graph__WEBPACK_IMPORTED_MODULE_4__.portSize,
 		addServiceToNetwork: _lib_network__WEBPACK_IMPORTED_MODULE_5__.addServiceToNetwork,
 		getClickedNetworkGroupId: _lib_network__WEBPACK_IMPORTED_MODULE_5__.getClickedNetworkGroupId,
@@ -11512,7 +11587,6 @@ function instance($$self, $$props, $$invalidate) {
 		endDrag,
 		prevPoly,
 		dragListener,
-		test,
 		$current_sidebar_element
 	});
 
@@ -11541,8 +11615,6 @@ function instance($$self, $$props, $$invalidate) {
 			} else $$invalidate(3, selected = false);
 		}
 	};
-
-	$: test(_lib_data__WEBPACK_IMPORTED_MODULE_3__.services);
 
 	return [
 		serviceNode,
@@ -12300,7 +12372,7 @@ function get_each_context_1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (86:0) {#if !port.location.startsWith('!local')}
+// (87:0) {#if !port.location.startsWith('!local')}
 function create_if_block_1(ctx) {
 	let h4;
 	let t0;
@@ -12316,9 +12388,9 @@ function create_if_block_1(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Location: ");
 			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 87, 12, 2706);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 88, 12, 2730);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 86, 1, 2667);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 87, 1, 2691);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
@@ -12349,14 +12421,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(86:0) {#if !port.location.startsWith('!local')}",
+		source: "(87:0) {#if !port.location.startsWith('!local')}",
 		ctx
 	});
 
 	return block;
 }
 
-// (97:1) {#each port.interfaces as interf}
+// (98:1) {#each port.interfaces as interf}
 function create_each_block_1(ctx) {
 	let li;
 	let t0_value = /*interf*/ ctx[19].name + "";
@@ -12379,7 +12451,7 @@ function create_each_block_1(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 97, 2, 2969);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 98, 2, 2993);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -12410,14 +12482,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(97:1) {#each port.interfaces as interf}",
+		source: "(98:1) {#each port.interfaces as interf}",
 		ctx
 	});
 
 	return block;
 }
 
-// (108:0) {#if port.aggregates}
+// (109:0) {#if port.aggregates}
 function create_if_block(ctx) {
 	let h4;
 	let t1;
@@ -12442,9 +12514,9 @@ function create_if_block(ctx) {
 			}
 
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mt-4 mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 108, 1, 3176);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 109, 1, 3200);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 109, 1, 3225);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 110, 1, 3249);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
@@ -12492,14 +12564,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(108:0) {#if port.aggregates}",
+		source: "(109:0) {#if port.aggregates}",
 		ctx
 	});
 
 	return block;
 }
 
-// (111:2) {#each port.aggregates as aggr}
+// (112:2) {#each port.aggregates as aggr}
 function create_each_block(ctx) {
 	let li;
 	let t0_value = /*aggr*/ ctx[16].name + "";
@@ -12522,7 +12594,7 @@ function create_each_block(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 111, 3, 3290);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 112, 3, 3314);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -12553,7 +12625,7 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(111:2) {#each port.aggregates as aggr}",
+		source: "(112:2) {#each port.aggregates as aggr}",
 		ctx
 	});
 
@@ -12629,16 +12701,16 @@ function create_fragment(ctx) {
 			if (if_block1) if_block1.c();
 			if_block1_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h1, "class", "text-center text-4xl mt-1 mb-4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 69, 0, 2178);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 70, 0, 2202);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h40, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 76, 0, 2349);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 78, 11, 2475);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 77, 0, 2373);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 79, 11, 2499);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h41, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 77, 0, 2437);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 78, 0, 2461);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h42, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h42, file, 94, 0, 2861);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h42, file, 95, 0, 2885);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 95, 0, 2904);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 96, 0, 2928);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -12805,6 +12877,7 @@ function instance($$self, $$props, $$invalidate) {
 
 			_lib_data__WEBPACK_IMPORTED_MODULE_2__.vscode.postMessage({
 				command: 'renamePort',
+				save: true,
 				detail: {
 					filename: port.file,
 					newLine: change,
@@ -13294,7 +13367,7 @@ function get_each_context_2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (136:1) {#if service.file}
+// (138:1) {#if service.file}
 function create_if_block_4(ctx) {
 	let span;
 	let mounted;
@@ -13305,7 +13378,7 @@ function create_if_block_4(ctx) {
 			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
 			span.textContent = "+";
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span, "class", "float-right cursor-pointer text-3xl");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 136, 2, 5206);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 138, 2, 5254);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, span, anchor);
@@ -13331,14 +13404,14 @@ function create_if_block_4(ctx) {
 		block,
 		id: create_if_block_4.name,
 		type: "if",
-		source: "(136:1) {#if service.file}",
+		source: "(138:1) {#if service.file}",
 		ctx
 	});
 
 	return block;
 }
 
-// (144:0) {#if service.inputPorts && service.inputPorts.length > 0}
+// (146:0) {#if service.inputPorts && service.inputPorts.length > 0}
 function create_if_block_3(ctx) {
 	let ul;
 	let each_value_2 = /*service*/ ctx[0].inputPorts;
@@ -13358,7 +13431,7 @@ function create_if_block_3(ctx) {
 			}
 
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "mb-4 list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 144, 1, 5419);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 146, 1, 5467);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, ul, anchor);
@@ -13402,14 +13475,14 @@ function create_if_block_3(ctx) {
 		block,
 		id: create_if_block_3.name,
 		type: "if",
-		source: "(144:0) {#if service.inputPorts && service.inputPorts.length > 0}",
+		source: "(146:0) {#if service.inputPorts && service.inputPorts.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (146:2) {#each service.inputPorts as ip}
+// (148:2) {#each service.inputPorts as ip}
 function create_each_block_2(ctx) {
 	let li;
 	let t0_value = /*ip*/ ctx[25].name + "";
@@ -13436,7 +13509,7 @@ function create_each_block_2(ctx) {
 			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
 			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 146, 3, 5490);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 148, 3, 5538);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -13475,14 +13548,14 @@ function create_each_block_2(ctx) {
 		block,
 		id: create_each_block_2.name,
 		type: "each",
-		source: "(146:2) {#each service.inputPorts as ip}",
+		source: "(148:2) {#each service.inputPorts as ip}",
 		ctx
 	});
 
 	return block;
 }
 
-// (162:1) {#if service.file}
+// (164:1) {#if service.file}
 function create_if_block_2(ctx) {
 	let span;
 	let mounted;
@@ -13493,7 +13566,7 @@ function create_if_block_2(ctx) {
 			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
 			span.textContent = "+";
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span, "class", "float-right cursor-pointer text-3xl");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 162, 2, 5880);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 164, 2, 5928);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, span, anchor);
@@ -13519,14 +13592,14 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(162:1) {#if service.file}",
+		source: "(164:1) {#if service.file}",
 		ctx
 	});
 
 	return block;
 }
 
-// (170:0) {#if service.outputPorts && service.outputPorts.length > 0}
+// (172:0) {#if service.outputPorts && service.outputPorts.length > 0}
 function create_if_block_1(ctx) {
 	let ul;
 	let each_value_1 = /*service*/ ctx[0].outputPorts;
@@ -13546,7 +13619,7 @@ function create_if_block_1(ctx) {
 			}
 
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "mb-4 list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 170, 1, 6097);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 172, 1, 6145);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, ul, anchor);
@@ -13590,14 +13663,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(170:0) {#if service.outputPorts && service.outputPorts.length > 0}",
+		source: "(172:0) {#if service.outputPorts && service.outputPorts.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (172:2) {#each service.outputPorts as op}
+// (174:2) {#each service.outputPorts as op}
 function create_each_block_1(ctx) {
 	let li;
 	let t0_value = /*op*/ ctx[22].name + "";
@@ -13624,7 +13697,7 @@ function create_each_block_1(ctx) {
 			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
 			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 172, 3, 6169);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 174, 3, 6217);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -13663,14 +13736,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(172:2) {#each service.outputPorts as op}",
+		source: "(174:2) {#each service.outputPorts as op}",
 		ctx
 	});
 
 	return block;
 }
 
-// (185:0) {#if service.embeddings && service.embeddings.length > 0}
+// (187:0) {#if service.embeddings && service.embeddings.length > 0}
 function create_if_block(ctx) {
 	let hr;
 	let t0;
@@ -13698,11 +13771,11 @@ function create_if_block(ctx) {
 				each_blocks[i].c();
 			}
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 185, 1, 6541);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 187, 1, 6589);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mt-1 mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 186, 1, 6549);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 188, 1, 6597);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "mb-4 list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 187, 1, 6598);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 189, 1, 6646);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
@@ -13754,14 +13827,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(185:0) {#if service.embeddings && service.embeddings.length > 0}",
+		source: "(187:0) {#if service.embeddings && service.embeddings.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (189:2) {#each service.embeddings as embed}
+// (191:2) {#each service.embeddings as embed}
 function create_each_block(ctx) {
 	let li;
 	let t0_value = /*embed*/ ctx[19].name + "";
@@ -13784,7 +13857,7 @@ function create_each_block(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 189, 3, 6672);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 191, 3, 6720);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -13815,7 +13888,7 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(189:2) {#each service.embeddings as embed}",
+		source: "(191:2) {#each service.embeddings as embed}",
 		ctx
 	});
 
@@ -13886,17 +13959,17 @@ function create_fragment(ctx) {
 			if (if_block4) if_block4.c();
 			if_block4_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h1, "class", "text-center text-4xl mt-1 mb-4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 123, 0, 4863);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 125, 0, 4911);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h40, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 130, 0, 5024);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 132, 0, 5072);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h41, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 131, 0, 5069);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr0, file, 132, 0, 5131);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 133, 0, 5117);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr0, file, 134, 0, 5179);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h42, "class", "text-2xl mt-1 mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h42, file, 133, 0, 5138);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr1, file, 158, 0, 5804);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h42, file, 135, 0, 5186);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr1, file, 160, 0, 5852);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h43, "class", "text-2xl mt-1 mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h43, file, 159, 0, 5811);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h43, file, 161, 0, 5859);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -14076,6 +14149,7 @@ function instance($$self, $$props, $$invalidate) {
 
 			_lib_data__WEBPACK_IMPORTED_MODULE_2__.vscode.postMessage({
 				command: `renameService`,
+				save: true,
 				detail: {
 					filename: service.file,
 					newServiceName: change,
@@ -14163,6 +14237,7 @@ function instance($$self, $$props, $$invalidate) {
 
 				_lib_data__WEBPACK_IMPORTED_MODULE_2__.vscode.postMessage({
 					command: `newPort`,
+					save: true,
 					detail: {
 						file: service.file,
 						portType: type === 'Input' ? 'inputPort' : 'outputPort',
@@ -15793,6 +15868,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "generateVisFile": () => (/* binding */ generateVisFile),
 /* harmony export */   "interfaces": () => (/* binding */ interfaces),
+/* harmony export */   "loading": () => (/* binding */ loading),
 /* harmony export */   "name": () => (/* binding */ name),
 /* harmony export */   "resetData": () => (/* binding */ resetData),
 /* harmony export */   "services": () => (/* binding */ services),
@@ -15800,29 +15876,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "types": () => (/* binding */ types),
 /* harmony export */   "vscode": () => (/* binding */ vscode)
 /* harmony export */ });
-/* harmony import */ var _preprocess__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./preprocess */ "./src/lib/preprocess.ts");
+/* harmony import */ var svelte_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/store */ "./node_modules/svelte/store/index.mjs");
+/* harmony import */ var _preprocess__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./preprocess */ "./src/lib/preprocess.ts");
+
 
 const vscode = acquireVsCodeApi();
+const loading = (0,svelte_store__WEBPACK_IMPORTED_MODULE_0__.writable)(false);
 let json = JSON.parse(
 // `{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"}]},{"name":"PrinterInterface","id":1,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","id":2,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"AggregatorInterface","id":3,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"PrintRequest","subTypes":[{"name":"content","type":"string"}]},{"name":"PrintResponse","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","type":"string"}]},{"name":"FaxRequest","subTypes":[{"name":"destination","type":"string"},{"name":"content","type":"string"}]},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","type":"PrintRequest"},{"name":"fax","type":"FaxRequest"}]}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","protocol":"sodep"}],"id":1},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","protocol":"sodep"}],"id":3}],"execution":"concurrent","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"name":"Fax","inputPorts":[{"name":"FaxInput","interfaces":[{"name":"FaxInterface","id":2}],"location":"socket:\/\/localhost:9001","protocol":"sodep"}],"id":2},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","protocol":"sodep"}],"id":5}],"execution":"concurrent","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"name":"Printer","inputPorts":[{"name":"PrinterInput","interfaces":[{"name":"PrinterInterface","id":1}],"location":"socket:\/\/localhost:9000","protocol":"sodep"}],"id":4}],"execution":"concurrent","outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":1}],"location":"socket:\/\/localhost:9000"},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":2}],"location":"socket:\/\/localhost:9001"}],"name":"Aggregator","inputPorts":[{"name":"Aggregator","interfaces":[{"name":"AggregatorInterface","id":3}],"location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}],"protocol":"sodep"}],"id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","protocol":"sodep"}],"id":7}],"name":"Client","execution":"single","id":6,"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":1},{"name":"FaxInterface","id":2},{"name":"AggregatorInterface","id":3}],"location":"socket:\/\/localhost:9002"}]}]]}`
 // `{"name":"new","interfaces":[{"name":"embedInterface","id":0,"reqres":[{"name":"embedRR","res":"embedType","req":"string"}],"oneway":[{"name":"embedOW","req":"int"}]},{"name":"testInterface","id":1,"reqres":[{"name":"hello","res":"int","req":"testType"}]},{"name":"lol","id":2,"oneway":[{"name":"hello","req":"int"}]}],"types":[{"name":"embedType","subTypes":[{"name":"id","type":"int"}]},{"name":"testType","subTypes":[{"name":"the","type":"string"},{"name":"what","type":"int"}]}],"services":[[{"embeddings":[{"name":"test","execution":"single","id":1,"outputPorts":[{"name":"TestPort","protocol":"sodep","interfaces":[{"name":"embedInterface","id":0}],"location":"socket:\/\/localhost:9876"}]}],"execution":"concurrent","outputPorts":[{"name":"Test","protocol":"sodep","location":"local"},{"name":"MainTest","protocol":"sodep","interfaces":[{"name":"testInterface","id":1}],"location":"socket:\/\/localhost:5678"}],"name":"MainService","inputPorts":[{"name":"IP","interfaces":[{"name":"lol","id":2}],"location":"socket:\/\/localhost:3498","protocol":"sodep"}],"id":0}],[{"embeddings":[{"name":"test","execution":"single","id":3,"outputPorts":[{"name":"TestPort","protocol":"sodep","interfaces":[{"name":"embedInterface","id":0}],"location":"socket:\/\/localhost:9876"}]}],"execution":"concurrent","outputPorts":[{"name":"Test","protocol":"sodep","location":"local"},{"name":"MainTest","protocol":"sodep","interfaces":[{"name":"testInterface","id":1}],"location":"socket:\/\/localhost:5678"}],"name":"MainService","inputPorts":[{"name":"IP","interfaces":[{"name":"lol","id":2}],"location":"socket:\/\/localhost:3498","protocol":"sodep"}],"id":2}]]}`
 // `{"name":"internetwork","interfaces":[{"name":"service2Inter","id":0,"reqres":[{"name":"test","res":"int","req":"int"}]},{"name":"service1Inter","id":1,"reqres":[{"name":"test","res":"int","req":"int"}]}],"types":[],"services":[[{"name":"One","execution":"single","id":0,"outputPorts":[{"name":"Output","protocol":"sodep","interfaces":[{"name":"service2Inter","id":0}],"location":"socket:\/\/localhost:9000"}]}],[{"name":"Two","execution":"single","inputPorts":[{"name":"Input","protocol":"sodep","interfaces":[{"name":"service1Inter","id":1}],"location":"socket:\/\/localhost:9000"}],"id":1}]]}`
 `{"name": " ", "interfaces":[], "types":[], "services":[[{"id":0, "name":" "}]]}`);
-let processedData = (0,_preprocess__WEBPACK_IMPORTED_MODULE_0__.preprocess)(json);
+let processedData = (0,_preprocess__WEBPACK_IMPORTED_MODULE_1__.preprocess)(json);
 let services = processedData.services;
 let interfaces = processedData.interfaces;
 let types = processedData.types;
 let name = processedData.name;
 const setDataString = (data) => {
     json = JSON.parse(data);
-    processedData = (0,_preprocess__WEBPACK_IMPORTED_MODULE_0__.preprocess)(json);
+    processedData = (0,_preprocess__WEBPACK_IMPORTED_MODULE_1__.preprocess)(json);
     services = processedData.services;
     interfaces = processedData.interfaces;
     types = processedData.types;
     name = processedData.name;
 };
 const resetData = () => {
-    let pd = (0,_preprocess__WEBPACK_IMPORTED_MODULE_0__.preprocess)(json);
+    let pd = (0,_preprocess__WEBPACK_IMPORTED_MODULE_1__.preprocess)(json);
     services = pd.services;
     interfaces = pd.interfaces;
     types = pd.types;
@@ -16388,6 +16467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getServiceFromCoords": () => (/* binding */ getServiceFromCoords),
 /* harmony export */   "isAncestor": () => (/* binding */ isAncestor),
 /* harmony export */   "renderGhostNodeOnDrag": () => (/* binding */ renderGhostNodeOnDrag),
+/* harmony export */   "transposeRange": () => (/* binding */ transposeRange),
 /* harmony export */   "updateRanges": () => (/* binding */ updateRanges)
 /* harmony export */ });
 /* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./data */ "./src/lib/data.ts");
@@ -16429,10 +16509,12 @@ const embed = async (service, parent, netwrkId) => {
             return;
         _data__WEBPACK_IMPORTED_MODULE_0__.vscode.postMessage({
             command: 'addEmbed',
+            save: true,
             detail: {
                 filename: parent.file,
                 embedName: service.name,
                 embedPort: service.parentPort,
+                isFirst: false,
                 range: findRange(pport, 'port')
             }
         });
@@ -16440,6 +16522,7 @@ const embed = async (service, parent, netwrkId) => {
     }
     _popup__WEBPACK_IMPORTED_MODULE_2__.current_popup.set(new _popup__WEBPACK_IMPORTED_MODULE_2__.PopUp(`Create new local ports for ${service.name} and ${parent.name}`, ['input port name', 'output port name', 'protocol', 'interfaces'], 300, (vals) => {
         var _a;
+        //validate inputs
         const tmp_interfaces = [];
         (_a = vals
             .find((t) => t.field === 'interfaces')) === null || _a === void 0 ? void 0 : _a.val.split(',').forEach((str) => tmp_interfaces.push({ name: str.trim() }));
@@ -16458,45 +16541,57 @@ const embed = async (service, parent, netwrkId) => {
             interfaces: tmp_interfaces
         };
         service.parentPort = vals.find((t) => t.field === 'output port name').val;
+        const isParentFirst = parent.outputPorts.length === 0;
+        const isSvcFirst = service.inputPorts.length === 0;
         service.inputPorts.push(newIP);
         parent.outputPorts.push(newOP);
         if (_data__WEBPACK_IMPORTED_MODULE_0__.vscode && parent) {
-            //TODO: make it ONE request
-            _data__WEBPACK_IMPORTED_MODULE_0__.vscode.postMessage({
-                command: 'newPort',
-                detail: {
-                    file: parent.file,
-                    serviceName: parent.name,
-                    portType: 'outputPort',
-                    port: {
-                        name: newOP.name,
-                        location: 'local',
-                        protocol: newOP.protocol,
-                        interface: vals.find((t) => t.field === 'interfaces')
-                    }
-                }
-            });
-            _data__WEBPACK_IMPORTED_MODULE_0__.vscode.postMessage({
-                command: 'newPort',
-                detail: {
-                    file: service.file,
-                    serviceName: service.name,
-                    portType: 'inputPort',
-                    port: {
-                        name: newIP.name,
-                        location: 'local',
-                        protocol: newIP.protocol,
-                        interface: vals.find((t) => t.field === 'interfaces')
-                    }
-                }
-            });
+            const parentRange = isParentFirst
+                ? findRange(parent, 'svc_name')
+                : findRange(parent.outputPorts[0], 'port');
+            const svcRange = isSvcFirst
+                ? findRange(service, 'svc_name')
+                : findRange(service.inputPorts[0], 'port');
             _data__WEBPACK_IMPORTED_MODULE_0__.vscode.postMessage({
                 command: 'addEmbed',
                 detail: {
                     filename: parent.file,
-                    serviceName: parent.name,
                     embedName: service.name,
-                    embedPort: service.parentPort
+                    embedPort: service.parentPort,
+                    isFirst: isParentFirst,
+                    range: parentRange
+                }
+            });
+            _data__WEBPACK_IMPORTED_MODULE_0__.vscode.postMessage({
+                command: 'newPort',
+                detail: {
+                    file: parent.file,
+                    range: parentRange,
+                    portType: 'outputPort',
+                    isFirst: isParentFirst,
+                    port: {
+                        name: newOP.name,
+                        location: 'local',
+                        protocol: newOP.protocol,
+                        interfaces: vals.find((t) => t.field === 'interfaces').val
+                    }
+                }
+            });
+            _data__WEBPACK_IMPORTED_MODULE_0__.vscode.postMessage({
+                command: 'newPort',
+                save: true,
+                fromPopup: true,
+                detail: {
+                    file: service.file,
+                    range: svcRange,
+                    portType: 'inputPort',
+                    isFirst: isSvcFirst,
+                    port: {
+                        name: newIP.name,
+                        location: 'local',
+                        protocol: newIP.protocol,
+                        interfaces: vals.find((t) => t.field === 'interfaces').val
+                    }
                 }
             });
         }
@@ -16549,6 +16644,7 @@ const disembed = async (service, isEmbedSubroutine = false) => {
             if (parent)
                 _data__WEBPACK_IMPORTED_MODULE_0__.vscode.postMessage({
                     command: 'removeEmbed',
+                    save: true,
                     detail: {
                         filename: parent.file,
                         range: findRange(parent, `embed_${service.name}`)
@@ -16621,9 +16717,18 @@ const isAncestor = (child, anc) => {
     return parent.id === anc.id;
 };
 const findRange = (obj, name) => {
-    if (!_data__WEBPACK_IMPORTED_MODULE_0__.vscode)
-        return { start: { line: 1, char: 1 }, end: { line: 1, char: 1 } };
-    return obj.ranges.find((t) => t.name === name).range;
+    if (!_data__WEBPACK_IMPORTED_MODULE_0__.vscode || !obj.ranges)
+        return { start: { line: 0, char: 0 }, end: { line: 0, char: 0 } };
+    const res = obj.ranges.find((t) => t.name === name);
+    if (!res || !res.range)
+        return { start: { line: 0, char: 0 }, end: { line: 0, char: 0 } };
+    return res.range;
+};
+const transposeRange = (range, startLine, startChar, endLine, endChar) => {
+    return {
+        start: { line: range.start.line + startLine, char: range.start.char + startChar },
+        end: { line: range.end.line + endLine, char: range.end.char + endChar }
+    };
 };
 const renderGhostNodeOnDrag = (serviceNode, e, startX, startY) => {
     const polygon = document.querySelector('#' + serviceNode.id).children[0];

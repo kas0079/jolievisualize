@@ -3,7 +3,7 @@ import { services, vscode } from './data';
 import { addServiceToNetwork } from './network';
 import { PopUp, current_popup } from './popup';
 
-export const updateRanges = (data: Data) => {
+export const updateRanges = (data: Data): void => {
 	const allSvc = getAllServices(services);
 	const newSvcs = data.services.flatMap((t) => t.flatMap((s) => getRecursiveEmbedding(s)));
 	newSvcs.forEach((newSvc) => {
@@ -14,11 +14,11 @@ export const updateRanges = (data: Data) => {
 	});
 };
 
-export const getAllServices = (services: Service[][]) => {
+export const getAllServices = (services: Service[][]): Service[] => {
 	return services.flatMap((t) => t.flatMap((s) => getRecursiveEmbedding(s)));
 };
 
-export const embed = async (service: Service, parent: Service, netwrkId: number) => {
+export const embed = async (service: Service, parent: Service, netwrkId: number): Promise<void> => {
 	const oldParent = service.parent;
 	await disembed(service, true);
 	service.parent = parent;
@@ -34,10 +34,12 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 		if (!vscode) return;
 		vscode.postMessage({
 			command: 'addEmbed',
+			save: true,
 			detail: {
 				filename: parent.file,
 				embedName: service.name,
 				embedPort: service.parentPort,
+				isFirst: false,
 				range: findRange(pport, 'port')
 			}
 		});
@@ -49,6 +51,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 			['input port name', 'output port name', 'protocol', 'interfaces'],
 			300,
 			(vals) => {
+				//validate inputs
 				const tmp_interfaces = [];
 				vals
 					.find((t) => t.field === 'interfaces')
@@ -73,46 +76,63 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 
 				service.parentPort = vals.find((t) => t.field === 'output port name').val;
 
+				const isParentFirst = parent.outputPorts.length === 0;
+				const isSvcFirst = service.inputPorts.length === 0;
+
 				service.inputPorts.push(newIP);
 				parent.outputPorts.push(newOP);
 
 				if (vscode && parent) {
-					//TODO: make it ONE request
-					vscode.postMessage({
-						command: 'newPort',
-						detail: {
-							file: parent.file,
-							serviceName: parent.name,
-							portType: 'outputPort',
-							port: {
-								name: newOP.name,
-								location: 'local',
-								protocol: newOP.protocol,
-								interface: vals.find((t) => t.field === 'interfaces')
-							}
-						}
-					});
-					vscode.postMessage({
-						command: 'newPort',
-						detail: {
-							file: service.file,
-							serviceName: service.name,
-							portType: 'inputPort',
-							port: {
-								name: newIP.name,
-								location: 'local',
-								protocol: newIP.protocol,
-								interface: vals.find((t) => t.field === 'interfaces')
-							}
-						}
-					});
+					const parentRange = isParentFirst
+						? findRange(parent, 'svc_name')
+						: findRange(parent.outputPorts[0], 'port');
+
+					const svcRange = isSvcFirst
+						? findRange(service, 'svc_name')
+						: findRange(service.inputPorts[0], 'port');
+
 					vscode.postMessage({
 						command: 'addEmbed',
 						detail: {
 							filename: parent.file,
-							serviceName: parent.name,
 							embedName: service.name,
-							embedPort: service.parentPort
+							embedPort: service.parentPort,
+							isFirst: isParentFirst,
+							range: parentRange
+						}
+					});
+
+					vscode.postMessage({
+						command: 'newPort',
+						detail: {
+							file: parent.file,
+							range: parentRange,
+							portType: 'outputPort',
+							isFirst: isParentFirst,
+							port: {
+								name: newOP.name,
+								location: 'local',
+								protocol: newOP.protocol,
+								interfaces: vals.find((t) => t.field === 'interfaces').val
+							}
+						}
+					});
+
+					vscode.postMessage({
+						command: 'newPort',
+						save: true,
+						fromPopup: true,
+						detail: {
+							file: service.file,
+							range: svcRange,
+							portType: 'inputPort',
+							isFirst: isSvcFirst,
+							port: {
+								name: newIP.name,
+								location: 'local',
+								protocol: newIP.protocol,
+								interfaces: vals.find((t) => t.field === 'interfaces').val
+							}
 						}
 					});
 				}
@@ -170,6 +190,7 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 			if (parent)
 				vscode.postMessage({
 					command: 'removeEmbed',
+					save: true,
 					detail: {
 						filename: parent.file,
 						range: findRange(parent, `embed_${service.name}`)
@@ -246,9 +267,24 @@ export const isAncestor = (child: Service, anc: Service) => {
 	return parent.id === anc.id;
 };
 
-export const findRange = (obj: Service | Port, name: string) => {
-	if (!vscode) return { start: { line: 1, char: 1 }, end: { line: 1, char: 1 } };
-	return obj.ranges.find((t) => t.name === name).range;
+export const findRange = (obj: Service | Port, name: string): SimpleRange => {
+	if (!vscode || !obj.ranges) return { start: { line: 0, char: 0 }, end: { line: 0, char: 0 } };
+	const res = obj.ranges.find((t) => t.name === name);
+	if (!res || !res.range) return { start: { line: 0, char: 0 }, end: { line: 0, char: 0 } };
+	return res.range;
+};
+
+export const transposeRange = (
+	range: SimpleRange,
+	startLine: number,
+	startChar: number,
+	endLine: number,
+	endChar: number
+): SimpleRange => {
+	return {
+		start: { line: range.start.line + startLine, char: range.start.char + startChar },
+		end: { line: range.end.line + endLine, char: range.end.char + endChar }
+	};
 };
 
 export const renderGhostNodeOnDrag = (

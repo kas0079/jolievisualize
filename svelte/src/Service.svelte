@@ -2,7 +2,7 @@
 	import type { ElkNode } from 'elkjs/lib/elk.bundled';
 	import { afterUpdate, beforeUpdate, createEventDispatcher, tick } from 'svelte';
 	import Edge from './Edge.svelte';
-	import { services } from './lib/data';
+	import { loading, services, vscode } from './lib/data';
 	import { portSize } from './lib/graph';
 	import {
 		addServiceToNetwork,
@@ -176,12 +176,14 @@
 				if (getNumberOfServicesInNetwork(svcNwId) === 1 && !service.parent) return;
 				addServiceToNetwork(service, getNumberOfNetworks());
 				if (service.parent) {
+					if (vscode) loading.set(true);
 					await tick();
 					await disembed(service);
 				}
 			} else {
 				if (!service.file || (networkId === svcNwId && !service.parent)) return;
 				addServiceToNetwork(service, networkId);
+				if (vscode && service.parent) loading.set(true);
 				await tick();
 				await disembed(service);
 			}
@@ -193,6 +195,7 @@
 		await tick();
 		removeFromNetwork(service, svcNwId);
 		await embed(service, droppedOnSvc, svcNwId);
+		if (vscode) loading.set(true);
 		dispatcher('message', { action: 'reset' });
 	};
 
@@ -211,13 +214,13 @@
 		prevPoly = polyUnder;
 	};
 
-	const test = (svc: Service[][]) => {
-		service = parent
-			? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
-			: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
-	};
+	// const test = (svc: Service[][]) => {
+	// 	service = parent
+	// 		? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
+	// 		: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
+	// };
 
-	$: test(services);
+	// $: test(services);
 
 	beforeUpdate(() => {
 		service = parent
@@ -249,6 +252,7 @@
 				height={5}
 				class="fill-serviceStroke cursor-pointer"
 				on:click|stopPropagation={expanded ? shrinkService : expandService}
+				on:dblclick|stopPropagation={() => {}}
 				on:keypress|stopPropagation={expanded ? shrinkService : expandService}
 			/>
 			{#if !expanded}
@@ -261,6 +265,7 @@
 					ry={0.5}
 					class="fill-white cursor-pointer"
 					on:click|stopPropagation={expanded ? shrinkService : expandService}
+					on:dblclick|stopPropagation={() => {}}
 					on:keypress|stopPropagation={expanded ? shrinkService : expandService}
 				/>
 			{/if}
@@ -273,6 +278,7 @@
 				ry={1}
 				class="fill-white cursor-pointer"
 				on:click|stopPropagation={expanded ? shrinkService : expandService}
+				on:dblclick|stopPropagation={() => {}}
 				on:keypress|stopPropagation={expanded ? shrinkService : expandService}
 			/>
 		</g>

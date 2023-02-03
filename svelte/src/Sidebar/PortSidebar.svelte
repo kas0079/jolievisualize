@@ -29,6 +29,7 @@
 			if (!vscode) return;
 			vscode.postMessage({
 				command: 'renamePort',
+				save: true,
 				detail: {
 					filename: port.file,
 					newLine: change,

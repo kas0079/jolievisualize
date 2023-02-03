@@ -27,6 +27,7 @@
 			if (!vscode) return;
 			vscode.postMessage({
 				command: `renameService`,
+				save: true,
 				detail: {
 					filename: service.file,
 					newServiceName: change,
@@ -110,6 +111,7 @@
 					if (!vscode) return;
 					vscode.postMessage({
 						command: `newPort`,
+						save: true,
 						detail: {
 							file: service.file,
 							portType: type === 'Input' ? 'inputPort' : 'outputPort',
