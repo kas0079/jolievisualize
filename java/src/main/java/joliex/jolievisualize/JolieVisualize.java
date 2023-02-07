@@ -146,24 +146,12 @@ public class JolieVisualize {
 
         Interpreter.Configuration conf = cmdParser.getInterpreterConfiguration();
 
-        // Program program = ParsingUtils.parseProgram(conf.inputStream(),
-        // conf.programFilepath().toURI(), conf.charset(),
-        // conf.includePaths(), conf.packagePaths(), conf.jolieClassLoader(),
-        // conf.constants(),
-        // conf.executionTarget(), false);
-
         ModuleParsingConfiguration mpc = new ModuleParsingConfiguration(
                 conf.charset(), conf.includePaths(),
                 conf.packagePaths(), conf.jolieClassLoader(), conf.constants(), true);
 
         ModuleParsedResult mpr = Modules.parseModule(mpc, conf.inputStream(),
                 conf.programFilepath().toURI());
-
-        // ProgramInspector pi = ParsingUtils.createInspector(program);
-        // for (InputPortInfo ipi : pi.getInputPorts()) {
-        // if (ipi.protocol() != null)
-        // System.out.println(ipi.protocol().context());
-        // }
 
         List<ServiceNode> res = new ArrayList<>();
         for (OLSyntaxNode ol : mpr.mainProgram().children())

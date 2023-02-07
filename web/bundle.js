@@ -7832,7 +7832,7 @@ function create_catch_block(ctx) {
 	return block;
 }
 
-// (116:0) {:then _}
+// (117:0) {:then _}
 function create_then_block(ctx) {
 	let main;
 	let svg;
@@ -7861,10 +7861,10 @@ function create_then_block(ctx) {
 			if (if_block2) if_block2.c();
 			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			if (if_block3) if_block3.c();
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 118, 3, 15955);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 119, 3, 22540);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "class", "w-screen h-screen");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 117, 2, 15920);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 116, 1, 15911);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 118, 2, 22505);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 117, 1, 22496);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, main, anchor);
@@ -7992,14 +7992,14 @@ function create_then_block(ctx) {
 		block,
 		id: create_then_block.name,
 		type: "then",
-		source: "(116:0) {:then _}",
+		source: "(117:0) {:then _}",
 		ctx
 	});
 
 	return block;
 }
 
-// (121:4) {#if currentGraph}
+// (122:4) {#if currentGraph}
 function create_if_block_3(ctx) {
 	let each0_anchor;
 	let each1_anchor;
@@ -8153,14 +8153,14 @@ function create_if_block_3(ctx) {
 		block,
 		id: create_if_block_3.name,
 		type: "if",
-		source: "(121:4) {#if currentGraph}",
+		source: "(122:4) {#if currentGraph}",
 		ctx
 	});
 
 	return block;
 }
 
-// (122:5) {#each currentGraph.children as child}
+// (123:5) {#each currentGraph.children as child}
 function create_each_block_1(ctx) {
 	let network;
 	let updating_network;
@@ -8218,14 +8218,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(122:5) {#each currentGraph.children as child}",
+		source: "(123:5) {#each currentGraph.children as child}",
 		ctx
 	});
 
 	return block;
 }
 
-// (125:5) {#each currentGraph.edges as edge}
+// (126:5) {#each currentGraph.edges as edge}
 function create_each_block(ctx) {
 	let edge;
 	let current;
@@ -8269,14 +8269,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(125:5) {#each currentGraph.edges as edge}",
+		source: "(126:5) {#each currentGraph.edges as edge}",
 		ctx
 	});
 
 	return block;
 }
 
-// (131:2) {#if $current_sidebar_element.hist_type >= 0}
+// (132:2) {#if $current_sidebar_element.hist_type >= 0}
 function create_if_block_2(ctx) {
 	let sidebar;
 	let current;
@@ -8310,14 +8310,14 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(131:2) {#if $current_sidebar_element.hist_type >= 0}",
+		source: "(132:2) {#if $current_sidebar_element.hist_type >= 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (134:2) {#if $loading}
+// (135:2) {#if $loading}
 function create_if_block_1(ctx) {
 	let div;
 
@@ -8325,7 +8325,7 @@ function create_if_block_1(ctx) {
 		c: function create() {
 			div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div, "class", "absolute top-0 left-0 w-screen h-screen");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div, file, 134, 3, 16364);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div, file, 135, 3, 22949);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, div, anchor);
@@ -8339,14 +8339,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(134:2) {#if $loading}",
+		source: "(135:2) {#if $loading}",
 		ctx
 	});
 
 	return block;
 }
 
-// (137:2) {#if $current_popup.values.length > 0}
+// (138:2) {#if $current_popup.values.length > 0}
 function create_if_block(ctx) {
 	let popup;
 	let current;
@@ -8380,14 +8380,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(137:2) {#if $current_popup.values.length > 0}",
+		source: "(138:2) {#if $current_popup.values.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (114:22)   <main><p>...loading</p></main> {:then _}
+// (115:22)   <main><p>...loading</p></main> {:then _}
 function create_pending_block(ctx) {
 	let main;
 	let p;
@@ -8397,8 +8397,8 @@ function create_pending_block(ctx) {
 			main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
 			p = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("p");
 			p.textContent = "...loading";
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 114, 7, 15875);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 114, 1, 15869);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 115, 7, 22460);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 115, 1, 22454);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, main, anchor);
@@ -8416,7 +8416,7 @@ function create_pending_block(ctx) {
 		block,
 		id: create_pending_block.name,
 		type: "pending",
-		source: "(114:22)   <main><p>...loading</p></main> {:then _}",
+		source: "(115:22)   <main><p>...loading</p></main> {:then _}",
 		ctx
 	});
 
@@ -8527,7 +8527,8 @@ function instance($$self, $$props, $$invalidate) {
 			(0,_lib_data__WEBPACK_IMPORTED_MODULE_3__.setDataString)(// `{"name":"disembed","interfaces":[{"name":"dummy","file":"\/s2.ol","id":0,"reqres":[{"name":"hello","res":"int","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","ranges":[{"name":"svc_name","range":{"start":{"line":6,"char":8},"end":{"line":6,"char":18}}}],"name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"protocol","range":{"start":{"line":10,"char":8},"end":{"line":10,"char":18}}},{"name":"location","range":{"start":{"line":9,"char":-6},"end":{"line":9,"char":-1}}},{"name":"port","range":{"start":{"line":7,"char":14},"end":{"line":12,"char":-1}}}]}],"id":1}],"execution":"single","file":"\/s1.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":18}}},{"name":"embed_ServiceTwo","range":{"start":{"line":3,"char":10},"end":{"line":4,"char":-1}}}],"outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":3,"char":10},"end":{"line":4,"char":-1}}}]}],"name":"ServiceOne","id":0},{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","ranges":[{"name":"svc_name","range":{"start":{"line":6,"char":8},"end":{"line":6,"char":18}}}],"name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"protocol","range":{"start":{"line":10,"char":8},"end":{"line":10,"char":18}}},{"name":"location","range":{"start":{"line":9,"char":-6},"end":{"line":9,"char":-1}}},{"name":"port","range":{"start":{"line":7,"char":14},"end":{"line":12,"char":-1}}}]}],"id":3}],"execution":"single","file":"\/s1.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":18}}},{"name":"embed_ServiceTwo","range":{"start":{"line":3,"char":10},"end":{"line":4,"char":-1}}}],"outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":3,"char":10},"end":{"line":4,"char":-1}}}]}],"name":"ServiceOne","id":2}]]}`
 			// `{"name":"embed","interfaces":[],"types":[],"services":[[{"name":"S1","execution":"single","file":"\/s1.ol","id":0,"ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":10}}}]},{"name":"S1","execution":"single","file":"\/s1.ol","id":1,"ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":10}}}]},{"name":"S2","execution":"single","file":"\/s1.ol","id":2,"ranges":[{"name":"svc_name","range":{"start":{"line":8,"char":8},"end":{"line":8,"char":10}}}]}]]}`
 			// `{"name":"embed","interfaces":[{"name":"dummy","file":"\/s1.ol","id":0,"oneway":[{"name":"hi","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s1.ol","parentPort":"S2","ranges":[{"name":"svc_name","range":{"start":{"line":8,"char":8},"end":{"line":8,"char":10}}}],"name":"S2","inputPorts":[{"name":"Test","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-6},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":14},"end":{"line":14,"char":-1}}}]}],"id":1}],"execution":"single","file":"\/s1.ol","ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":10}}},{"name":"embed_S2","range":{"start":{"line":5,"char":10},"end":{"line":6,"char":-1}}}],"outputPorts":[{"name":"S2","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":5,"char":10},"end":{"line":6,"char":-1}}}]}],"name":"S1","id":0}]]}`
-			`{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"AggregatorInterface","file":"\/client.ol","id":1,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"PrinterInterface","file":"\/client.ol","id":2,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/client.ol","id":3,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/aggregator.ol","id":4,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/aggregator.ol","id":5,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"FaxInterface","file":"\/fax.ol","id":6,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/printer.ol","id":7,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"AggregatorInterface","file":"\/aggregator.ol","id":8,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","file":"\/AggregatorInterface.ol","type":"PrintRequest"},{"name":"fax","file":"\/AggregatorInterface.ol","type":"FaxRequest"}],"file":"\/AggregatorInterface.ol"},{"name":"PrintRequest","subTypes":[{"name":"content","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"PrintResponse","file":"\/PrinterInterface.ol","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"FaxRequest","subTypes":[{"name":"destination","file":"\/FaxInterface.ol","type":"string"},{"name":"content","file":"\/FaxInterface.ol","type":"string"}],"file":"\/FaxInterface.ol"}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":1}],"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":5,"char":8},"end":{"line":5,"char":14}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":1},{"name":"PrinterInterface","id":2},{"name":"FaxInterface","id":3}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":15},"end":{"line":14,"char":-1}}}]}],"name":"Client","id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":3},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"concurrent","file":"\/fax.ol","parentPort":"Fax","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":11}}},{"name":"embed_Console","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}]}],"name":"Fax","inputPorts":[{"name":"FaxInput","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":6}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":11,"char":8},"end":{"line":11,"char":18}}},{"name":"location","range":{"start":{"line":10,"char":-24},"end":{"line":10,"char":-1}}},{"name":"port","range":{"start":{"line":8,"char":14},"end":{"line":13,"char":-1}}}]}],"id":4},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":7}],"execution":"concurrent","file":"\/printer.ol","parentPort":"printer","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":15}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]}],"name":"Printer","inputPorts":[{"name":"PrinterInput","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":7}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":14},"end":{"line":14,"char":-1}}}]}],"id":6}],"execution":"concurrent","file":"\/aggregator.ol","ranges":[{"name":"svc_name","range":{"start":{"line":7,"char":8},"end":{"line":7,"char":18}}},{"name":"embed_Console","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}},{"name":"embed_Fax","range":{"start":{"line":25,"char":10},"end":{"line":26,"char":-1}}},{"name":"embed_Printer","range":{"start":{"line":26,"char":10},"end":{"line":27,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}}]},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":4}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":16,"char":8},"end":{"line":16,"char":18}}},{"name":"location","range":{"start":{"line":15,"char":-24},"end":{"line":15,"char":-1}}},{"name":"port","range":{"start":{"line":13,"char":15},"end":{"line":18,"char":-1}}}]},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":5}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":22,"char":8},"end":{"line":22,"char":18}}},{"name":"location","range":{"start":{"line":21,"char":-24},"end":{"line":21,"char":-1}}},{"name":"port","range":{"start":{"line":19,"char":15},"end":{"line":24,"char":-1}}}]}],"name":"Aggregator","inputPorts":[{"protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":8}],"ranges":[{"name":"protocol","range":{"start":{"line":31,"char":8},"end":{"line":31,"char":18}}},{"name":"location","range":{"start":{"line":30,"char":-24},"end":{"line":30,"char":-1}}},{"name":"port","range":{"start":{"line":28,"char":14},"end":{"line":34,"char":-1}}}],"name":"Aggregator","location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}]}],"id":2}]]}`);
+			// `{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"AggregatorInterface","file":"\/client.ol","id":1,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"PrinterInterface","file":"\/client.ol","id":2,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/client.ol","id":3,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/aggregator.ol","id":4,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/aggregator.ol","id":5,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"FaxInterface","file":"\/fax.ol","id":6,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/printer.ol","id":7,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"AggregatorInterface","file":"\/aggregator.ol","id":8,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","file":"\/AggregatorInterface.ol","type":"PrintRequest"},{"name":"fax","file":"\/AggregatorInterface.ol","type":"FaxRequest"}],"file":"\/AggregatorInterface.ol"},{"name":"PrintRequest","subTypes":[{"name":"content","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"PrintResponse","file":"\/PrinterInterface.ol","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"FaxRequest","subTypes":[{"name":"destination","file":"\/FaxInterface.ol","type":"string"},{"name":"content","file":"\/FaxInterface.ol","type":"string"}],"file":"\/FaxInterface.ol"}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":1}],"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":5,"char":8},"end":{"line":5,"char":14}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":1},{"name":"PrinterInterface","id":2},{"name":"FaxInterface","id":3}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":15},"end":{"line":14,"char":-1}}}]}],"name":"Client","id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":3},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"concurrent","file":"\/fax.ol","parentPort":"Fax","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":11}}},{"name":"embed_Console","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}]}],"name":"Fax","inputPorts":[{"name":"FaxInput","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":6}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":11,"char":8},"end":{"line":11,"char":18}}},{"name":"location","range":{"start":{"line":10,"char":-24},"end":{"line":10,"char":-1}}},{"name":"port","range":{"start":{"line":8,"char":14},"end":{"line":13,"char":-1}}}]}],"id":4},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":7}],"execution":"concurrent","file":"\/printer.ol","parentPort":"printer","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":15}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]}],"name":"Printer","inputPorts":[{"name":"PrinterInput","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":7}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":14},"end":{"line":14,"char":-1}}}]}],"id":6}],"execution":"concurrent","file":"\/aggregator.ol","ranges":[{"name":"svc_name","range":{"start":{"line":7,"char":8},"end":{"line":7,"char":18}}},{"name":"embed_Console","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}},{"name":"embed_Fax","range":{"start":{"line":25,"char":10},"end":{"line":26,"char":-1}}},{"name":"embed_Printer","range":{"start":{"line":26,"char":10},"end":{"line":27,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}}]},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":4}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":16,"char":8},"end":{"line":16,"char":18}}},{"name":"location","range":{"start":{"line":15,"char":-24},"end":{"line":15,"char":-1}}},{"name":"port","range":{"start":{"line":13,"char":15},"end":{"line":18,"char":-1}}}]},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":5}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":22,"char":8},"end":{"line":22,"char":18}}},{"name":"location","range":{"start":{"line":21,"char":-24},"end":{"line":21,"char":-1}}},{"name":"port","range":{"start":{"line":19,"char":15},"end":{"line":24,"char":-1}}}]}],"name":"Aggregator","inputPorts":[{"protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":8}],"ranges":[{"name":"protocol","range":{"start":{"line":31,"char":8},"end":{"line":31,"char":18}}},{"name":"location","range":{"start":{"line":30,"char":-24},"end":{"line":30,"char":-1}}},{"name":"port","range":{"start":{"line":28,"char":14},"end":{"line":34,"char":-1}}}],"name":"Aggregator","location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}]}],"id":2}]]}`
+			`{"name":"redirect","interfaces":[{"name":"SubInterface","file":"\/sub.ol","id":0,"reqres":[{"name":"sub","res":"double","req":"SubRequest"}]},{"name":"SumInterface","file":"\/sum.ol","id":1,"reqres":[{"name":"sum","res":"double","req":"SumRequest"}]},{"name":"ConsoleIface","id":2,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"SubInterface","file":"\/redirector.ol","id":3,"reqres":[{"name":"sub","res":"double","req":"SubRequest"}]},{"name":"SumInterface","file":"\/redirector.ol","id":4,"reqres":[{"name":"sum","res":"double","req":"SumRequest"}]},{"name":"SubInterface","file":"\/client.ol","id":5,"reqres":[{"name":"sub","res":"double","req":"SubRequest"}]},{"name":"SumInterface","file":"\/client.ol","id":6,"reqres":[{"name":"sum","res":"double","req":"SumRequest"}]}],"types":[{"name":"SubRequest","subTypes":[{"name":"x","file":"\/SubInterface.ol","type":"double"},{"name":"y","file":"\/SubInterface.ol","type":"double"}],"file":"\/SubInterface.ol"},{"name":"SumRequest","subTypes":[{"name":"x","file":"\/SumInterface.ol","type":"double"},{"name":"y","file":"\/SumInterface.ol","type":"double"}],"file":"\/SumInterface.ol"},{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]}],"services":[[{"execution":"concurrent","file":"\/sub.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":11}}}],"name":"Sub","inputPorts":[{"name":"Sub","protocol":"sodep","interfaces":[{"name":"SubInterface","id":0}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":9,"char":8},"end":{"line":9,"char":18}}},{"name":"location","range":{"start":{"line":8,"char":-24},"end":{"line":8,"char":-1}}},{"name":"port","range":{"start":{"line":6,"char":14},"end":{"line":11,"char":-1}}}]}],"id":0},{"execution":"concurrent","file":"\/sum.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":11}}}],"name":"Sum","inputPorts":[{"name":"Sum","protocol":"sodep","interfaces":[{"name":"SumInterface","id":1}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":9,"char":8},"end":{"line":9,"char":18}}},{"name":"location","range":{"start":{"line":8,"char":-24},"end":{"line":8,"char":-1}}},{"name":"port","range":{"start":{"line":6,"char":14},"end":{"line":11,"char":-1}}}]}],"id":1},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local"}],"parentPort":"Console","id":3}],"execution":"single","file":"\/redirector.ol","ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":18}}},{"name":"embed_Console","range":{"start":{"line":8,"char":10},"end":{"line":9,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":8,"char":10},"end":{"line":9,"char":-1}}}]},{"name":"SubService","protocol":"sodep","interfaces":[{"name":"SubInterface","id":3}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":13,"char":8},"end":{"line":13,"char":18}}},{"name":"location","range":{"start":{"line":12,"char":-24},"end":{"line":12,"char":-1}}},{"name":"port","range":{"start":{"line":10,"char":15},"end":{"line":15,"char":-1}}}]},{"name":"SumService","protocol":"sodep","interfaces":[{"name":"SumInterface","id":4}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":19,"char":8},"end":{"line":19,"char":18}}},{"name":"location","range":{"start":{"line":18,"char":-24},"end":{"line":18,"char":-1}}},{"name":"port","range":{"start":{"line":16,"char":15},"end":{"line":21,"char":-1}}}]}],"name":"Redirector","inputPorts":[{"name":"Redirector","protocol":"sodep","location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":25,"char":8},"end":{"line":25,"char":17}}},{"name":"location","range":{"start":{"line":24,"char":-24},"end":{"line":24,"char":-1}}},{"name":"port","range":{"start":{"line":22,"char":14},"end":{"line":27,"char":-1}}}],"redirects":[{"name":"Sub","port":"SubService"},{"name":"Sum","port":"SumService"}]}],"id":2},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":14}}},{"name":"embed_Console","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}]},{"name":"Sub","protocol":"sodep","interfaces":[{"name":"SubInterface","id":5}],"location":"socket:\/\/localhost:9000\/!\/Sub","ranges":[{"name":"protocol","range":{"start":{"line":11,"char":8},"end":{"line":11,"char":18}}},{"name":"location","range":{"start":{"line":10,"char":-30},"end":{"line":10,"char":-1}}},{"name":"port","range":{"start":{"line":8,"char":15},"end":{"line":13,"char":-1}}}]},{"name":"Sum","protocol":"sodep","interfaces":[{"name":"SumInterface","id":6}],"location":"socket:\/\/localhost:9000\/!\/Sum","ranges":[{"name":"protocol","range":{"start":{"line":17,"char":8},"end":{"line":17,"char":18}}},{"name":"location","range":{"start":{"line":16,"char":-30},"end":{"line":16,"char":-1}}},{"name":"port","range":{"start":{"line":14,"char":15},"end":{"line":19,"char":-1}}}]}],"name":"Client","id":4}]]}`);
 
 			$$invalidate(0, currentGraph = await elk.layout((0,_lib_graph__WEBPACK_IMPORTED_MODULE_5__.createSystemGraph)(_lib_data__WEBPACK_IMPORTED_MODULE_3__.services)));
 		}
@@ -16564,7 +16565,7 @@ const embed = async (service, parent, netwrkId) => {
     if (_data__WEBPACK_IMPORTED_MODULE_0__.vscode && !parentPort)
         _data__WEBPACK_IMPORTED_MODULE_0__.vscode.postMessage({ command: 'getRanges' });
     const oldParent = service.parent;
-    await disembed(service, true);
+    await disembed(service);
     service.parent = parent;
     if (!parent.embeddings)
         parent.embeddings = [];
@@ -16695,14 +16696,14 @@ const embed = async (service, parent, netwrkId) => {
         }
         else {
             (0,_network__WEBPACK_IMPORTED_MODULE_1__.addServiceToNetwork)(service, netwrkId);
-            await disembed(service, true);
+            await disembed(service);
         }
     });
     _popup__WEBPACK_IMPORTED_MODULE_2__.current_popup.set(popUp);
 };
-const disembed = async (service, isEmbedSubroutine = false) => {
+const disembed = async (service) => {
     if (!service.parent)
-        return false;
+        return;
     const parent = service.parent;
     const otherInstances = getAllServices(_data__WEBPACK_IMPORTED_MODULE_0__.services).filter((t) => t.name === service.name && t.file === service.file && t.id !== service.id);
     service.parent = undefined;
@@ -16758,7 +16759,6 @@ const disembed = async (service, isEmbedSubroutine = false) => {
                 }
             });
     }
-    return parent;
 };
 const getServiceFromCoords = (e, services) => {
     const elemBelow = getElementBelowGhost(e)[0];

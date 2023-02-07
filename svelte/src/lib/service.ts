@@ -24,7 +24,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	const parentPort = getParentPortName(service, parent);
 	if (vscode && !parentPort) vscode.postMessage({ command: 'getRanges' });
 	const oldParent = service.parent;
-	await disembed(service, true);
+	await disembed(service);
 	service.parent = parent;
 	if (!parent.embeddings) parent.embeddings = [];
 	if (!service.inputPorts) service.inputPorts = [];
@@ -168,15 +168,15 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 				await embed(service, oldParent, netwrkId);
 			} else {
 				addServiceToNetwork(service, netwrkId);
-				await disembed(service, true);
+				await disembed(service);
 			}
 		}
 	);
 	current_popup.set(popUp);
 };
 
-export const disembed = async (service: Service, isEmbedSubroutine = false) => {
-	if (!service.parent) return false;
+export const disembed = async (service: Service): Promise<void> => {
+	if (!service.parent) return;
 	const parent = service.parent;
 	const otherInstances = getAllServices(services).filter(
 		(t) => t.name === service.name && t.file === service.file && t.id !== service.id
@@ -242,10 +242,9 @@ export const disembed = async (service: Service, isEmbedSubroutine = false) => {
 				}
 			});
 	}
-	return parent;
 };
 
-export const getServiceFromCoords = (e: MouseEvent, services: Service[][]) => {
+export const getServiceFromCoords = (e: MouseEvent, services: Service[][]): Service | undefined => {
 	const elemBelow = getElementBelowGhost(e)[0];
 	if (elemBelow.tagName === 'text')
 		return getServiceFromPolygon(
@@ -255,14 +254,14 @@ export const getServiceFromCoords = (e: MouseEvent, services: Service[][]) => {
 	return elemBelow.tagName === 'polygon' ? getServiceFromPolygon(elemBelow, services) : undefined;
 };
 
-export const getHoveredPolygon = (e: MouseEvent) => {
+export const getHoveredPolygon = (e: MouseEvent): Element | undefined => {
 	const elemBelow = getElementBelowGhost(e)[0];
 	if (elemBelow.tagName === 'text')
 		return elemBelow.parentElement.getElementsByTagName('polygon').item(0);
 	return elemBelow.tagName === 'polygon' ? elemBelow : undefined;
 };
 
-export const isAncestor = (child: Service, anc: Service) => {
+export const isAncestor = (child: Service, anc: Service): boolean => {
 	if (!child.parent) return false;
 	let parent = child.parent;
 	while (parent.parent) {
@@ -297,7 +296,7 @@ export const renderGhostNodeOnDrag = (
 	e: MouseEvent,
 	startX: number,
 	startY: number
-) => {
+): void => {
 	const polygon = document.querySelector('#' + serviceNode.id).children[0];
 	const text = document.querySelector('#' + serviceNode.id + ' > text');
 	const rect = polygon.getBoundingClientRect();
@@ -358,7 +357,7 @@ const getNextId = (services: Service[]): number => {
 	return services.flatMap((t) => t.id).sort((a, b) => b - a)[0] + 1;
 };
 
-const getElementBelowGhost = (e: MouseEvent) => {
+const getElementBelowGhost = (e: MouseEvent): Element[] => {
 	if (document.querySelector('#tmp'))
 		document.querySelector('#tmp').setAttribute('style', 'display: none;');
 	const elemBelow = document.elementsFromPoint(e.clientX, e.clientY);
@@ -367,13 +366,13 @@ const getElementBelowGhost = (e: MouseEvent) => {
 	return elemBelow;
 };
 
-const getServiceFromPolygon = (elem: Element, services: Service[][]) => {
+const getServiceFromPolygon = (elem: Element, services: Service[][]): Service => {
 	return getAllServices(services).find(
 		(t) => t.name + t.id === elem.parentElement.getAttribute('id')
 	);
 };
 
-const updatePortRanges = (oldSvc: Service, newService: Service) => {
+const updatePortRanges = (oldSvc: Service, newService: Service): void => {
 	oldSvc.inputPorts?.forEach((ip) => {
 		newService.inputPorts?.forEach((newIp) => {
 			if (ip.name !== newIp.name || !newIp.ranges) return;
@@ -388,7 +387,7 @@ const updatePortRanges = (oldSvc: Service, newService: Service) => {
 	});
 };
 
-const deepCopyRanges = (newSvc: CodeRange[]) => {
+const deepCopyRanges = (newSvc: CodeRange[]): CodeRange[] => {
 	const res: CodeRange[] = [];
 	newSvc?.forEach((r) => {
 		res.push({
@@ -402,7 +401,7 @@ const deepCopyRanges = (newSvc: CodeRange[]) => {
 	return res;
 };
 
-const getRecursiveEmbedding = (service: Service, result: Service[] = []) => {
+const getRecursiveEmbedding = (service: Service, result: Service[] = []): Service[] => {
 	result.push(service);
 	if (service.embeddings)
 		service.embeddings.forEach((embed) => {
