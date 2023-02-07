@@ -28,7 +28,7 @@ export const preprocess = (json: Data): Data => {
 	};
 };
 
-const joinOutputPortArrows = (service: Service) => {
+const joinOutputPortArrows = (service: Service): void => {
 	const list: Port[] = [];
 	service.outputPorts?.forEach((p) => {
 		const otherPorts = service.outputPorts?.filter(
@@ -41,7 +41,7 @@ const joinOutputPortArrows = (service: Service) => {
 	if (list.length == 0) return;
 };
 
-const connectRedirectResources = (outputPorts: Port[]) => {
+const connectRedirectResources = (outputPorts: Port[]): void => {
 	if (outputPorts.find((p) => p.location.includes('/!/')) === undefined) return;
 
 	outputPorts.forEach((p) => {
@@ -52,7 +52,7 @@ const connectRedirectResources = (outputPorts: Port[]) => {
 	});
 };
 
-const connectEmbedOutputPorts = (service: Service) => {
+const connectEmbedOutputPorts = (service: Service): void => {
 	let newListOfOPs: Port[] = service.outputPorts;
 	let embeds: Port[] = [];
 	service.embeddings?.forEach((embed) => {
@@ -64,7 +64,7 @@ const connectEmbedOutputPorts = (service: Service) => {
 	service.outputPorts = embeds.concat(newListOfOPs);
 };
 
-const connectEmbeds = (service: Service) => {
+const connectEmbeds = (service: Service): void => {
 	if (service.embeddings === undefined) return;
 	service.embeddings.forEach((embed) => {
 		connectEmbeds(embed);
@@ -83,7 +83,7 @@ const connectEmbeds = (service: Service) => {
 	});
 };
 
-const sharesInterface = (p1: Port, p2: Port) => {
+const sharesInterface = (p1: Port, p2: Port): boolean => {
 	if (p1.interfaces === undefined && p2.interfaces === undefined) return true;
 	const listP1 = p1.interfaces.flatMap((t) => t.name);
 	const listP2 = p2.interfaces.flatMap((t) => t.name);

@@ -32,3 +32,5 @@ export class PopUp {
 
 export const noPopup = new PopUp('', [], 0);
 export const current_popup = writable(noPopup);
+
+// TODO write functions similar to sidebar

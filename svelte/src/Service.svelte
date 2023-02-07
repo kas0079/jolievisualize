@@ -21,7 +21,12 @@
 		isAncestor,
 		renderGhostNodeOnDrag
 	} from './lib/service';
-	import { current_sidebar_element, noSidebar, SidebarElement } from './lib/sidebar';
+	import {
+		clearSidebar,
+		current_sidebar_element,
+		openSidebar,
+		SidebarElement
+	} from './lib/sidebar';
 	import Port from './Port.svelte';
 
 	export let serviceNode: ElkNode;
@@ -43,7 +48,7 @@
 	const expandService = () => {
 		if (service.embeddings === undefined || service.embeddings.length === 0) return;
 		expanded = true;
-		current_sidebar_element.set(new SidebarElement(-1, ''));
+		if ($current_sidebar_element.hist_type === 4) clearSidebar();
 		dispatcher('message', {
 			serviceID: service.id,
 			serviceName: service.name,
@@ -52,7 +57,7 @@
 	};
 	const shrinkService = () => {
 		expanded = false;
-		current_sidebar_element.set(new SidebarElement(-1, ''));
+		if ($current_sidebar_element.hist_type === 4) clearSidebar();
 		dispatcher('message', {
 			serviceID: service.id,
 			serviceName: service.name,
@@ -68,10 +73,7 @@
 		}
 		const sbElem = new SidebarElement(0, service.name);
 		sbElem.service = service;
-		dispatcher('opensidebar', {
-			elem: sbElem,
-			action: 'sidebar_open'
-		});
+		openSidebar(sbElem, $current_sidebar_element);
 	};
 
 	const handleChildEvent = (event: CustomEvent) => {
@@ -133,7 +135,10 @@
 				const tmp = new SidebarElement(4, 'Selection');
 				tmp.serviceList = $current_sidebar_element.serviceList.filter((t) => t.id !== service.id);
 				selected = false;
-				current_sidebar_element.set(tmp.serviceList.length == 0 ? new SidebarElement(-1, '') : tmp);
+				openSidebar(
+					tmp.serviceList.length == 0 ? new SidebarElement(-1, '') : tmp,
+					$current_sidebar_element
+				);
 				return;
 			}
 			const sbElem =
@@ -142,10 +147,7 @@
 					: new SidebarElement(4, 'Selection');
 			if (sbElem.serviceList === undefined) sbElem.serviceList = [];
 			sbElem.serviceList.push(service);
-			dispatcher('opensidebar', {
-				elem: sbElem,
-				action: 'sidebar_open'
-			});
+			openSidebar(sbElem, $current_sidebar_element);
 		}
 		if (e.shiftKey || !service.file) return;
 		dragged = 1;
@@ -156,7 +158,7 @@
 			dragged = 2;
 			startX = e.pageX;
 			startY = e.pageY;
-			current_sidebar_element.set(noSidebar);
+			clearSidebar();
 		}, 50);
 	};
 

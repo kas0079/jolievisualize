@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { types, vscode } from '../lib/data';
-	import { primitives, SidebarElement } from '../lib/sidebar';
+	import { current_sidebar_element, openSidebar, primitives, SidebarElement } from '../lib/sidebar';
 
 	export let interf: Interface;
 
@@ -13,7 +12,6 @@
 		elem.setAttribute('contenteditable', 'true');
 	};
 
-	const dispatcher = createEventDispatcher();
 	const finishEdit = (event: KeyboardEvent) => {
 		if (event.key === 'Enter') {
 			const elem = event.target as Element;
@@ -31,10 +29,7 @@
 
 		const sbElemt = new SidebarElement(3, typename);
 		sbElemt.type = type;
-		dispatcher('opensidebar', {
-			elem: sbElemt,
-			action: 'sidebar_open'
-		});
+		openSidebar(sbElemt, $current_sidebar_element);
 	};
 </script>
 

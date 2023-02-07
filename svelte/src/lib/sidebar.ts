@@ -39,18 +39,36 @@ export class SidebarElement {
 	}
 }
 
-export const noSidebar = new SidebarElement(-1, '');
+const noSidebar = new SidebarElement(-1, '');
 export const current_sidebar_element = writable(noSidebar);
 
-export const sidebarHistory: SidebarElement[] = [];
-
-// TODO create interface for sidebar. Open, Clear, Back etc... use update() function to set history
-
-export const clearSidebar = () => {
-	current_sidebar_element.set(noSidebar);
-	clearHistory();
+export const openSidebar = (elem: SidebarElement, prev?: SidebarElement): void => {
+	if (prev && prev.hist_type >= 0) {
+		if (sidebarHistory.length > 15) sidebarHistory.splice(0, 1);
+		sidebarHistory.push(prev);
+	}
+	current_sidebar_element.set(elem);
 };
 
-const clearHistory = () => {
+export const backSidebar = (): void => {
+	if (sidebarHistory.length === 0) {
+		clearSidebar();
+		return;
+	}
+	openSidebar(sidebarHistory.pop());
+};
+
+export const clearSidebar = (): void => {
+	current_sidebar_element.set(noSidebar);
+	clearSidebarHistory();
+};
+
+export const isSidebarHistoryEmpty = (): boolean => {
+	return sidebarHistory.length === 0;
+};
+
+const sidebarHistory: SidebarElement[] = [];
+
+const clearSidebarHistory = (): void => {
 	while (sidebarHistory.length > 0) sidebarHistory.pop();
 };

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ElkPort } from 'elkjs/lib/elk.bundled';
-	import { afterUpdate, createEventDispatcher } from 'svelte';
-	import { SidebarElement } from './lib/sidebar';
+	import { afterUpdate } from 'svelte';
+	import { current_sidebar_element, openSidebar, SidebarElement } from './lib/sidebar';
 
 	export let portNode: ElkPort;
 	export let parentService: Service;
@@ -23,16 +23,12 @@
 			.attr('height', portNode.height ?? 0);
 	};
 
-	const dispatch = createEventDispatcher();
 	const openPortInSidebar = () => {
 		const sbPort = new SidebarElement(1, port.name);
 		sbPort.port = port;
 		sbPort.port_parentID = parentService.id;
 		sbPort.portType = portNode.labels[0].text;
-		dispatch('opensidebar', {
-			elem: sbPort,
-			action: 'sidebar_open'
-		});
+		openSidebar(sbPort, $current_sidebar_element);
 	};
 
 	afterUpdate(() => {

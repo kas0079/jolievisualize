@@ -1,8 +1,12 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { vscode } from '../lib/data';
-	import { clearSidebar, current_sidebar_element } from '../lib/sidebar';
+	import {
+		backSidebar,
+		clearSidebar,
+		current_sidebar_element,
+		isSidebarHistoryEmpty
+	} from '../lib/sidebar';
 	import InterfaceSidebar from './InterfaceSidebar.svelte';
 	import PortSidebar from './PortSidebar.svelte';
 	import SelectionSidebar from './SelectionSidebar.svelte';
@@ -11,24 +15,6 @@
 
 	let resizeMode = false;
 	let x = 0;
-	// let wentBack = false;
-
-	// current_sidebar_element.subscribe((t) => {
-	// 	if (t.hist_type === -1) return;
-	// 	if (wentBack) {
-	// 		wentBack = false;
-	// 		return;
-	// 	}
-	// 	sidebarHistory.push(t);
-	// 	console.log(sidebarHistory);
-	// });
-
-	// const goBack = () => {
-	// 	const newElem = sidebarHistory.pop();
-	// 	wentBack = true;
-	// 	current_sidebar_element.set(newElem);
-	// 	console.log(sidebarHistory);
-	// };
 
 	const resizeStart = (event: MouseEvent) => {
 		if (resizeMode) return;
@@ -38,6 +24,8 @@
 
 	const resize = (event: MouseEvent) => {
 		if (!resizeMode) return;
+		if (x < 250) x = 250;
+		else if (x > window.innerWidth - 20) x = window.innerWidth - 20;
 		x -= event.movementX;
 	};
 </script>
@@ -51,7 +39,7 @@
 {#if $current_sidebar_element.hist_type >= 0}
 	<div
 		class="absolute top-0 right-0 w-11/12 sm:w-1/2 lg:w-4/12 xl:w-3/12 h-full bg-gray-800 overflow-x-hidden overflow-y-scroll"
-		style={x == 0 ? '' : `width: ${x}px; min-width: 200px`}
+		style={x == 0 ? '' : `width: ${x}px;`}
 		in:fly={{ duration: 150, x: 1000 }}
 		out:fly={{ duration: 1000, x: 2000 }}
 	>
@@ -74,9 +62,15 @@
 				>
 					&#x2715;
 				</p>
-				<!-- <p class="text-4xl -mt-1 h-0 cursor-pointer w-fit" on:click={goBack} on:keydown={goBack}>
+				<p
+					class="text-4xl -mt-1 h-0 cursor-pointer w-fit"
+					on:click={() => {
+						backSidebar();
+					}}
+					on:keydown={() => {}}
+				>
 					&larr;
-				</p> -->
+				</p>
 			</div>
 			{#if $current_sidebar_element.hist_type === 1}
 				<PortSidebar

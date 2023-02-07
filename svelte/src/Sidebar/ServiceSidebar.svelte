@@ -3,7 +3,7 @@
 	import { interfaces, services, vscode } from '../lib/data';
 	import { current_popup, PopUp } from '../lib/popup';
 	import { findRange, getAllServices } from '../lib/service';
-	import { SidebarElement } from '../lib/sidebar';
+	import { current_sidebar_element, openSidebar, SidebarElement } from '../lib/sidebar';
 
 	export let service: Service;
 
@@ -44,25 +44,19 @@
 		if (portType === 'op') port = service.outputPorts.find((t) => t.name === portName);
 		else port = service.inputPorts.find((t) => t.name === portName);
 		if (port === undefined) return;
-		const sbPort = new SidebarElement(1, portName);
-		sbPort.port = port;
-		sbPort.portType = portType;
-		sbPort.port_parentID = service.id;
-		dispatcher('opensidebar', {
-			elem: sbPort,
-			action: 'sidebar_open'
-		});
+		const sbElem = new SidebarElement(1, portName);
+		sbElem.port = port;
+		sbElem.portType = portType;
+		sbElem.port_parentID = service.id;
+		openSidebar(sbElem, $current_sidebar_element);
 	};
 
 	const openServiceSidebar = (id: number) => {
 		const svc = getAllServices(services).find((t) => t.id === id);
 		if (svc === undefined) return;
-		const sbPort = new SidebarElement(0, svc.name);
-		sbPort.service = svc;
-		dispatcher('opensidebar', {
-			elem: sbPort,
-			action: 'sidebar_open'
-		});
+		const sbElem = new SidebarElement(0, svc.name);
+		sbElem.service = svc;
+		openSidebar(sbElem, $current_sidebar_element);
 	};
 
 	const addPort = (type: string) => {

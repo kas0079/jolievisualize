@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { interfaces, services, vscode } from '../lib/data';
 	import { findRange, getAllServices } from '../lib/service';
-	import { SidebarElement } from '../lib/sidebar';
+	import { current_sidebar_element, openSidebar, SidebarElement } from '../lib/sidebar';
 
 	export let port: Port;
 	export let portType: string;
@@ -45,10 +45,7 @@
 		if (!interf) return;
 		const sbElem = new SidebarElement(2, interfName);
 		sbElem.interf = interf;
-		dispatcher('opensidebar', {
-			elem: sbElem,
-			action: 'sidebar_open'
-		});
+		openSidebar(sbElem, $current_sidebar_element);
 	};
 
 	const openAggregate = (aggrName: string) => {
@@ -61,10 +58,7 @@
 		const sbElem = new SidebarElement(1, aggrName);
 		sbElem.port = aggrPort;
 		sbElem.port_parentID = parentID;
-		dispatcher('opensidebar', {
-			elem: sbElem,
-			action: 'sidebar_open'
-		});
+		openSidebar(sbElem, $current_sidebar_element);
 	};
 </script>
 
@@ -107,9 +101,9 @@
 	{/each}
 </ul>
 
-<hr />
 {#if port.aggregates}
-	<h4 class="text-2xl mt-4 mb-2">Aggregates:</h4>
+	<hr class="mt-4 " />
+	<h4 class="text-2xl mb-2">Aggregates:</h4>
 	<ul class="list-disc mx-6">
 		{#each port.aggregates as aggr}
 			<li
