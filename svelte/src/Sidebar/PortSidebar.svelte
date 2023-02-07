@@ -60,6 +60,16 @@
 		sbElem.port_parentID = parentID;
 		openSidebar(sbElem, $current_sidebar_element);
 	};
+
+	const openRedirectPort = (redirPortName: string): void => {
+		const parent = getAllServices(services).find((t) => t.id === parentID);
+		const port = parent.outputPorts.find((t) => t.name === redirPortName);
+		const sbPort = new SidebarElement(1, port.name);
+		sbPort.port = port;
+		sbPort.port_parentID = parentID;
+		sbPort.portType = 'op';
+		openSidebar(sbPort, $current_sidebar_element);
+	};
 </script>
 
 <h1
@@ -78,6 +88,11 @@
 		{port.protocol}</span
 	>
 </h4>
+
+{#if port.resource}
+	<h4 class="text-2xl mb-2">Resource: {port.resource}</h4>
+{/if}
+
 {#if !port.location.startsWith('!local')}
 	<h4 class="text-2xl mb-2">
 		Location: <span
@@ -87,19 +102,38 @@
 	</h4>
 {/if}
 
-<hr />
-<h4 class="text-2xl mb-2">Interfaces:</h4>
-<ul class="list-disc mx-6">
-	{#each port.interfaces as interf}
-		<li
-			class="text-xl cursor-pointer my-2"
-			on:click={() => openInterface(interf.name)}
-			on:keydown={() => openInterface(interf.name)}
-		>
-			{interf.name}
-		</li>
-	{/each}
-</ul>
+{#if port.redirects}
+	<hr />
+	<h4 class="text-2xl mb-2">Redirects:</h4>
+	<ul class="list-disc mx-6">
+		{#each port.redirects as redir}
+			<li class="text-xl my-2">
+				{redir.name} &rArr;
+				<span
+					class="cursor-pointer"
+					on:click={() => openRedirectPort(redir.port)}
+					on:keydown={() => openRedirectPort(redir.port)}>{redir.port}</span
+				>
+			</li>
+		{/each}
+	</ul>
+{/if}
+
+{#if port.interfaces}
+	<hr />
+	<h4 class="text-2xl mb-2">Interfaces:</h4>
+	<ul class="list-disc mx-6">
+		{#each port.interfaces as interf}
+			<li
+				class="text-xl cursor-pointer my-2"
+				on:click={() => openInterface(interf.name)}
+				on:keydown={() => openInterface(interf.name)}
+			>
+				{interf.name}
+			</li>
+		{/each}
+	</ul>
+{/if}
 
 {#if port.aggregates}
 	<hr class="mt-4 " />

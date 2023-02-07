@@ -2,6 +2,8 @@ import { writable } from 'svelte/store';
 
 export const primitives = ['int', 'void', 'string', 'double', 'bool', 'long', 'raw'];
 
+//TODO all open operations in one place
+
 /**
  * Sidebar element:
  */
