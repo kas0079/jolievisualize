@@ -20,7 +20,6 @@
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
-			// TODO send update event
 		}
 	};
 

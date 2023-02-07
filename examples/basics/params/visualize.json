@@ -1,7 +1,7 @@
 [
 	[
 		{
-			"instances": 2,
+			"instances": 1,
 			"file": "service.ol",
 			"params": "params.json"
 		}

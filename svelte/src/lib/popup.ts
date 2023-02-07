@@ -5,8 +5,12 @@ export class PopUp {
 		title: string,
 		fields: string[],
 		sbWidth: number,
-		confirm = (vals: { field: string; val: string }[]) => {},
-		cancel = () => {}
+		confirm = (vals: { field: string; val: string }[]): boolean => {
+			return false;
+		},
+		cancel = (): Promise<void> => {
+			return;
+		}
 	) {
 		this.title = title;
 		this.sbWidth = sbWidth;
@@ -18,8 +22,12 @@ export class PopUp {
 	title = '';
 	sbWidth = 0;
 	values: { field: string; val: string }[] = [];
-	confirm = (vals: { field: string; val: string }[]) => {};
-	cancel = () => {};
+	confirm = (vals: { field: string; val: string }[]): boolean => {
+		return false;
+	};
+	cancel = (): Promise<void> => {
+		return;
+	};
 }
 
 export const noPopup = new PopUp('', [], 0);

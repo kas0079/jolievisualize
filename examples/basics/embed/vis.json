@@ -1,1 +1,6 @@
-[[{ "file": "s1.ol", "target": "S1" }]]
+[
+	[
+		{ "file": "s1.ol", "target": "S1", "instances": 2 },
+		{ "file": "s1.ol", "target": "S2" }
+	]
+]

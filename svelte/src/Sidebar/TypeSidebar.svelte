@@ -20,7 +20,6 @@
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
-			// TODO send update event
 		}
 	};
 
@@ -49,6 +48,7 @@
 <h4 class="text-2xl mb-2">Type: Type</h4>
 <h4 class="text-2xl mb-2">Root Type: {type.type ?? 'void'}</h4>
 {#if type.subTypes && type.subTypes.length > 0}
+	<hr />
 	<h4 class="text-2xl mb-2">Subtypes:</h4>
 	<ul class="mb-4 list-disc mx-6">
 		{#each type.subTypes as st}

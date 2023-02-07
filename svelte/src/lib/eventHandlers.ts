@@ -39,7 +39,7 @@ const _rerender = (serviceNode: ElkNode, service: Service, omitLocals: boolean) 
 };
 
 export const handleExpandServiceEvent = (event: CustomEvent, graph: ElkNode) => {
-	// TODO zoom to bounding box https://observablehq.com/@d3/zoom-to-bounding-box
+	// !TODO zoom to bounding box https://observablehq.com/@d3/zoom-to-bounding-box
 	const service = getAllServices(services).find((t) => t.id === event.detail.serviceID);
 	const serviceNode = getAllElkNodes(graph).find(
 		(t) => t.id === event.detail.serviceName + event.detail.serviceID

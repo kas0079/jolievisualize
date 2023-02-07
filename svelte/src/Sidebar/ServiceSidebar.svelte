@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { services, vscode } from '../lib/data';
+	import { interfaces, services, vscode } from '../lib/data';
 	import { current_popup, PopUp } from '../lib/popup';
 	import { findRange, getAllServices } from '../lib/service';
-	import { current_sidebar_element, noSidebar, SidebarElement } from '../lib/sidebar';
+	import { SidebarElement } from '../lib/sidebar';
 
 	export let service: Service;
 
@@ -72,12 +72,18 @@
 				['name', 'protocol', 'location', 'interfaces'],
 				300,
 				(vals) => {
-					// TODO validate inputs
+					if (vals.filter((t) => t.val === '').length > 0) return false;
 					const tmp_interfaces = [];
 					vals
 						.find((t) => t.field === 'interfaces')
 						?.val.split(',')
 						.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
+
+					let checkInterfac = true;
+					tmp_interfaces.forEach((intName) => {
+						checkInterfac = interfaces.find((t) => t.name === intName.name) !== undefined;
+					});
+					if (!checkInterfac) return false;
 
 					const newPort: Port = {
 						name: vals.find((t) => t.field === 'name')?.val,
@@ -105,9 +111,6 @@
 						service.outputPorts.push(newPort);
 					}
 
-					dispatcher('reloadgraph');
-					current_sidebar_element.set(noSidebar);
-
 					if (!vscode) return;
 					vscode.postMessage({
 						command: `newPort`,
@@ -125,6 +128,7 @@
 							}
 						}
 					});
+					return true;
 				}
 			)
 		);

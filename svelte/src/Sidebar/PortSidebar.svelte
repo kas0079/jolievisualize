@@ -93,6 +93,7 @@
 	</h4>
 {/if}
 
+<hr />
 <h4 class="text-2xl mb-2">Interfaces:</h4>
 <ul class="list-disc mx-6">
 	{#each port.interfaces as interf}
@@ -106,6 +107,7 @@
 	{/each}
 </ul>
 
+<hr />
 {#if port.aggregates}
 	<h4 class="text-2xl mt-4 mb-2">Aggregates:</h4>
 	<ul class="list-disc mx-6">

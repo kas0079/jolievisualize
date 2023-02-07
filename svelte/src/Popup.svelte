@@ -8,6 +8,12 @@
 		current_popup.set(noPopup);
 		dispatcher('cancel');
 	};
+
+	const confirm = async () => {
+		const res = $current_popup.confirm($current_popup.values);
+		if (!res) await cancel();
+		else current_popup.set(noPopup);
+	};
 </script>
 
 <div class="w-full h-full absolute top-0 left-0" style="background-color: rgba(0,0,0,0.8)">
@@ -32,12 +38,8 @@
 			<button class="bg-service p-2 m-2 rounded-md hover:bg-serviceHighlight" on:click={cancel}
 				>Cancel</button
 			>
-			<button
-				class="bg-service p-2 m-2 rounded-md hover:bg-serviceHighlight"
-				on:click={() => {
-					$current_popup.confirm($current_popup.values);
-					current_popup.set(noPopup);
-				}}>Confirm</button
+			<button class="bg-service p-2 m-2 rounded-md hover:bg-serviceHighlight" on:click={confirm}
+				>Confirm</button
 			>
 		</div>
 	</div>
