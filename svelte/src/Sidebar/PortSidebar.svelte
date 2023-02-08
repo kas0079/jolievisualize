@@ -21,12 +21,22 @@
 		if (event.key === 'Enter') {
 			const elem = event.target as Element;
 			elem.removeAttribute('contenteditable');
-			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
+			let change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
-			const svc = getAllServices(services).find((t) => t.id === parentID);
-			if (!svc) return;
+			switch (editType) {
+				case 'protocol':
+					port.protocol = change;
+					break;
+				case 'port_name':
+					port.name = change;
+					break;
+				case 'location':
+					port.location = change;
+			}
 			dispatcher('reloadgraph');
 			if (!vscode) return;
+			if (port.resource && editType === 'location')
+				change += `${change.endsWith('/') ? '' : '/'}!/${port.resource}`;
 			vscode.postMessage({
 				command: 'renamePort',
 				save: true,

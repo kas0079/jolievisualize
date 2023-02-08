@@ -12389,7 +12389,7 @@ function get_each_context_2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (91:0) {#if port.resource}
+// (100:0) {#if port.resource}
 function create_if_block_4(ctx) {
 	let h4;
 	let t0;
@@ -12402,7 +12402,7 @@ function create_if_block_4(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Resource: ");
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 91, 1, 3017);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 100, 1, 3320);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
@@ -12421,14 +12421,14 @@ function create_if_block_4(ctx) {
 		block,
 		id: create_if_block_4.name,
 		type: "if",
-		source: "(91:0) {#if port.resource}",
+		source: "(100:0) {#if port.resource}",
 		ctx
 	});
 
 	return block;
 }
 
-// (95:0) {#if !port.location.startsWith('!local')}
+// (104:0) {#if !port.location.startsWith('!local')}
 function create_if_block_3(ctx) {
 	let h4;
 	let t0;
@@ -12444,9 +12444,9 @@ function create_if_block_3(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Location: ");
 			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 96, 12, 3163);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 105, 12, 3466);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 95, 1, 3124);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 104, 1, 3427);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
@@ -12477,14 +12477,14 @@ function create_if_block_3(ctx) {
 		block,
 		id: create_if_block_3.name,
 		type: "if",
-		source: "(95:0) {#if !port.location.startsWith('!local')}",
+		source: "(104:0) {#if !port.location.startsWith('!local')}",
 		ctx
 	});
 
 	return block;
 }
 
-// (104:0) {#if port.redirects}
+// (113:0) {#if port.redirects}
 function create_if_block_2(ctx) {
 	let hr;
 	let t0;
@@ -12512,11 +12512,11 @@ function create_if_block_2(ctx) {
 				each_blocks[i].c();
 			}
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 104, 1, 3340);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 113, 1, 3643);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 105, 1, 3348);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 114, 1, 3651);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 106, 1, 3391);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 115, 1, 3694);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
@@ -12568,14 +12568,14 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(104:0) {#if port.redirects}",
+		source: "(113:0) {#if port.redirects}",
 		ctx
 	});
 
 	return block;
 }
 
-// (108:2) {#each port.redirects as redir}
+// (117:2) {#each port.redirects as redir}
 function create_each_block_2(ctx) {
 	let li;
 	let t0_value = /*redir*/ ctx[26].name + "";
@@ -12605,9 +12605,9 @@ function create_each_block_2(ctx) {
 			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t2_value);
 			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span, "class", "cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 110, 4, 3510);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 119, 4, 3813);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 108, 3, 3456);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 117, 3, 3759);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -12642,14 +12642,14 @@ function create_each_block_2(ctx) {
 		block,
 		id: create_each_block_2.name,
 		type: "each",
-		source: "(108:2) {#each port.redirects as redir}",
+		source: "(117:2) {#each port.redirects as redir}",
 		ctx
 	});
 
 	return block;
 }
 
-// (121:0) {#if port.interfaces}
+// (130:0) {#if port.interfaces}
 function create_if_block_1(ctx) {
 	let hr;
 	let t0;
@@ -12677,11 +12677,11 @@ function create_if_block_1(ctx) {
 				each_blocks[i].c();
 			}
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 121, 1, 3729);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 130, 1, 4032);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 122, 1, 3737);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 131, 1, 4040);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 123, 1, 3781);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 132, 1, 4084);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
@@ -12733,14 +12733,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(121:0) {#if port.interfaces}",
+		source: "(130:0) {#if port.interfaces}",
 		ctx
 	});
 
 	return block;
 }
 
-// (125:2) {#each port.interfaces as interf}
+// (134:2) {#each port.interfaces as interf}
 function create_each_block_1(ctx) {
 	let li;
 	let t0_value = /*interf*/ ctx[23].name + "";
@@ -12763,7 +12763,7 @@ function create_each_block_1(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 125, 3, 3848);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 134, 3, 4151);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -12794,14 +12794,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(125:2) {#each port.interfaces as interf}",
+		source: "(134:2) {#each port.interfaces as interf}",
 		ctx
 	});
 
 	return block;
 }
 
-// (137:0) {#if port.aggregates}
+// (146:0) {#if port.aggregates}
 function create_if_block(ctx) {
 	let hr;
 	let t0;
@@ -12830,11 +12830,11 @@ function create_if_block(ctx) {
 			}
 
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(hr, "class", "mt-4 ");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 137, 1, 4069);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 146, 1, 4372);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 138, 1, 4091);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 147, 1, 4394);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 139, 1, 4135);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 148, 1, 4438);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
@@ -12886,14 +12886,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(137:0) {#if port.aggregates}",
+		source: "(146:0) {#if port.aggregates}",
 		ctx
 	});
 
 	return block;
 }
 
-// (141:2) {#each port.aggregates as aggr}
+// (150:2) {#each port.aggregates as aggr}
 function create_each_block(ctx) {
 	let li;
 	let t0_value = /*aggr*/ ctx[20].name + "";
@@ -12916,7 +12916,7 @@ function create_each_block(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 141, 3, 4200);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 150, 3, 4503);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -12947,7 +12947,7 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(141:2) {#each port.aggregates as aggr}",
+		source: "(150:2) {#each port.aggregates as aggr}",
 		ctx
 	});
 
@@ -13013,12 +13013,12 @@ function create_fragment(ctx) {
 			if (if_block4) if_block4.c();
 			if_block4_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h1, "class", "text-center text-4xl mt-1 mb-4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 73, 0, 2549);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 82, 0, 2852);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h40, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 80, 0, 2720);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 82, 11, 2846);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 89, 0, 3023);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 91, 11, 3149);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h41, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 81, 0, 2808);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 90, 0, 3111);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -13193,12 +13193,23 @@ function instance($$self, $$props, $$invalidate) {
 		if (event.key === 'Enter') {
 			const elem = event.target;
 			elem.removeAttribute('contenteditable');
-			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
+			let change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
-			const svc = (0,_lib_service__WEBPACK_IMPORTED_MODULE_3__.getAllServices)(_lib_data__WEBPACK_IMPORTED_MODULE_2__.services).find(t => t.id === parentID);
-			if (!svc) return;
+
+			switch (editType) {
+				case 'protocol':
+					$$invalidate(0, port.protocol = change, port);
+					break;
+				case 'port_name':
+					$$invalidate(0, port.name = change, port);
+					break;
+				case 'location':
+					$$invalidate(0, port.location = change, port);
+			}
+
 			dispatcher('reloadgraph');
 			if (!_lib_data__WEBPACK_IMPORTED_MODULE_2__.vscode) return;
+			if (port.resource && editType === 'location') change += `${change.endsWith('/') ? '' : '/'}!/${port.resource}`;
 
 			_lib_data__WEBPACK_IMPORTED_MODULE_2__.vscode.postMessage({
 				command: 'renamePort',
