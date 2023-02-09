@@ -7832,7 +7832,7 @@ function create_catch_block(ctx) {
 	return block;
 }
 
-// (117:0) {:then _}
+// (120:0) {:then _}
 function create_then_block(ctx) {
 	let main;
 	let svg;
@@ -7861,10 +7861,10 @@ function create_then_block(ctx) {
 			if (if_block2) if_block2.c();
 			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			if (if_block3) if_block3.c();
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 119, 3, 22540);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 122, 3, 27650);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "class", "w-screen h-screen");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 118, 2, 22505);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 117, 1, 22496);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 121, 2, 27615);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 120, 1, 27606);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, main, anchor);
@@ -7992,14 +7992,14 @@ function create_then_block(ctx) {
 		block,
 		id: create_then_block.name,
 		type: "then",
-		source: "(117:0) {:then _}",
+		source: "(120:0) {:then _}",
 		ctx
 	});
 
 	return block;
 }
 
-// (122:4) {#if currentGraph}
+// (125:4) {#if currentGraph}
 function create_if_block_3(ctx) {
 	let each0_anchor;
 	let each1_anchor;
@@ -8153,14 +8153,14 @@ function create_if_block_3(ctx) {
 		block,
 		id: create_if_block_3.name,
 		type: "if",
-		source: "(122:4) {#if currentGraph}",
+		source: "(125:4) {#if currentGraph}",
 		ctx
 	});
 
 	return block;
 }
 
-// (123:5) {#each currentGraph.children as child}
+// (126:5) {#each currentGraph.children as child}
 function create_each_block_1(ctx) {
 	let network;
 	let updating_network;
@@ -8218,14 +8218,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(123:5) {#each currentGraph.children as child}",
+		source: "(126:5) {#each currentGraph.children as child}",
 		ctx
 	});
 
 	return block;
 }
 
-// (126:5) {#each currentGraph.edges as edge}
+// (129:5) {#each currentGraph.edges as edge}
 function create_each_block(ctx) {
 	let edge;
 	let current;
@@ -8269,14 +8269,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(126:5) {#each currentGraph.edges as edge}",
+		source: "(129:5) {#each currentGraph.edges as edge}",
 		ctx
 	});
 
 	return block;
 }
 
-// (132:2) {#if $current_sidebar_element.hist_type >= 0}
+// (135:2) {#if $current_sidebar_element.hist_type >= 0}
 function create_if_block_2(ctx) {
 	let sidebar;
 	let current;
@@ -8310,14 +8310,14 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(132:2) {#if $current_sidebar_element.hist_type >= 0}",
+		source: "(135:2) {#if $current_sidebar_element.hist_type >= 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (135:2) {#if $loading}
+// (138:2) {#if $loading}
 function create_if_block_1(ctx) {
 	let div;
 
@@ -8325,7 +8325,7 @@ function create_if_block_1(ctx) {
 		c: function create() {
 			div = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("div");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div, "class", "absolute top-0 left-0 w-screen h-screen");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div, file, 135, 3, 22949);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div, file, 138, 3, 28059);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, div, anchor);
@@ -8339,14 +8339,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(135:2) {#if $loading}",
+		source: "(138:2) {#if $loading}",
 		ctx
 	});
 
 	return block;
 }
 
-// (138:2) {#if $current_popup.values.length > 0}
+// (141:2) {#if $current_popup.values.length > 0}
 function create_if_block(ctx) {
 	let popup;
 	let current;
@@ -8380,14 +8380,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(138:2) {#if $current_popup.values.length > 0}",
+		source: "(141:2) {#if $current_popup.values.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (115:22)   <main><p>...loading</p></main> {:then _}
+// (118:22)   <main><p>...loading</p></main> {:then _}
 function create_pending_block(ctx) {
 	let main;
 	let p;
@@ -8397,8 +8397,8 @@ function create_pending_block(ctx) {
 			main = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("main");
 			p = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("p");
 			p.textContent = "...loading";
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 115, 7, 22460);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 115, 1, 22454);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 118, 7, 27570);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(main, file, 118, 1, 27564);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, main, anchor);
@@ -8416,7 +8416,7 @@ function create_pending_block(ctx) {
 		block,
 		id: create_pending_block.name,
 		type: "pending",
-		source: "(115:22)   <main><p>...loading</p></main> {:then _}",
+		source: "(118:22)   <main><p>...loading</p></main> {:then _}",
 		ctx
 	});
 
@@ -8526,10 +8526,11 @@ function instance($$self, $$props, $$invalidate) {
 			// Mock
 			(0,_lib_data__WEBPACK_IMPORTED_MODULE_3__.setDataString)(// `{"name":"disembed","interfaces":[{"name":"dummy","file":"\/s2.ol","id":0,"reqres":[{"name":"hello","res":"int","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","ranges":[{"name":"svc_name","range":{"start":{"line":6,"char":8},"end":{"line":6,"char":18}}}],"name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"protocol","range":{"start":{"line":10,"char":8},"end":{"line":10,"char":18}}},{"name":"location","range":{"start":{"line":9,"char":-6},"end":{"line":9,"char":-1}}},{"name":"port","range":{"start":{"line":7,"char":14},"end":{"line":12,"char":-1}}}]}],"id":1}],"execution":"single","file":"\/s1.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":18}}},{"name":"embed_ServiceTwo","range":{"start":{"line":3,"char":10},"end":{"line":4,"char":-1}}}],"outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":3,"char":10},"end":{"line":4,"char":-1}}}]}],"name":"ServiceOne","id":0},{"embeddings":[{"execution":"single","file":"\/s2.ol","parentPort":"STwo","ranges":[{"name":"svc_name","range":{"start":{"line":6,"char":8},"end":{"line":6,"char":18}}}],"name":"ServiceTwo","inputPorts":[{"name":"Internal","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"protocol","range":{"start":{"line":10,"char":8},"end":{"line":10,"char":18}}},{"name":"location","range":{"start":{"line":9,"char":-6},"end":{"line":9,"char":-1}}},{"name":"port","range":{"start":{"line":7,"char":14},"end":{"line":12,"char":-1}}}]}],"id":3}],"execution":"single","file":"\/s1.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":18}}},{"name":"embed_ServiceTwo","range":{"start":{"line":3,"char":10},"end":{"line":4,"char":-1}}}],"outputPorts":[{"name":"STwo","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":3,"char":10},"end":{"line":4,"char":-1}}}]}],"name":"ServiceOne","id":2}]]}`
 			// `{"name":"embed","interfaces":[],"types":[],"services":[[{"name":"S1","execution":"single","file":"\/s1.ol","id":0,"ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":10}}}]},{"name":"S1","execution":"single","file":"\/s1.ol","id":1,"ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":10}}}]},{"name":"S2","execution":"single","file":"\/s1.ol","id":2,"ranges":[{"name":"svc_name","range":{"start":{"line":8,"char":8},"end":{"line":8,"char":10}}}]}]]}`
-			// `{"name":"embed","interfaces":[{"name":"dummy","file":"\/s1.ol","id":0,"oneway":[{"name":"hi","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s1.ol","parentPort":"S2","ranges":[{"name":"svc_name","range":{"start":{"line":8,"char":8},"end":{"line":8,"char":10}}}],"name":"S2","inputPorts":[{"name":"Test","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-6},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":14},"end":{"line":14,"char":-1}}}]}],"id":1}],"execution":"single","file":"\/s1.ol","ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":10}}},{"name":"embed_S2","range":{"start":{"line":5,"char":10},"end":{"line":6,"char":-1}}}],"outputPorts":[{"name":"S2","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":5,"char":10},"end":{"line":6,"char":-1}}}]}],"name":"S1","id":0}]]}`
-			// `{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"AggregatorInterface","file":"\/client.ol","id":1,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"PrinterInterface","file":"\/client.ol","id":2,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/client.ol","id":3,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/aggregator.ol","id":4,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/aggregator.ol","id":5,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"FaxInterface","file":"\/fax.ol","id":6,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/printer.ol","id":7,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"AggregatorInterface","file":"\/aggregator.ol","id":8,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","file":"\/AggregatorInterface.ol","type":"PrintRequest"},{"name":"fax","file":"\/AggregatorInterface.ol","type":"FaxRequest"}],"file":"\/AggregatorInterface.ol"},{"name":"PrintRequest","subTypes":[{"name":"content","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"PrintResponse","file":"\/PrinterInterface.ol","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"FaxRequest","subTypes":[{"name":"destination","file":"\/FaxInterface.ol","type":"string"},{"name":"content","file":"\/FaxInterface.ol","type":"string"}],"file":"\/FaxInterface.ol"}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":1}],"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":5,"char":8},"end":{"line":5,"char":14}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":1},{"name":"PrinterInterface","id":2},{"name":"FaxInterface","id":3}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":15},"end":{"line":14,"char":-1}}}]}],"name":"Client","id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":3},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"concurrent","file":"\/fax.ol","parentPort":"Fax","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":11}}},{"name":"embed_Console","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}]}],"name":"Fax","inputPorts":[{"name":"FaxInput","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":6}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":11,"char":8},"end":{"line":11,"char":18}}},{"name":"location","range":{"start":{"line":10,"char":-24},"end":{"line":10,"char":-1}}},{"name":"port","range":{"start":{"line":8,"char":14},"end":{"line":13,"char":-1}}}]}],"id":4},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":7}],"execution":"concurrent","file":"\/printer.ol","parentPort":"printer","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":15}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]}],"name":"Printer","inputPorts":[{"name":"PrinterInput","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":7}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":14},"end":{"line":14,"char":-1}}}]}],"id":6}],"execution":"concurrent","file":"\/aggregator.ol","ranges":[{"name":"svc_name","range":{"start":{"line":7,"char":8},"end":{"line":7,"char":18}}},{"name":"embed_Console","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}},{"name":"embed_Fax","range":{"start":{"line":25,"char":10},"end":{"line":26,"char":-1}}},{"name":"embed_Printer","range":{"start":{"line":26,"char":10},"end":{"line":27,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}}]},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":4}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":16,"char":8},"end":{"line":16,"char":18}}},{"name":"location","range":{"start":{"line":15,"char":-24},"end":{"line":15,"char":-1}}},{"name":"port","range":{"start":{"line":13,"char":15},"end":{"line":18,"char":-1}}}]},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":5}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":22,"char":8},"end":{"line":22,"char":18}}},{"name":"location","range":{"start":{"line":21,"char":-24},"end":{"line":21,"char":-1}}},{"name":"port","range":{"start":{"line":19,"char":15},"end":{"line":24,"char":-1}}}]}],"name":"Aggregator","inputPorts":[{"protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":8}],"ranges":[{"name":"protocol","range":{"start":{"line":31,"char":8},"end":{"line":31,"char":18}}},{"name":"location","range":{"start":{"line":30,"char":-24},"end":{"line":30,"char":-1}}},{"name":"port","range":{"start":{"line":28,"char":14},"end":{"line":34,"char":-1}}}],"name":"Aggregator","location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}]}],"id":2}]]}`
-			`{"name":"redirect","interfaces":[{"name":"SubInterface","file":"\/sub.ol","id":0,"reqres":[{"name":"sub","res":"double","req":"SubRequest"}]},{"name":"SumInterface","file":"\/sum.ol","id":1,"reqres":[{"name":"sum","res":"double","req":"SumRequest"}]},{"name":"ConsoleIface","id":2,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"SubInterface","file":"\/redirector.ol","id":3,"reqres":[{"name":"sub","res":"double","req":"SubRequest"}]},{"name":"SumInterface","file":"\/redirector.ol","id":4,"reqres":[{"name":"sum","res":"double","req":"SumRequest"}]},{"name":"SubInterface","file":"\/client.ol","id":5,"reqres":[{"name":"sub","res":"double","req":"SubRequest"}]},{"name":"SumInterface","file":"\/client.ol","id":6,"reqres":[{"name":"sum","res":"double","req":"SumRequest"}]}],"types":[{"name":"SubRequest","subTypes":[{"name":"x","file":"\/SubInterface.ol","type":"double"},{"name":"y","file":"\/SubInterface.ol","type":"double"}],"file":"\/SubInterface.ol"},{"name":"SumRequest","subTypes":[{"name":"x","file":"\/SumInterface.ol","type":"double"},{"name":"y","file":"\/SumInterface.ol","type":"double"}],"file":"\/SumInterface.ol"},{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]}],"services":[[{"execution":"concurrent","file":"\/sub.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":11}}}],"name":"Sub","inputPorts":[{"name":"Sub","protocol":"sodep","interfaces":[{"name":"SubInterface","id":0}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":9,"char":8},"end":{"line":9,"char":18}}},{"name":"location","range":{"start":{"line":8,"char":-24},"end":{"line":8,"char":-1}}},{"name":"port","range":{"start":{"line":6,"char":14},"end":{"line":11,"char":-1}}}]}],"id":0},{"execution":"concurrent","file":"\/sum.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":11}}}],"name":"Sum","inputPorts":[{"name":"Sum","protocol":"sodep","interfaces":[{"name":"SumInterface","id":1}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":9,"char":8},"end":{"line":9,"char":18}}},{"name":"location","range":{"start":{"line":8,"char":-24},"end":{"line":8,"char":-1}}},{"name":"port","range":{"start":{"line":6,"char":14},"end":{"line":11,"char":-1}}}]}],"id":1},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local"}],"parentPort":"Console","id":3}],"execution":"single","file":"\/redirector.ol","ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":18}}},{"name":"embed_Console","range":{"start":{"line":8,"char":10},"end":{"line":9,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":8,"char":10},"end":{"line":9,"char":-1}}}]},{"name":"SubService","protocol":"sodep","interfaces":[{"name":"SubInterface","id":3}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":13,"char":8},"end":{"line":13,"char":18}}},{"name":"location","range":{"start":{"line":12,"char":-24},"end":{"line":12,"char":-1}}},{"name":"port","range":{"start":{"line":10,"char":15},"end":{"line":15,"char":-1}}}]},{"name":"SumService","protocol":"sodep","interfaces":[{"name":"SumInterface","id":4}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":19,"char":8},"end":{"line":19,"char":18}}},{"name":"location","range":{"start":{"line":18,"char":-24},"end":{"line":18,"char":-1}}},{"name":"port","range":{"start":{"line":16,"char":15},"end":{"line":21,"char":-1}}}]}],"name":"Redirector","inputPorts":[{"name":"Redirector","protocol":"sodep","location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":25,"char":8},"end":{"line":25,"char":17}}},{"name":"location","range":{"start":{"line":24,"char":-24},"end":{"line":24,"char":-1}}},{"name":"port","range":{"start":{"line":22,"char":14},"end":{"line":27,"char":-1}}}],"redirects":[{"name":"Sub","port":"SubService"},{"name":"Sum","port":"SumService"}]}],"id":2},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":14}}},{"name":"embed_Console","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}]},{"name":"Sub","protocol":"sodep","interfaces":[{"name":"SubInterface","id":5}],"location":"socket:\/\/localhost:9000\/!\/Sub","ranges":[{"name":"protocol","range":{"start":{"line":11,"char":8},"end":{"line":11,"char":18}}},{"name":"location","range":{"start":{"line":10,"char":-30},"end":{"line":10,"char":-1}}},{"name":"port","range":{"start":{"line":8,"char":15},"end":{"line":13,"char":-1}}}]},{"name":"Sum","protocol":"sodep","interfaces":[{"name":"SumInterface","id":6}],"location":"socket:\/\/localhost:9000\/!\/Sum","ranges":[{"name":"protocol","range":{"start":{"line":17,"char":8},"end":{"line":17,"char":18}}},{"name":"location","range":{"start":{"line":16,"char":-30},"end":{"line":16,"char":-1}}},{"name":"port","range":{"start":{"line":14,"char":15},"end":{"line":19,"char":-1}}}]}],"name":"Client","id":4}]]}`);
+			`{"name":"embed","interfaces":[{"name":"dummy","file":"\/s1.ol","id":0,"oneway":[{"name":"hi","req":"int"}]}],"types":[],"services":[[{"embeddings":[{"execution":"single","file":"\/s1.ol","parentPort":"S2","ranges":[{"name":"svc_name","range":{"start":{"line":8,"char":8},"end":{"line":8,"char":10}}}],"name":"S2","inputPorts":[{"name":"Test","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-6},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":14},"end":{"line":14,"char":-1}}}]}],"id":1}],"execution":"single","file":"\/s1.ol","ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":10}}},{"name":"embed_S2","range":{"start":{"line":5,"char":10},"end":{"line":6,"char":-1}}}],"outputPorts":[{"name":"S2","protocol":"sodep","interfaces":[{"name":"dummy","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":5,"char":10},"end":{"line":6,"char":-1}}}]}],"name":"S1","id":0}]]}`); // `{"name":"aggregation_and_embedding","interfaces":[{"name":"ConsoleIface","id":0,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"AggregatorInterface","file":"\/client.ol","id":1,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]},{"name":"PrinterInterface","file":"\/client.ol","id":2,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/client.ol","id":3,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/aggregator.ol","id":4,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"FaxInterface","file":"\/aggregator.ol","id":5,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"FaxInterface","file":"\/fax.ol","id":6,"reqres":[{"name":"fax","res":"void","req":"FaxRequest"}]},{"name":"PrinterInterface","file":"\/printer.ol","id":7,"reqres":[{"name":"print","res":"PrintResponse","req":"PrintRequest"}],"oneway":[{"name":"del","req":"JobID"}]},{"name":"AggregatorInterface","file":"\/aggregator.ol","id":8,"reqres":[{"name":"faxAndPrint","res":"void","req":"FaxAndPrintRequest"}]}],"types":[{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]},{"name":"FaxAndPrintRequest","subTypes":[{"name":"print","file":"\/AggregatorInterface.ol","type":"PrintRequest"},{"name":"fax","file":"\/AggregatorInterface.ol","type":"FaxRequest"}],"file":"\/AggregatorInterface.ol"},{"name":"PrintRequest","subTypes":[{"name":"content","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"PrintResponse","file":"\/PrinterInterface.ol","type":"JobID"},{"name":"JobID","subTypes":[{"name":"jobId","file":"\/PrinterInterface.ol","type":"string"}],"file":"\/PrinterInterface.ol"},{"name":"FaxRequest","subTypes":[{"name":"destination","file":"\/FaxInterface.ol","type":"string"},{"name":"content","file":"\/FaxInterface.ol","type":"string"}],"file":"\/FaxInterface.ol"}],"services":[[{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":1}],"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":5,"char":8},"end":{"line":5,"char":14}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]},{"name":"Aggregator","protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":1},{"name":"PrinterInterface","id":2},{"name":"FaxInterface","id":3}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":15},"end":{"line":14,"char":-1}}}]}],"name":"Client","id":0},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":3},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"concurrent","file":"\/fax.ol","parentPort":"Fax","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":11}}},{"name":"embed_Console","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}]}],"name":"Fax","inputPorts":[{"name":"FaxInput","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":6}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":11,"char":8},"end":{"line":11,"char":18}}},{"name":"location","range":{"start":{"line":10,"char":-24},"end":{"line":10,"char":-1}}},{"name":"port","range":{"start":{"line":8,"char":14},"end":{"line":13,"char":-1}}}]}],"id":4},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local"}],"parentPort":"Console","id":7}],"execution":"concurrent","file":"\/printer.ol","parentPort":"printer","ranges":[{"name":"svc_name","range":{"start":{"line":3,"char":8},"end":{"line":3,"char":15}}},{"name":"embed_Console","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":7,"char":10},"end":{"line":8,"char":-1}}}]}],"name":"Printer","inputPorts":[{"name":"PrinterInput","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":7}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":12,"char":8},"end":{"line":12,"char":18}}},{"name":"location","range":{"start":{"line":11,"char":-24},"end":{"line":11,"char":-1}}},{"name":"port","range":{"start":{"line":9,"char":14},"end":{"line":14,"char":-1}}}]}],"id":6}],"execution":"concurrent","file":"\/aggregator.ol","ranges":[{"name":"svc_name","range":{"start":{"line":7,"char":8},"end":{"line":7,"char":18}}},{"name":"embed_Console","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}},{"name":"embed_Fax","range":{"start":{"line":25,"char":10},"end":{"line":26,"char":-1}}},{"name":"embed_Printer","range":{"start":{"line":26,"char":10},"end":{"line":27,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":0}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":11,"char":10},"end":{"line":12,"char":-1}}}]},{"name":"printer","protocol":"sodep","interfaces":[{"name":"PrinterInterface","id":4}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":16,"char":8},"end":{"line":16,"char":18}}},{"name":"location","range":{"start":{"line":15,"char":-24},"end":{"line":15,"char":-1}}},{"name":"port","range":{"start":{"line":13,"char":15},"end":{"line":18,"char":-1}}}]},{"name":"Fax","protocol":"sodep","interfaces":[{"name":"FaxInterface","id":5}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":22,"char":8},"end":{"line":22,"char":18}}},{"name":"location","range":{"start":{"line":21,"char":-24},"end":{"line":21,"char":-1}}},{"name":"port","range":{"start":{"line":19,"char":15},"end":{"line":24,"char":-1}}}]}],"name":"Aggregator","inputPorts":[{"protocol":"sodep","interfaces":[{"name":"AggregatorInterface","id":8}],"ranges":[{"name":"protocol","range":{"start":{"line":31,"char":8},"end":{"line":31,"char":18}}},{"name":"location","range":{"start":{"line":30,"char":-24},"end":{"line":30,"char":-1}}},{"name":"port","range":{"start":{"line":28,"char":14},"end":{"line":34,"char":-1}}}],"name":"Aggregator","location":"socket:\/\/localhost:9002","aggregates":[{"name":"printer"},{"name":"Fax"}]}],"id":2}]]}`
+			// `{"name":"redirect","interfaces":[{"name":"SubInterface","file":"\/sub.ol","id":0,"reqres":[{"name":"sub","res":"double","req":"SubRequest"}]},{"name":"SumInterface","file":"\/sum.ol","id":1,"reqres":[{"name":"sum","res":"double","req":"SumRequest"}]},{"name":"ConsoleIface","id":2,"reqres":[{"name":"print","res":"void","req":"undefined"},{"name":"println","res":"void","req":"undefined"},{"name":"registerForInput","res":"void","req":"RegisterForInputRequest"},{"name":"unsubscribeSessionListener","res":"void","req":"UnsubscribeSessionListener"},{"name":"subscribeSessionListener","res":"void","req":"SubscribeSessionListener"},{"name":"enableTimestamp","res":"void","req":"EnableTimestampRequest"},{"name":"readLine","res":"string","req":"ReadLineRequest"}]},{"name":"SubInterface","file":"\/redirector.ol","id":3,"reqres":[{"name":"sub","res":"double","req":"SubRequest"}]},{"name":"SumInterface","file":"\/redirector.ol","id":4,"reqres":[{"name":"sum","res":"double","req":"SumRequest"}]},{"name":"SubInterface","file":"\/client.ol","id":5,"reqres":[{"name":"sub","res":"double","req":"SubRequest"}]},{"name":"SumInterface","file":"\/client.ol","id":6,"reqres":[{"name":"sum","res":"double","req":"SumRequest"}]}],"types":[{"name":"SubRequest","subTypes":[{"name":"x","file":"\/SubInterface.ol","type":"double"},{"name":"y","file":"\/SubInterface.ol","type":"double"}],"file":"\/SubInterface.ol"},{"name":"SumRequest","subTypes":[{"name":"x","file":"\/SumInterface.ol","type":"double"},{"name":"y","file":"\/SumInterface.ol","type":"double"}],"file":"\/SumInterface.ol"},{"name":"undefined","type":"any"},{"name":"RegisterForInputRequest","subTypes":[{"name":"enableSessionListener","type":"bool"}]},{"name":"UnsubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"SubscribeSessionListener","subTypes":[{"name":"token","type":"string"}]},{"name":"EnableTimestampRequest","subTypes":[{"name":"format","type":"string"}],"type":"bool"},{"name":"ReadLineRequest","subTypes":[{"name":"secret","type":"bool"}]}],"services":[[{"execution":"concurrent","file":"\/sub.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":11}}}],"name":"Sub","inputPorts":[{"name":"Sub","protocol":"sodep","interfaces":[{"name":"SubInterface","id":0}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":9,"char":8},"end":{"line":9,"char":18}}},{"name":"location","range":{"start":{"line":8,"char":-24},"end":{"line":8,"char":-1}}},{"name":"port","range":{"start":{"line":6,"char":14},"end":{"line":11,"char":-1}}}]}],"id":0},{"execution":"concurrent","file":"\/sum.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":11}}}],"name":"Sum","inputPorts":[{"name":"Sum","protocol":"sodep","interfaces":[{"name":"SumInterface","id":1}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":9,"char":8},"end":{"line":9,"char":18}}},{"name":"location","range":{"start":{"line":8,"char":-24},"end":{"line":8,"char":-1}}},{"name":"port","range":{"start":{"line":6,"char":14},"end":{"line":11,"char":-1}}}]}],"id":1},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local"}],"parentPort":"Console","id":3}],"execution":"single","file":"\/redirector.ol","ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":18}}},{"name":"embed_Console","range":{"start":{"line":8,"char":10},"end":{"line":9,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":8,"char":10},"end":{"line":9,"char":-1}}}]},{"name":"SubService","protocol":"sodep","interfaces":[{"name":"SubInterface","id":3}],"location":"socket:\/\/localhost:9001","ranges":[{"name":"protocol","range":{"start":{"line":13,"char":8},"end":{"line":13,"char":18}}},{"name":"location","range":{"start":{"line":12,"char":-24},"end":{"line":12,"char":-1}}},{"name":"port","range":{"start":{"line":10,"char":15},"end":{"line":15,"char":-1}}}]},{"name":"SumService","protocol":"sodep","interfaces":[{"name":"SumInterface","id":4}],"location":"socket:\/\/localhost:9002","ranges":[{"name":"protocol","range":{"start":{"line":19,"char":8},"end":{"line":19,"char":18}}},{"name":"location","range":{"start":{"line":18,"char":-24},"end":{"line":18,"char":-1}}},{"name":"port","range":{"start":{"line":16,"char":15},"end":{"line":21,"char":-1}}}]}],"name":"Redirector","inputPorts":[{"name":"Redirector","protocol":"sodep","location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":25,"char":8},"end":{"line":25,"char":17}}},{"name":"location","range":{"start":{"line":24,"char":-24},"end":{"line":24,"char":-1}}},{"name":"port","range":{"start":{"line":22,"char":14},"end":{"line":27,"char":-1}}}],"redirects":[{"name":"Sub","port":"SubService"},{"name":"Sum","port":"SumService"}]}],"id":2},{"embeddings":[{"name":"Console","execution":"single","inputPorts":[{"name":"ConsoleInput","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local"}],"parentPort":"Console","id":5}],"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":4,"char":8},"end":{"line":4,"char":14}}},{"name":"embed_Console","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}],"outputPorts":[{"name":"Console","protocol":"sodep","interfaces":[{"name":"ConsoleIface","id":2}],"location":"local","ranges":[{"name":"port","range":{"start":{"line":6,"char":10},"end":{"line":7,"char":-1}}}]},{"name":"Sub","protocol":"sodep","interfaces":[{"name":"SubInterface","id":5}],"location":"socket:\/\/localhost:9000\/!\/Sub","ranges":[{"name":"protocol","range":{"start":{"line":11,"char":8},"end":{"line":11,"char":18}}},{"name":"location","range":{"start":{"line":10,"char":-30},"end":{"line":10,"char":-1}}},{"name":"port","range":{"start":{"line":8,"char":15},"end":{"line":13,"char":-1}}}]},{"name":"Sum","protocol":"sodep","interfaces":[{"name":"SumInterface","id":6}],"location":"socket:\/\/localhost:9000\/!\/Sum","ranges":[{"name":"protocol","range":{"start":{"line":17,"char":8},"end":{"line":17,"char":18}}},{"name":"location","range":{"start":{"line":16,"char":-30},"end":{"line":16,"char":-1}}},{"name":"port","range":{"start":{"line":14,"char":15},"end":{"line":19,"char":-1}}}]}],"name":"Client","id":4}]]}`
 
+			// `{"name":"withdocker","interfaces":[{"name":"fromDB","file":"\/stats.ol","id":0,"oneway":[{"name":"SaveStuff","req":"string"}]},{"name":"dummy","file":"\/intface.ol","id":1,"oneway":[{"name":"hi","req":"int"}]},{"name":"test","file":"\/intface.ol","id":2,"oneway":[{"name":"hi","req":"int"}]}],"types":[],"services":[[{"name":"db","image":"emovc18\/mysql","id":0,"ports":[{"eport":5432,"iport":5432},{"eport":3434,"iport":5678}]},{"execution":"single","file":"\/stats.ol","ranges":[{"name":"svc_name","range":{"start":{"line":5,"char":8},"end":{"line":5,"char":13}}}],"name":"Stats","inputPorts":[{"name":"PortName","protocol":"sodep","interfaces":[{"name":"fromDB","id":0}],"location":"socket:\/\/localhost:3434","ranges":[{"name":"protocol","range":{"start":{"line":9,"char":-6},"end":{"line":9,"char":-1}}},{"name":"location","range":{"start":{"line":8,"char":-26},"end":{"line":8,"char":-1}}},{"name":"port","range":{"start":{"line":6,"char":14},"end":{"line":11,"char":-1}}}]}],"id":1},{"execution":"concurrent","file":"\/server.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":14}}}],"outputPorts":[{"name":"ToDB","protocol":"sodep","location":"socket:\/\/localhost:5432","ranges":[{"name":"protocol","range":{"start":{"line":16,"char":-1},"end":{"line":16,"char":-1}}},{"name":"location","range":{"start":{"line":14,"char":-26},"end":{"line":14,"char":-1}}},{"name":"port","range":{"start":{"line":12,"char":15},"end":{"line":16,"char":-1}}}]}],"name":"Server","inputPorts":[{"name":"Input","protocol":"sodep","interfaces":[{"name":"dummy","id":1}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":9,"char":-6},"end":{"line":9,"char":-1}}},{"name":"location","range":{"start":{"line":8,"char":-26},"end":{"line":8,"char":-1}}},{"name":"port","range":{"start":{"line":6,"char":14},"end":{"line":11,"char":-1}}}]}],"id":2},{"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":14}}}],"outputPorts":[{"name":"Server","protocol":"sodep","interfaces":[{"name":"test","id":2}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":7,"char":-6},"end":{"line":7,"char":-1}}},{"name":"location","range":{"start":{"line":6,"char":-26},"end":{"line":6,"char":-1}}},{"name":"port","range":{"start":{"line":4,"char":15},"end":{"line":9,"char":-1}}}]}],"name":"Client","id":3}]]}`
+			// `{"name":"withdocker","interfaces":[{"name":"test","file":"\/intface.ol","id":0,"oneway":[{"name":"hi","req":"int"}]},{"name":"fromDB","file":"\/stats.ol","id":1,"oneway":[{"name":"SaveStuff","req":"string"}]},{"name":"dummy","file":"\/intface.ol","id":2,"oneway":[{"name":"hi","req":"int"}]}],"types":[],"services":[[{"name":"db","image":"emovc18\/mysql","id":0,"ports":[{"eport":5432,"iport":5432},{"eport":3434,"iport":5678}]},{"name":"db","image":"emovc18\/mysql","id":1,"ports":[{"eport":5432,"iport":5432},{"eport":3434,"iport":5678}]},{"execution":"single","file":"\/client.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":14}}}],"outputPorts":[{"name":"Server","protocol":"sodep","interfaces":[{"name":"test","id":0}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":7,"char":-6},"end":{"line":7,"char":-1}}},{"name":"location","range":{"start":{"line":6,"char":-26},"end":{"line":6,"char":-1}}},{"name":"port","range":{"start":{"line":4,"char":15},"end":{"line":9,"char":-1}}}]}],"name":"Client","id":2},{"execution":"single","file":"\/stats.ol","ranges":[{"name":"svc_name","range":{"start":{"line":5,"char":8},"end":{"line":5,"char":13}}}],"name":"Stats","inputPorts":[{"name":"PortName","protocol":"sodep","interfaces":[{"name":"fromDB","id":1}],"location":"socket:\/\/localhost:3434","ranges":[{"name":"protocol","range":{"start":{"line":9,"char":-6},"end":{"line":9,"char":-1}}},{"name":"location","range":{"start":{"line":8,"char":-26},"end":{"line":8,"char":-1}}},{"name":"port","range":{"start":{"line":6,"char":14},"end":{"line":11,"char":-1}}}]}],"id":3},{"execution":"concurrent","file":"\/server.ol","ranges":[{"name":"svc_name","range":{"start":{"line":2,"char":8},"end":{"line":2,"char":14}}}],"outputPorts":[{"name":"ToDB","protocol":"sodep","location":"socket:\/\/localhost:5432","ranges":[{"name":"protocol","range":{"start":{"line":16,"char":-1},"end":{"line":16,"char":-1}}},{"name":"location","range":{"start":{"line":14,"char":-26},"end":{"line":14,"char":-1}}},{"name":"port","range":{"start":{"line":12,"char":15},"end":{"line":16,"char":-1}}}]}],"name":"Server","inputPorts":[{"name":"Input","protocol":"sodep","interfaces":[{"name":"dummy","id":2}],"location":"socket:\/\/localhost:9000","ranges":[{"name":"protocol","range":{"start":{"line":9,"char":-6},"end":{"line":9,"char":-1}}},{"name":"location","range":{"start":{"line":8,"char":-26},"end":{"line":8,"char":-1}}},{"name":"port","range":{"start":{"line":6,"char":14},"end":{"line":11,"char":-1}}}]}],"id":4}]]}`
 			$$invalidate(0, currentGraph = await elk.layout((0,_lib_graph__WEBPACK_IMPORTED_MODULE_5__.createSystemGraph)(_lib_data__WEBPACK_IMPORTED_MODULE_3__.services)));
 		}
 	};
@@ -8588,7 +8589,7 @@ function instance($$self, $$props, $$invalidate) {
 
 	const handleKeyboard = async event => {
 		if (event.key === '.') {
-			console.log(_lib_data__WEBPACK_IMPORTED_MODULE_3__.services);
+			console.log((0,_lib_data__WEBPACK_IMPORTED_MODULE_3__.generateVisFile)());
 		}
 
 		//close sidebar & popup
@@ -9712,11 +9713,11 @@ function create_each_block(ctx) {
 			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			input = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("input");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(p, "class", "grid self-center");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 25, 4, 877);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(p, file, 25, 4, 899);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(input, "class", "grid text-gray-900 p-2 rounded-sm self-center");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(input, "type", "text");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(input, "placeholder", input_placeholder_value = /*val*/ ctx[5].field);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(input, file, 26, 4, 926);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(input, file, 26, 4, 948);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, p, anchor);
@@ -9806,18 +9807,18 @@ function create_fragment(ctx) {
 			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			button1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("button");
 			button1.textContent = "Confirm";
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h2, "class", "text-center text-xl my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h2, file, 22, 2, 690);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h2, "class", "text-center text-xl my-2 px-3");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h2, file, 22, 2, 707);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div0, "class", "px-5 grid gap-2 mt-4");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div0, "grid-template-columns", "auto 1fr");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div0, file, 23, 2, 757);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div0, file, 23, 2, 779);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(button0, "class", "bg-service p-2 m-2 rounded-md hover:bg-serviceHighlight");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(button0, file, 36, 3, 1147);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(button0, file, 36, 3, 1169);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(button1, "class", "bg-service p-2 m-2 rounded-md hover:bg-serviceHighlight");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(button1, file, 39, 3, 1265);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(button1, file, 39, 3, 1287);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div1, "class", "flex text-gray-900 justify-end mt-4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div1, file, 35, 2, 1094);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div2, "class", "absolute bg-gray-800 text-white top-12 rounded-md");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div1, file, 35, 2, 1116);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(div2, "class", "absolute bg-gray-800 text-white top-12 rounded-md w-8/12 sm:w-auto");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div2, "left", "50%");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(div2, "transform", "translateX(-50%)");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(div2, file, 18, 1, 572);
@@ -9980,11 +9981,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/internal/index.mjs");
 /* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/index.mjs");
-/* harmony import */ var _lib_sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/sidebar */ "./src/lib/sidebar.ts");
-/* harmony import */ var _Users_emilovcina_Desktop_jvnode_svelte_node_modules_svelte_loader_lib_hot_api_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/svelte-loader/lib/hot-api.js */ "./node_modules/svelte-loader/lib/hot-api.js");
-/* harmony import */ var _Users_emilovcina_Desktop_jvnode_svelte_node_modules_svelte_hmr_runtime_proxy_adapter_dom_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/svelte-hmr/runtime/proxy-adapter-dom.js */ "./node_modules/svelte-hmr/runtime/proxy-adapter-dom.js");
+/* harmony import */ var _lib_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/service */ "./src/lib/service.ts");
+/* harmony import */ var _lib_sidebar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/sidebar */ "./src/lib/sidebar.ts");
+/* harmony import */ var _Users_emilovcina_Desktop_jvnode_svelte_node_modules_svelte_loader_lib_hot_api_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/svelte-loader/lib/hot-api.js */ "./node_modules/svelte-loader/lib/hot-api.js");
+/* harmony import */ var _Users_emilovcina_Desktop_jvnode_svelte_node_modules_svelte_hmr_runtime_proxy_adapter_dom_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/svelte-hmr/runtime/proxy-adapter-dom.js */ "./node_modules/svelte-hmr/runtime/proxy-adapter-dom.js");
 /* module decorator */ module = __webpack_require__.hmd(module);
 /* src/Port.svelte generated by Svelte v3.55.1 */
+
 
 
 
@@ -9994,7 +9997,7 @@ __webpack_require__.r(__webpack_exports__);
 const file = "src/Port.svelte";
 
 function add_css(target) {
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_styles)(target, "svelte-12kgg6p", "rect.svelte-12kgg6p{stroke-width:0.4}rect.svelte-12kgg6p:hover{stroke-width:0.8}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUG9ydC5zdmVsdGUiLCJtYXBwaW5ncyI6IkFBdURDLElBQUEsZUFBQSxDQUFBLEFBQ0MsWUFBQSxDQUFBLEdBQWlCLEFBQ2xCLENBQUEsQUFDQSxtQkFBQSxNQUFBLEFBQUEsQ0FBQSxBQUNDLFlBQUEsQ0FBQSxHQUFpQixBQUNsQixDQUFBIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIlBvcnQuc3ZlbHRlIl19 */");
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_styles)(target, "svelte-12kgg6p", "rect.svelte-12kgg6p{stroke-width:0.4}rect.svelte-12kgg6p:hover{stroke-width:0.8}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUG9ydC5zdmVsdGUiLCJtYXBwaW5ncyI6IkFBNERDLElBQUEsZUFBQSxDQUFBLEFBQ0MsWUFBQSxDQUFBLEdBQWlCLEFBQ2xCLENBQUEsQUFDQSxtQkFBQSxNQUFBLEFBQUEsQ0FBQSxBQUNDLFlBQUEsQ0FBQSxHQUFpQixBQUNsQixDQUFBIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIlBvcnQuc3ZlbHRlIl19 */");
 }
 
 function create_fragment(ctx) {
@@ -10011,12 +10014,14 @@ function create_fragment(ctx) {
 			rect = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("rect");
 
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "class", rect_class_value = "" + ((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.null_to_empty)(/*portNode*/ ctx[0].labels[0].text === 'ip'
-			? 'fill-inputPort stroke-ipStroke cursor-pointer'
+			? /*isDockerPort*/ ctx[1]
+				? 'fill-teal-800 stroke-teal-900 cursor-pointer'
+				: 'fill-inputPort stroke-ipStroke cursor-pointer'
 			: 'fill-outputPort stroke-opStroke cursor-pointer') + " svelte-12kgg6p"));
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect, file, 35, 1, 1498);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect, file, 37, 1, 1598);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(g, "id", g_id_value = /*portNode*/ ctx[0].id);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 34, 0, 1476);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 36, 0, 1576);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -10027,8 +10032,8 @@ function create_fragment(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(rect, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*openPortInSidebar*/ ctx[1]), false, false, true),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(rect, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*openPortInSidebar*/ ctx[1]), false, false, true),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(rect, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*openPortInSidebar*/ ctx[2]), false, false, true),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(rect, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*openPortInSidebar*/ ctx[2]), false, false, true),
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(rect, "dblclick", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(dblclick_handler), false, false, true)
 				];
 
@@ -10037,7 +10042,9 @@ function create_fragment(ctx) {
 		},
 		p: function update(ctx, [dirty]) {
 			if (dirty & /*portNode*/ 1 && rect_class_value !== (rect_class_value = "" + ((0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.null_to_empty)(/*portNode*/ ctx[0].labels[0].text === 'ip'
-			? 'fill-inputPort stroke-ipStroke cursor-pointer'
+			? /*isDockerPort*/ ctx[1]
+				? 'fill-teal-800 stroke-teal-900 cursor-pointer'
+				: 'fill-inputPort stroke-ipStroke cursor-pointer'
 			: 'fill-outputPort stroke-opStroke cursor-pointer') + " svelte-12kgg6p"))) {
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "class", rect_class_value);
 			}
@@ -10072,8 +10079,8 @@ const dblclick_handler = () => {
 
 function instance($$self, $$props, $$invalidate) {
 	let $current_sidebar_element;
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_sidebar__WEBPACK_IMPORTED_MODULE_2__.current_sidebar_element, 'current_sidebar_element');
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_sidebar__WEBPACK_IMPORTED_MODULE_2__.current_sidebar_element, $$value => $$invalidate(4, $current_sidebar_element = $$value));
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_sidebar__WEBPACK_IMPORTED_MODULE_3__.current_sidebar_element, 'current_sidebar_element');
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_sidebar__WEBPACK_IMPORTED_MODULE_3__.current_sidebar_element, $$value => $$invalidate(5, $current_sidebar_element = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_slots)('Port', slots, []);
 	let { portNode } = $$props;
@@ -10082,6 +10089,8 @@ function instance($$self, $$props, $$invalidate) {
 	let port = portNode.labels[0].text === 'ip'
 	? parentService.inputPorts.find(t => t.name == portNode.labels[1].text)
 	: parentService.outputPorts.find(t => t.name == portNode.labels[1].text);
+
+	let isDockerPort = (0,_lib_service__WEBPACK_IMPORTED_MODULE_2__.isDockerService)(parentService);
 
 	const drawPort = () => {
 		var _a, _b, _c, _d;
@@ -10093,11 +10102,11 @@ function instance($$self, $$props, $$invalidate) {
 	};
 
 	const openPortInSidebar = () => {
-		const sbPort = new _lib_sidebar__WEBPACK_IMPORTED_MODULE_2__.SidebarElement(1, port.name);
+		const sbPort = new _lib_sidebar__WEBPACK_IMPORTED_MODULE_3__.SidebarElement(1, port.name);
 		sbPort.port = port;
 		sbPort.port_parentID = parentService.id;
 		sbPort.portType = portNode.labels[0].text;
-		(0,_lib_sidebar__WEBPACK_IMPORTED_MODULE_2__.openSidebar)(sbPort, $current_sidebar_element);
+		(0,_lib_sidebar__WEBPACK_IMPORTED_MODULE_3__.openSidebar)(sbPort, $current_sidebar_element);
 	};
 
 	(0,svelte__WEBPACK_IMPORTED_MODULE_1__.afterUpdate)(() => {
@@ -10128,17 +10137,19 @@ function instance($$self, $$props, $$invalidate) {
 
 	$$self.$$set = $$props => {
 		if ('portNode' in $$props) $$invalidate(0, portNode = $$props.portNode);
-		if ('parentService' in $$props) $$invalidate(2, parentService = $$props.parentService);
+		if ('parentService' in $$props) $$invalidate(3, parentService = $$props.parentService);
 	};
 
 	$$self.$capture_state = () => ({
 		afterUpdate: svelte__WEBPACK_IMPORTED_MODULE_1__.afterUpdate,
-		current_sidebar_element: _lib_sidebar__WEBPACK_IMPORTED_MODULE_2__.current_sidebar_element,
-		openSidebar: _lib_sidebar__WEBPACK_IMPORTED_MODULE_2__.openSidebar,
-		SidebarElement: _lib_sidebar__WEBPACK_IMPORTED_MODULE_2__.SidebarElement,
+		isDockerService: _lib_service__WEBPACK_IMPORTED_MODULE_2__.isDockerService,
+		current_sidebar_element: _lib_sidebar__WEBPACK_IMPORTED_MODULE_3__.current_sidebar_element,
+		openSidebar: _lib_sidebar__WEBPACK_IMPORTED_MODULE_3__.openSidebar,
+		SidebarElement: _lib_sidebar__WEBPACK_IMPORTED_MODULE_3__.SidebarElement,
 		portNode,
 		parentService,
 		port,
+		isDockerPort,
 		drawPort,
 		openPortInSidebar,
 		$current_sidebar_element
@@ -10146,21 +10157,22 @@ function instance($$self, $$props, $$invalidate) {
 
 	$$self.$inject_state = $$props => {
 		if ('portNode' in $$props) $$invalidate(0, portNode = $$props.portNode);
-		if ('parentService' in $$props) $$invalidate(2, parentService = $$props.parentService);
+		if ('parentService' in $$props) $$invalidate(3, parentService = $$props.parentService);
 		if ('port' in $$props) port = $$props.port;
+		if ('isDockerPort' in $$props) $$invalidate(1, isDockerPort = $$props.isDockerPort);
 	};
 
 	if ($$props && "$$inject" in $$props) {
 		$$self.$inject_state($$props.$$inject);
 	}
 
-	return [portNode, openPortInSidebar, parentService];
+	return [portNode, isDockerPort, openPortInSidebar, parentService];
 }
 
 class Port extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, { portNode: 0, parentService: 2 }, add_css);
+		(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, { portNode: 0, parentService: 3 }, add_css);
 
 		(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterComponent", {
 			component: this,
@@ -10253,7 +10265,7 @@ function get_each_context_2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (214:1) {#if service.embeddings && service.embeddings.length > 0}
+// (222:1) {#if service.embeddings && service.embeddings.length > 0}
 function create_if_block_5(ctx) {
 	let g;
 	let rect0;
@@ -10283,7 +10295,7 @@ function create_if_block_5(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect0, "width", rect0_width_value = 5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect0, "height", rect0_height_value = 5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect0, "class", "fill-serviceStroke cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect0, file, 215, 3, 8113);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect0, file, 223, 3, 8336);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "x", rect1_x_value = (/*serviceNode*/ ctx[0].width ?? 0) - 7 + 0.5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "y", rect1_y_value = (/*serviceNode*/ ctx[0].height ?? 0) - 7 + (2.5 - 0.4));
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "width", rect1_width_value = 4.0);
@@ -10291,8 +10303,8 @@ function create_if_block_5(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "rx", rect1_rx_value = 0.5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "ry", rect1_ry_value = 1);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect1, "class", "fill-white cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect1, file, 239, 3, 8901);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 214, 2, 8106);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect1, file, 247, 3, 9124);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 222, 2, 8329);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, g, anchor);
@@ -10409,14 +10421,14 @@ function create_if_block_5(ctx) {
 		block,
 		id: create_if_block_5.name,
 		type: "if",
-		source: "(214:1) {#if service.embeddings && service.embeddings.length > 0}",
+		source: "(222:1) {#if service.embeddings && service.embeddings.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (226:3) {#if !expanded}
+// (234:3) {#if !expanded}
 function create_if_block_6(ctx) {
 	let rect;
 	let rect_x_value;
@@ -10438,7 +10450,7 @@ function create_if_block_6(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "rx", rect_rx_value = 1);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "ry", rect_ry_value = 0.5);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(rect, "class", "fill-white cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect, file, 226, 4, 8488);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(rect, file, 234, 4, 8711);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, rect, anchor);
@@ -10501,14 +10513,14 @@ function create_if_block_6(ctx) {
 		block,
 		id: create_if_block_6.name,
 		type: "if",
-		source: "(226:3) {#if !expanded}",
+		source: "(234:3) {#if !expanded}",
 		ctx
 	});
 
 	return block;
 }
 
-// (259:1) {#if serviceNode.edges && serviceNode.edges.length > 0}
+// (267:1) {#if serviceNode.edges && serviceNode.edges.length > 0}
 function create_if_block_3(ctx) {
 	let each_1_anchor;
 	let current;
@@ -10597,14 +10609,14 @@ function create_if_block_3(ctx) {
 		block,
 		id: create_if_block_3.name,
 		type: "if",
-		source: "(259:1) {#if serviceNode.edges && serviceNode.edges.length > 0}",
+		source: "(267:1) {#if serviceNode.edges && serviceNode.edges.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (261:3) {#if edge.sections}
+// (269:3) {#if edge.sections}
 function create_if_block_4(ctx) {
 	let edge;
 	let current;
@@ -10645,14 +10657,14 @@ function create_if_block_4(ctx) {
 		block,
 		id: create_if_block_4.name,
 		type: "if",
-		source: "(261:3) {#if edge.sections}",
+		source: "(269:3) {#if edge.sections}",
 		ctx
 	});
 
 	return block;
 }
 
-// (260:2) {#each serviceNode.edges as edge}
+// (268:2) {#each serviceNode.edges as edge}
 function create_each_block_2(ctx) {
 	let if_block_anchor;
 	let current;
@@ -10711,14 +10723,14 @@ function create_each_block_2(ctx) {
 		block,
 		id: create_each_block_2.name,
 		type: "each",
-		source: "(260:2) {#each serviceNode.edges as edge}",
+		source: "(268:2) {#each serviceNode.edges as edge}",
 		ctx
 	});
 
 	return block;
 }
 
-// (266:1) {#if serviceNode.ports && serviceNode.ports.length > 0}
+// (274:1) {#if serviceNode.ports && serviceNode.ports.length > 0}
 function create_if_block_2(ctx) {
 	let each_1_anchor;
 	let current;
@@ -10807,14 +10819,14 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(266:1) {#if serviceNode.ports && serviceNode.ports.length > 0}",
+		source: "(274:1) {#if serviceNode.ports && serviceNode.ports.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (267:2) {#each serviceNode.ports as portNode}
+// (275:2) {#each serviceNode.ports as portNode}
 function create_each_block_1(ctx) {
 	let port;
 	let current;
@@ -10861,14 +10873,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(267:2) {#each serviceNode.ports as portNode}",
+		source: "(275:2) {#each serviceNode.ports as portNode}",
 		ctx
 	});
 
 	return block;
 }
 
-// (271:1) {#if expanded}
+// (279:1) {#if expanded}
 function create_if_block_1(ctx) {
 	let each_1_anchor;
 	let current;
@@ -10957,14 +10969,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(271:1) {#if expanded}",
+		source: "(279:1) {#if expanded}",
 		ctx
 	});
 
 	return block;
 }
 
-// (272:2) {#each serviceNode.children as embed}
+// (280:2) {#each serviceNode.children as embed}
 function create_each_block(ctx) {
 	let service_1;
 	let current;
@@ -11012,14 +11024,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(272:2) {#each serviceNode.children as embed}",
+		source: "(280:2) {#each serviceNode.children as embed}",
 		ctx
 	});
 
 	return block;
 }
 
-// (283:0) {#if dragging}
+// (291:0) {#if dragging}
 function create_if_block(ctx) {
 	let svg;
 	let polygon;
@@ -11030,12 +11042,12 @@ function create_if_block(ctx) {
 			svg = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("svg");
 			polygon = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("polygon");
 			text_1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.svg_element)("text");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 284, 2, 10110);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 292, 2, 10393);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(text_1, "text-anchor", "middle");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 285, 2, 10124);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 293, 2, 10407);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "id", "tmp");
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(svg, "class", "absolute top-0 left-0 w-1 h-1 overflow-visible");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 283, 1, 10038);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(svg, file, 291, 1, 10321);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, svg, anchor);
@@ -11051,7 +11063,7 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(283:0) {#if dragging}",
+		source: "(291:0) {#if dragging}",
 		ctx
 	});
 
@@ -11065,6 +11077,7 @@ function create_fragment(ctx) {
 	let text_1;
 	let t0_value = /*service*/ ctx[1].name + "";
 	let t0;
+	let text_1_class_value;
 	let if_block1_anchor;
 	let if_block2_anchor;
 	let g_id_value;
@@ -11095,16 +11108,26 @@ function create_fragment(ctx) {
 			if (if_block4) if_block4.c();
 			if_block4_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(polygon, "class", polygon_class_value = "stroke-serviceStroke cursor-pointer " + (/*selected*/ ctx[3]
-			? 'fill-serviceHighlight'
-			: 'fill-service'));
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(polygon, "class", polygon_class_value = "" + (((0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(/*service*/ ctx[1])
+			? `stroke-sky-900`
+			: 'stroke-serviceStroke') + " cursor-pointer " + (/*selected*/ ctx[3]
+			? (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(/*service*/ ctx[1])
+				? `fill-sky-700`
+				: 'fill-serviceHighlight'
+			: (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(/*service*/ ctx[1])
+				? `fill-sky-800`
+				: 'fill-service')));
 
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_style)(polygon, "stroke-width", "0.4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 205, 1, 7801);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(text_1, "class", "cursor-pointer select-none");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 253, 1, 9308);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(polygon, file, 207, 1, 7866);
+
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(text_1, "class", text_1_class_value = "cursor-pointer select-none " + ((0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(/*service*/ ctx[1])
+			? 'fill-zinc-100'
+			: 'fill-black'));
+
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(text_1, file, 261, 1, 9531);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(g, "id", g_id_value = /*serviceNode*/ ctx[0].id);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 204, 0, 7776);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(g, file, 206, 0, 7841);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -11139,9 +11162,15 @@ function create_fragment(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (!current || dirty[0] & /*selected*/ 8 && polygon_class_value !== (polygon_class_value = "stroke-serviceStroke cursor-pointer " + (/*selected*/ ctx[3]
-			? 'fill-serviceHighlight'
-			: 'fill-service'))) {
+			if (!current || dirty[0] & /*service, selected*/ 10 && polygon_class_value !== (polygon_class_value = "" + (((0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(/*service*/ ctx[1])
+			? `stroke-sky-900`
+			: 'stroke-serviceStroke') + " cursor-pointer " + (/*selected*/ ctx[3]
+			? (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(/*service*/ ctx[1])
+				? `fill-sky-700`
+				: 'fill-serviceHighlight'
+			: (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(/*service*/ ctx[1])
+				? `fill-sky-800`
+				: 'fill-service')))) {
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(polygon, "class", polygon_class_value);
 			}
 
@@ -11159,6 +11188,12 @@ function create_fragment(ctx) {
 			}
 
 			if ((!current || dirty[0] & /*service*/ 2) && t0_value !== (t0_value = /*service*/ ctx[1].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
+
+			if (!current || dirty[0] & /*service*/ 2 && text_1_class_value !== (text_1_class_value = "cursor-pointer select-none " + ((0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(/*service*/ ctx[1])
+			? 'fill-zinc-100'
+			: 'fill-black'))) {
+				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(text_1, "class", text_1_class_value);
+			}
 
 			if (/*serviceNode*/ ctx[0].edges && /*serviceNode*/ ctx[0].edges.length > 0) {
 				if (if_block1) {
@@ -11401,6 +11436,8 @@ function instance($$self, $$props, $$invalidate) {
 		if (e.button !== 0) return;
 
 		if (e.shiftKey) {
+			if ((0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(service)) return;
+
 			if (selected) {
 				const tmp = new _lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.SidebarElement(4, 'Selection');
 				tmp.serviceList = $current_sidebar_element.serviceList.filter(t => t.id !== service.id);
@@ -11425,20 +11462,20 @@ function instance($$self, $$props, $$invalidate) {
 			(0,_lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.openSidebar)(sbElem, $current_sidebar_element);
 		}
 
-		if (e.shiftKey || !service.file) return;
+		if (e.shiftKey || !service.file && !(0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(service)) return;
 		dragged = 1;
 
 		pressTimer = window.setTimeout(
 			() => {
 				const polygon = document.querySelector('#' + serviceNode.id).children[0];
-				polygon.setAttribute('style', 'stroke-width: 0.4; fill: #f0c168;');
+				polygon.setAttribute('style', 'stroke-width: 0.4;');
 				$$invalidate(4, dragging = true);
 				dragged = 2;
 				startX = e.pageX;
 				startY = e.pageY;
 				(0,_lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.clearSidebar)();
 			},
-			50
+			$current_sidebar_element.hist_type == -1 ? 50 : 300
 		);
 	};
 
@@ -11465,18 +11502,21 @@ function instance($$self, $$props, $$invalidate) {
 					await (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.disembed)(service);
 				}
 			} else {
-				if (!service.file || networkId === svcNwId && !service.parent) return;
+				if (!service.file && !(0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(service) || networkId === svcNwId && !service.parent) return;
 				(0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.addServiceToNetwork)(service, networkId);
-				if (_lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode && service.parent) _lib_data__WEBPACK_IMPORTED_MODULE_3__.loading.set(true);
-				await (0,svelte__WEBPACK_IMPORTED_MODULE_1__.tick)();
-				await (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.disembed)(service);
+
+				if (!(0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(service)) {
+					if (_lib_data__WEBPACK_IMPORTED_MODULE_3__.vscode && service.parent) _lib_data__WEBPACK_IMPORTED_MODULE_3__.loading.set(true);
+					await (0,svelte__WEBPACK_IMPORTED_MODULE_1__.tick)();
+					await (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.disembed)(service);
+				}
 			}
 
 			dispatcher('message', { action: 'reset' });
 			return;
 		}
 
-		if (droppedOnSvc.id === service.id || (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isAncestor)(service, droppedOnSvc) || !droppedOnSvc.file) return;
+		if (droppedOnSvc.id === service.id || (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isAncestor)(service, droppedOnSvc) || !droppedOnSvc.file || (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService)(service)) return;
 		await (0,svelte__WEBPACK_IMPORTED_MODULE_1__.tick)();
 		(0,_lib_network__WEBPACK_IMPORTED_MODULE_5__.removeFromNetwork)(service, svcNwId);
 		await (0,_lib_service__WEBPACK_IMPORTED_MODULE_6__.embed)(service, droppedOnSvc, svcNwId);
@@ -11501,12 +11541,6 @@ function instance($$self, $$props, $$invalidate) {
 		prevPoly = polyUnder;
 	};
 
-	// const test = (svc: Service[][]) => {
-	// 	service = parent
-	// 		? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
-	// 		: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
-	// };
-	// $: test(services);
 	(0,svelte__WEBPACK_IMPORTED_MODULE_1__.beforeUpdate)(() => {
 		$$invalidate(1, service = parent
 		? parent.embeddings.find(t => t.name + '' + t.id === serviceNode.id)
@@ -11568,6 +11602,7 @@ function instance($$self, $$props, $$invalidate) {
 		getHoveredPolygon: _lib_service__WEBPACK_IMPORTED_MODULE_6__.getHoveredPolygon,
 		getServiceFromCoords: _lib_service__WEBPACK_IMPORTED_MODULE_6__.getServiceFromCoords,
 		isAncestor: _lib_service__WEBPACK_IMPORTED_MODULE_6__.isAncestor,
+		isDockerService: _lib_service__WEBPACK_IMPORTED_MODULE_6__.isDockerService,
 		renderGhostNodeOnDrag: _lib_service__WEBPACK_IMPORTED_MODULE_6__.renderGhostNodeOnDrag,
 		clearSidebar: _lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.clearSidebar,
 		current_sidebar_element: _lib_sidebar__WEBPACK_IMPORTED_MODULE_7__.current_sidebar_element,
@@ -12373,24 +12408,284 @@ const file = "src/Sidebar/PortSidebar.svelte";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[20] = list[i];
+	child_ctx[22] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[23] = list[i];
+	child_ctx[25] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[26] = list[i];
+	child_ctx[28] = list[i];
 	return child_ctx;
 }
 
-// (100:0) {#if port.resource}
-function create_if_block_4(ctx) {
+// (108:0) {:else}
+function create_else_block(ctx) {
+	let h40;
+	let t0;
+
+	let t1_value = (/*portType*/ ctx[1] === 'op'
+	? 'Output Port'
+	: 'Input Port') + "";
+
+	let t1;
+	let t2;
+	let h41;
+	let t3;
+	let span;
+	let t4_value = /*port*/ ctx[0].protocol + "";
+	let t4;
+	let t5;
+	let t6;
+	let show_if = !/*port*/ ctx[0].location.startsWith('!local');
+	let t7;
+	let t8;
+	let t9;
+	let if_block4_anchor;
+	let mounted;
+	let dispose;
+	let if_block0 = /*port*/ ctx[0].resource && create_if_block_5(ctx);
+	let if_block1 = show_if && create_if_block_4(ctx);
+	let if_block2 = /*port*/ ctx[0].redirects && create_if_block_3(ctx);
+	let if_block3 = /*port*/ ctx[0].interfaces && create_if_block_2(ctx);
+	let if_block4 = /*port*/ ctx[0].aggregates && create_if_block_1(ctx);
+
+	const block = {
+		c: function create() {
+			h40 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Type: ");
+			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
+			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			h41 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Protocol: ");
+			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t4_value);
+			t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block0) if_block0.c();
+			t6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block1) if_block1.c();
+			t7 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block2) if_block2.c();
+			t8 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block3) if_block3.c();
+			t9 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block4) if_block4.c();
+			if_block4_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h40, "class", "text-2xl mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 108, 1, 3683);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 110, 12, 3811);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h41, "class", "text-2xl mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 109, 1, 3772);
+		},
+		m: function mount(target, anchor) {
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h40, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h40, t0);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h40, t1);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t2, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h41, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, t3);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, span);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(span, t4);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t5, anchor);
+			if (if_block0) if_block0.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t6, anchor);
+			if (if_block1) if_block1.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t7, anchor);
+			if (if_block2) if_block2.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t8, anchor);
+			if (if_block3) if_block3.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t9, anchor);
+			if (if_block4) if_block4.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, if_block4_anchor, anchor);
+
+			if (!mounted) {
+				dispose = [
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*saveInnerHTML*/ ctx[3]), false, false, true),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*keydown_handler_2*/ ctx[11]), false, false, true)
+				];
+
+				mounted = true;
+			}
+		},
+		p: function update(ctx, dirty) {
+			if (dirty & /*portType*/ 2 && t1_value !== (t1_value = (/*portType*/ ctx[1] === 'op'
+			? 'Output Port'
+			: 'Input Port') + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t1, t1_value);
+
+			if (dirty & /*port*/ 1 && t4_value !== (t4_value = /*port*/ ctx[0].protocol + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t4, t4_value);
+
+			if (/*port*/ ctx[0].resource) {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+				} else {
+					if_block0 = create_if_block_5(ctx);
+					if_block0.c();
+					if_block0.m(t6.parentNode, t6);
+				}
+			} else if (if_block0) {
+				if_block0.d(1);
+				if_block0 = null;
+			}
+
+			if (dirty & /*port*/ 1) show_if = !/*port*/ ctx[0].location.startsWith('!local');
+
+			if (show_if) {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+				} else {
+					if_block1 = create_if_block_4(ctx);
+					if_block1.c();
+					if_block1.m(t7.parentNode, t7);
+				}
+			} else if (if_block1) {
+				if_block1.d(1);
+				if_block1 = null;
+			}
+
+			if (/*port*/ ctx[0].redirects) {
+				if (if_block2) {
+					if_block2.p(ctx, dirty);
+				} else {
+					if_block2 = create_if_block_3(ctx);
+					if_block2.c();
+					if_block2.m(t8.parentNode, t8);
+				}
+			} else if (if_block2) {
+				if_block2.d(1);
+				if_block2 = null;
+			}
+
+			if (/*port*/ ctx[0].interfaces) {
+				if (if_block3) {
+					if_block3.p(ctx, dirty);
+				} else {
+					if_block3 = create_if_block_2(ctx);
+					if_block3.c();
+					if_block3.m(t9.parentNode, t9);
+				}
+			} else if (if_block3) {
+				if_block3.d(1);
+				if_block3 = null;
+			}
+
+			if (/*port*/ ctx[0].aggregates) {
+				if (if_block4) {
+					if_block4.p(ctx, dirty);
+				} else {
+					if_block4 = create_if_block_1(ctx);
+					if_block4.c();
+					if_block4.m(if_block4_anchor.parentNode, if_block4_anchor);
+				}
+			} else if (if_block4) {
+				if_block4.d(1);
+				if_block4 = null;
+			}
+		},
+		d: function destroy(detaching) {
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h40);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t2);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h41);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t5);
+			if (if_block0) if_block0.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t6);
+			if (if_block1) if_block1.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t7);
+			if (if_block2) if_block2.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t8);
+			if (if_block3) if_block3.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t9);
+			if (if_block4) if_block4.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(if_block4_anchor);
+			mounted = false;
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
+		}
+	};
+
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
+		block,
+		id: create_else_block.name,
+		type: "else",
+		source: "(108:0) {:else}",
+		ctx
+	});
+
+	return block;
+}
+
+// (100:0) {#if isDockerPort}
+function create_if_block(ctx) {
+	let h40;
+	let t1;
+	let h41;
+	let t2;
+	let span;
+	let t3_value = /*port*/ ctx[0].location + "";
+	let t3;
+	let mounted;
+	let dispose;
+
+	const block = {
+		c: function create() {
+			h40 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			h40.textContent = "Type: Docker External Port";
+			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			h41 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Location: ");
+			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h40, "class", "text-2xl mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 100, 1, 3428);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 102, 12, 3526);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h41, "class", "text-2xl mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 101, 1, 3487);
+		},
+		m: function mount(target, anchor) {
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h40, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t1, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h41, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, t2);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, span);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(span, t3);
+
+			if (!mounted) {
+				dispose = [
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*saveInnerHTML*/ ctx[3]), false, false, true),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*keydown_handler_1*/ ctx[10]), false, false, true)
+				];
+
+				mounted = true;
+			}
+		},
+		p: function update(ctx, dirty) {
+			if (dirty & /*port*/ 1 && t3_value !== (t3_value = /*port*/ ctx[0].location + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t3, t3_value);
+		},
+		d: function destroy(detaching) {
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h40);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t1);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h41);
+			mounted = false;
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
+		}
+	};
+
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
+		block,
+		id: create_if_block.name,
+		type: "if",
+		source: "(100:0) {#if isDockerPort}",
+		ctx
+	});
+
+	return block;
+}
+
+// (119:1) {#if port.resource}
+function create_if_block_5(ctx) {
 	let h4;
 	let t0;
 	let t1_value = /*port*/ ctx[0].resource + "";
@@ -12402,7 +12697,7 @@ function create_if_block_4(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Resource: ");
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 100, 1, 3320);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 119, 2, 3990);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
@@ -12419,17 +12714,17 @@ function create_if_block_4(ctx) {
 
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_4.name,
+		id: create_if_block_5.name,
 		type: "if",
-		source: "(100:0) {#if port.resource}",
+		source: "(119:1) {#if port.resource}",
 		ctx
 	});
 
 	return block;
 }
 
-// (104:0) {#if !port.location.startsWith('!local')}
-function create_if_block_3(ctx) {
+// (123:1) {#if !port.location.startsWith('!local')}
+function create_if_block_4(ctx) {
 	let h4;
 	let t0;
 	let span;
@@ -12444,9 +12739,9 @@ function create_if_block_3(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Location: ");
 			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 105, 12, 3466);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 124, 13, 4140);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 104, 1, 3427);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 123, 2, 4100);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
@@ -12456,8 +12751,8 @@ function create_if_block_3(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*saveInnerHTML*/ ctx[2]), false, false, true),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*keydown_handler_2*/ ctx[10]), false, false, true)
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*saveInnerHTML*/ ctx[3]), false, false, true),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*keydown_handler_3*/ ctx[12]), false, false, true)
 				];
 
 				mounted = true;
@@ -12475,17 +12770,17 @@ function create_if_block_3(ctx) {
 
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_3.name,
+		id: create_if_block_4.name,
 		type: "if",
-		source: "(104:0) {#if !port.location.startsWith('!local')}",
+		source: "(123:1) {#if !port.location.startsWith('!local')}",
 		ctx
 	});
 
 	return block;
 }
 
-// (113:0) {#if port.redirects}
-function create_if_block_2(ctx) {
+// (132:1) {#if port.redirects}
+function create_if_block_3(ctx) {
 	let hr;
 	let t0;
 	let h4;
@@ -12512,11 +12807,11 @@ function create_if_block_2(ctx) {
 				each_blocks[i].c();
 			}
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 113, 1, 3643);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 132, 2, 4324);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 114, 1, 3651);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 133, 2, 4333);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 115, 1, 3694);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 134, 2, 4377);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
@@ -12530,7 +12825,7 @@ function create_if_block_2(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*openRedirectPort, port*/ 65) {
+			if (dirty & /*openRedirectPort, port*/ 129) {
 				each_value_2 = /*port*/ ctx[0].redirects;
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_2);
 				let i;
@@ -12566,48 +12861,48 @@ function create_if_block_2(ctx) {
 
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_2.name,
+		id: create_if_block_3.name,
 		type: "if",
-		source: "(113:0) {#if port.redirects}",
+		source: "(132:1) {#if port.redirects}",
 		ctx
 	});
 
 	return block;
 }
 
-// (117:2) {#each port.redirects as redir}
+// (136:3) {#each port.redirects as redir}
 function create_each_block_2(ctx) {
 	let li;
-	let t0_value = /*redir*/ ctx[26].name + "";
+	let t0_value = /*redir*/ ctx[28].name + "";
 	let t0;
 	let t1;
 	let span;
-	let t2_value = /*redir*/ ctx[26].port + "";
+	let t2_value = /*redir*/ ctx[28].port + "";
 	let t2;
 	let t3;
 	let mounted;
 	let dispose;
 
 	function click_handler() {
-		return /*click_handler*/ ctx[11](/*redir*/ ctx[26]);
+		return /*click_handler*/ ctx[13](/*redir*/ ctx[28]);
 	}
 
-	function keydown_handler_3() {
-		return /*keydown_handler_3*/ ctx[12](/*redir*/ ctx[26]);
+	function keydown_handler_4() {
+		return /*keydown_handler_4*/ ctx[14](/*redir*/ ctx[28]);
 	}
 
 	const block = {
 		c: function create() {
 			li = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("li");
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
-			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(" ⇒\n\t\t\t\t");
+			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(" ⇒\n\t\t\t\t\t");
 			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
 			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t2_value);
 			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span, "class", "cursor-pointer");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 119, 4, 3813);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 138, 5, 4500);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 117, 3, 3759);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 136, 4, 4444);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -12620,7 +12915,7 @@ function create_each_block_2(ctx) {
 			if (!mounted) {
 				dispose = [
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "click", click_handler, false, false, false),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", keydown_handler_3, false, false, false)
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", keydown_handler_4, false, false, false)
 				];
 
 				mounted = true;
@@ -12628,8 +12923,8 @@ function create_each_block_2(ctx) {
 		},
 		p: function update(new_ctx, dirty) {
 			ctx = new_ctx;
-			if (dirty & /*port*/ 1 && t0_value !== (t0_value = /*redir*/ ctx[26].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
-			if (dirty & /*port*/ 1 && t2_value !== (t2_value = /*redir*/ ctx[26].port + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t2, t2_value);
+			if (dirty & /*port*/ 1 && t0_value !== (t0_value = /*redir*/ ctx[28].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
+			if (dirty & /*port*/ 1 && t2_value !== (t2_value = /*redir*/ ctx[28].port + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t2, t2_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(li);
@@ -12642,15 +12937,15 @@ function create_each_block_2(ctx) {
 		block,
 		id: create_each_block_2.name,
 		type: "each",
-		source: "(117:2) {#each port.redirects as redir}",
+		source: "(136:3) {#each port.redirects as redir}",
 		ctx
 	});
 
 	return block;
 }
 
-// (130:0) {#if port.interfaces}
-function create_if_block_1(ctx) {
+// (149:1) {#if port.interfaces}
+function create_if_block_2(ctx) {
 	let hr;
 	let t0;
 	let h4;
@@ -12677,11 +12972,11 @@ function create_if_block_1(ctx) {
 				each_blocks[i].c();
 			}
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 130, 1, 4032);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 149, 2, 4729);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 131, 1, 4040);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 150, 2, 4738);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 132, 1, 4084);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 151, 2, 4783);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
@@ -12695,7 +12990,7 @@ function create_if_block_1(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*openInterface, port*/ 17) {
+			if (dirty & /*openInterface, port*/ 33) {
 				each_value_1 = /*port*/ ctx[0].interfaces;
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_1);
 				let i;
@@ -12731,30 +13026,30 @@ function create_if_block_1(ctx) {
 
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_1.name,
+		id: create_if_block_2.name,
 		type: "if",
-		source: "(130:0) {#if port.interfaces}",
+		source: "(149:1) {#if port.interfaces}",
 		ctx
 	});
 
 	return block;
 }
 
-// (134:2) {#each port.interfaces as interf}
+// (153:3) {#each port.interfaces as interf}
 function create_each_block_1(ctx) {
 	let li;
-	let t0_value = /*interf*/ ctx[23].name + "";
+	let t0_value = /*interf*/ ctx[25].name + "";
 	let t0;
 	let t1;
 	let mounted;
 	let dispose;
 
 	function click_handler_1() {
-		return /*click_handler_1*/ ctx[13](/*interf*/ ctx[23]);
+		return /*click_handler_1*/ ctx[15](/*interf*/ ctx[25]);
 	}
 
-	function keydown_handler_4() {
-		return /*keydown_handler_4*/ ctx[14](/*interf*/ ctx[23]);
+	function keydown_handler_5() {
+		return /*keydown_handler_5*/ ctx[16](/*interf*/ ctx[25]);
 	}
 
 	const block = {
@@ -12763,7 +13058,7 @@ function create_each_block_1(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 134, 3, 4151);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 153, 4, 4852);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -12773,7 +13068,7 @@ function create_each_block_1(ctx) {
 			if (!mounted) {
 				dispose = [
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "click", click_handler_1, false, false, false),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "keydown", keydown_handler_4, false, false, false)
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "keydown", keydown_handler_5, false, false, false)
 				];
 
 				mounted = true;
@@ -12781,7 +13076,7 @@ function create_each_block_1(ctx) {
 		},
 		p: function update(new_ctx, dirty) {
 			ctx = new_ctx;
-			if (dirty & /*port*/ 1 && t0_value !== (t0_value = /*interf*/ ctx[23].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
+			if (dirty & /*port*/ 1 && t0_value !== (t0_value = /*interf*/ ctx[25].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(li);
@@ -12794,15 +13089,15 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(134:2) {#each port.interfaces as interf}",
+		source: "(153:3) {#each port.interfaces as interf}",
 		ctx
 	});
 
 	return block;
 }
 
-// (146:0) {#if port.aggregates}
-function create_if_block(ctx) {
+// (165:1) {#if port.aggregates}
+function create_if_block_1(ctx) {
 	let hr;
 	let t0;
 	let h4;
@@ -12830,11 +13125,11 @@ function create_if_block(ctx) {
 			}
 
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(hr, "class", "mt-4 ");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 146, 1, 4372);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 165, 2, 5084);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 147, 1, 4394);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 166, 2, 5107);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 148, 1, 4438);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 167, 2, 5152);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
@@ -12848,7 +13143,7 @@ function create_if_block(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*openAggregate, port*/ 33) {
+			if (dirty & /*openAggregate, port*/ 65) {
 				each_value = /*port*/ ctx[0].aggregates;
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value);
 				let i;
@@ -12884,30 +13179,30 @@ function create_if_block(ctx) {
 
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
 		block,
-		id: create_if_block.name,
+		id: create_if_block_1.name,
 		type: "if",
-		source: "(146:0) {#if port.aggregates}",
+		source: "(165:1) {#if port.aggregates}",
 		ctx
 	});
 
 	return block;
 }
 
-// (150:2) {#each port.aggregates as aggr}
+// (169:3) {#each port.aggregates as aggr}
 function create_each_block(ctx) {
 	let li;
-	let t0_value = /*aggr*/ ctx[20].name + "";
+	let t0_value = /*aggr*/ ctx[22].name + "";
 	let t0;
 	let t1;
 	let mounted;
 	let dispose;
 
 	function click_handler_2() {
-		return /*click_handler_2*/ ctx[15](/*aggr*/ ctx[20]);
+		return /*click_handler_2*/ ctx[17](/*aggr*/ ctx[22]);
 	}
 
-	function keydown_handler_5() {
-		return /*keydown_handler_5*/ ctx[16](/*aggr*/ ctx[20]);
+	function keydown_handler_6() {
+		return /*keydown_handler_6*/ ctx[18](/*aggr*/ ctx[22]);
 	}
 
 	const block = {
@@ -12916,7 +13211,7 @@ function create_each_block(ctx) {
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 150, 3, 4503);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 169, 4, 5219);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -12926,7 +13221,7 @@ function create_each_block(ctx) {
 			if (!mounted) {
 				dispose = [
 					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "click", click_handler_2, false, false, false),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "keydown", keydown_handler_5, false, false, false)
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "keydown", keydown_handler_6, false, false, false)
 				];
 
 				mounted = true;
@@ -12934,7 +13229,7 @@ function create_each_block(ctx) {
 		},
 		p: function update(new_ctx, dirty) {
 			ctx = new_ctx;
-			if (dirty & /*port*/ 1 && t0_value !== (t0_value = /*aggr*/ ctx[20].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
+			if (dirty & /*port*/ 1 && t0_value !== (t0_value = /*aggr*/ ctx[22].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(li);
@@ -12947,7 +13242,7 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(150:2) {#each port.aggregates as aggr}",
+		source: "(169:3) {#each port.aggregates as aggr}",
 		ctx
 	});
 
@@ -12959,66 +13254,27 @@ function create_fragment(ctx) {
 	let t0_value = /*port*/ ctx[0].name + "";
 	let t0;
 	let t1;
-	let h40;
-	let t2;
-
-	let t3_value = (/*portType*/ ctx[1] === 'op'
-	? 'Output Port'
-	: 'Input Port') + "";
-
-	let t3;
-	let t4;
-	let h41;
-	let t5;
-	let span;
-	let t6_value = /*port*/ ctx[0].protocol + "";
-	let t6;
-	let t7;
-	let t8;
-	let show_if = !/*port*/ ctx[0].location.startsWith('!local');
-	let t9;
-	let t10;
-	let t11;
-	let if_block4_anchor;
+	let if_block_anchor;
 	let mounted;
 	let dispose;
-	let if_block0 = /*port*/ ctx[0].resource && create_if_block_4(ctx);
-	let if_block1 = show_if && create_if_block_3(ctx);
-	let if_block2 = /*port*/ ctx[0].redirects && create_if_block_2(ctx);
-	let if_block3 = /*port*/ ctx[0].interfaces && create_if_block_1(ctx);
-	let if_block4 = /*port*/ ctx[0].aggregates && create_if_block(ctx);
+
+	function select_block_type(ctx, dirty) {
+		if (/*isDockerPort*/ ctx[2]) return create_if_block;
+		return create_else_block;
+	}
+
+	let current_block_type = select_block_type(ctx, -1);
+	let if_block = current_block_type(ctx);
 
 	const block = {
 		c: function create() {
 			h1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h1");
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			h40 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
-			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Type: ");
-			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
-			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			h41 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
-			t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Protocol: ");
-			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
-			t6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t6_value);
-			t7 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			if (if_block0) if_block0.c();
-			t8 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			if (if_block1) if_block1.c();
-			t9 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			if (if_block2) if_block2.c();
-			t10 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			if (if_block3) if_block3.c();
-			t11 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			if (if_block4) if_block4.c();
-			if_block4_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+			if_block.c();
+			if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h1, "class", "text-center text-4xl mt-1 mb-4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 82, 0, 2852);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h40, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 89, 0, 3023);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 91, 11, 3149);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h41, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 90, 0, 3111);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 91, 0, 3236);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -13027,32 +13283,13 @@ function create_fragment(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h1, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h1, t0);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t1, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h40, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h40, t2);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h40, t3);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t4, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h41, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, t5);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, span);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(span, t6);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t7, anchor);
-			if (if_block0) if_block0.m(target, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t8, anchor);
-			if (if_block1) if_block1.m(target, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t9, anchor);
-			if (if_block2) if_block2.m(target, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t10, anchor);
-			if (if_block3) if_block3.m(target, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t11, anchor);
-			if (if_block4) if_block4.m(target, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, if_block4_anchor, anchor);
+			if_block.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, if_block_anchor, anchor);
 
 			if (!mounted) {
 				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(h1, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*saveInnerHTML*/ ctx[2]), false, false, true),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(h1, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*keydown_handler*/ ctx[8]), false, false, true),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*saveInnerHTML*/ ctx[2]), false, false, true),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*keydown_handler_1*/ ctx[9]), false, false, true)
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(h1, "click", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*saveInnerHTML*/ ctx[3]), false, false, true),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(h1, "keydown", (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.stop_propagation)(/*keydown_handler*/ ctx[9]), false, false, true)
 				];
 
 				mounted = true;
@@ -13061,77 +13298,16 @@ function create_fragment(ctx) {
 		p: function update(ctx, [dirty]) {
 			if (dirty & /*port*/ 1 && t0_value !== (t0_value = /*port*/ ctx[0].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
 
-			if (dirty & /*portType*/ 2 && t3_value !== (t3_value = (/*portType*/ ctx[1] === 'op'
-			? 'Output Port'
-			: 'Input Port') + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t3, t3_value);
+			if (current_block_type === (current_block_type = select_block_type(ctx, dirty)) && if_block) {
+				if_block.p(ctx, dirty);
+			} else {
+				if_block.d(1);
+				if_block = current_block_type(ctx);
 
-			if (dirty & /*port*/ 1 && t6_value !== (t6_value = /*port*/ ctx[0].protocol + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t6, t6_value);
-
-			if (/*port*/ ctx[0].resource) {
-				if (if_block0) {
-					if_block0.p(ctx, dirty);
-				} else {
-					if_block0 = create_if_block_4(ctx);
-					if_block0.c();
-					if_block0.m(t8.parentNode, t8);
+				if (if_block) {
+					if_block.c();
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
 				}
-			} else if (if_block0) {
-				if_block0.d(1);
-				if_block0 = null;
-			}
-
-			if (dirty & /*port*/ 1) show_if = !/*port*/ ctx[0].location.startsWith('!local');
-
-			if (show_if) {
-				if (if_block1) {
-					if_block1.p(ctx, dirty);
-				} else {
-					if_block1 = create_if_block_3(ctx);
-					if_block1.c();
-					if_block1.m(t9.parentNode, t9);
-				}
-			} else if (if_block1) {
-				if_block1.d(1);
-				if_block1 = null;
-			}
-
-			if (/*port*/ ctx[0].redirects) {
-				if (if_block2) {
-					if_block2.p(ctx, dirty);
-				} else {
-					if_block2 = create_if_block_2(ctx);
-					if_block2.c();
-					if_block2.m(t10.parentNode, t10);
-				}
-			} else if (if_block2) {
-				if_block2.d(1);
-				if_block2 = null;
-			}
-
-			if (/*port*/ ctx[0].interfaces) {
-				if (if_block3) {
-					if_block3.p(ctx, dirty);
-				} else {
-					if_block3 = create_if_block_1(ctx);
-					if_block3.c();
-					if_block3.m(t11.parentNode, t11);
-				}
-			} else if (if_block3) {
-				if_block3.d(1);
-				if_block3 = null;
-			}
-
-			if (/*port*/ ctx[0].aggregates) {
-				if (if_block4) {
-					if_block4.p(ctx, dirty);
-				} else {
-					if_block4 = create_if_block(ctx);
-					if_block4.c();
-					if_block4.m(if_block4_anchor.parentNode, if_block4_anchor);
-				}
-			} else if (if_block4) {
-				if_block4.d(1);
-				if_block4 = null;
 			}
 		},
 		i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
@@ -13139,20 +13315,8 @@ function create_fragment(ctx) {
 		d: function destroy(detaching) {
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h1);
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t1);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h40);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t4);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h41);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t7);
-			if (if_block0) if_block0.d(detaching);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t8);
-			if (if_block1) if_block1.d(detaching);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t9);
-			if (if_block2) if_block2.d(detaching);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t10);
-			if (if_block3) if_block3.d(detaching);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t11);
-			if (if_block4) if_block4.d(detaching);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(if_block4_anchor);
+			if_block.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(if_block_anchor);
 			mounted = false;
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
 		}
@@ -13172,12 +13336,13 @@ function create_fragment(ctx) {
 function instance($$self, $$props, $$invalidate) {
 	let $current_sidebar_element;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_store)(_lib_sidebar__WEBPACK_IMPORTED_MODULE_4__.current_sidebar_element, 'current_sidebar_element');
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_sidebar__WEBPACK_IMPORTED_MODULE_4__.current_sidebar_element, $$value => $$invalidate(18, $current_sidebar_element = $$value));
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.component_subscribe)($$self, _lib_sidebar__WEBPACK_IMPORTED_MODULE_4__.current_sidebar_element, $$value => $$invalidate(20, $current_sidebar_element = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_slots)('PortSidebar', slots, []);
 	let { port } = $$props;
 	let { portType } = $$props;
 	let { parentID } = $$props;
+	let isDockerPort = (0,_lib_service__WEBPACK_IMPORTED_MODULE_3__.isDockerService)((0,_lib_service__WEBPACK_IMPORTED_MODULE_3__.getAllServices)(_lib_data__WEBPACK_IMPORTED_MODULE_2__.services).find(t => t.id === parentID));
 	let tmp = '';
 
 	const saveInnerHTML = event => {
@@ -13205,11 +13370,14 @@ function instance($$self, $$props, $$invalidate) {
 					break;
 				case 'location':
 					$$invalidate(0, port.location = change, port);
+					break;
 			}
 
 			dispatcher('reloadgraph');
 			if (!_lib_data__WEBPACK_IMPORTED_MODULE_2__.vscode) return;
 			if (port.resource && editType === 'location') change += `${change.endsWith('/') ? '' : '/'}!/${port.resource}`;
+			if (editType === 'location') change = `\"${change}\"`;
+			if (!port.file) return;
 
 			_lib_data__WEBPACK_IMPORTED_MODULE_2__.vscode.postMessage({
 				command: 'renamePort',
@@ -13258,6 +13426,10 @@ function instance($$self, $$props, $$invalidate) {
 		(0,_lib_sidebar__WEBPACK_IMPORTED_MODULE_4__.openSidebar)(sbPort, $current_sidebar_element);
 	};
 
+	(0,svelte__WEBPACK_IMPORTED_MODULE_1__.beforeUpdate)(() => {
+		$$invalidate(2, isDockerPort = (0,_lib_service__WEBPACK_IMPORTED_MODULE_3__.isDockerService)((0,_lib_service__WEBPACK_IMPORTED_MODULE_3__.getAllServices)(_lib_data__WEBPACK_IMPORTED_MODULE_2__.services).find(t => t.id === parentID)));
+	});
+
 	$$self.$$.on_mount.push(function () {
 		if (port === undefined && !('port' in $$props || $$self.$$.bound[$$self.$$.props['port']])) {
 			console.warn("<PortSidebar> was created without expected prop 'port'");
@@ -13279,34 +13451,38 @@ function instance($$self, $$props, $$invalidate) {
 	});
 
 	const keydown_handler = e => finishEdit(e, 'port_name');
-	const keydown_handler_1 = e => finishEdit(e, 'protocol');
-	const keydown_handler_2 = e => finishEdit(e, 'location');
+	const keydown_handler_1 = e => finishEdit(e, 'location');
+	const keydown_handler_2 = e => finishEdit(e, 'protocol');
+	const keydown_handler_3 = e => finishEdit(e, 'location');
 	const click_handler = redir => openRedirectPort(redir.port);
-	const keydown_handler_3 = redir => openRedirectPort(redir.port);
+	const keydown_handler_4 = redir => openRedirectPort(redir.port);
 	const click_handler_1 = interf => openInterface(interf.name);
-	const keydown_handler_4 = interf => openInterface(interf.name);
+	const keydown_handler_5 = interf => openInterface(interf.name);
 	const click_handler_2 = aggr => openAggregate(aggr.name);
-	const keydown_handler_5 = aggr => openAggregate(aggr.name);
+	const keydown_handler_6 = aggr => openAggregate(aggr.name);
 
 	$$self.$$set = $$props => {
 		if ('port' in $$props) $$invalidate(0, port = $$props.port);
 		if ('portType' in $$props) $$invalidate(1, portType = $$props.portType);
-		if ('parentID' in $$props) $$invalidate(7, parentID = $$props.parentID);
+		if ('parentID' in $$props) $$invalidate(8, parentID = $$props.parentID);
 	};
 
 	$$self.$capture_state = () => ({
+		beforeUpdate: svelte__WEBPACK_IMPORTED_MODULE_1__.beforeUpdate,
 		createEventDispatcher: svelte__WEBPACK_IMPORTED_MODULE_1__.createEventDispatcher,
 		interfaces: _lib_data__WEBPACK_IMPORTED_MODULE_2__.interfaces,
 		services: _lib_data__WEBPACK_IMPORTED_MODULE_2__.services,
 		vscode: _lib_data__WEBPACK_IMPORTED_MODULE_2__.vscode,
 		findRange: _lib_service__WEBPACK_IMPORTED_MODULE_3__.findRange,
 		getAllServices: _lib_service__WEBPACK_IMPORTED_MODULE_3__.getAllServices,
+		isDockerService: _lib_service__WEBPACK_IMPORTED_MODULE_3__.isDockerService,
 		current_sidebar_element: _lib_sidebar__WEBPACK_IMPORTED_MODULE_4__.current_sidebar_element,
 		openSidebar: _lib_sidebar__WEBPACK_IMPORTED_MODULE_4__.openSidebar,
 		SidebarElement: _lib_sidebar__WEBPACK_IMPORTED_MODULE_4__.SidebarElement,
 		port,
 		portType,
 		parentID,
+		isDockerPort,
 		tmp,
 		saveInnerHTML,
 		dispatcher,
@@ -13320,7 +13496,8 @@ function instance($$self, $$props, $$invalidate) {
 	$$self.$inject_state = $$props => {
 		if ('port' in $$props) $$invalidate(0, port = $$props.port);
 		if ('portType' in $$props) $$invalidate(1, portType = $$props.portType);
-		if ('parentID' in $$props) $$invalidate(7, parentID = $$props.parentID);
+		if ('parentID' in $$props) $$invalidate(8, parentID = $$props.parentID);
+		if ('isDockerPort' in $$props) $$invalidate(2, isDockerPort = $$props.isDockerPort);
 		if ('tmp' in $$props) tmp = $$props.tmp;
 	};
 
@@ -13331,6 +13508,7 @@ function instance($$self, $$props, $$invalidate) {
 	return [
 		port,
 		portType,
+		isDockerPort,
 		saveInnerHTML,
 		finishEdit,
 		openInterface,
@@ -13340,19 +13518,20 @@ function instance($$self, $$props, $$invalidate) {
 		keydown_handler,
 		keydown_handler_1,
 		keydown_handler_2,
-		click_handler,
 		keydown_handler_3,
-		click_handler_1,
+		click_handler,
 		keydown_handler_4,
+		click_handler_1,
+		keydown_handler_5,
 		click_handler_2,
-		keydown_handler_5
+		keydown_handler_6
 	];
 }
 
 class PortSidebar extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, { port: 0, portType: 1, parentID: 7 });
+		(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, { port: 0, portType: 1, parentID: 8 });
 
 		(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterComponent", {
 			component: this,
@@ -13704,12 +13883,6 @@ __webpack_require__.r(__webpack_exports__);
 
 const file = "src/Sidebar/ServiceSidebar.svelte";
 
-function get_each_context(ctx, list, i) {
-	const child_ctx = ctx.slice();
-	child_ctx[20] = list[i];
-	return child_ctx;
-}
-
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[23] = list[i];
@@ -13722,8 +13895,288 @@ function get_each_context_2(ctx, list, i) {
 	return child_ctx;
 }
 
-// (138:1) {#if service.file}
-function create_if_block_4(ctx) {
+function get_each_context_3(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[29] = list[i];
+	return child_ctx;
+}
+
+function get_each_context(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[20] = list[i];
+	return child_ctx;
+}
+
+// (146:0) {:else}
+function create_else_block(ctx) {
+	let h40;
+	let t0;
+	let t1_value = /*service*/ ctx[0].execution + "";
+	let t1;
+	let t2;
+	let hr0;
+	let t3;
+	let h41;
+	let t4;
+	let t5;
+	let t6;
+	let hr1;
+	let t7;
+	let h42;
+	let t8;
+	let t9;
+	let t10;
+	let if_block4_anchor;
+	let if_block0 = /*service*/ ctx[0].file && create_if_block_6(ctx);
+	let if_block1 = /*service*/ ctx[0].inputPorts && /*service*/ ctx[0].inputPorts.length > 0 && create_if_block_5(ctx);
+	let if_block2 = /*service*/ ctx[0].file && create_if_block_4(ctx);
+	let if_block3 = /*service*/ ctx[0].outputPorts && /*service*/ ctx[0].outputPorts.length > 0 && create_if_block_3(ctx);
+	let if_block4 = /*service*/ ctx[0].embeddings && /*service*/ ctx[0].embeddings.length > 0 && create_if_block_2(ctx);
+
+	const block = {
+		c: function create() {
+			h40 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Execution: ");
+			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
+			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			hr0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
+			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			h41 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Input Ports:\n\t\t");
+			if (if_block0) if_block0.c();
+			t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block1) if_block1.c();
+			t6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			hr1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
+			t7 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			h42 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			t8 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Output Ports:\n\t\t");
+			if (if_block2) if_block2.c();
+			t9 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block3) if_block3.c();
+			t10 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block4) if_block4.c();
+			if_block4_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h40, "class", "text-2xl mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 146, 1, 5680);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr0, file, 147, 1, 5743);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h41, "class", "text-2xl mt-1 mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 148, 1, 5751);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr1, file, 173, 1, 6442);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h42, "class", "text-2xl mt-1 mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h42, file, 174, 1, 6450);
+		},
+		m: function mount(target, anchor) {
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h40, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h40, t0);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h40, t1);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t2, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr0, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t3, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h41, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, t4);
+			if (if_block0) if_block0.m(h41, null);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t5, anchor);
+			if (if_block1) if_block1.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t6, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr1, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t7, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h42, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h42, t8);
+			if (if_block2) if_block2.m(h42, null);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t9, anchor);
+			if (if_block3) if_block3.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t10, anchor);
+			if (if_block4) if_block4.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, if_block4_anchor, anchor);
+		},
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*service*/ 1 && t1_value !== (t1_value = /*service*/ ctx[0].execution + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t1, t1_value);
+
+			if (/*service*/ ctx[0].file) {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+				} else {
+					if_block0 = create_if_block_6(ctx);
+					if_block0.c();
+					if_block0.m(h41, null);
+				}
+			} else if (if_block0) {
+				if_block0.d(1);
+				if_block0 = null;
+			}
+
+			if (/*service*/ ctx[0].inputPorts && /*service*/ ctx[0].inputPorts.length > 0) {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+				} else {
+					if_block1 = create_if_block_5(ctx);
+					if_block1.c();
+					if_block1.m(t6.parentNode, t6);
+				}
+			} else if (if_block1) {
+				if_block1.d(1);
+				if_block1 = null;
+			}
+
+			if (/*service*/ ctx[0].file) {
+				if (if_block2) {
+					if_block2.p(ctx, dirty);
+				} else {
+					if_block2 = create_if_block_4(ctx);
+					if_block2.c();
+					if_block2.m(h42, null);
+				}
+			} else if (if_block2) {
+				if_block2.d(1);
+				if_block2 = null;
+			}
+
+			if (/*service*/ ctx[0].outputPorts && /*service*/ ctx[0].outputPorts.length > 0) {
+				if (if_block3) {
+					if_block3.p(ctx, dirty);
+				} else {
+					if_block3 = create_if_block_3(ctx);
+					if_block3.c();
+					if_block3.m(t10.parentNode, t10);
+				}
+			} else if (if_block3) {
+				if_block3.d(1);
+				if_block3 = null;
+			}
+
+			if (/*service*/ ctx[0].embeddings && /*service*/ ctx[0].embeddings.length > 0) {
+				if (if_block4) {
+					if_block4.p(ctx, dirty);
+				} else {
+					if_block4 = create_if_block_2(ctx);
+					if_block4.c();
+					if_block4.m(if_block4_anchor.parentNode, if_block4_anchor);
+				}
+			} else if (if_block4) {
+				if_block4.d(1);
+				if_block4 = null;
+			}
+		},
+		d: function destroy(detaching) {
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h40);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t2);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr0);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t3);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h41);
+			if (if_block0) if_block0.d();
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t5);
+			if (if_block1) if_block1.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t6);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr1);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t7);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h42);
+			if (if_block2) if_block2.d();
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t9);
+			if (if_block3) if_block3.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t10);
+			if (if_block4) if_block4.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(if_block4_anchor);
+		}
+	};
+
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
+		block,
+		id: create_else_block.name,
+		type: "else",
+		source: "(146:0) {:else}",
+		ctx
+	});
+
+	return block;
+}
+
+// (135:0) {#if isDockerService(service)}
+function create_if_block(ctx) {
+	let h40;
+	let t0;
+	let t1_value = /*service*/ ctx[0].image + "";
+	let t1;
+	let t2;
+	let hr;
+	let t3;
+	let h41;
+	let t5;
+	let if_block_anchor;
+	let if_block = /*service*/ ctx[0].ports && /*service*/ ctx[0].ports.length > 0 && create_if_block_1(ctx);
+
+	const block = {
+		c: function create() {
+			h40 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Image: ");
+			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
+			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			hr = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
+			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			h41 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			h41.textContent = "Docker Ports:";
+			t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if (if_block) if_block.c();
+			if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h40, "class", "text-2xl mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 135, 1, 5355);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 136, 1, 5410);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h41, "class", "text-2xl mt-1 mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 137, 1, 5418);
+		},
+		m: function mount(target, anchor) {
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h40, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h40, t0);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h40, t1);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t2, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t3, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h41, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t5, anchor);
+			if (if_block) if_block.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, if_block_anchor, anchor);
+		},
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*service*/ 1 && t1_value !== (t1_value = /*service*/ ctx[0].image + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t1, t1_value);
+
+			if (/*service*/ ctx[0].ports && /*service*/ ctx[0].ports.length > 0) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
+				} else {
+					if_block = create_if_block_1(ctx);
+					if_block.c();
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			} else if (if_block) {
+				if_block.d(1);
+				if_block = null;
+			}
+		},
+		d: function destroy(detaching) {
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h40);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t2);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t3);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h41);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t5);
+			if (if_block) if_block.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(if_block_anchor);
+		}
+	};
+
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
+		block,
+		id: create_if_block.name,
+		type: "if",
+		source: "(135:0) {#if isDockerService(service)}",
+		ctx
+	});
+
+	return block;
+}
+
+// (151:2) {#if service.file}
+function create_if_block_6(ctx) {
 	let span;
 	let mounted;
 	let dispose;
@@ -13733,7 +14186,7 @@ function create_if_block_4(ctx) {
 			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
 			span.textContent = "+";
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span, "class", "float-right cursor-pointer text-3xl");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 138, 2, 5410);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 151, 3, 5822);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, span, anchor);
@@ -13757,19 +14210,207 @@ function create_if_block_4(ctx) {
 
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_4.name,
+		id: create_if_block_6.name,
 		type: "if",
-		source: "(138:1) {#if service.file}",
+		source: "(151:2) {#if service.file}",
 		ctx
 	});
 
 	return block;
 }
 
-// (146:0) {#if service.inputPorts && service.inputPorts.length > 0}
+// (159:1) {#if service.inputPorts && service.inputPorts.length > 0}
+function create_if_block_5(ctx) {
+	let ul;
+	let each_value_3 = /*service*/ ctx[0].inputPorts;
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_3);
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_3.length; i += 1) {
+		each_blocks[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+	}
+
+	const block = {
+		c: function create() {
+			ul = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("ul");
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "mb-4 list-disc mx-6");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 159, 2, 6043);
+		},
+		m: function mount(target, anchor) {
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, ul, anchor);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(ul, null);
+			}
+		},
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*openPortSidebar, service*/ 9) {
+				each_value_3 = /*service*/ ctx[0].inputPorts;
+				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_3);
+				let i;
+
+				for (i = 0; i < each_value_3.length; i += 1) {
+					const child_ctx = get_each_context_3(ctx, each_value_3, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+					} else {
+						each_blocks[i] = create_each_block_3(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(ul, null);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+
+				each_blocks.length = each_value_3.length;
+			}
+		},
+		d: function destroy(detaching) {
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(ul);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
+		}
+	};
+
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
+		block,
+		id: create_if_block_5.name,
+		type: "if",
+		source: "(159:1) {#if service.inputPorts && service.inputPorts.length > 0}",
+		ctx
+	});
+
+	return block;
+}
+
+// (161:3) {#each service.inputPorts as ip}
+function create_each_block_3(ctx) {
+	let li;
+	let t0_value = /*ip*/ ctx[29].name + "";
+	let t0;
+
+	let t1_value = (/*ip*/ ctx[29].location.startsWith('!local') || /*ip*/ ctx[29].location.startsWith('!local')
+	? ''
+	: ' - ' + /*ip*/ ctx[29].location) + "";
+
+	let t1;
+	let t2;
+	let t3_value = /*ip*/ ctx[29].protocol + "";
+	let t3;
+	let t4;
+	let mounted;
+	let dispose;
+
+	const block = {
+		c: function create() {
+			li = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("li");
+			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
+			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
+			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(" - ");
+			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
+			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 161, 4, 6116);
+		},
+		m: function mount(target, anchor) {
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t0);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t1);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t2);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t3);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t4);
+
+			if (!mounted) {
+				dispose = [
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "click", /*click_handler_1*/ ctx[9], false, false, false),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "keydown", /*keydown_handler_2*/ ctx[10], false, false, false)
+				];
+
+				mounted = true;
+			}
+		},
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*service*/ 1 && t0_value !== (t0_value = /*ip*/ ctx[29].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
+
+			if (dirty[0] & /*service*/ 1 && t1_value !== (t1_value = (/*ip*/ ctx[29].location.startsWith('!local') || /*ip*/ ctx[29].location.startsWith('!local')
+			? ''
+			: ' - ' + /*ip*/ ctx[29].location) + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t1, t1_value);
+
+			if (dirty[0] & /*service*/ 1 && t3_value !== (t3_value = /*ip*/ ctx[29].protocol + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t3, t3_value);
+		},
+		d: function destroy(detaching) {
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(li);
+			mounted = false;
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
+		}
+	};
+
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
+		block,
+		id: create_each_block_3.name,
+		type: "each",
+		source: "(161:3) {#each service.inputPorts as ip}",
+		ctx
+	});
+
+	return block;
+}
+
+// (177:2) {#if service.file}
+function create_if_block_4(ctx) {
+	let span;
+	let mounted;
+	let dispose;
+
+	const block = {
+		c: function create() {
+			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
+			span.textContent = "+";
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span, "class", "float-right cursor-pointer text-3xl");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 177, 3, 6522);
+		},
+		m: function mount(target, anchor) {
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, span, anchor);
+
+			if (!mounted) {
+				dispose = [
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "click", /*click_handler_2*/ ctx[11], false, false, false),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", /*keydown_handler_3*/ ctx[12], false, false, false)
+				];
+
+				mounted = true;
+			}
+		},
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
+		d: function destroy(detaching) {
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(span);
+			mounted = false;
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
+		}
+	};
+
+	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
+		block,
+		id: create_if_block_4.name,
+		type: "if",
+		source: "(177:2) {#if service.file}",
+		ctx
+	});
+
+	return block;
+}
+
+// (185:1) {#if service.outputPorts && service.outputPorts.length > 0}
 function create_if_block_3(ctx) {
 	let ul;
-	let each_value_2 = /*service*/ ctx[0].inputPorts;
+	let each_value_2 = /*service*/ ctx[0].outputPorts;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_2);
 	let each_blocks = [];
 
@@ -13786,7 +14427,7 @@ function create_if_block_3(ctx) {
 			}
 
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "mb-4 list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 146, 1, 5623);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 185, 2, 6747);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, ul, anchor);
@@ -13796,8 +14437,8 @@ function create_if_block_3(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*openPortSidebar, service*/ 9) {
-				each_value_2 = /*service*/ ctx[0].inputPorts;
+			if (dirty[0] & /*openPortSidebar, service*/ 9) {
+				each_value_2 = /*service*/ ctx[0].outputPorts;
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_2);
 				let i;
 
@@ -13830,26 +14471,26 @@ function create_if_block_3(ctx) {
 		block,
 		id: create_if_block_3.name,
 		type: "if",
-		source: "(146:0) {#if service.inputPorts && service.inputPorts.length > 0}",
+		source: "(185:1) {#if service.outputPorts && service.outputPorts.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (148:2) {#each service.inputPorts as ip}
+// (187:3) {#each service.outputPorts as op}
 function create_each_block_2(ctx) {
 	let li;
-	let t0_value = /*ip*/ ctx[26].name + "";
+	let t0_value = /*op*/ ctx[26].name + "";
 	let t0;
 
-	let t1_value = (/*ip*/ ctx[26].location.startsWith('!local') || /*ip*/ ctx[26].location.startsWith('!local')
+	let t1_value = (/*op*/ ctx[26].location.startsWith('!local') || /*op*/ ctx[26].location.startsWith('local')
 	? ''
-	: ' - ' + /*ip*/ ctx[26].location) + "";
+	: ' - ' + /*op*/ ctx[26].location) + "";
 
 	let t1;
 	let t2;
-	let t3_value = /*ip*/ ctx[26].protocol + "";
+	let t3_value = /*op*/ ctx[26].protocol + "";
 	let t3;
 	let t4;
 	let mounted;
@@ -13864,7 +14505,7 @@ function create_each_block_2(ctx) {
 			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
 			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 148, 3, 5694);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 187, 4, 6821);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
@@ -13876,21 +14517,21 @@ function create_each_block_2(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "click", /*click_handler_1*/ ctx[9], false, false, false),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "keydown", /*keydown_handler_2*/ ctx[10], false, false, false)
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "click", /*click_handler_3*/ ctx[13], false, false, false),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "keydown", /*keydown_handler_4*/ ctx[14], false, false, false)
 				];
 
 				mounted = true;
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*service*/ 1 && t0_value !== (t0_value = /*ip*/ ctx[26].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
+			if (dirty[0] & /*service*/ 1 && t0_value !== (t0_value = /*op*/ ctx[26].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
 
-			if (dirty & /*service*/ 1 && t1_value !== (t1_value = (/*ip*/ ctx[26].location.startsWith('!local') || /*ip*/ ctx[26].location.startsWith('!local')
+			if (dirty[0] & /*service*/ 1 && t1_value !== (t1_value = (/*op*/ ctx[26].location.startsWith('!local') || /*op*/ ctx[26].location.startsWith('local')
 			? ''
-			: ' - ' + /*ip*/ ctx[26].location) + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t1, t1_value);
+			: ' - ' + /*op*/ ctx[26].location) + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t1, t1_value);
 
-			if (dirty & /*service*/ 1 && t3_value !== (t3_value = /*ip*/ ctx[26].protocol + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t3, t3_value);
+			if (dirty[0] & /*service*/ 1 && t3_value !== (t3_value = /*op*/ ctx[26].protocol + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t3, t3_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(li);
@@ -13903,61 +14544,21 @@ function create_each_block_2(ctx) {
 		block,
 		id: create_each_block_2.name,
 		type: "each",
-		source: "(148:2) {#each service.inputPorts as ip}",
+		source: "(187:3) {#each service.outputPorts as op}",
 		ctx
 	});
 
 	return block;
 }
 
-// (164:1) {#if service.file}
+// (200:1) {#if service.embeddings && service.embeddings.length > 0}
 function create_if_block_2(ctx) {
-	let span;
-	let mounted;
-	let dispose;
-
-	const block = {
-		c: function create() {
-			span = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("span");
-			span.textContent = "+";
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(span, "class", "float-right cursor-pointer text-3xl");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(span, file, 164, 2, 6084);
-		},
-		m: function mount(target, anchor) {
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, span, anchor);
-
-			if (!mounted) {
-				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "click", /*click_handler_2*/ ctx[11], false, false, false),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(span, "keydown", /*keydown_handler_3*/ ctx[12], false, false, false)
-				];
-
-				mounted = true;
-			}
-		},
-		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
-		d: function destroy(detaching) {
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(span);
-			mounted = false;
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
-		}
-	};
-
-	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
-		block,
-		id: create_if_block_2.name,
-		type: "if",
-		source: "(164:1) {#if service.file}",
-		ctx
-	});
-
-	return block;
-}
-
-// (172:0) {#if service.outputPorts && service.outputPorts.length > 0}
-function create_if_block_1(ctx) {
+	let hr;
+	let t0;
+	let h4;
+	let t2;
 	let ul;
-	let each_value_1 = /*service*/ ctx[0].outputPorts;
+	let each_value_1 = /*service*/ ctx[0].embeddings;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_1);
 	let each_blocks = [];
 
@@ -13967,16 +14568,28 @@ function create_if_block_1(ctx) {
 
 	const block = {
 		c: function create() {
+			hr = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
+			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			h4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			h4.textContent = "Embeddings:";
+			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			ul = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("ul");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 200, 2, 7206);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mt-1 mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 201, 2, 7215);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "mb-4 list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 172, 1, 6301);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 202, 2, 7265);
 		},
 		m: function mount(target, anchor) {
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t0, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t2, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, ul, anchor);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -13984,8 +14597,8 @@ function create_if_block_1(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*openPortSidebar, service*/ 9) {
-				each_value_1 = /*service*/ ctx[0].outputPorts;
+			if (dirty[0] & /*openServiceSidebar, service*/ 17) {
+				each_value_1 = /*service*/ ctx[0].embeddings;
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value_1);
 				let i;
 
@@ -14009,6 +14622,10 @@ function create_if_block_1(ctx) {
 			}
 		},
 		d: function destroy(detaching) {
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t0);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h4);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t2);
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(ul);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
 		}
@@ -14016,69 +14633,57 @@ function create_if_block_1(ctx) {
 
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_1.name,
+		id: create_if_block_2.name,
 		type: "if",
-		source: "(172:0) {#if service.outputPorts && service.outputPorts.length > 0}",
+		source: "(200:1) {#if service.embeddings && service.embeddings.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (174:2) {#each service.outputPorts as op}
+// (204:3) {#each service.embeddings as embed}
 function create_each_block_1(ctx) {
 	let li;
-	let t0_value = /*op*/ ctx[23].name + "";
+	let t0_value = /*embed*/ ctx[23].name + "";
 	let t0;
-
-	let t1_value = (/*op*/ ctx[23].location.startsWith('!local') || /*op*/ ctx[23].location.startsWith('local')
-	? ''
-	: ' - ' + /*op*/ ctx[23].location) + "";
-
 	let t1;
-	let t2;
-	let t3_value = /*op*/ ctx[23].protocol + "";
-	let t3;
-	let t4;
 	let mounted;
 	let dispose;
+
+	function click_handler_4() {
+		return /*click_handler_4*/ ctx[15](/*embed*/ ctx[23]);
+	}
+
+	function keydown_handler_5() {
+		return /*keydown_handler_5*/ ctx[16](/*embed*/ ctx[23]);
+	}
 
 	const block = {
 		c: function create() {
 			li = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("li");
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
-			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t1_value);
-			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(" - ");
-			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
-			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 174, 3, 6373);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 204, 4, 7341);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t0);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t1);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t2);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t3);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t4);
 
 			if (!mounted) {
 				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "click", /*click_handler_3*/ ctx[13], false, false, false),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "keydown", /*keydown_handler_4*/ ctx[14], false, false, false)
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "click", click_handler_4, false, false, false),
+					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "keydown", keydown_handler_5, false, false, false)
 				];
 
 				mounted = true;
 			}
 		},
-		p: function update(ctx, dirty) {
-			if (dirty & /*service*/ 1 && t0_value !== (t0_value = /*op*/ ctx[23].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
-
-			if (dirty & /*service*/ 1 && t1_value !== (t1_value = (/*op*/ ctx[23].location.startsWith('!local') || /*op*/ ctx[23].location.startsWith('local')
-			? ''
-			: ' - ' + /*op*/ ctx[23].location) + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t1, t1_value);
-
-			if (dirty & /*service*/ 1 && t3_value !== (t3_value = /*op*/ ctx[23].protocol + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t3, t3_value);
+		p: function update(new_ctx, dirty) {
+			ctx = new_ctx;
+			if (dirty[0] & /*service*/ 1 && t0_value !== (t0_value = /*embed*/ ctx[23].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(li);
@@ -14091,21 +14696,17 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(174:2) {#each service.outputPorts as op}",
+		source: "(204:3) {#each service.embeddings as embed}",
 		ctx
 	});
 
 	return block;
 }
 
-// (187:0) {#if service.embeddings && service.embeddings.length > 0}
-function create_if_block(ctx) {
-	let hr;
-	let t0;
-	let h4;
-	let t2;
+// (139:1) {#if service.ports && service.ports.length > 0}
+function create_if_block_1(ctx) {
 	let ul;
-	let each_value = /*service*/ ctx[0].embeddings;
+	let each_value = /*service*/ ctx[0].ports;
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value);
 	let each_blocks = [];
 
@@ -14115,28 +14716,16 @@ function create_if_block(ctx) {
 
 	const block = {
 		c: function create() {
-			hr = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
-			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			h4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
-			h4.textContent = "Embeddings:";
-			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
 			ul = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("ul");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr, file, 187, 1, 6745);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mt-1 mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 188, 1, 6753);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(ul, "class", "mb-4 list-disc mx-6");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 189, 1, 6802);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(ul, file, 139, 2, 5519);
 		},
 		m: function mount(target, anchor) {
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t0, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t2, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, ul, anchor);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -14144,8 +14733,8 @@ function create_if_block(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*openServiceSidebar, service*/ 17) {
-				each_value = /*service*/ ctx[0].embeddings;
+			if (dirty[0] & /*service*/ 1) {
+				each_value = /*service*/ ctx[0].ports;
 				(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.validate_each_argument)(each_value);
 				let i;
 
@@ -14169,10 +14758,6 @@ function create_if_block(ctx) {
 			}
 		},
 		d: function destroy(detaching) {
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t0);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h4);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t2);
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(ul);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.destroy_each)(each_blocks, detaching);
 		}
@@ -14180,62 +14765,45 @@ function create_if_block(ctx) {
 
 	(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterBlock", {
 		block,
-		id: create_if_block.name,
+		id: create_if_block_1.name,
 		type: "if",
-		source: "(187:0) {#if service.embeddings && service.embeddings.length > 0}",
+		source: "(139:1) {#if service.ports && service.ports.length > 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (191:2) {#each service.embeddings as embed}
+// (141:3) {#each service.ports as port}
 function create_each_block(ctx) {
 	let li;
-	let t0_value = /*embed*/ ctx[20].name + "";
+	let t0_value = /*port*/ ctx[20].eport + "";
 	let t0;
 	let t1;
-	let mounted;
-	let dispose;
-
-	function click_handler_4() {
-		return /*click_handler_4*/ ctx[15](/*embed*/ ctx[20]);
-	}
-
-	function keydown_handler_5() {
-		return /*keydown_handler_5*/ ctx[16](/*embed*/ ctx[20]);
-	}
+	let t2_value = /*port*/ ctx[20].iport + "";
+	let t2;
 
 	const block = {
 		c: function create() {
 			li = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("li");
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
-			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl cursor-pointer my-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 191, 3, 6876);
+			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(":");
+			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t2_value);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(li, "class", "text-xl my-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(li, file, 141, 4, 5589);
 		},
 		m: function mount(target, anchor) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, li, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t0);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t1);
-
-			if (!mounted) {
-				dispose = [
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "click", click_handler_4, false, false, false),
-					(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.listen_dev)(li, "keydown", keydown_handler_5, false, false, false)
-				];
-
-				mounted = true;
-			}
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(li, t2);
 		},
-		p: function update(new_ctx, dirty) {
-			ctx = new_ctx;
-			if (dirty & /*service*/ 1 && t0_value !== (t0_value = /*embed*/ ctx[20].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*service*/ 1 && t0_value !== (t0_value = /*port*/ ctx[20].eport + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
+			if (dirty[0] & /*service*/ 1 && t2_value !== (t2_value = /*port*/ ctx[20].iport + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t2, t2_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(li);
-			mounted = false;
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
 		}
 	};
 
@@ -14243,7 +14811,7 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(191:2) {#each service.embeddings as embed}",
+		source: "(141:3) {#each service.ports as port}",
 		ctx
 	});
 
@@ -14255,76 +14823,43 @@ function create_fragment(ctx) {
 	let t0_value = /*service*/ ctx[0].name + "";
 	let t0;
 	let t1;
-	let h40;
+	let h4;
+	let t2;
+	let t3_value = ((0,_lib_service__WEBPACK_IMPORTED_MODULE_4__.isDockerService)(/*service*/ ctx[0]) ? 'Docker ' : '') + "";
 	let t3;
-	let h41;
 	let t4;
-	let t5_value = /*service*/ ctx[0].execution + "";
 	let t5;
-	let t6;
-	let hr0;
-	let t7;
-	let h42;
-	let t8;
-	let t9;
-	let t10;
-	let hr1;
-	let t11;
-	let h43;
-	let t12;
-	let t13;
-	let t14;
-	let if_block4_anchor;
+	let show_if;
+	let if_block_anchor;
 	let mounted;
 	let dispose;
-	let if_block0 = /*service*/ ctx[0].file && create_if_block_4(ctx);
-	let if_block1 = /*service*/ ctx[0].inputPorts && /*service*/ ctx[0].inputPorts.length > 0 && create_if_block_3(ctx);
-	let if_block2 = /*service*/ ctx[0].file && create_if_block_2(ctx);
-	let if_block3 = /*service*/ ctx[0].outputPorts && /*service*/ ctx[0].outputPorts.length > 0 && create_if_block_1(ctx);
-	let if_block4 = /*service*/ ctx[0].embeddings && /*service*/ ctx[0].embeddings.length > 0 && create_if_block(ctx);
+
+	function select_block_type(ctx, dirty) {
+		if (dirty[0] & /*service*/ 1) show_if = null;
+		if (show_if == null) show_if = !!(0,_lib_service__WEBPACK_IMPORTED_MODULE_4__.isDockerService)(/*service*/ ctx[0]);
+		if (show_if) return create_if_block;
+		return create_else_block;
+	}
+
+	let current_block_type = select_block_type(ctx, [-1, -1]);
+	let if_block = current_block_type(ctx);
 
 	const block = {
 		c: function create() {
 			h1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h1");
 			t0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t0_value);
 			t1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			h40 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
-			h40.textContent = "Type: Service";
-			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			h41 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
-			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Execution: ");
-			t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t5_value);
-			t6 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			hr0 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
-			t7 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			h42 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
-			t8 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Input Ports:\n\t");
-			if (if_block0) if_block0.c();
-			t9 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			if (if_block1) if_block1.c();
-			t10 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			hr1 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("hr");
-			t11 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			h43 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
-			t12 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Output Ports:\n\t");
-			if (if_block2) if_block2.c();
-			t13 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			if (if_block3) if_block3.c();
-			t14 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
-			if (if_block4) if_block4.c();
-			if_block4_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
+			h4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.element)("h4");
+			t2 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Type: ");
+			t3 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)(t3_value);
+			t4 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.text)("Service");
+			t5 = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.space)();
+			if_block.c();
+			if_block_anchor = (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.empty)();
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h1, "class", "text-center text-4xl mt-1 mb-4");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 125, 0, 5067);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h40, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h40, file, 132, 0, 5228);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h41, "class", "text-2xl mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h41, file, 133, 0, 5273);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr0, file, 134, 0, 5335);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h42, "class", "text-2xl mt-1 mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h42, file, 135, 0, 5342);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(hr1, file, 160, 0, 6008);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h43, "class", "text-2xl mt-1 mb-2");
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h43, file, 161, 0, 6015);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h1, file, 124, 0, 5072);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.attr_dev)(h4, "class", "text-2xl mb-2");
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.add_location)(h4, file, 132, 0, 5234);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -14333,30 +14868,13 @@ function create_fragment(ctx) {
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h1, anchor);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h1, t0);
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t1, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h40, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t3, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h41, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, t4);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h41, t5);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t6, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr0, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t7, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h42, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h42, t8);
-			if (if_block0) if_block0.m(h42, null);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t9, anchor);
-			if (if_block1) if_block1.m(target, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t10, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, hr1, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t11, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h43, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h43, t12);
-			if (if_block2) if_block2.m(h43, null);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t13, anchor);
-			if (if_block3) if_block3.m(target, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t14, anchor);
-			if (if_block4) if_block4.m(target, anchor);
-			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, if_block4_anchor, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, h4, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h4, t2);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h4, t3);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.append_dev)(h4, t4);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, t5, anchor);
+			if_block.m(target, anchor);
+			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.insert_dev)(target, if_block_anchor, anchor);
 
 			if (!mounted) {
 				dispose = [
@@ -14367,73 +14885,20 @@ function create_fragment(ctx) {
 				mounted = true;
 			}
 		},
-		p: function update(ctx, [dirty]) {
-			if (dirty & /*service*/ 1 && t0_value !== (t0_value = /*service*/ ctx[0].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
-			if (dirty & /*service*/ 1 && t5_value !== (t5_value = /*service*/ ctx[0].execution + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t5, t5_value);
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*service*/ 1 && t0_value !== (t0_value = /*service*/ ctx[0].name + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t0, t0_value);
+			if (dirty[0] & /*service*/ 1 && t3_value !== (t3_value = ((0,_lib_service__WEBPACK_IMPORTED_MODULE_4__.isDockerService)(/*service*/ ctx[0]) ? 'Docker ' : '') + "")) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.set_data_dev)(t3, t3_value);
 
-			if (/*service*/ ctx[0].file) {
-				if (if_block0) {
-					if_block0.p(ctx, dirty);
-				} else {
-					if_block0 = create_if_block_4(ctx);
-					if_block0.c();
-					if_block0.m(h42, null);
-				}
-			} else if (if_block0) {
-				if_block0.d(1);
-				if_block0 = null;
-			}
+			if (current_block_type === (current_block_type = select_block_type(ctx, dirty)) && if_block) {
+				if_block.p(ctx, dirty);
+			} else {
+				if_block.d(1);
+				if_block = current_block_type(ctx);
 
-			if (/*service*/ ctx[0].inputPorts && /*service*/ ctx[0].inputPorts.length > 0) {
-				if (if_block1) {
-					if_block1.p(ctx, dirty);
-				} else {
-					if_block1 = create_if_block_3(ctx);
-					if_block1.c();
-					if_block1.m(t10.parentNode, t10);
+				if (if_block) {
+					if_block.c();
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
 				}
-			} else if (if_block1) {
-				if_block1.d(1);
-				if_block1 = null;
-			}
-
-			if (/*service*/ ctx[0].file) {
-				if (if_block2) {
-					if_block2.p(ctx, dirty);
-				} else {
-					if_block2 = create_if_block_2(ctx);
-					if_block2.c();
-					if_block2.m(h43, null);
-				}
-			} else if (if_block2) {
-				if_block2.d(1);
-				if_block2 = null;
-			}
-
-			if (/*service*/ ctx[0].outputPorts && /*service*/ ctx[0].outputPorts.length > 0) {
-				if (if_block3) {
-					if_block3.p(ctx, dirty);
-				} else {
-					if_block3 = create_if_block_1(ctx);
-					if_block3.c();
-					if_block3.m(t14.parentNode, t14);
-				}
-			} else if (if_block3) {
-				if_block3.d(1);
-				if_block3 = null;
-			}
-
-			if (/*service*/ ctx[0].embeddings && /*service*/ ctx[0].embeddings.length > 0) {
-				if (if_block4) {
-					if_block4.p(ctx, dirty);
-				} else {
-					if_block4 = create_if_block(ctx);
-					if_block4.c();
-					if_block4.m(if_block4_anchor.parentNode, if_block4_anchor);
-				}
-			} else if (if_block4) {
-				if_block4.d(1);
-				if_block4 = null;
 			}
 		},
 		i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__.noop,
@@ -14441,26 +14906,10 @@ function create_fragment(ctx) {
 		d: function destroy(detaching) {
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h1);
 			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t1);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h40);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t3);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h41);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t6);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr0);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t7);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h42);
-			if (if_block0) if_block0.d();
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t9);
-			if (if_block1) if_block1.d(detaching);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t10);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(hr1);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t11);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h43);
-			if (if_block2) if_block2.d();
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t13);
-			if (if_block3) if_block3.d(detaching);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t14);
-			if (if_block4) if_block4.d(detaching);
-			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(if_block4_anchor);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(h4);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(t5);
+			if_block.d(detaching);
+			if (detaching) (0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.detach_dev)(if_block_anchor);
 			mounted = false;
 			(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.run_all)(dispose);
 		}
@@ -14551,14 +15000,11 @@ function instance($$self, $$props, $$invalidate) {
 				? void 0
 				: _a.val.split(',').forEach(str => tmp_interfaces.push({ name: str.trim() }));
 
-				let checkInterfac = true;
-
-				tmp_interfaces.forEach(intName => {
-					checkInterfac = _lib_data__WEBPACK_IMPORTED_MODULE_2__.interfaces.find(t => t.name === intName.name) !== undefined;
-				});
-
-				if (!checkInterfac) return false;
-
+				// let checkInterfac = true;
+				// tmp_interfaces.forEach((intName) => {
+				// 	checkInterfac = interfaces.find((t) => t.name === intName.name) !== undefined;
+				// });
+				// if (!checkInterfac) return false;
 				const newPort = {
 					name: (_b = vals.find(t => t.field === 'name')) === null || _b === void 0
 					? void 0
@@ -14657,13 +15103,13 @@ function instance($$self, $$props, $$invalidate) {
 
 	$$self.$capture_state = () => ({
 		createEventDispatcher: svelte__WEBPACK_IMPORTED_MODULE_1__.createEventDispatcher,
-		interfaces: _lib_data__WEBPACK_IMPORTED_MODULE_2__.interfaces,
 		services: _lib_data__WEBPACK_IMPORTED_MODULE_2__.services,
 		vscode: _lib_data__WEBPACK_IMPORTED_MODULE_2__.vscode,
 		current_popup: _lib_popup__WEBPACK_IMPORTED_MODULE_3__.current_popup,
 		PopUp: _lib_popup__WEBPACK_IMPORTED_MODULE_3__.PopUp,
 		findRange: _lib_service__WEBPACK_IMPORTED_MODULE_4__.findRange,
 		getAllServices: _lib_service__WEBPACK_IMPORTED_MODULE_4__.getAllServices,
+		isDockerService: _lib_service__WEBPACK_IMPORTED_MODULE_4__.isDockerService,
 		current_sidebar_element: _lib_sidebar__WEBPACK_IMPORTED_MODULE_5__.current_sidebar_element,
 		openSidebar: _lib_sidebar__WEBPACK_IMPORTED_MODULE_5__.openSidebar,
 		SidebarElement: _lib_sidebar__WEBPACK_IMPORTED_MODULE_5__.SidebarElement,
@@ -14711,7 +15157,7 @@ function instance($$self, $$props, $$invalidate) {
 class ServiceSidebar extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, { service: 0 });
+		(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.init)(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__.safe_not_equal, { service: 0 }, null, [-1, -1]);
 
 		(0,svelte_internal__WEBPACK_IMPORTED_MODULE_0__.dispatch_dev)("SvelteRegisterComponent", {
 			component: this,
@@ -16256,6 +16702,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var svelte_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/store */ "./node_modules/svelte/store/index.mjs");
 /* harmony import */ var _preprocess__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./preprocess */ "./src/lib/preprocess.ts");
+/* harmony import */ var _service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./service */ "./src/lib/service.ts");
+
 
 
 const vscode = acquireVsCodeApi();
@@ -16290,6 +16738,19 @@ const generateVisFile = () => {
     services.forEach((serviceList) => {
         const tldList = [];
         serviceList.forEach((svc) => {
+            if ((0,_service__WEBPACK_IMPORTED_MODULE_2__.isDockerService)(svc)) {
+                const tld = {
+                    name: svc.name,
+                    image: svc.image,
+                    ports: makeDockerPorts(svc.ports),
+                    instances: getNumberOfInstances(svc, serviceList)
+                };
+                if (svc.paramFile)
+                    tld.paramFile = svc.paramFile;
+                if (!tldIncludesDocker(tldList, tld))
+                    tldList.push(tld);
+                return;
+            }
             const tld = {
                 file: svc.file,
                 target: svc.name,
@@ -16305,6 +16766,12 @@ const generateVisFile = () => {
     return {
         content
     };
+};
+const makeDockerPorts = (ports) => {
+    return ports.map((t) => `${t.eport}:${t.iport}`);
+};
+const tldIncludesDocker = (tldList, tld) => {
+    return tldList.find((t) => t.image === tld.image) !== undefined;
 };
 const tldIncludes = (tldList, tld) => {
     return (tldList.find((t) => t.file === tld.file && t.target === tld.target && t.instances === tld.instances) !== undefined);
@@ -16430,6 +16897,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getTopLevelEdges": () => (/* binding */ getTopLevelEdges),
 /* harmony export */   "portSize": () => (/* binding */ portSize)
 /* harmony export */ });
+/* harmony import */ var _service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./service */ "./src/lib/service.ts");
+
 const portSize = 5;
 const createSystemGraph = (services) => {
     const children = getNetworkNodes(services);
@@ -16480,15 +16949,50 @@ const getTopLevelEdges = (services) => {
         services.forEach((inputSvc) => {
             if (inputSvc.id === outputSvc.id ||
                 inputSvc.inputPorts === undefined ||
-                inputSvc.inputPorts.length === 0)
+                inputSvc.inputPorts.length === 0 ||
+                (0,_service__WEBPACK_IMPORTED_MODULE_0__.isDockerService)(inputSvc))
                 return;
             outputSvc.outputPorts.forEach((op) => {
                 inputSvc.inputPorts.forEach((ip) => {
-                    if (op.location === ip.location) {
+                    if (op.location === ip.location && op.protocol === ip.protocol) {
                         tle.push({
                             id: `${outputSvc.name}${outputSvc.id}${op.name}-${inputSvc.name}${inputSvc.id}${ip.name}`,
                             sources: [`${outputSvc.name}${outputSvc.id}-${op.name}`],
                             targets: [`${inputSvc.name}${inputSvc.id}-${ip.name}`]
+                        });
+                    }
+                });
+            });
+        });
+    });
+    return tle.concat(connectDockerPorts(services));
+};
+const connectDockerPorts = (services) => {
+    const tle = [];
+    services.forEach((svc) => {
+        if (!(0,_service__WEBPACK_IMPORTED_MODULE_0__.isDockerService)(svc))
+            return;
+        services.forEach((other) => {
+            var _a;
+            if ((0,_service__WEBPACK_IMPORTED_MODULE_0__.isDockerService)(other) || svc.id === other.id)
+                return;
+            (_a = svc.inputPorts) === null || _a === void 0 ? void 0 : _a.forEach((p) => {
+                var _a, _b;
+                (_a = other.outputPorts) === null || _a === void 0 ? void 0 : _a.forEach((op) => {
+                    if (op.location === p.location) {
+                        tle.push({
+                            id: `${svc.name}${other.id}${op.name}-${svc.name}${svc.id}${p.name}`,
+                            sources: [`${other.name}${other.id}-${op.name}`],
+                            targets: [`${svc.name}${svc.id}-${p.name}`]
+                        });
+                    }
+                });
+                (_b = other.inputPorts) === null || _b === void 0 ? void 0 : _b.forEach((op) => {
+                    if (op.location === p.location) {
+                        tle.push({
+                            id: `${svc.name}${other.id}${op.name}-${svc.name}${svc.id}${p.name}`,
+                            sources: [`${other.name}${other.id}-${op.name}`],
+                            targets: [`${svc.name}${svc.id}-${p.name}`]
                         });
                     }
                 });
@@ -16603,7 +17107,7 @@ const getNetworkNodes = (services) => {
             },
             children: getTopLevelServices(serviceList),
             // ports,
-            edges: getTopLevelEdges(serviceList) //.concat(portEdges)
+            edges: getTopLevelEdges(serviceList)
         });
         count++;
     });
@@ -16757,6 +17261,8 @@ const preprocess = (json) => {
                 connectRedirectResources(service.outputPorts);
                 joinOutputPortArrows(service);
             }
+            if (service.image && service.ports && !service.file)
+                makeDockerPorts(service);
         });
     });
     return {
@@ -16765,6 +17271,18 @@ const preprocess = (json) => {
         interfaces: p_interfaces,
         types: p_types
     };
+};
+const makeDockerPorts = (service) => {
+    service.inputPorts = [];
+    service.ports.forEach((dp) => {
+        service.inputPorts.push({
+            file: undefined,
+            interfaces: [],
+            location: `socket://localhost:${dp.eport}`,
+            name: `${service.name}_${dp.eport}`,
+            protocol: 'sodep'
+        });
+    });
 };
 const joinOutputPortArrows = (service) => {
     var _a;
@@ -16853,6 +17371,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getHoveredPolygon": () => (/* binding */ getHoveredPolygon),
 /* harmony export */   "getServiceFromCoords": () => (/* binding */ getServiceFromCoords),
 /* harmony export */   "isAncestor": () => (/* binding */ isAncestor),
+/* harmony export */   "isDockerService": () => (/* binding */ isDockerService),
 /* harmony export */   "renderGhostNodeOnDrag": () => (/* binding */ renderGhostNodeOnDrag),
 /* harmony export */   "transposeRange": () => (/* binding */ transposeRange),
 /* harmony export */   "updateRanges": () => (/* binding */ updateRanges)
@@ -16918,12 +17437,11 @@ const embed = async (service, parent, netwrkId) => {
         const tmp_interfaces = [];
         (_a = vals
             .find((t) => t.field === 'interfaces')) === null || _a === void 0 ? void 0 : _a.val.split(',').forEach((str) => tmp_interfaces.push({ name: str.trim() }));
-        let checkInterfac = true;
-        tmp_interfaces.forEach((intName) => {
-            checkInterfac = _data__WEBPACK_IMPORTED_MODULE_0__.interfaces.find((t) => t.name === intName.name) !== undefined;
-        });
-        if (!checkInterfac)
-            return false;
+        // let checkInterfac = true;
+        // tmp_interfaces.forEach((intName) => {
+        // 	checkInterfac = interfaces.find((t) => t.name === intName.name) !== undefined;
+        // });
+        // if (!checkInterfac) return false;
         const newIP = {
             file: service.file,
             location: `!local_${service.name}${service.id}`,
@@ -17138,6 +17656,9 @@ const renderGhostNodeOnDrag = (serviceNode, e, startX, startY) => {
     tmp.setAttribute('transform', `scale(${scale}) translate(${sx},${sy})`);
     document.querySelector('main').appendChild(tmp);
 };
+const isDockerService = (service) => {
+    return service.image && service.ports && !service.file;
+};
 const deepCopyService = (service) => {
     return {
         id: getNextId(getAllServices(_data__WEBPACK_IMPORTED_MODULE_0__.services)),
@@ -17151,7 +17672,9 @@ const deepCopyService = (service) => {
         parentPort: service.parentPort,
         embeddings: service.embeddings ? service.embeddings.map((t) => deepCopyService(t)) : [],
         inputPorts: service.inputPorts ? service.inputPorts.map((t) => deepCopyPort(t)) : [],
-        outputPorts: service.outputPorts ? service.outputPorts.map((t) => deepCopyPort(t)) : []
+        outputPorts: service.outputPorts ? service.outputPorts.map((t) => deepCopyPort(t)) : [],
+        image: service.image,
+        ports: service.ports
     };
 };
 const deepCopyPort = (port) => {
@@ -17275,6 +17798,7 @@ class SidebarElement {
         this.hist_type = type;
         this.name = name;
     }
+    //TODO refactor
     equals(other) {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         if (this.hist_type != other.hist_type)
@@ -17298,7 +17822,8 @@ const openSidebar = (elem, prev) => {
     if (prev && prev.hist_type >= 0) {
         if (sidebarHistory.length > 15)
             sidebarHistory.splice(0, 1);
-        sidebarHistory.push(prev);
+        if (!prev || !prev.equals(elem))
+            sidebarHistory.push(prev);
     }
     current_sidebar_element.set(elem);
 };

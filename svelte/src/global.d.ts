@@ -10,8 +10,11 @@ type VisFile = {
 type TLD = {
 	file?: string;
 	target?: string;
+	name?: string;
 	instances?: number;
 	paramFile?: string;
+	image?: string;
+	ports?: string[];
 };
 
 type Data = {
@@ -31,6 +34,8 @@ type Service = {
 	inputPorts: Port[];
 	outputPorts: Port[];
 	file: string;
+	image?: string;
+	ports?: DockerPort[];
 	paramFile?: string;
 	parentPort: string | undefined;
 	parent: Service | undefined;
@@ -61,7 +66,7 @@ type Port = {
 	redirects?: Redirect[];
 	resource?: string;
 	interfaces: { name: string }[];
-	file: string;
+	file: string | undefined;
 };
 
 type Aggregate = {
@@ -81,6 +86,11 @@ type Courier = {
 	interfaceOneWay: { name: string }[];
 	operationReqRes: { name: string }[];
 	operationOneWay: { name: string }[];
+};
+
+type DockerPort = {
+	eport: number;
+	iport: number;
 };
 
 type CodeRange = {

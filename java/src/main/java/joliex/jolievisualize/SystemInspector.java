@@ -33,6 +33,7 @@ import jolie.lang.parse.context.ParsingContext;
 import jolie.util.Pair;
 import joliex.jolievisualize.System.Aggregate;
 import joliex.jolievisualize.System.Courier;
+import joliex.jolievisualize.System.Docker;
 import joliex.jolievisualize.System.InputPort;
 import joliex.jolievisualize.System.Interface;
 import joliex.jolievisualize.System.JolieSystem;
@@ -62,12 +63,39 @@ public class SystemInspector {
     private void inspectServiceNodes(Network n) {
         n.getNetwork().forEach((tld, pair) -> {
             for (int i = 0; i < tld.getNumberOfInstances(); i++) {
-                Service svc = createService(pair.key(), pair.value());
-                if (tld.getParams() != null)
-                    svc.setParamFile(tld.getParams());
-                n.addService(svc);
+                if (tld.getFilename() == null && tld.getImage() != null)
+                    n.addService(createDockerService(tld));
+                else {
+                    Service svc = createService(pair.key(), pair.value());
+                    if (tld.getParams() != null)
+                        svc.setParamFile(tld.getParams());
+                    n.addService(svc);
+                }
             }
         });
+    }
+
+    private Docker createDockerService(TopLevelDeploy tld) {
+        Docker docker = new Docker(system.getNextID());
+
+        docker.setImage(tld.getImage());
+        docker.setName(tld.getName());
+
+        if (tld.getPorts() != null && !tld.getPorts().isEmpty())
+            tld.getPorts().forEach(port -> {
+                int eport = 0;
+                int iport = 0;
+                if (port.contains(":")) {
+                    eport = Integer.parseInt(port.split(":")[0]);
+                    iport = Integer.parseInt(port.split(":")[1]);
+                } else {
+                    eport = Integer.parseInt(port);
+                    iport = eport;
+                }
+                docker.addDockerPort(eport, iport);
+            });
+
+        return docker;
     }
 
     private Service createService(ServiceNode sn, JSONObject params) {
@@ -102,7 +130,7 @@ public class SystemInspector {
         if (ipi.getDocumentation().isPresent()) {
             String doc = ipi.getDocumentation().get();
             if (doc.startsWith("@jolievisualize"))
-                service.addAnnotation(doc.replaceFirst("@jolievisualize", ""));
+                service.setAnnotation(doc.replaceFirst("@jolievisualize", ""));
         }
         if (ipi.protocol() instanceof VariableExpressionNode) {
             String t = getParamFromPath(((VariableExpressionNode) ipi.protocol()).variablePath(), params);
@@ -132,9 +160,8 @@ public class SystemInspector {
             result.addInterface(createInterface(id));
 
         if (service.getUri() != null && service.getUri().length() > 0) {
-            if (ipi.protocol() != null) {
+            if (ipi.protocol() != null)
                 result.addCodeRange(getCodeRange("protocol", ipi.protocol().context()));
-            }
             if (ipi.location() != null)
                 result.addCodeRange(getCodeRange("location", ipi.location().context()));
             result.addCodeRange(getCodeRange("port", ipi.context()));
@@ -249,8 +276,9 @@ public class SystemInspector {
 
     private Interface createInterface(InterfaceDefinition id) {
         Interface result = new Interface(system.getNextInterfaceID(), id.name());
-        result.setUri(getLocalUri(id.context()));
         id.operationsMap().forEach((k, v) -> {
+            if (result.getUri() == null)
+                result.setUri(getLocalUri(v.context()));
             if (v instanceof RequestResponseOperationDeclaration) {
                 RequestResponseOperationDeclaration rrd = (RequestResponseOperationDeclaration) v;
                 result.addRequestResponse(rrd);

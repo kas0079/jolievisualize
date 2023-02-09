@@ -555,6 +555,15 @@ video {
   width: -moz-fit-content;
   width: fit-content;
 }
+.w-10\/12 {
+  width: 83.333333%;
+}
+.w-9\/12 {
+  width: 75%;
+}
+.w-8\/12 {
+  width: 66.666667%;
+}
 .min-w-fit {
   min-width: -moz-fit-content;
   min-width: fit-content;
@@ -631,14 +640,23 @@ video {
 .fill-none {
   fill: none;
 }
+.fill-teal-800 {
+  fill: #115e59;
+}
 .fill-inputPort {
   fill: #e5dc60;
 }
 .fill-outputPort {
   fill: #db0000;
 }
+.fill-sky-700 {
+  fill: #0369a1;
+}
 .fill-serviceHighlight {
   fill: #f0c168;
+}
+.fill-sky-800 {
+  fill: #075985;
 }
 .fill-service {
   fill: #e9a727;
@@ -649,17 +667,29 @@ video {
 .fill-white {
   fill: #fff;
 }
+.fill-zinc-100 {
+  fill: #f4f4f5;
+}
+.fill-black {
+  fill: #000;
+}
 .stroke-white {
   stroke: #fff;
 }
 .stroke-black {
   stroke: #000;
 }
+.stroke-teal-900 {
+  stroke: #134e4a;
+}
 .stroke-ipStroke {
   stroke: #5c5826;
 }
 .stroke-opStroke {
   stroke: #580000;
+}
+.stroke-sky-900 {
+  stroke: #0c4a6e;
 }
 .stroke-serviceStroke {
   stroke: #5d4310;
@@ -674,6 +704,10 @@ video {
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 .text-center {
   text-align: center;
@@ -722,6 +756,10 @@ video {
 
   .sm\:w-1\/2 {
     width: 50%;
+  }
+
+  .sm\:w-auto {
+    width: auto;
   }
 }
 @media (min-width: 1024px) {

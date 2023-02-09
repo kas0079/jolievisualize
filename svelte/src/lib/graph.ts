@@ -1,4 +1,5 @@
 import type { ElkExtendedEdge, ElkNode, ElkPort } from 'elkjs/lib/elk-api';
+import { isDockerService } from './service';
 
 export const portSize = 5;
 
@@ -52,17 +53,50 @@ export const getTopLevelEdges = (services: Service[]): ElkExtendedEdge[] => {
 			if (
 				inputSvc.id === outputSvc.id ||
 				inputSvc.inputPorts === undefined ||
-				inputSvc.inputPorts.length === 0
+				inputSvc.inputPorts.length === 0 ||
+				isDockerService(inputSvc)
 			)
 				return;
 
 			outputSvc.outputPorts.forEach((op) => {
 				inputSvc.inputPorts.forEach((ip) => {
-					if (op.location === ip.location) {
+					if (op.location === ip.location && op.protocol === ip.protocol) {
 						tle.push({
 							id: `${outputSvc.name}${outputSvc.id}${op.name}-${inputSvc.name}${inputSvc.id}${ip.name}`,
 							sources: [`${outputSvc.name}${outputSvc.id}-${op.name}`],
 							targets: [`${inputSvc.name}${inputSvc.id}-${ip.name}`]
+						});
+					}
+				});
+			});
+		});
+	});
+
+	return tle.concat(connectDockerPorts(services));
+};
+
+const connectDockerPorts = (services: Service[]): ElkExtendedEdge[] => {
+	const tle: ElkExtendedEdge[] = [];
+	services.forEach((svc) => {
+		if (!isDockerService(svc)) return;
+		services.forEach((other) => {
+			if (isDockerService(other) || svc.id === other.id) return;
+			svc.inputPorts?.forEach((p) => {
+				other.outputPorts?.forEach((op) => {
+					if (op.location === p.location) {
+						tle.push({
+							id: `${svc.name}${other.id}${op.name}-${svc.name}${svc.id}${p.name}`,
+							sources: [`${other.name}${other.id}-${op.name}`],
+							targets: [`${svc.name}${svc.id}-${p.name}`]
+						});
+					}
+				});
+				other.inputPorts?.forEach((op) => {
+					if (op.location === p.location) {
+						tle.push({
+							id: `${svc.name}${other.id}${op.name}-${svc.name}${svc.id}${p.name}`,
+							sources: [`${other.name}${other.id}-${op.name}`],
+							targets: [`${svc.name}${svc.id}-${p.name}`]
 						});
 					}
 				});
@@ -181,7 +215,7 @@ const getNetworkNodes = (services: Service[][]): ElkNode[] => {
 			},
 			children: getTopLevelServices(serviceList),
 			// ports,
-			edges: getTopLevelEdges(serviceList) //.concat(portEdges)
+			edges: getTopLevelEdges(serviceList)
 		});
 		count++;
 	});

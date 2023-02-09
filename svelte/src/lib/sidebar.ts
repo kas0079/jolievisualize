@@ -26,6 +26,7 @@ export class SidebarElement {
 	service: Service | undefined;
 	serviceList: Service[];
 
+	//TODO refactor
 	equals(other: SidebarElement): boolean {
 		if (this.hist_type != other.hist_type) return false;
 		if (
@@ -47,7 +48,7 @@ export const current_sidebar_element = writable(noSidebar);
 export const openSidebar = (elem: SidebarElement, prev?: SidebarElement): void => {
 	if (prev && prev.hist_type >= 0) {
 		if (sidebarHistory.length > 15) sidebarHistory.splice(0, 1);
-		sidebarHistory.push(prev);
+		if (!prev || !prev.equals(elem)) sidebarHistory.push(prev);
 	}
 	current_sidebar_element.set(elem);
 };

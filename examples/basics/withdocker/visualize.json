@@ -1,0 +1,13 @@
+[
+	[
+		{ "file": "/client.ol" },
+		{ "file": "/server.ol" },
+		{ "file": "/stats.ol" },
+		{
+			"name": "db",
+			"image": "emovc18/mysql",
+			"instances": 2,
+			"ports": ["5432", "5678:3434"]
+		}
+	]
+]

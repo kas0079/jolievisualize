@@ -133,6 +133,14 @@ public class Service {
             }
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
     public Service getParent() {
         return parent;
     }
@@ -159,7 +167,7 @@ public class Service {
         codeRanges.add(cr);
     }
 
-    public void addAnnotation(String anno) {
+    public void setAnnotation(String anno) {
         this.annotation = anno;
     }
 }

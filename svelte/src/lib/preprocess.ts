@@ -17,6 +17,7 @@ export const preprocess = (json: Data): Data => {
 				connectRedirectResources(service.outputPorts);
 				joinOutputPortArrows(service);
 			}
+			if (service.image && service.ports && !service.file) makeDockerPorts(service);
 		});
 	});
 
@@ -26,6 +27,19 @@ export const preprocess = (json: Data): Data => {
 		interfaces: p_interfaces,
 		types: p_types
 	};
+};
+
+const makeDockerPorts = (service: Service): void => {
+	service.inputPorts = [];
+	service.ports.forEach((dp) => {
+		service.inputPorts.push({
+			file: undefined,
+			interfaces: [],
+			location: `socket://localhost:${dp.eport}`,
+			name: `${service.name}_${dp.eport}`,
+			protocol: 'sodep'
+		});
+	});
 };
 
 const joinOutputPortArrows = (service: Service): void => {

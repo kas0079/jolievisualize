@@ -19,6 +19,7 @@
 		getHoveredPolygon,
 		getServiceFromCoords,
 		isAncestor,
+		isDockerService,
 		renderGhostNodeOnDrag
 	} from './lib/service';
 	import {
@@ -131,6 +132,7 @@
 	const startDrag = (e: MouseEvent) => {
 		if (e.button !== 0) return;
 		if (e.shiftKey) {
+			if (isDockerService(service)) return;
 			if (selected) {
 				const tmp = new SidebarElement(4, 'Selection');
 				tmp.serviceList = $current_sidebar_element.serviceList.filter((t) => t.id !== service.id);
@@ -149,17 +151,20 @@
 			sbElem.serviceList.push(service);
 			openSidebar(sbElem, $current_sidebar_element);
 		}
-		if (e.shiftKey || !service.file) return;
+		if (e.shiftKey || (!service.file && !isDockerService(service))) return;
 		dragged = 1;
-		pressTimer = window.setTimeout(() => {
-			const polygon = document.querySelector('#' + serviceNode.id).children[0];
-			polygon.setAttribute('style', 'stroke-width: 0.4; fill: #f0c168;');
-			dragging = true;
-			dragged = 2;
-			startX = e.pageX;
-			startY = e.pageY;
-			clearSidebar();
-		}, 50);
+		pressTimer = window.setTimeout(
+			() => {
+				const polygon = document.querySelector('#' + serviceNode.id).children[0];
+				polygon.setAttribute('style', 'stroke-width: 0.4;');
+				dragging = true;
+				dragged = 2;
+				startX = e.pageX;
+				startY = e.pageY;
+				clearSidebar();
+			},
+			$current_sidebar_element.hist_type == -1 ? 50 : 300
+		);
 	};
 
 	const endDrag = async (e: MouseEvent) => {
@@ -183,16 +188,27 @@
 					await disembed(service);
 				}
 			} else {
-				if (!service.file || (networkId === svcNwId && !service.parent)) return;
+				if (
+					(!service.file && !isDockerService(service)) ||
+					(networkId === svcNwId && !service.parent)
+				)
+					return;
 				addServiceToNetwork(service, networkId);
-				if (vscode && service.parent) loading.set(true);
-				await tick();
-				await disembed(service);
+				if (!isDockerService(service)) {
+					if (vscode && service.parent) loading.set(true);
+					await tick();
+					await disembed(service);
+				}
 			}
 			dispatcher('message', { action: 'reset' });
 			return;
 		}
-		if (droppedOnSvc.id === service.id || isAncestor(service, droppedOnSvc) || !droppedOnSvc.file)
+		if (
+			droppedOnSvc.id === service.id ||
+			isAncestor(service, droppedOnSvc) ||
+			!droppedOnSvc.file ||
+			isDockerService(service)
+		)
 			return;
 		await tick();
 		removeFromNetwork(service, svcNwId);
@@ -216,14 +232,6 @@
 		prevPoly = polyUnder;
 	};
 
-	// const test = (svc: Service[][]) => {
-	// 	service = parent
-	// 		? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
-	// 		: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
-	// };
-
-	// $: test(services);
-
 	beforeUpdate(() => {
 		service = parent
 			? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
@@ -238,8 +246,14 @@
 <svelte:window on:mousemove|stopPropagation={dragListener} on:mouseup|stopPropagation={endDrag} />
 <g id={serviceNode.id}>
 	<polygon
-		class=" stroke-serviceStroke cursor-pointer {selected
-			? 'fill-serviceHighlight'
+		class="{isDockerService(service)
+			? `stroke-sky-900`
+			: 'stroke-serviceStroke'}  cursor-pointer {selected
+			? isDockerService(service)
+				? `fill-sky-700`
+				: 'fill-serviceHighlight'
+			: isDockerService(service)
+			? `fill-sky-800`
 			: 'fill-service'}"
 		style="stroke-width: 0.4"
 		on:dblclick|stopPropagation={openServiceInSidebar}
@@ -286,7 +300,7 @@
 		</g>
 	{/if}
 	<text
-		class="cursor-pointer select-none"
+		class="cursor-pointer select-none {isDockerService(service) ? 'fill-zinc-100' : 'fill-black'}"
 		on:dblclick|stopPropagation={openServiceInSidebar}
 		on:mousedown|stopPropagation={startDrag}>{service.name}</text
 	>

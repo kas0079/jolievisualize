@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { beforeUpdate, createEventDispatcher } from 'svelte';
 	import { interfaces, services, vscode } from '../lib/data';
-	import { findRange, getAllServices } from '../lib/service';
+	import { findRange, getAllServices, isDockerService } from '../lib/service';
 	import { current_sidebar_element, openSidebar, SidebarElement } from '../lib/sidebar';
 
 	export let port: Port;
 	export let portType: string;
 	export let parentID: number;
+
+	let isDockerPort = isDockerService(getAllServices(services).find((t) => t.id === parentID));
 
 	let tmp = '';
 	const saveInnerHTML = (event: MouseEvent) => {
@@ -32,11 +34,14 @@
 					break;
 				case 'location':
 					port.location = change;
+					break;
 			}
 			dispatcher('reloadgraph');
 			if (!vscode) return;
 			if (port.resource && editType === 'location')
 				change += `${change.endsWith('/') ? '' : '/'}!/${port.resource}`;
+			if (editType === 'location') change = `\"${change}\"`;
+			if (!port.file) return;
 			vscode.postMessage({
 				command: 'renamePort',
 				save: true,
@@ -80,6 +85,10 @@
 		sbPort.portType = 'op';
 		openSidebar(sbPort, $current_sidebar_element);
 	};
+
+	beforeUpdate(() => {
+		isDockerPort = isDockerService(getAllServices(services).find((t) => t.id === parentID));
+	});
 </script>
 
 <h1
@@ -89,74 +98,85 @@
 >
 	{port.name}
 </h1>
-<h4 class="text-2xl mb-2">Type: {portType === 'op' ? 'Output Port' : 'Input Port'}</h4>
-<h4 class="text-2xl mb-2">
-	Protocol: <span
-		on:click|stopPropagation={saveInnerHTML}
-		on:keydown|stopPropagation={(e) => finishEdit(e, 'protocol')}
-	>
-		{port.protocol}</span
-	>
-</h4>
 
-{#if port.resource}
-	<h4 class="text-2xl mb-2">Resource: {port.resource}</h4>
-{/if}
-
-{#if !port.location.startsWith('!local')}
+{#if isDockerPort}
+	<h4 class="text-2xl mb-2">Type: Docker External Port</h4>
 	<h4 class="text-2xl mb-2">
 		Location: <span
 			on:click|stopPropagation={saveInnerHTML}
 			on:keydown|stopPropagation={(e) => finishEdit(e, 'location')}>{port.location}</span
 		>
 	</h4>
-{/if}
+{:else}
+	<h4 class="text-2xl mb-2">Type: {portType === 'op' ? 'Output Port' : 'Input Port'}</h4>
+	<h4 class="text-2xl mb-2">
+		Protocol: <span
+			on:click|stopPropagation={saveInnerHTML}
+			on:keydown|stopPropagation={(e) => finishEdit(e, 'protocol')}
+		>
+			{port.protocol}</span
+		>
+	</h4>
 
-{#if port.redirects}
-	<hr />
-	<h4 class="text-2xl mb-2">Redirects:</h4>
-	<ul class="list-disc mx-6">
-		{#each port.redirects as redir}
-			<li class="text-xl my-2">
-				{redir.name} &rArr;
-				<span
-					class="cursor-pointer"
-					on:click={() => openRedirectPort(redir.port)}
-					on:keydown={() => openRedirectPort(redir.port)}>{redir.port}</span
+	{#if port.resource}
+		<h4 class="text-2xl mb-2">Resource: {port.resource}</h4>
+	{/if}
+
+	{#if !port.location.startsWith('!local')}
+		<h4 class="text-2xl mb-2">
+			Location: <span
+				on:click|stopPropagation={saveInnerHTML}
+				on:keydown|stopPropagation={(e) => finishEdit(e, 'location')}>{port.location}</span
+			>
+		</h4>
+	{/if}
+
+	{#if port.redirects}
+		<hr />
+		<h4 class="text-2xl mb-2">Redirects:</h4>
+		<ul class="list-disc mx-6">
+			{#each port.redirects as redir}
+				<li class="text-xl my-2">
+					{redir.name} &rArr;
+					<span
+						class="cursor-pointer"
+						on:click={() => openRedirectPort(redir.port)}
+						on:keydown={() => openRedirectPort(redir.port)}>{redir.port}</span
+					>
+				</li>
+			{/each}
+		</ul>
+	{/if}
+
+	{#if port.interfaces}
+		<hr />
+		<h4 class="text-2xl mb-2">Interfaces:</h4>
+		<ul class="list-disc mx-6">
+			{#each port.interfaces as interf}
+				<li
+					class="text-xl cursor-pointer my-2"
+					on:click={() => openInterface(interf.name)}
+					on:keydown={() => openInterface(interf.name)}
 				>
-			</li>
-		{/each}
-	</ul>
-{/if}
+					{interf.name}
+				</li>
+			{/each}
+		</ul>
+	{/if}
 
-{#if port.interfaces}
-	<hr />
-	<h4 class="text-2xl mb-2">Interfaces:</h4>
-	<ul class="list-disc mx-6">
-		{#each port.interfaces as interf}
-			<li
-				class="text-xl cursor-pointer my-2"
-				on:click={() => openInterface(interf.name)}
-				on:keydown={() => openInterface(interf.name)}
-			>
-				{interf.name}
-			</li>
-		{/each}
-	</ul>
-{/if}
-
-{#if port.aggregates}
-	<hr class="mt-4 " />
-	<h4 class="text-2xl mb-2">Aggregates:</h4>
-	<ul class="list-disc mx-6">
-		{#each port.aggregates as aggr}
-			<li
-				class="text-xl cursor-pointer my-2"
-				on:click={() => openAggregate(aggr.name)}
-				on:keydown={() => openAggregate(aggr.name)}
-			>
-				{aggr.name}
-			</li>
-		{/each}
-	</ul>
+	{#if port.aggregates}
+		<hr class="mt-4 " />
+		<h4 class="text-2xl mb-2">Aggregates:</h4>
+		<ul class="list-disc mx-6">
+			{#each port.aggregates as aggr}
+				<li
+					class="text-xl cursor-pointer my-2"
+					on:click={() => openAggregate(aggr.name)}
+					on:keydown={() => openAggregate(aggr.name)}
+				>
+					{aggr.name}
+				</li>
+			{/each}
+		</ul>
+	{/if}
 {/if}

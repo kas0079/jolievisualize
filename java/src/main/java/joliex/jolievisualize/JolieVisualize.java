@@ -68,7 +68,10 @@ public class JolieVisualize {
                     JSONObject params = null;
                     if (tld.getParams() != null)
                         params = readParams(Paths.get(tld.getPath() + "/" + tld.getParams()));
-
+                    if (tld.getFilename() == null) {
+                        n.addNetwork(tld, null, null);
+                        continue;
+                    }
                     for (ServiceNode sn : parseFile(tld.getFilename(), tld.getPath(), args)) {
                         if (tld.getName() != null) {
                             if (tld.getName().equals(sn.name()))
@@ -115,12 +118,19 @@ public class JolieVisualize {
                     tld.setPath(p.getParent().toAbsolutePath().toString());
                     if (o.get("target") != null)
                         tld.setName((String) o.get("target"));
+                    if (o.get("name") != null)
+                        tld.setName((String) o.get("name"));
                     if (o.get("file") != null)
                         tld.setFilename((String) o.get("file"));
                     if (o.get("instances") != null)
                         tld.setNumberOfInstances((long) o.get("instances"));
                     if (o.get("params") != null)
                         tld.setParams((String) o.get("params"));
+                    if (o.get("image") != null)
+                        tld.setImage((String) o.get("image"));
+                    if (o.get("ports") != null)
+                        for (Object s : ((JSONArray) o.get("ports")))
+                            tld.addPort((String) s);
                     tmpList.add(tld);
                 }
                 tlds.add(tmpList);
@@ -154,9 +164,10 @@ public class JolieVisualize {
                 conf.programFilepath().toURI());
 
         List<ServiceNode> res = new ArrayList<>();
-        for (OLSyntaxNode ol : mpr.mainProgram().children())
+        for (OLSyntaxNode ol : mpr.mainProgram().children()) {
             if (ol instanceof ServiceNode)
                 res.add((ServiceNode) ol);
+        }
 
         cmdParser.close();
         return res;

@@ -61,11 +61,11 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 				?.val.split(',')
 				.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
 
-			let checkInterfac = true;
-			tmp_interfaces.forEach((intName) => {
-				checkInterfac = interfaces.find((t) => t.name === intName.name) !== undefined;
-			});
-			if (!checkInterfac) return false;
+			// let checkInterfac = true;
+			// tmp_interfaces.forEach((intName) => {
+			// 	checkInterfac = interfaces.find((t) => t.name === intName.name) !== undefined;
+			// });
+			// if (!checkInterfac) return false;
 
 			const newIP: Port = {
 				file: service.file,
@@ -324,6 +324,10 @@ export const renderGhostNodeOnDrag = (
 	document.querySelector('main').appendChild(tmp);
 };
 
+export const isDockerService = (service: Service): boolean => {
+	return service.image && service.ports && !service.file;
+};
+
 const deepCopyService = (service: Service): Service => {
 	return {
 		id: getNextId(getAllServices(services)),
@@ -337,7 +341,9 @@ const deepCopyService = (service: Service): Service => {
 		parentPort: service.parentPort,
 		embeddings: service.embeddings ? service.embeddings.map((t) => deepCopyService(t)) : [],
 		inputPorts: service.inputPorts ? service.inputPorts.map((t) => deepCopyPort(t)) : [],
-		outputPorts: service.outputPorts ? service.outputPorts.map((t) => deepCopyPort(t)) : []
+		outputPorts: service.outputPorts ? service.outputPorts.map((t) => deepCopyPort(t)) : [],
+		image: service.image,
+		ports: service.ports
 	};
 };
 

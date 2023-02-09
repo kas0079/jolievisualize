@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { interfaces, services, vscode } from '../lib/data';
 	import { current_popup, PopUp } from '../lib/popup';
-	import { findRange, getAllServices } from '../lib/service';
+	import { findRange, getAllServices, isDockerService } from '../lib/service';
 	import { current_sidebar_element, openSidebar, SidebarElement } from '../lib/sidebar';
 
 	export let service: Service;
@@ -73,11 +73,11 @@
 						?.val.split(',')
 						.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
 
-					let checkInterfac = true;
-					tmp_interfaces.forEach((intName) => {
-						checkInterfac = interfaces.find((t) => t.name === intName.name) !== undefined;
-					});
-					if (!checkInterfac) return false;
+					// let checkInterfac = true;
+					// tmp_interfaces.forEach((intName) => {
+					// 	checkInterfac = interfaces.find((t) => t.name === intName.name) !== undefined;
+					// });
+					// if (!checkInterfac) return false;
 
 					const newPort: Port = {
 						name: vals.find((t) => t.field === 'name')?.val,
@@ -136,72 +136,87 @@
 >
 	{service.name}
 </h1>
-<h4 class="text-2xl mb-2">Type: Service</h4>
-<h4 class="text-2xl mb-2">Execution: {service.execution}</h4>
-<hr />
-<h4 class="text-2xl mt-1 mb-2">
-	Input Ports:
-	{#if service.file}
-		<span
-			class="float-right cursor-pointer text-3xl"
-			on:click={() => addPort('Input')}
-			on:keydown={() => addPort('Input')}>+</span
-		>
-	{/if}
-</h4>
-{#if service.inputPorts && service.inputPorts.length > 0}
-	<ul class="mb-4 list-disc mx-6">
-		{#each service.inputPorts as ip}
-			<li
-				class="text-xl cursor-pointer my-2"
-				on:click={(e) => openPortSidebar(e, 'ip')}
-				on:keydown={(e) => openPortSidebar(e, 'ip')}
-			>
-				{ip.name}{ip.location.startsWith('!local') || ip.location.startsWith('!local')
-					? ''
-					: ' - ' + ip.location} - {ip.protocol}
-			</li>
-		{/each}
-	</ul>
-{/if}
-<hr />
-<h4 class="text-2xl mt-1 mb-2">
-	Output Ports:
-	{#if service.file}
-		<span
-			class="float-right cursor-pointer text-3xl"
-			on:click={() => addPort('Output')}
-			on:keydown={() => addPort('Output')}>+</span
-		>
-	{/if}
-</h4>
-{#if service.outputPorts && service.outputPorts.length > 0}
-	<ul class="mb-4 list-disc mx-6">
-		{#each service.outputPorts as op}
-			<li
-				class="text-xl cursor-pointer my-2"
-				on:click={(e) => openPortSidebar(e, 'op')}
-				on:keydown={(e) => openPortSidebar(e, 'op')}
-			>
-				{op.name}{op.location.startsWith('!local') || op.location.startsWith('local')
-					? ''
-					: ' - ' + op.location} - {op.protocol}
-			</li>
-		{/each}
-	</ul>
-{/if}
-{#if service.embeddings && service.embeddings.length > 0}
+
+<h4 class="text-2xl mb-2">Type: {isDockerService(service) ? 'Docker ' : ''}Service</h4>
+
+{#if isDockerService(service)}
+	<h4 class="text-2xl mb-2">Image: {service.image}</h4>
 	<hr />
-	<h4 class="text-2xl mt-1 mb-2">Embeddings:</h4>
-	<ul class="mb-4 list-disc mx-6">
-		{#each service.embeddings as embed}
-			<li
-				class="text-xl cursor-pointer my-2"
-				on:click={() => openServiceSidebar(embed.id)}
-				on:keydown={() => openServiceSidebar(embed.id)}
+	<h4 class="text-2xl mt-1 mb-2">Docker Ports:</h4>
+	{#if service.ports && service.ports.length > 0}
+		<ul class="mb-4 list-disc mx-6">
+			{#each service.ports as port}
+				<li class="text-xl my-2">{port.eport}:{port.iport}</li>
+			{/each}
+		</ul>
+	{/if}
+{:else}
+	<h4 class="text-2xl mb-2">Execution: {service.execution}</h4>
+	<hr />
+	<h4 class="text-2xl mt-1 mb-2">
+		Input Ports:
+		{#if service.file}
+			<span
+				class="float-right cursor-pointer text-3xl"
+				on:click={() => addPort('Input')}
+				on:keydown={() => addPort('Input')}>+</span
 			>
-				{embed.name}
-			</li>
-		{/each}
-	</ul>
+		{/if}
+	</h4>
+	{#if service.inputPorts && service.inputPorts.length > 0}
+		<ul class="mb-4 list-disc mx-6">
+			{#each service.inputPorts as ip}
+				<li
+					class="text-xl cursor-pointer my-2"
+					on:click={(e) => openPortSidebar(e, 'ip')}
+					on:keydown={(e) => openPortSidebar(e, 'ip')}
+				>
+					{ip.name}{ip.location.startsWith('!local') || ip.location.startsWith('!local')
+						? ''
+						: ' - ' + ip.location} - {ip.protocol}
+				</li>
+			{/each}
+		</ul>
+	{/if}
+	<hr />
+	<h4 class="text-2xl mt-1 mb-2">
+		Output Ports:
+		{#if service.file}
+			<span
+				class="float-right cursor-pointer text-3xl"
+				on:click={() => addPort('Output')}
+				on:keydown={() => addPort('Output')}>+</span
+			>
+		{/if}
+	</h4>
+	{#if service.outputPorts && service.outputPorts.length > 0}
+		<ul class="mb-4 list-disc mx-6">
+			{#each service.outputPorts as op}
+				<li
+					class="text-xl cursor-pointer my-2"
+					on:click={(e) => openPortSidebar(e, 'op')}
+					on:keydown={(e) => openPortSidebar(e, 'op')}
+				>
+					{op.name}{op.location.startsWith('!local') || op.location.startsWith('local')
+						? ''
+						: ' - ' + op.location} - {op.protocol}
+				</li>
+			{/each}
+		</ul>
+	{/if}
+	{#if service.embeddings && service.embeddings.length > 0}
+		<hr />
+		<h4 class="text-2xl mt-1 mb-2">Embeddings:</h4>
+		<ul class="mb-4 list-disc mx-6">
+			{#each service.embeddings as embed}
+				<li
+					class="text-xl cursor-pointer my-2"
+					on:click={() => openServiceSidebar(embed.id)}
+					on:keydown={() => openServiceSidebar(embed.id)}
+				>
+					{embed.name}
+				</li>
+			{/each}
+		</ul>
+	{/if}
 {/if}

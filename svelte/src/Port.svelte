@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { ElkPort } from 'elkjs/lib/elk.bundled';
 	import { afterUpdate } from 'svelte';
+	import { isDockerService } from './lib/service';
 	import { current_sidebar_element, openSidebar, SidebarElement } from './lib/sidebar';
 
 	export let portNode: ElkPort;
@@ -10,6 +11,8 @@
 		portNode.labels[0].text === 'ip'
 			? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
 			: parentService.outputPorts.find((t) => t.name == portNode.labels[1].text);
+
+	let isDockerPort = isDockerService(parentService);
 
 	const drawPort = () => {
 		d3.select(`#${portNode.id}`).attr(
@@ -44,7 +47,9 @@
 <g id={portNode.id}>
 	<rect
 		class={portNode.labels[0].text === 'ip'
-			? 'fill-inputPort stroke-ipStroke cursor-pointer'
+			? isDockerPort
+				? 'fill-teal-800 stroke-teal-900 cursor-pointer'
+				: 'fill-inputPort stroke-ipStroke cursor-pointer'
 			: 'fill-outputPort stroke-opStroke cursor-pointer'}
 		on:click|stopPropagation={openPortInSidebar}
 		on:keydown|stopPropagation={openPortInSidebar}

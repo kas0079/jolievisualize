@@ -49,6 +49,10 @@ public class Interface {
         this.uri = uri;
     }
 
+    public String getUri() {
+        return this.uri;
+    }
+
     public void addRequestResponse(RequestResponseOperationDeclaration rrod) {
         reqres.add(rrod);
     }

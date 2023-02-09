@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 import { preprocess } from './preprocess';
+import { isDockerService } from './service';
 
 export const vscode = acquireVsCodeApi();
 
@@ -41,6 +42,17 @@ export const generateVisFile = (): VisFile => {
 	services.forEach((serviceList) => {
 		const tldList: TLD[] = [];
 		serviceList.forEach((svc) => {
+			if (isDockerService(svc)) {
+				const tld: TLD = {
+					name: svc.name,
+					image: svc.image,
+					ports: makeDockerPorts(svc.ports),
+					instances: getNumberOfInstances(svc, serviceList)
+				};
+				if (svc.paramFile) tld.paramFile = svc.paramFile;
+				if (!tldIncludesDocker(tldList, tld)) tldList.push(tld);
+				return;
+			}
 			const tld: TLD = {
 				file: svc.file,
 				target: svc.name,
@@ -56,7 +68,15 @@ export const generateVisFile = (): VisFile => {
 	};
 };
 
-const tldIncludes = (tldList: TLD[], tld: TLD) => {
+const makeDockerPorts = (ports: DockerPort[]): string[] => {
+	return ports.map((t) => `${t.eport}:${t.iport}`);
+};
+
+const tldIncludesDocker = (tldList: TLD[], tld: TLD): boolean => {
+	return tldList.find((t) => t.image === tld.image) !== undefined;
+};
+
+const tldIncludes = (tldList: TLD[], tld: TLD): boolean => {
 	return (
 		tldList.find(
 			(t) => t.file === tld.file && t.target === tld.target && t.instances === tld.instances
