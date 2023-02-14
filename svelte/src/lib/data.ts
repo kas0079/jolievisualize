@@ -56,7 +56,8 @@ export const generateVisFile = (): VisFile => {
 			const tld: TLD = {
 				file: svc.file,
 				target: svc.name,
-				instances: getNumberOfInstances(svc, serviceList)
+				instances: getNumberOfInstances(svc, serviceList),
+				image: svc.image
 			};
 			if (svc.paramFile) tld.paramFile = svc.paramFile;
 			if (!tldIncludes(tldList, tld)) tldList.push(tld);

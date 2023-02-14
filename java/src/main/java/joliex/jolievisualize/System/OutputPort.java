@@ -17,6 +17,8 @@ public class OutputPort {
 
     private Map<Long, String> interfaces = new HashMap<>();
 
+    private String annotation;
+
     public OutputPort(String name, String protocol, String location) {
         this.name = name;
         this.protocol = protocol;
@@ -25,6 +27,10 @@ public class OutputPort {
 
     public String getName() {
         return name;
+    }
+
+    public String getAnnotation() {
+        return annotation;
     }
 
     public String getProtocol() {
@@ -51,12 +57,19 @@ public class OutputPort {
         codeRanges.add(cr);
     }
 
+    public void setAnnotation(String anno) {
+        this.annotation = anno;
+    }
+
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 
         map.put("name", name);
         map.put("protocol", protocol);
         map.put("location", location);
+
+        if (getAnnotation() != null && getAnnotation().length() > 0)
+            map.put("annotation", getAnnotation());
 
         if (codeRanges.size() > 0) {
             List<JSONObject> codeRangeTmp = new ArrayList<>();

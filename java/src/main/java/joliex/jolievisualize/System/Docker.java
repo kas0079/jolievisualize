@@ -8,11 +8,14 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 public class Docker extends Service {
-    private String image;
     private Map<Integer, Integer> dockerPorts = new HashMap<>();
 
     public Docker(long id) {
         super(id);
+    }
+
+    public Map<Integer, Integer> getPorts() {
+        return dockerPorts;
     }
 
     @Override
@@ -20,7 +23,7 @@ public class Docker extends Service {
         Map<String, Object> map = new HashMap<>();
 
         map.put("name", getName());
-        map.put("image", image);
+        map.put("image", getImage());
         map.put("id", getId());
 
         if (dockerPorts.size() > 0) {
@@ -35,10 +38,6 @@ public class Docker extends Service {
         }
 
         return new JSONObject(map);
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public void addDockerPort(int outPort, int inPort) {

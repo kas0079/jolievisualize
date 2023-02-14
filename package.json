@@ -10,9 +10,6 @@
 	"scripts": {
 		"local": "npm pack && rm ../jolievisualize-0.0.1.tgz && mv jolievisualize-0.0.1.tgz ../jolievisualize-0.0.1.tgz"
 	},
-	"bin": {
-		"jolievisualize-server": "./server.js"
-	},
 	"license": "ISC",
 	"jolie": {
 		"dependencies": {},

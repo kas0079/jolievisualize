@@ -6,10 +6,10 @@ const path = require("path");
 const app = express();
 app.use(express.static(`${__dirname}/web/`));
 
+//TODO delete
 const filename = process.argv[2];
-const data = index.getData(path.resolve(filename)).then((d) => {
-	console.log(d);
-});
+const data = index.getDockerComposeData(path.resolve(filename));
+console.log(data);
 
 const port = 3000;
 

@@ -10,6 +10,17 @@ const getData = (visfile, notExtension = true) => {
 	return res.toString();
 };
 
+const getDockerComposeData = (visfile, notExtension = true) => {
+	const res = execFileSync(
+		`${__dirname}/visualize`,
+		[`${notExtension ? visfile : visfile[0].path}`, "--docker-compose"],
+		{ timeout: 4000 }
+	);
+	if (!res) return `ERROR`;
+	return res.toString();
+};
+
 module.exports = {
 	getData,
+	getDockerComposeData,
 };

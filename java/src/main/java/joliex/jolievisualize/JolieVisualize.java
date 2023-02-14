@@ -26,6 +26,7 @@ import jolie.lang.parse.module.ModuleException;
 import jolie.lang.parse.module.ModuleParsingConfiguration;
 import jolie.lang.parse.module.Modules;
 import jolie.lang.parse.module.Modules.ModuleParsedResult;
+import joliex.jolievisualize.Deployment.DockerCompose;
 
 public class JolieVisualize {
     static {
@@ -46,7 +47,7 @@ public class JolieVisualize {
             ModuleException, CodeCheckException {
 
         if (args.length <= 6) {
-            System.out.println("Invalid arguments, usage: jolievisualize path/to/visualize.json");
+            System.out.println("Invalid arguments, usage: ./visualize path/to/visualize.json");
             return;
         }
 
@@ -55,6 +56,16 @@ public class JolieVisualize {
         if (pathName.equals("--help") || pathName.equals("-h")) {
             System.out.println("Usage: ./visualize path/to/visualize.json");
             return;
+        }
+
+        boolean shouldGenerateDeployment = false;
+        String deploymentType = "";
+
+        for (int i = 6; i < args.length; i++) {
+            if (args[i].equals("--docker-compose")) {
+                shouldGenerateDeployment = true;
+                deploymentType = "docker_compose";
+            }
         }
 
         Path p = Paths.get(pathName);
@@ -83,8 +94,23 @@ public class JolieVisualize {
                 listOfNetworks.add(n);
             }
             SystemInspector si = new SystemInspector(listOfNetworks);
-            JSONObject o = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
-            System.out.println(o.toJSONString());
+            if (!shouldGenerateDeployment) {
+                JSONObject o = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
+                System.out.println(o.toJSONString());
+            } else {
+                switch (deploymentType) {
+                    case "docker_compose":
+                        DockerCompose dc = new DockerCompose(
+                                si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()));
+                        System.out.println(dc.generateComposeFile());
+                        break;
+                    case "kubernetes":
+                        // Not implemented
+                        break;
+                    default:
+                        break;
+                }
+            }
         } else {
             System.out.println("Invalid - argument must be a .json file");
         }
@@ -142,7 +168,7 @@ public class JolieVisualize {
     private static List<ServiceNode> parseFile(String filePath, String path, String[] args)
             throws CommandLineException, IOException, ParserException, ModuleException, CodeCheckException {
         List<String> argList = new ArrayList<>();
-        for (int i = 0; i < args.length - 1; i++)
+        for (int i = 0; i < 6; i++)
             argList.add(args[i]);
 
         argList.add(path + "/" + filePath);

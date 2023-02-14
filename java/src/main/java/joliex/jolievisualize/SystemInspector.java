@@ -49,9 +49,13 @@ public class SystemInspector {
     }
 
     public JSONObject createJSON(String name) {
+        return getJolieSystem(name).toJSON();
+    }
+
+    public JolieSystem getJolieSystem(String name) {
         system.setName(name);
         inspectNetworks();
-        return system.toJSON();
+        return this.system;
     }
 
     private void inspectNetworks() {
@@ -67,6 +71,8 @@ public class SystemInspector {
                     n.addService(createDockerService(tld));
                 else {
                     Service svc = createService(pair.key(), pair.value());
+                    if (tld.getImage() != null)
+                        svc.setImage(tld.getImage());
                     if (tld.getParams() != null)
                         svc.setParamFile(tld.getParams());
                     n.addService(svc);
@@ -127,10 +133,11 @@ public class SystemInspector {
     private InputPort createInputPort(InputPortInfo ipi, JSONObject params, Service service) {
         String protocol = "";
         String location = "";
+        String annotation = "";
         if (ipi.getDocumentation().isPresent()) {
             String doc = ipi.getDocumentation().get();
             if (doc.startsWith("@jolievisualize"))
-                service.setAnnotation(doc.replaceFirst("@jolievisualize", ""));
+                annotation = doc.replaceFirst("@jolievisualize", "");
         }
         if (ipi.protocol() instanceof VariableExpressionNode) {
             String t = getParamFromPath(((VariableExpressionNode) ipi.protocol()).variablePath(), params);
@@ -159,6 +166,8 @@ public class SystemInspector {
         for (InterfaceDefinition id : ipi.getInterfaceList())
             result.addInterface(createInterface(id));
 
+        if (annotation.length() > 0)
+            result.setAnnotation(annotation);
         if (service.getUri() != null && service.getUri().length() > 0) {
             if (ipi.protocol() != null)
                 result.addCodeRange(getCodeRange("protocol", ipi.protocol().context()));
@@ -235,6 +244,12 @@ public class SystemInspector {
     private OutputPort createOutputPort(OutputPortInfo opi, JSONObject params, Service service) {
         String protocol = "";
         String location = "";
+        String annotation = "";
+        if (opi.getDocumentation().isPresent()) {
+            String doc = opi.getDocumentation().get();
+            if (doc.startsWith("@jolievisualize"))
+                annotation = doc.replaceFirst("@jolievisualize", "");
+        }
         if (opi.protocol() instanceof VariableExpressionNode) {
             String t = getParamFromPath(((VariableExpressionNode) opi.protocol()).variablePath(), params);
             if (!t.equals(""))
@@ -260,6 +275,8 @@ public class SystemInspector {
         }
         OutputPort op = new OutputPort(opi.id(), protocol, location);
 
+        if (annotation.length() > 0)
+            op.setAnnotation(annotation);
         if (service.getUri() != null && service.getUri().length() > 0) {
             if (opi.protocol() != null) {
                 op.addCodeRange(getCodeRange("protocol", opi.protocol().context()));

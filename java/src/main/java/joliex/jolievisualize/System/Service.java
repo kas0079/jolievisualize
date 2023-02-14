@@ -18,7 +18,6 @@ public class Service {
     private String uri;
     private String paramFile;
 
-    private String annotation;
     private List<OutputPort> outputPorts = new ArrayList<>();
     private List<InputPort> inputPorts = new ArrayList<>();
     private List<Courier> couriers = new ArrayList<>();
@@ -26,6 +25,8 @@ public class Service {
     private List<Service> children;
     private Service parent;
     private String bindingPortName;
+
+    private String image;
 
     private List<CodeRange> codeRanges = new ArrayList<>();
 
@@ -41,9 +42,6 @@ public class Service {
         map.put("execution", getExecution());
         map.put("id", id);
 
-        if (annotation != null && annotation.length() > 0)
-            map.put("annotation", annotation);
-
         if (codeRanges.size() > 0 && uri != null && uri.length() > 0) {
             List<JSONObject> codeRangeTmp = new ArrayList<>();
             codeRanges.forEach(cr -> {
@@ -51,6 +49,9 @@ public class Service {
             });
             map.put("ranges", codeRangeTmp);
         }
+
+        if (image != null)
+            map.put("image", image);
 
         if (uri != null && uri.length() > 0)
             map.put("file", uri);
@@ -89,6 +90,10 @@ public class Service {
         return this.couriers;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public void addCourier(Courier c) {
         couriers.add(c);
     }
@@ -125,6 +130,10 @@ public class Service {
         this.paramFile = filename;
     }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public void removeChildWithID(long id) {
         for (int i = 0; i < children.size(); i++)
             if (children.get(i).id == id) {
@@ -153,6 +162,14 @@ public class Service {
         return uri;
     }
 
+    public List<InputPort> getInputPorts() {
+        return inputPorts;
+    }
+
+    public List<OutputPort> getOutputPorts() {
+        return outputPorts;
+    }
+
     public String getExecution() {
         if (executionInfo == null)
             return "single";
@@ -165,9 +182,5 @@ public class Service {
 
     public void addCodeRange(CodeRange cr) {
         codeRanges.add(cr);
-    }
-
-    public void setAnnotation(String anno) {
-        this.annotation = anno;
     }
 }
