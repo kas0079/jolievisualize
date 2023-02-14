@@ -34,7 +34,7 @@
 </script>
 
 <h1
-	class="text-center text-4xl mt-1 mb-4"
+	class="text-center text-4xl mt-1 mb-4 line-break"
 	on:click|stopPropagation={saveInnerHTML}
 	on:keydown|stopPropagation={(e) => finishEdit(e)}
 >

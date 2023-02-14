@@ -55,10 +55,13 @@
 		}
 	};
 
-	const openInterface = (interfName: string) => {
-		const interf = interfaces.find((t) => t.name === interfName);
+	const openInterface = (interfName: string): void => {
+		openSpecificInterface(interfaces.find((t) => t.name === interfName));
+	};
+
+	const openSpecificInterface = (interf: Interface): void => {
 		if (!interf) return;
-		const sbElem = new SidebarElement(2, interfName);
+		const sbElem = new SidebarElement(2, interf.name);
 		sbElem.interf = interf;
 		openSidebar(sbElem, $current_sidebar_element);
 	};
@@ -70,8 +73,9 @@
 		const aggrPort = svc.outputPorts?.find((t) => t.name === aggrName);
 		if (aggrName === undefined) return;
 
-		const sbElem = new SidebarElement(1, aggrName);
+		const sbElem = new SidebarElement(1, aggrPort.name);
 		sbElem.port = aggrPort;
+		sbElem.portType = 'op';
 		sbElem.port_parentID = parentID;
 		openSidebar(sbElem, $current_sidebar_element);
 	};
@@ -92,7 +96,7 @@
 </script>
 
 <h1
-	class="text-center text-4xl mt-1 mb-4"
+	class="text-center text-4xl mt-1 mb-4 line-break"
 	on:click|stopPropagation={saveInnerHTML}
 	on:keydown|stopPropagation={(e) => finishEdit(e, 'port_name')}
 >
@@ -169,13 +173,41 @@
 		<h4 class="text-2xl mb-2">Aggregates:</h4>
 		<ul class="list-disc mx-6">
 			{#each port.aggregates as aggr}
-				<li
-					class="text-xl cursor-pointer my-2"
-					on:click={() => openAggregate(aggr.name)}
-					on:keydown={() => openAggregate(aggr.name)}
-				>
-					{aggr.name}
-				</li>
+				{#if aggr.collection && aggr.collection.length > 0}
+					<li class="text-xl">
+						&lbrace;
+						{#each aggr.collection as col}
+							<span
+								class="px-1 cursor-pointer"
+								on:click={() => openAggregate(col.name)}
+								on:keydown={() => openAggregate(col.name)}
+								>{col.name}
+								{#if col.name !== aggr.collection[aggr.collection.length - 1].name}
+									,
+								{/if}
+							</span>
+						{/each}
+						&rbrace;
+						{#if aggr.extender}
+							<span
+								class="cursor-pointer text-xl"
+								on:click={() => openSpecificInterface(aggr.extender)}
+								on:keydown={() => openSpecificInterface(aggr.extender)}>- {aggr.extender.name}</span
+							>
+						{/if}
+					</li>
+				{:else}
+					<li
+						class="text-xl cursor-pointer my-2"
+						on:click={() => openAggregate(aggr.name)}
+						on:keydown={() => openAggregate(aggr.name)}
+					>
+						{aggr.name}
+						{#if aggr.extender}
+							<span>- {aggr.extender.name}</span>
+						{/if}
+					</li>
+				{/if}
 			{/each}
 		</ul>
 	{/if}

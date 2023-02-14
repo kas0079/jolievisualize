@@ -4,8 +4,8 @@
 	"description": "",
 	"type": "module",
 	"scripts": {
-		"build": "cp ./index.html ../web/index.html && webpack --node-env=production --config ./webpack.config.cjs",
-		"dev": "cp ./index.html ../web/index.html && webpack --watch"
+		"build": "mkdir -p ../web && cp ./index.html ../web/index.html && webpack --node-env=production --config ./webpack.config.cjs",
+		"dev": "mkdir -p ../web && cp ./index.html ../web/index.html && webpack --watch"
 	},
 	"keywords": [],
 	"author": "",
