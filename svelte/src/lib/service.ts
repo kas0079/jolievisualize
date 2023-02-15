@@ -2,6 +2,8 @@ import type { ElkNode } from 'elkjs/lib/elk-api';
 import { interfaces, services, vscode } from './data';
 import { addServiceToNetwork } from './network';
 import { PopUp, current_popup } from './popup';
+import { getServicePatternType } from './patterns';
+import { portSize } from './graph';
 
 export const updateRanges = (data: Data): void => {
 	const allSvc = getAllServices(services);
@@ -51,7 +53,6 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	const popUp = new PopUp(
 		` Create new local ports for ${service.name} and ${parent.name} `,
 		['input port name', 'output port name', 'protocol', 'interfaces'],
-		300,
 		(vals) => {
 			if (vals.filter((t) => t.val === '').length > 0) return false;
 
@@ -60,12 +61,6 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 				.find((t) => t.field === 'interfaces')
 				?.val.split(',')
 				.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
-
-			// let checkInterfac = true;
-			// tmp_interfaces.forEach((intName) => {
-			// 	checkInterfac = interfaces.find((t) => t.name === intName.name) !== undefined;
-			// });
-			// if (!checkInterfac) return false;
 
 			const newIP: Port = {
 				file: service.file,
@@ -291,6 +286,47 @@ export const transposeRange = (
 	};
 };
 
+export const drawService = (serviceNode: ElkNode, expanded: boolean) => {
+	serviceNode.x = serviceNode.x ?? 0;
+	serviceNode.y = serviceNode.y ?? 0;
+	serviceNode.width = serviceNode.width ?? 0;
+	serviceNode.height = serviceNode.height ?? 0;
+
+	const w = serviceNode.width / 2;
+	const h = serviceNode.height;
+	const sideOffset = Math.min(w / 4, portSize - 1);
+
+	d3.select(`#${serviceNode.id}`).attr(
+		'transform',
+		`translate(${serviceNode.x}, ${serviceNode.y})`
+	);
+	d3.select(`#${serviceNode.id} > polygon`)
+		.attr(
+			'points',
+			`${-sideOffset},${h / 2} ${0},${h} ${w * 2},${h} ${w * 2 + sideOffset},${h / 2} ${
+				w * 2
+			},${0} ${0},${0}`
+		)
+		.on('mouseover', () => {
+			d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.8');
+		})
+		.on('mouseleave', () => {
+			d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.4');
+		});
+
+	d3.select(`#${serviceNode.id} > text`)
+		.attr('x', w)
+		.attr('text-anchor', 'middle')
+		.attr('y', expanded ? 5 : h / 2 + 1)
+		.style('font', '4px sans-serif')
+		.on('mouseover', () => {
+			d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.8');
+		})
+		.on('mouseleave', () => {
+			d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.4');
+		});
+};
+
 export const renderGhostNodeOnDrag = (
 	serviceNode: ElkNode,
 	e: MouseEvent,
@@ -334,7 +370,6 @@ const deepCopyService = (service: Service): Service => {
 		execution: service.execution,
 		file: service.file,
 		name: service.name,
-		annotation: service.annotation,
 		ranges: deepCopyRanges(service.ranges),
 		paramFile: service.paramFile,
 		parent: service.parent,
@@ -353,6 +388,7 @@ const deepCopyPort = (port: Port): Port => {
 		interfaces: port.interfaces.map((t) => t),
 		location: port.location,
 		name: port.name,
+		annotation: port.annotation,
 		protocol: port.protocol,
 		ranges: deepCopyRanges(port.ranges)
 		// more stuff

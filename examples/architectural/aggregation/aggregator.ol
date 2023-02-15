@@ -20,6 +20,7 @@ service Aggregator {
         Interfaces: FaxInterface
     }
 
+    ///@jolievisualize aggregator
     inputPort Aggregator {
         Location: "socket://localhost:9002"
         Protocol: sodep

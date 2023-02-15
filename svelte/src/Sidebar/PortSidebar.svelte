@@ -55,18 +55,18 @@
 		}
 	};
 
-	const openInterface = (interfName: string): void => {
-		openSpecificInterface(interfaces.find((t) => t.name === interfName));
+	const openInterfaceSidebar = (interfName: string): void => {
+		openSpecificInterfaceSidebar(interfaces.find((t) => t.name === interfName));
 	};
 
-	const openSpecificInterface = (interf: Interface): void => {
+	const openSpecificInterfaceSidebar = (interf: Interface): void => {
 		if (!interf) return;
 		const sbElem = new SidebarElement(2, interf.name);
 		sbElem.interf = interf;
 		openSidebar(sbElem, $current_sidebar_element);
 	};
 
-	const openAggregate = (aggrName: string) => {
+	const openAggregateSidebar = (aggrName: string) => {
 		const svc = getAllServices(services).find((t) => t.id === parentID);
 		if (svc === undefined) return;
 
@@ -80,7 +80,7 @@
 		openSidebar(sbElem, $current_sidebar_element);
 	};
 
-	const openRedirectPort = (redirPortName: string): void => {
+	const openRedirectPortSidebar = (redirPortName: string): void => {
 		const parent = getAllServices(services).find((t) => t.id === parentID);
 		const port = parent.outputPorts.find((t) => t.name === redirPortName);
 		const sbPort = new SidebarElement(1, port.name);
@@ -144,8 +144,8 @@
 					{redir.name} &rArr;
 					<span
 						class="cursor-pointer"
-						on:click={() => openRedirectPort(redir.port)}
-						on:keydown={() => openRedirectPort(redir.port)}>{redir.port}</span
+						on:click={() => openRedirectPortSidebar(redir.port)}
+						on:keydown={() => openRedirectPortSidebar(redir.port)}>{redir.port}</span
 					>
 				</li>
 			{/each}
@@ -159,8 +159,8 @@
 			{#each port.interfaces as interf}
 				<li
 					class="text-xl cursor-pointer my-2"
-					on:click={() => openInterface(interf.name)}
-					on:keydown={() => openInterface(interf.name)}
+					on:click={() => openInterfaceSidebar(interf.name)}
+					on:keydown={() => openInterfaceSidebar(interf.name)}
 				>
 					{interf.name}
 				</li>
@@ -179,8 +179,8 @@
 						{#each aggr.collection as col}
 							<span
 								class="px-1 cursor-pointer"
-								on:click={() => openAggregate(col.name)}
-								on:keydown={() => openAggregate(col.name)}
+								on:click={() => openAggregateSidebar(col.name)}
+								on:keydown={() => openAggregateSidebar(col.name)}
 								>{col.name}
 								{#if col.name !== aggr.collection[aggr.collection.length - 1].name}
 									,
@@ -191,16 +191,17 @@
 						{#if aggr.extender}
 							<span
 								class="cursor-pointer text-xl"
-								on:click={() => openSpecificInterface(aggr.extender)}
-								on:keydown={() => openSpecificInterface(aggr.extender)}>- {aggr.extender.name}</span
+								on:click={() => openSpecificInterfaceSidebar(aggr.extender)}
+								on:keydown={() => openSpecificInterfaceSidebar(aggr.extender)}
+								>- {aggr.extender.name}</span
 							>
 						{/if}
 					</li>
 				{:else}
 					<li
 						class="text-xl cursor-pointer my-2"
-						on:click={() => openAggregate(aggr.name)}
-						on:keydown={() => openAggregate(aggr.name)}
+						on:click={() => openAggregateSidebar(aggr.name)}
+						on:keydown={() => openAggregateSidebar(aggr.name)}
 					>
 						{aggr.name}
 						{#if aggr.extender}

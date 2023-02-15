@@ -4,7 +4,7 @@ export class PopUp {
 	constructor(
 		title: string,
 		fields: string[],
-		sbWidth: number,
+
 		confirm = (vals: { field: string; val: string }[]): boolean => {
 			return false;
 		},
@@ -13,14 +13,14 @@ export class PopUp {
 		}
 	) {
 		this.title = title;
-		this.sbWidth = sbWidth;
+
 		fields.forEach((f) => this.values.push({ field: f, val: '' }));
 		this.confirm = confirm;
 		this.cancel = cancel;
 	}
 
 	title = '';
-	sbWidth = 0;
+
 	values: { field: string; val: string }[] = [];
 	confirm = (vals: { field: string; val: string }[]): boolean => {
 		return false;
@@ -30,7 +30,7 @@ export class PopUp {
 	};
 }
 
-export const noPopup = new PopUp('', [], 0);
+export const noPopup = new PopUp('', []);
 export const current_popup = writable(noPopup);
 
 // TODO write functions similar to sidebar

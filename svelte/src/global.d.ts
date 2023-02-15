@@ -29,7 +29,6 @@ type Service = {
 	embeddings: Service[];
 	name: string;
 	execution: string;
-	annotation?: string;
 	ranges?: CodeRange[];
 	inputPorts: Port[];
 	outputPorts: Port[];
@@ -59,6 +58,7 @@ type Type = {
 type Port = {
 	name: string;
 	location: string;
+	annotation?: string;
 	protocol: string;
 	aggregates?: Aggregate[];
 	couriers?: Courier[];

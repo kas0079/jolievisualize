@@ -30,17 +30,4 @@ service Aggregator {
         Protocol: sodep
         aggregates: S1Port, S2Port
     }
-
-    ///@jolievisualize dummy
-    inputPort dummy {
-        Location: "local"
-        Protocol: sodep
-        OneWay: dummy(void)
-    }
-
-    main {
-         [dummy()]{
-            shutdown()
-         }
-    }
 }

@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { interfaces, services, vscode } from '../lib/data';
+	import { services, vscode } from '../lib/data';
 	import { current_popup, PopUp } from '../lib/popup';
 	import { findRange, getAllServices, isDockerService } from '../lib/service';
 	import { current_sidebar_element, openSidebar, SidebarElement } from '../lib/sidebar';
+	import { getServicePatternType } from './../lib/patterns';
 
 	export let service: Service;
 
@@ -64,7 +65,6 @@
 			new PopUp(
 				`Create new ${type.toLowerCase()} port`,
 				['name', 'protocol', 'location', 'interfaces'],
-				300,
 				(vals) => {
 					if (vals.filter((t) => t.val === '').length > 0) return false;
 					const tmp_interfaces = [];
@@ -72,12 +72,6 @@
 						.find((t) => t.field === 'interfaces')
 						?.val.split(',')
 						.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
-
-					// let checkInterfac = true;
-					// tmp_interfaces.forEach((intName) => {
-					// 	checkInterfac = interfaces.find((t) => t.name === intName.name) !== undefined;
-					// });
-					// if (!checkInterfac) return false;
 
 					const newPort: Port = {
 						name: vals.find((t) => t.field === 'name')?.val,
@@ -138,6 +132,10 @@
 </h1>
 
 <h4 class="text-2xl mb-2">Type: {isDockerService(service) ? 'Docker ' : ''}Service</h4>
+
+{#if getServicePatternType(service)}
+	<h4 class="text-2xl mb-2">Annotation: {getServicePatternType(service)}</h4>
+{/if}
 
 {#if isDockerService(service)}
 	<h4 class="text-2xl mb-2">Image: {service.image}</h4>

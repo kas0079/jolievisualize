@@ -167,7 +167,7 @@ public class SystemInspector {
             result.addInterface(createInterface(id));
 
         if (annotation.length() > 0)
-            result.setAnnotation(annotation);
+            result.setAnnotation(annotation.trim());
         if (service.getUri() != null && service.getUri().length() > 0) {
             if (ipi.protocol() != null)
                 result.addCodeRange(getCodeRange("protocol", ipi.protocol().context()));
@@ -276,7 +276,7 @@ public class SystemInspector {
         OutputPort op = new OutputPort(opi.id(), protocol, location);
 
         if (annotation.length() > 0)
-            op.setAnnotation(annotation);
+            op.setAnnotation(annotation.trim());
         if (service.getUri() != null && service.getUri().length() > 0) {
             if (opi.protocol() != null) {
                 op.addCodeRange(getCodeRange("protocol", opi.protocol().context()));

@@ -3,7 +3,6 @@
 	import { afterUpdate, beforeUpdate, createEventDispatcher, tick } from 'svelte';
 	import Edge from './Edge.svelte';
 	import { loading, services, vscode } from './lib/data';
-	import { portSize } from './lib/graph';
 	import {
 		addServiceToNetwork,
 		getClickedNetworkGroupId,
@@ -12,8 +11,10 @@
 		getServiceNetworkId,
 		removeFromNetwork
 	} from './lib/network';
+	import { getServicePatternType } from './lib/patterns';
 	import {
 		disembed,
+		drawService,
 		embed,
 		getAllServices,
 		getHoveredPolygon,
@@ -34,8 +35,9 @@
 	export let parent: Service | undefined;
 
 	let service: Service;
+	let annotationType: string;
+	let expanded: boolean;
 
-	let expanded = serviceNode.children[0].id !== '!leaf';
 	let selected = false;
 	let dragged = 0;
 	let dragging = false;
@@ -85,50 +87,8 @@
 		});
 	};
 
-	const drawService = () => {
-		serviceNode.x = serviceNode.x ?? 0;
-		serviceNode.y = serviceNode.y ?? 0;
-		serviceNode.width = serviceNode.width ?? 0;
-		serviceNode.height = serviceNode.height ?? 0;
-
-		const w = serviceNode.width / 2;
-		const h = serviceNode.height;
-		const sideOffset = Math.min(w / 4, portSize - 1);
-
-		d3.select(`#${serviceNode.id}`).attr(
-			'transform',
-			`translate(${serviceNode.x}, ${serviceNode.y})`
-		);
-		d3.select(`#${serviceNode.id} > polygon`)
-			.attr(
-				'points',
-				`${-sideOffset},${h / 2} ${0},${h} ${w * 2},${h} ${w * 2 + sideOffset},${h / 2} ${
-					w * 2
-				},${0} ${0},${0}`
-			)
-			.on('mouseover', () => {
-				d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.8');
-			})
-			.on('mouseleave', () => {
-				d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.4');
-			});
-
-		d3.select(`#${serviceNode.id} > text`)
-			.attr('x', w)
-			.attr('text-anchor', 'middle')
-			.attr('y', expanded ? 5 : h / 2 + 1)
-			.style('font', '4px sans-serif')
-			.on('mouseover', () => {
-				d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.8');
-			})
-			.on('mouseleave', () => {
-				d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.4');
-			});
-	};
-
 	let pressTimer: number;
 	let startX: number, startY: number;
-
 	const startDrag = (e: MouseEvent) => {
 		if (e.button !== 0) return;
 		if (e.shiftKey) {
@@ -218,7 +178,6 @@
 	};
 
 	let prevPoly: Element;
-
 	const dragListener = (e: MouseEvent) => {
 		if (!dragging) return;
 		renderGhostNodeOnDrag(serviceNode, e, startX, startY);
@@ -233,13 +192,15 @@
 	};
 
 	beforeUpdate(() => {
+		expanded = serviceNode.children[0].id !== '!leaf';
 		service = parent
 			? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
 			: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
+		annotationType = getServicePatternType(service);
 	});
 
 	afterUpdate(() => {
-		drawService();
+		drawService(serviceNode, expanded);
 	});
 </script>
 
@@ -248,12 +209,18 @@
 	<polygon
 		class="{isDockerService(service)
 			? `stroke-sky-900`
+			: annotationType
+			? 'stroke-amber-700'
 			: 'stroke-serviceStroke'}  cursor-pointer {selected
 			? isDockerService(service)
 				? `fill-sky-700`
+				: annotationType
+				? 'fill-amber-500'
 				: 'fill-serviceHighlight'
 			: isDockerService(service)
 			? `fill-sky-800`
+			: annotationType
+			? 'fill-amber-600'
 			: 'fill-service'}"
 		style="stroke-width: 0.4"
 		on:dblclick|stopPropagation={openServiceInSidebar}

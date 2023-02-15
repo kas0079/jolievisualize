@@ -26,6 +26,7 @@ service Aggregator {
     embed Fax in Fax
     embed Printer in printer
 
+    ///@jolievisualize aggregator
     inputPort Aggregator {
         Location: "socket://localhost:9002"
         Protocol: sodep

@@ -5,3 +5,4 @@ yarn.lock
 .vscode/
 java/target/
 web/
+tests/
