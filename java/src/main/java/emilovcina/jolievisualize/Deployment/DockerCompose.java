@@ -1,4 +1,4 @@
-package joliex.jolievisualize.Deployment;
+package emilovcina.jolievisualize.Deployment;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import joliex.jolievisualize.Network;
-import joliex.jolievisualize.System.Docker;
-import joliex.jolievisualize.System.InputPort;
-import joliex.jolievisualize.System.JolieSystem;
-import joliex.jolievisualize.System.Service;
+import emilovcina.jolievisualize.Network;
+import emilovcina.jolievisualize.System.Docker;
+import emilovcina.jolievisualize.System.InputPort;
+import emilovcina.jolievisualize.System.JolieSystem;
+import emilovcina.jolievisualize.System.Service;
 
 public class DockerCompose {
 

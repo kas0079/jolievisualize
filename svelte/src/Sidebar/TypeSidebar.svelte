@@ -31,6 +31,22 @@
 </h1>
 <h4 class="text-2xl mb-2">Type: Type</h4>
 <h4 class="text-2xl mb-2">Root Type: {type.type ?? 'void'}</h4>
+{#if type.leftType && type.rightType}
+	<h4 class="text-2xl mb-2">
+		Left Type: <span
+			class="cursor-pointer"
+			on:click={() => openTypeSidebar(type.leftType)}
+			on:keydown={() => openTypeSidebar(type.leftType)}>{type.leftType}</span
+		>
+	</h4>
+	<h4 class="text-2xl mb-2">
+		Right Type: <span
+			class="cursor-pointer"
+			on:click={() => openTypeSidebar(type.rightType)}
+			on:keydown={() => openTypeSidebar(type.rightType)}>{type.rightType}</span
+		>
+	</h4>
+{/if}
 {#if type.subTypes && type.subTypes.length > 0}
 	<hr />
 	<h4 class="text-2xl mb-2">Subtypes:</h4>

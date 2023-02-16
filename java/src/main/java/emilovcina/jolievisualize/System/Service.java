@@ -1,14 +1,16 @@
-package joliex.jolievisualize.System;
+package emilovcina.jolievisualize.System;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.simple.JSONObject;
 
+import emilovcina.jolievisualize.CodeRange;
 import jolie.lang.parse.ast.ExecutionInfo;
-import joliex.jolievisualize.CodeRange;
 
 public class Service {
     private String name;
@@ -30,7 +32,7 @@ public class Service {
 
     private List<CodeRange> codeRanges = new ArrayList<>();
 
-    private List<String> dependencies = new ArrayList<>();
+    private Set<String> dependencies = new HashSet<>();
 
     public Service(long id) {
         this.id = id;
@@ -88,8 +90,18 @@ public class Service {
         return new JSONObject(map);
     }
 
+    public void addDependencyFile(String filePath) {
+        if (filePath.equalsIgnoreCase(this.uri))
+            return;
+        this.dependencies.add(filePath);
+    }
+
     public List<Courier> getCouriers() {
         return this.couriers;
+    }
+
+    public Set<String> getDependencies() {
+        return this.dependencies;
     }
 
     public String getImage() {

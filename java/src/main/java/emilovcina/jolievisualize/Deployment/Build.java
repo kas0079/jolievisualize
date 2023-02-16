@@ -1,8 +1,8 @@
-package joliex.jolievisualize.Deployment;
+package emilovcina.jolievisualize.Deployment;
 
 import java.util.List;
 
-import joliex.jolievisualize.Network;
+import emilovcina.jolievisualize.Network;
 
 public class Build {
     private final List<Network> networks;
@@ -10,5 +10,4 @@ public class Build {
     public Build(List<Network> networks) {
         this.networks = networks;
     }
-
 }

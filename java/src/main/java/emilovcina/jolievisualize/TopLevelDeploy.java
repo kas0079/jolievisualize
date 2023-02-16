@@ -1,4 +1,4 @@
-package joliex.jolievisualize;
+package emilovcina.jolievisualize;
 
 import java.util.ArrayList;
 import java.util.List;

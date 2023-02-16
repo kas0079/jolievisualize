@@ -1,4 +1,4 @@
-package joliex.jolievisualize;
+package emilovcina.jolievisualize;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
+import emilovcina.jolievisualize.System.Service;
 import jolie.lang.parse.ast.ServiceNode;
 import jolie.util.Pair;
-import joliex.jolievisualize.System.Service;
 
 public class Network {
     private Map<TopLevelDeploy, Pair<ServiceNode, JSONObject>> network = new HashMap<>();

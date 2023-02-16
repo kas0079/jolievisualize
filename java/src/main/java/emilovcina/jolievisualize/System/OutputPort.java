@@ -1,4 +1,4 @@
-package joliex.jolievisualize.System;
+package emilovcina.jolievisualize.System;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +7,9 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
-import joliex.jolievisualize.CodeRange;
+import emilovcina.jolievisualize.CodeRange;
+import jolie.lang.parse.ast.OneWayOperationDeclaration;
+import jolie.lang.parse.ast.RequestResponseOperationDeclaration;
 
 public class OutputPort {
     private String name;
@@ -16,6 +18,9 @@ public class OutputPort {
     private List<CodeRange> codeRanges = new ArrayList<>();
 
     private Map<Long, String> interfaces = new HashMap<>();
+
+    private List<OneWayOperationDeclaration> owOperations = new ArrayList<>();
+    private List<RequestResponseOperationDeclaration> rrOperations = new ArrayList<>();
 
     private String annotation;
 
@@ -57,6 +62,22 @@ public class OutputPort {
         codeRanges.add(cr);
     }
 
+    public void addOneWayOperation(OneWayOperationDeclaration ood) {
+        this.owOperations.add(ood);
+    }
+
+    public void addReqResOpersation(RequestResponseOperationDeclaration rrd) {
+        this.rrOperations.add(rrd);
+    }
+
+    public List<RequestResponseOperationDeclaration> getRROperations() {
+        return this.rrOperations;
+    }
+
+    public List<OneWayOperationDeclaration> getOWOperations() {
+        return this.owOperations;
+    }
+
     public void setAnnotation(String anno) {
         this.annotation = anno;
     }
@@ -88,6 +109,27 @@ public class OutputPort {
                 interfListTmp.add(new JSONObject(tmp));
             });
             map.put("interfaces", interfListTmp);
+        }
+        if (rrOperations.size() > 0) {
+            List<JSONObject> rrTmp = new ArrayList<>();
+            rrOperations.forEach(rr -> {
+                Map<String, Object> tmp = new HashMap<>();
+                tmp.put("name", rr.id());
+                tmp.put("req", rr.requestType().name());
+                tmp.put("res", rr.responseType().name());
+                rrTmp.add(new JSONObject(tmp));
+            });
+            map.put("reqres", rrTmp);
+        }
+        if (owOperations.size() > 0) {
+            List<JSONObject> owTmp = new ArrayList<>();
+            owOperations.forEach(ow -> {
+                Map<String, Object> tmp = new HashMap<>();
+                tmp.put("name", ow.id());
+                tmp.put("req", ow.requestType().name());
+                owTmp.add(new JSONObject(tmp));
+            });
+            map.put("oneway", owTmp);
         }
 
         return new JSONObject(map);

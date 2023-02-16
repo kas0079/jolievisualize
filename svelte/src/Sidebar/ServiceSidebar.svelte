@@ -77,7 +77,6 @@
 			>
 		{/if}
 	</h4>
-	const elem = event.target as Element; const portName = elem.textContent.split(' - ')[0];
 	{#if service.inputPorts && service.inputPorts.length > 0}
 		<ul class="mb-4 list-disc mx-6">
 			{#each service.inputPorts as ip}

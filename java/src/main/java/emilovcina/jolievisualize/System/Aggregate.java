@@ -1,4 +1,4 @@
-package joliex.jolievisualize.System;
+package emilovcina.jolievisualize.System;
 
 import java.util.ArrayList;
 import java.util.HashMap;

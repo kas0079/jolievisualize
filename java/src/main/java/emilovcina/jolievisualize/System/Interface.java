@@ -1,4 +1,4 @@
-package joliex.jolievisualize.System;
+package emilovcina.jolievisualize.System;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,6 +59,14 @@ public class Interface {
 
     public void addOneWay(OneWayOperationDeclaration ood) {
         oneway.add(ood);
+    }
+
+    public List<RequestResponseOperationDeclaration> getRROperations() {
+        return this.reqres;
+    }
+
+    public List<OneWayOperationDeclaration> getOWOperations() {
+        return this.oneway;
     }
 
     public JSONObject toJSON() {

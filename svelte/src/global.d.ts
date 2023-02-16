@@ -50,9 +50,11 @@ type Interface = {
 
 type Type = {
 	name: string;
-	type: string;
+	type?: string;
 	subTypes: Type[];
 	file: string;
+	leftType?: string;
+	rightType?: string;
 };
 
 type Port = {

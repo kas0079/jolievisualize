@@ -1,4 +1,4 @@
-package joliex.jolievisualize.System;
+package emilovcina.jolievisualize.System;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +57,28 @@ public class InputPort extends OutputPort {
                 interfacesTmp.add(new JSONObject(tmp));
             });
             map.put("interfaces", interfacesTmp);
+        }
+
+        if (getRROperations().size() > 0) {
+            List<JSONObject> rrTmp = new ArrayList<>();
+            getRROperations().forEach(rr -> {
+                Map<String, Object> tmp = new HashMap<>();
+                tmp.put("name", rr.id());
+                tmp.put("req", rr.requestType().name());
+                tmp.put("res", rr.responseType().name());
+                rrTmp.add(new JSONObject(tmp));
+            });
+            map.put("reqres", rrTmp);
+        }
+        if (getOWOperations().size() > 0) {
+            List<JSONObject> owTmp = new ArrayList<>();
+            getOWOperations().forEach(ow -> {
+                Map<String, Object> tmp = new HashMap<>();
+                tmp.put("name", ow.id());
+                tmp.put("req", ow.requestType().name());
+                owTmp.add(new JSONObject(tmp));
+            });
+            map.put("oneway", owTmp);
         }
 
         if (aggregates.size() > 0) {

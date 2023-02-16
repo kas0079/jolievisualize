@@ -1,4 +1,4 @@
-package joliex.jolievisualize;
+package emilovcina.jolievisualize;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,14 +21,11 @@ import jolie.cli.CommandLineParser;
 import jolie.lang.CodeCheckException;
 import jolie.lang.parse.ParserException;
 import jolie.lang.parse.ast.OLSyntaxNode;
-import jolie.lang.parse.ast.Program;
 import jolie.lang.parse.ast.ServiceNode;
 import jolie.lang.parse.module.ModuleException;
 import jolie.lang.parse.module.ModuleParsingConfiguration;
 import jolie.lang.parse.module.Modules;
 import jolie.lang.parse.module.Modules.ModuleParsedResult;
-import joliex.jolievisualize.Deployment.Build;
-import joliex.jolievisualize.Deployment.DockerCompose;
 
 public class JolieVisualize {
     static {
@@ -73,26 +70,28 @@ public class JolieVisualize {
         Path p = Paths.get(pathName);
 
         if (!shouldGenerateDeployment) {
-            generateVisualizeJSON(p, args);
+            List<Network> networks = generateVisualizeJSON(p, args);
+            networks.forEach(network -> network.getServices()
+                    .forEach(s -> s.getDependencies().forEach(d -> System.out.println(d))));
         } else {
-            // switch (deploymentType) {
-            // case "docker_compose":
-            // DockerCompose dc = new DockerCompose(
-            // si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()));
-            // System.out.println(dc.generateComposeFile());
-            // break;
-            // case "kubernetes":
-            // // Not implemented
-            // break;
-            // default:
-            // break;
-            // }
-            // // create build folder
+            switch (deploymentType) {
+                case "docker_compose":
+                    // DockerCompose dc = new DockerCompose(
+                    // si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()));
+                    // System.out.println(dc.generateComposeFile());
+                    break;
+                case "kubernetes":
+                    // Not implemented
+                    break;
+                default:
+                    break;
+            }
+            // create build folder
             // Build build = new Build(listOfNetworks);
         }
     }
 
-    private static void generateVisualizeJSON(Path p, String[] args) throws FileNotFoundException, IOException,
+    private static List<Network> generateVisualizeJSON(Path p, String[] args) throws FileNotFoundException, IOException,
             ParseException, ParserException, ModuleException, CommandLineException, CodeCheckException {
         final List<Network> listOfNetworks = new ArrayList<>();
         if (p.getFileName().toString().toLowerCase().endsWith(".json")) {
@@ -123,6 +122,7 @@ public class JolieVisualize {
         } else {
             System.out.println("Invalid - argument must be a .json file");
         }
+        return listOfNetworks;
     }
 
     private static JSONObject readParams(Path params) {

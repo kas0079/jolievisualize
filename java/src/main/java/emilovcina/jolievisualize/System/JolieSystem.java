@@ -1,4 +1,4 @@
-package joliex.jolievisualize.System;
+package emilovcina.jolievisualize.System;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
-import joliex.jolievisualize.Network;
+import emilovcina.jolievisualize.Network;
 
 public class JolieSystem {
     private long highestID = -1;
@@ -39,6 +39,10 @@ public class JolieSystem {
 
     public List<Network> getNetworks() {
         return networks;
+    }
+
+    public List<Interface> getInterfaces() {
+        return this.listOfInterfaces;
     }
 
     public Type addTypeIfUnique(Type type) {

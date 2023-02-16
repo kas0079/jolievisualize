@@ -1,10 +1,19 @@
-package joliex.jolievisualize;
+package emilovcina.jolievisualize;
 
 import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
 
+import emilovcina.jolievisualize.System.Aggregate;
+import emilovcina.jolievisualize.System.Courier;
+import emilovcina.jolievisualize.System.Docker;
+import emilovcina.jolievisualize.System.InputPort;
+import emilovcina.jolievisualize.System.Interface;
+import emilovcina.jolievisualize.System.JolieSystem;
+import emilovcina.jolievisualize.System.OutputPort;
+import emilovcina.jolievisualize.System.Service;
+import emilovcina.jolievisualize.System.Type;
 import jolie.lang.NativeType;
 import jolie.lang.parse.ast.EmbedServiceNode;
 import jolie.lang.parse.ast.ExecutionInfo;
@@ -14,6 +23,7 @@ import jolie.lang.parse.ast.InterfaceDefinition;
 import jolie.lang.parse.ast.InterfaceExtenderDefinition;
 import jolie.lang.parse.ast.OLSyntaxNode;
 import jolie.lang.parse.ast.OneWayOperationDeclaration;
+import jolie.lang.parse.ast.OperationDeclaration;
 import jolie.lang.parse.ast.OutputPortInfo;
 import jolie.lang.parse.ast.RequestResponseOperationDeclaration;
 import jolie.lang.parse.ast.ServiceNode;
@@ -26,20 +36,12 @@ import jolie.lang.parse.ast.courier.CourierChoiceStatement.OperationRequestRespo
 import jolie.lang.parse.ast.courier.CourierDefinitionNode;
 import jolie.lang.parse.ast.expression.ConstantStringExpression;
 import jolie.lang.parse.ast.expression.VariableExpressionNode;
+import jolie.lang.parse.ast.types.TypeChoiceDefinition;
 import jolie.lang.parse.ast.types.TypeDefinition;
 import jolie.lang.parse.ast.types.TypeDefinitionLink;
 import jolie.lang.parse.ast.types.TypeInlineDefinition;
 import jolie.lang.parse.context.ParsingContext;
 import jolie.util.Pair;
-import joliex.jolievisualize.System.Aggregate;
-import joliex.jolievisualize.System.Courier;
-import joliex.jolievisualize.System.Docker;
-import joliex.jolievisualize.System.InputPort;
-import joliex.jolievisualize.System.Interface;
-import joliex.jolievisualize.System.JolieSystem;
-import joliex.jolievisualize.System.OutputPort;
-import joliex.jolievisualize.System.Service;
-import joliex.jolievisualize.System.Type;
 
 public class SystemInspector {
     private final JolieSystem system;
@@ -125,6 +127,8 @@ public class SystemInspector {
                 emb.setParent(s);
                 emb.setBindingPortName(esn.bindingPort().id());
                 s.addChild(emb);
+                if (emb.getUri() != null)
+                    s.addDependencyFile(emb.getUri());
             }
         }
         return s;
@@ -163,8 +167,22 @@ public class SystemInspector {
         }
 
         InputPort result = new InputPort(ipi.id(), protocol, location);
+
         for (InterfaceDefinition id : ipi.getInterfaceList())
-            result.addInterface(createInterface(id));
+            result.addInterface(createInterface(id, service));
+        ipi.operations().forEach((v) -> {
+            if (operationExistsInInterface(v))
+                return;
+            if (v instanceof RequestResponseOperationDeclaration) {
+                RequestResponseOperationDeclaration rrd = (RequestResponseOperationDeclaration) v;
+                result.addReqResOpersation(rrd);
+                addRRType(rrd, service);
+            } else if (v instanceof OneWayOperationDeclaration) {
+                OneWayOperationDeclaration owod = (OneWayOperationDeclaration) v;
+                result.addOneWayOperation(owod);
+                addOOType(owod, service);
+            }
+        });
 
         if (annotation.length() > 0)
             result.setAnnotation(annotation.trim());
@@ -177,7 +195,7 @@ public class SystemInspector {
         }
         if (ipi.aggregationList() != null && ipi.aggregationList().length > 0)
             for (AggregationItemInfo aii : ipi.aggregationList())
-                result.addAggregate(createAggregate(aii));
+                result.addAggregate(createAggregate(aii, service));
 
         if (ipi.redirectionMap() != null && ipi.redirectionMap().size() > 0)
             ipi.redirectionMap().forEach((sid, op) -> {
@@ -209,7 +227,7 @@ public class SystemInspector {
         return cou;
     }
 
-    private Aggregate createAggregate(AggregationItemInfo aii) {
+    private Aggregate createAggregate(AggregationItemInfo aii, Service svc) {
         Aggregate aggr = new Aggregate();
         // Collection
         if (aii.outputPortList().length >= 2) {
@@ -223,20 +241,20 @@ public class SystemInspector {
             aggr.setName(aii.outputPortList()[0]);
         // Interface extender
         if (aii.interfaceExtender() != null)
-            aggr.setInterfaceExtension(createInterfaceExtender(aii.interfaceExtender()));
+            aggr.setInterfaceExtension(createInterfaceExtender(aii.interfaceExtender(), svc));
         return aggr;
     }
 
-    private Interface createInterfaceExtender(InterfaceExtenderDefinition ied) {
-        Interface i = createInterface(ied);
+    private Interface createInterfaceExtender(InterfaceExtenderDefinition ied, Service svc) {
+        Interface i = createInterface(ied, svc);
         if (ied.defaultRequestResponseOperation() != null) {
             i.addRequestResponse(ied.defaultRequestResponseOperation());
-            system.addTypeIfUnique(createType(ied.defaultRequestResponseOperation().requestType()));
-            system.addTypeIfUnique(createType(ied.defaultRequestResponseOperation().responseType()));
+            system.addTypeIfUnique(createType(ied.defaultRequestResponseOperation().requestType(), svc));
+            system.addTypeIfUnique(createType(ied.defaultRequestResponseOperation().responseType(), svc));
         }
         if (ied.defaultOneWayOperation() != null) {
             i.addOneWay(ied.defaultOneWayOperation());
-            system.addTypeIfUnique(createType(ied.defaultOneWayOperation().requestType()));
+            system.addTypeIfUnique(createType(ied.defaultOneWayOperation().requestType(), svc));
         }
         return i;
     }
@@ -286,47 +304,83 @@ public class SystemInspector {
             op.addCodeRange(getCodeRange("port", opi.context()));
         }
         for (InterfaceDefinition id : opi.getInterfaceList())
-            op.addInterface(createInterface(id));
+            op.addInterface(createInterface(id, service));
+        opi.operations().forEach((v) -> {
+            if (operationExistsInInterface(v))
+                return;
+            if (v instanceof RequestResponseOperationDeclaration) {
+                RequestResponseOperationDeclaration rrd = (RequestResponseOperationDeclaration) v;
+                op.addReqResOpersation(rrd);
+                addRRType(rrd, service);
+            } else if (v instanceof OneWayOperationDeclaration) {
+                OneWayOperationDeclaration owod = (OneWayOperationDeclaration) v;
+                op.addOneWayOperation(owod);
+                addOOType(owod, service);
+            }
+        });
         return op;
     }
 
-    private Interface createInterface(InterfaceDefinition id) {
+    private Interface createInterface(InterfaceDefinition id, Service svc) {
         Interface result = new Interface(system.getNextInterfaceID(), id.name());
         id.operationsMap().forEach((k, v) -> {
             if (result.getUri() == null)
                 result.setUri(getLocalUri(v.context()));
             if (v instanceof RequestResponseOperationDeclaration) {
                 RequestResponseOperationDeclaration rrd = (RequestResponseOperationDeclaration) v;
-                if (!NativeType.isNativeTypeKeyword(rrd.requestType().name()))
-                    system.addTypeIfUnique(createType(rrd.requestType()));
-                if (!NativeType.isNativeTypeKeyword(rrd.responseType().name()))
-                    system.addTypeIfUnique(createType(rrd.responseType()));
+                result.addRequestResponse(rrd);
+                addRRType(rrd, svc);
             } else if (v instanceof OneWayOperationDeclaration) {
                 OneWayOperationDeclaration owod = (OneWayOperationDeclaration) v;
                 result.addOneWay(owod);
-                if (!NativeType.isNativeTypeKeyword(owod.requestType().name()))
-                    system.addTypeIfUnique(createType(owod.requestType()));
+                addOOType(owod, svc);
             }
         });
+        svc.addDependencyFile(result.getUri());
         return system.addInterfaceIfUnique(result);
     }
 
-    private Type createType(TypeDefinition td) {
-        Type type = new Type(td.name());
+    private void addOOType(OneWayOperationDeclaration owod, Service svc) {
+        if (!NativeType.isNativeTypeKeyword(owod.requestType().name()))
+            system.addTypeIfUnique(createType(owod.requestType(), svc));
+    }
+
+    private void addRRType(RequestResponseOperationDeclaration rrd, Service svc) {
+        if (!NativeType.isNativeTypeKeyword(rrd.requestType().name()))
+            system.addTypeIfUnique(createType(rrd.requestType(), svc));
+        if (!NativeType.isNativeTypeKeyword(rrd.responseType().name()))
+            system.addTypeIfUnique(createType(rrd.responseType(), svc));
+    }
+
+    private Type createType(TypeDefinition td, Service svc) {
+        Type type = new Type();
         if (td instanceof TypeDefinitionLink) {
             TypeDefinitionLink tdl = (TypeDefinitionLink) td;
-            type.setTypeName(tdl.linkedTypeName());
+            type.setName(tdl.simpleName());
+            type.setType(tdl.linkedType().simpleName());
             type.setUri(getLocalUri(tdl.linkedType().node().context()));
+            system.addTypeIfUnique(createType(tdl.linkedType(), svc));
         } else if (td instanceof TypeInlineDefinition) {
             TypeInlineDefinition tid = (TypeInlineDefinition) td;
-            type.setTypeName(tid.basicType().nativeType().name().toLowerCase());
+            type.setName(tid.simpleName());
+            type.setType(tid.basicType().nativeType().name().toLowerCase());
             type.setUri(getLocalUri(tid.node().context()));
             if (tid.hasSubTypes()) {
                 for (Map.Entry<String, TypeDefinition> entry : tid.subTypes()) {
-                    type.addSubType(createType(entry.getValue()));
+                    type.addSubType(createType(entry.getValue(), svc));
                 }
             }
+        } else if (td instanceof TypeChoiceDefinition) {
+            TypeChoiceDefinition tcd = (TypeChoiceDefinition) td;
+            type.setName(tcd.simpleName());
+            type.setUri(getLocalUri(tcd.node().context()));
+            Type leftType = createType(tcd.left(), svc);
+            Type rightType = createType(tcd.right(), svc);
+            type.setLeftType(leftType.getType());
+            type.setRightType(rightType.getType());
+            return type;
         }
+        svc.addDependencyFile(type.getUri());
         return type;
     }
 
@@ -344,6 +398,30 @@ public class SystemInspector {
         if (obj instanceof String)
             return (String) obj;
         return "";
+    }
+
+    private boolean operationExistsInInterface(OperationDeclaration od) {
+        if (od instanceof RequestResponseOperationDeclaration) {
+            RequestResponseOperationDeclaration checkRR = (RequestResponseOperationDeclaration) od;
+            for (int i = 0; i < system.getInterfaces().size(); i++) {
+                for (int j = 0; j < system.getInterfaces().get(i).getRROperations().size(); j++) {
+                    RequestResponseOperationDeclaration rr = system.getInterfaces().get(i).getRROperations().get(j);
+                    if (rr.id().equals(checkRR.id()) && rr.requestType().isEquivalentTo(checkRR.requestType())
+                            && rr.responseType().isEquivalentTo(checkRR.responseType()))
+                        return true;
+                }
+            }
+        } else if (od instanceof OneWayOperationDeclaration) {
+            OneWayOperationDeclaration checkOW = (OneWayOperationDeclaration) od;
+            for (int i = 0; i < system.getInterfaces().size(); i++) {
+                for (int j = 0; j < system.getInterfaces().get(i).getOWOperations().size(); j++) {
+                    OneWayOperationDeclaration ow = system.getInterfaces().get(i).getOWOperations().get(j);
+                    if (ow.id().equals(checkOW.id()) && ow.requestType().isEquivalentTo(checkOW.requestType()))
+                        return true;
+                }
+            }
+        }
+        return false;
     }
 
     private String getLocalUri(ParsingContext pc) {

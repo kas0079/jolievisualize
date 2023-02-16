@@ -1,4 +1,4 @@
-package joliex.jolievisualize;
+package emilovcina.jolievisualize;
 
 import java.util.HashMap;
 import java.util.Map;
