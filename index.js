@@ -12,8 +12,8 @@ const getData = (visfile, notExtension = true) => {
 
 const getDockerComposeData = (visfile, notExtension = true) => {
 	const res = execFileSync(
-		`${__dirname}/visualize`,
-		[`${notExtension ? visfile : visfile[0].path}`, "--docker-compose"],
+		`${__dirname}/deployment`,
+		[`${notExtension ? visfile : visfile[0].path}`],
 		{ timeout: 4000 }
 	);
 	if (!res) return `ERROR`;

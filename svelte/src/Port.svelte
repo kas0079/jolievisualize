@@ -1,8 +1,14 @@
 <script lang="ts">
 	import type { ElkPort } from 'elkjs/lib/elk.bundled';
 	import { afterUpdate } from 'svelte';
+	import { drawPort } from './lib/draw';
 	import { isDockerService } from './lib/service';
-	import { current_sidebar_element, openSidebar, SidebarElement } from './lib/sidebar';
+	import {
+		current_sidebar_element,
+		openPortSidebar,
+		openSidebar,
+		SidebarElement
+	} from './lib/sidebar';
 
 	export let portNode: ElkPort;
 	export let parentService: Service;
@@ -14,28 +20,8 @@
 
 	let isDockerPort = isDockerService(parentService);
 
-	const drawPort = () => {
-		d3.select(`#${portNode.id}`).attr(
-			'transform',
-			`translate(${portNode.x ?? 0}, ${portNode.y ?? 0})`
-		);
-		d3.select(`#${portNode.id} > rect`)
-			.attr('x', 0)
-			.attr('y', 0)
-			.attr('width', portNode.width ?? 0)
-			.attr('height', portNode.height ?? 0);
-	};
-
-	const openPortInSidebar = () => {
-		const sbPort = new SidebarElement(1, port.name);
-		sbPort.port = port;
-		sbPort.port_parentID = parentService.id;
-		sbPort.portType = portNode.labels[0].text;
-		openSidebar(sbPort, $current_sidebar_element);
-	};
-
 	afterUpdate(() => {
-		drawPort();
+		drawPort(portNode);
 		port =
 			portNode.labels[0].text === 'ip'
 				? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
@@ -51,8 +37,8 @@
 				? 'fill-teal-800 stroke-teal-900 cursor-pointer'
 				: 'fill-inputPort stroke-ipStroke cursor-pointer'
 			: 'fill-outputPort stroke-opStroke cursor-pointer'}
-		on:click|stopPropagation={openPortInSidebar}
-		on:keydown|stopPropagation={openPortInSidebar}
+		on:click|stopPropagation={() => openPortSidebar(port, portNode, parentService.id)}
+		on:keydown|stopPropagation={() => openPortSidebar(port, portNode, parentService.id)}
 		on:dblclick|stopPropagation={() => {}}
 	/>
 </g>

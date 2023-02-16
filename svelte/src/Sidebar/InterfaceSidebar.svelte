@@ -1,35 +1,24 @@
 <script lang="ts">
-	import { types, vscode } from '../lib/data';
-	import { current_sidebar_element, openSidebar, primitives, SidebarElement } from '../lib/sidebar';
+	import { vscode } from '../lib/data';
+	import { openTypeSidebar, primitives } from '../lib/sidebar';
 
 	export let interf: Interface;
 
 	let tmp = '';
-	const saveInnerHTML = (event: MouseEvent) => {
+	const saveInnerHTML = (event: MouseEvent): void => {
 		if (interf.file === undefined && vscode === undefined) return;
 		const elem = event.target as Element;
 		tmp = elem.innerHTML;
 		elem.setAttribute('contenteditable', 'true');
 	};
 
-	const finishEdit = (event: KeyboardEvent) => {
+	const finishEdit = (event: KeyboardEvent): void => {
 		if (event.key === 'Enter') {
 			const elem = event.target as Element;
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
 		}
-	};
-
-	const openTypeSidebar = (typename: string) => {
-		if (primitives.includes(typename.toLowerCase())) return;
-		const type = types.find((t) => t.name === typename);
-
-		if (type === undefined) return;
-
-		const sbElemt = new SidebarElement(3, typename);
-		sbElemt.type = type;
-		openSidebar(sbElemt, $current_sidebar_element);
 	};
 </script>
 

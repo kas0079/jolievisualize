@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import joliex.jolievisualize.Network;
 import joliex.jolievisualize.System.Docker;
+import joliex.jolievisualize.System.InputPort;
 import joliex.jolievisualize.System.JolieSystem;
-import joliex.jolievisualize.System.OutputPort;
 import joliex.jolievisualize.System.Service;
 
 public class DockerCompose {
@@ -51,23 +52,84 @@ public class DockerCompose {
                     svcs.append("        ports:\n");
                     d.getPorts().forEach((ep, ip) -> svcs.append("            - \"" + ep + ":" + ip + "\"\n"));
                 } else {
-                    svcs.append("        ports:\n");
-                    genPorts(svc.getOutputPorts(), svcs);
-                    genPorts(svc.getInputPorts(), svcs);
+                    if (svc.getInputPorts().size() > 0) {
+                        svcs.append("        ports:\n");
+                        getPorts(svc.getInputPorts(), svcs);
+                    }
                 }
                 if (replicaMap.get(svcName) > 1) {
                     svcs.append("        replicas: " + replicaMap.get(svcName) + "\n");
                     replicaMap.put(svcName, 0);
                 }
                 svcs.append("        networks:\n");
-                svcs.append("            - network" + i + "\n");
+                addNetworks(svc, i, system.getNetworks(), svcs);
             }
         }
 
         return svcs.append("\n").toString();
     }
 
-    private void genPorts(List<? extends OutputPort> portList, StringBuilder strBuilder) {
+    private void addNetworks(Service svc, int currNetwork, List<Network> allNetworks, StringBuilder strBuilder) {
+        Set<Integer> connectedIntegers = findNetworks(svc, currNetwork, allNetworks);
+        connectedIntegers.forEach(i -> {
+            strBuilder.append("            - network" + i + "\n");
+        });
+    }
+
+    private Set<Integer> findNetworks(Service svc, int currNetwork, List<Network> allNetworks) {
+        Set<Integer> connectedNetworks = new HashSet<>();
+        connectedNetworks.add(currNetwork);
+        for (int i = 0; i < allNetworks.size(); i++) {
+            final int nwk = i;
+            if (currNetwork == i)
+                continue;
+            Network n = allNetworks.get(i);
+            // TODO check if this is working
+            n.getServices().forEach(s -> {
+                // if (s.getInputPorts().size() == 0)
+                // return;
+                svc.getInputPorts().forEach(ip -> {
+                    if (ip.getLocation().equalsIgnoreCase("local"))
+                        return;
+                    if (getListOfOutputPortLocations(s).contains(ip.getLocation()))
+                        connectedNetworks.add(nwk);
+                });
+                svc.getOutputPorts().forEach(op -> {
+                    if (op.getLocation().equalsIgnoreCase("local"))
+                        return;
+                    if (getListOfInputPortLocations(s).contains(op.getLocation()))
+                        connectedNetworks.add(nwk);
+                });
+            });
+        }
+        return connectedNetworks;
+    }
+
+    private Set<String> getListOfInputPortLocations(Service svc) {
+        Set<String> res = new HashSet<>();
+        if (svc.getInputPorts().isEmpty())
+            return res;
+        svc.getInputPorts().forEach(op -> {
+            if (op.getLocation().equalsIgnoreCase("local"))
+                return;
+            res.add(op.getLocation());
+        });
+        return res;
+    }
+
+    private Set<String> getListOfOutputPortLocations(Service svc) {
+        Set<String> res = new HashSet<>();
+        if (svc.getOutputPorts().isEmpty())
+            return res;
+        svc.getOutputPorts().forEach(op -> {
+            if (op.getLocation().equalsIgnoreCase("local"))
+                return;
+            res.add(op.getLocation());
+        });
+        return res;
+    }
+
+    private void getPorts(List<InputPort> portList, StringBuilder strBuilder) {
         Set<Integer> seenPorts = new HashSet<>();
         portList.forEach(port -> {
             if (port.getLocation().equalsIgnoreCase("local"))

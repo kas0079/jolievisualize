@@ -30,6 +30,8 @@ public class Service {
 
     private List<CodeRange> codeRanges = new ArrayList<>();
 
+    private List<String> dependencies = new ArrayList<>();
+
     public Service(long id) {
         this.id = id;
         children = new ArrayList<>();

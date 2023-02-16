@@ -285,7 +285,6 @@ public class SystemInspector {
                 op.addCodeRange(getCodeRange("location", opi.location().context()));
             op.addCodeRange(getCodeRange("port", opi.context()));
         }
-
         for (InterfaceDefinition id : opi.getInterfaceList())
             op.addInterface(createInterface(id));
         return op;
@@ -298,7 +297,6 @@ public class SystemInspector {
                 result.setUri(getLocalUri(v.context()));
             if (v instanceof RequestResponseOperationDeclaration) {
                 RequestResponseOperationDeclaration rrd = (RequestResponseOperationDeclaration) v;
-                result.addRequestResponse(rrd);
                 if (!NativeType.isNativeTypeKeyword(rrd.requestType().name()))
                     system.addTypeIfUnique(createType(rrd.requestType()));
                 if (!NativeType.isNativeTypeKeyword(rrd.responseType().name()))
@@ -315,16 +313,19 @@ public class SystemInspector {
 
     private Type createType(TypeDefinition td) {
         Type type = new Type(td.name());
-        type.setUri(getLocalUri(td.context()));
         if (td instanceof TypeDefinitionLink) {
             TypeDefinitionLink tdl = (TypeDefinitionLink) td;
             type.setTypeName(tdl.linkedTypeName());
+            type.setUri(getLocalUri(tdl.linkedType().node().context()));
         } else if (td instanceof TypeInlineDefinition) {
             TypeInlineDefinition tid = (TypeInlineDefinition) td;
             type.setTypeName(tid.basicType().nativeType().name().toLowerCase());
-            if (tid.hasSubTypes())
-                for (Map.Entry<String, TypeDefinition> entry : tid.subTypes())
+            type.setUri(getLocalUri(tid.node().context()));
+            if (tid.hasSubTypes()) {
+                for (Map.Entry<String, TypeDefinition> entry : tid.subTypes()) {
                     type.addSubType(createType(entry.getValue()));
+                }
+            }
         }
         return type;
     }

@@ -11,11 +11,9 @@ export const preprocess = (json: Data): Data => {
 		serviceList.forEach((service) => {
 			if (service.embeddings) {
 				connectEmbeds(service);
-				// connectEmbedOutputPorts(service);
 			}
 			if (service.outputPorts) {
 				connectRedirectResources(service.outputPorts);
-				// joinOutputPortArrows(service);
 			}
 			if (service.image && service.ports && !service.file) makeDockerPorts(service);
 		});
@@ -79,29 +77,4 @@ const sharesInterface = (p1: Port, p2: Port): boolean => {
 	for (let i = 0; i < listP1.length; i++)
 		for (let j = 0; j < listP2.length; j++) if (listP1[i] === listP2[j]) return true;
 	return false;
-};
-
-const joinOutputPortArrows = (service: Service): void => {
-	const list: Port[] = [];
-	service.outputPorts?.forEach((p) => {
-		const otherPorts = service.outputPorts?.filter(
-			(p2) => p.name !== p2.name && p.location === p2.location
-		);
-		if (!otherPorts || otherPorts?.length === 0) return;
-		otherPorts.forEach((op) => list.push(op));
-	});
-	list.splice(0, 1);
-	if (list.length == 0) return;
-};
-
-const connectEmbedOutputPorts = (service: Service): void => {
-	let newListOfOPs: Port[] = service.outputPorts;
-	const embeds: Port[] = [];
-	service.embeddings?.forEach((embed) => {
-		newListOfOPs = newListOfOPs.filter((t) => t.name !== embed.name);
-		const corrOutputPort = service.outputPorts?.find((t) => embed.name === t.name);
-		if (corrOutputPort === undefined) return;
-		embeds.push(corrOutputPort);
-	});
-	service.outputPorts = embeds.concat(newListOfOPs);
 };

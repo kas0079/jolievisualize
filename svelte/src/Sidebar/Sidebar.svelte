@@ -1,12 +1,7 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { vscode } from '../lib/data';
-	import {
-		backSidebar,
-		clearSidebar,
-		current_sidebar_element,
-		isSidebarHistoryEmpty
-	} from '../lib/sidebar';
+	import { backSidebar, clearSidebar, current_sidebar_element } from '../lib/sidebar';
 	import InterfaceSidebar from './InterfaceSidebar.svelte';
 	import PortSidebar from './PortSidebar.svelte';
 	import SelectionSidebar from './SelectionSidebar.svelte';
@@ -16,13 +11,13 @@
 	let resizeMode = false;
 	let x = 0;
 
-	const resizeStart = (event: MouseEvent) => {
+	const resizeStart = (event: MouseEvent): void => {
 		if (resizeMode) return;
 		resizeMode = true;
 		x = window.innerWidth - event.clientX;
 	};
 
-	const resize = (event: MouseEvent) => {
+	const resize = (event: MouseEvent): void => {
 		if (!resizeMode) return;
 		if (x < 250) x = 250;
 		else if (x > window.innerWidth - 20) x = window.innerWidth - 20;

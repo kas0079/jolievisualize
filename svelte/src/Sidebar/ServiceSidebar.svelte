@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { services, vscode } from '../lib/data';
-	import { current_popup, PopUp } from '../lib/popup';
-	import { findRange, getAllServices, isDockerService } from '../lib/service';
-	import { current_sidebar_element, openSidebar, SidebarElement } from '../lib/sidebar';
+	import { vscode } from '../lib/data';
+	import { addPort } from '../lib/refactoring/create';
+	import { findRange, isDockerService } from '../lib/service';
+	import { openPortFromServiceSidebar, openServiceIdSidebar } from '../lib/sidebar';
 	import { getServicePatternType } from './../lib/patterns';
 
 	export let service: Service;
@@ -36,90 +36,6 @@
 				}
 			});
 		}
-	};
-
-	const openPortSidebar = (event: Event, portType: string) => {
-		const elem = event.target as Element;
-		const portName = elem.textContent.split(' - ')[0];
-		let port: Port;
-		if (portType === 'op') port = service.outputPorts.find((t) => t.name === portName);
-		else port = service.inputPorts.find((t) => t.name === portName);
-		if (port === undefined) return;
-		const sbElem = new SidebarElement(1, portName);
-		sbElem.port = port;
-		sbElem.portType = portType;
-		sbElem.port_parentID = service.id;
-		openSidebar(sbElem, $current_sidebar_element);
-	};
-
-	const openServiceSidebar = (id: number) => {
-		const svc = getAllServices(services).find((t) => t.id === id);
-		if (svc === undefined) return;
-		const sbElem = new SidebarElement(0, svc.name);
-		sbElem.service = svc;
-		openSidebar(sbElem, $current_sidebar_element);
-	};
-
-	const addPort = (type: string) => {
-		current_popup.set(
-			new PopUp(
-				`Create new ${type.toLowerCase()} port`,
-				['name', 'protocol', 'location', 'interfaces'],
-				(vals) => {
-					if (vals.filter((t) => t.val === '').length > 0) return false;
-					const tmp_interfaces = [];
-					vals
-						.find((t) => t.field === 'interfaces')
-						?.val.split(',')
-						.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
-
-					const newPort: Port = {
-						name: vals.find((t) => t.field === 'name')?.val,
-						protocol: vals.find((t) => t.field === 'protocol')?.val,
-						location: vals.find((t) => t.field === 'location')?.val,
-						interfaces: tmp_interfaces,
-						file: service.file
-					};
-
-					let isFirst = true;
-					let range: CodeRange;
-					if (type === 'Input') {
-						if (!service.inputPorts) service.inputPorts = [];
-						isFirst = service.inputPorts.length === 0;
-						range = isFirst
-							? service.ranges.find((t) => t.name === 'svc_name')
-							: service.inputPorts[0].ranges.find((t) => t.name === 'port');
-						service.inputPorts.push(newPort);
-					} else {
-						if (!service.outputPorts) service.outputPorts = [];
-						isFirst = service.outputPorts.length === 0;
-						range = isFirst
-							? service.ranges.find((t) => t.name === 'svc_name')
-							: service.outputPorts[0].ranges.find((t) => t.name === 'port');
-						service.outputPorts.push(newPort);
-					}
-
-					if (!vscode) return;
-					vscode.postMessage({
-						command: `newPort`,
-						save: true,
-						detail: {
-							file: service.file,
-							portType: type === 'Input' ? 'inputPort' : 'outputPort',
-							isFirst,
-							range: range.range,
-							port: {
-								name: vals.find((t) => t.field === 'name')?.val,
-								protocol: vals.find((t) => t.field === 'protocol')?.val,
-								location: vals.find((t) => t.field === 'location')?.val,
-								interfaces: vals.find((t) => t.field === 'interfaces')?.val
-							}
-						}
-					});
-					return true;
-				}
-			)
-		);
 	};
 </script>
 
@@ -156,18 +72,19 @@
 		{#if service.file}
 			<span
 				class="float-right cursor-pointer text-3xl"
-				on:click={() => addPort('Input')}
-				on:keydown={() => addPort('Input')}>+</span
+				on:click={() => addPort('Input', service)}
+				on:keydown={() => addPort('Input', service)}>+</span
 			>
 		{/if}
 	</h4>
+	const elem = event.target as Element; const portName = elem.textContent.split(' - ')[0];
 	{#if service.inputPorts && service.inputPorts.length > 0}
 		<ul class="mb-4 list-disc mx-6">
 			{#each service.inputPorts as ip}
 				<li
 					class="text-xl cursor-pointer my-2"
-					on:click={(e) => openPortSidebar(e, 'ip')}
-					on:keydown={(e) => openPortSidebar(e, 'ip')}
+					on:click={(e) => openPortFromServiceSidebar(e, service, 'ip')}
+					on:keydown={(e) => openPortFromServiceSidebar(e, service, 'ip')}
 				>
 					{ip.name}{ip.location.startsWith('!local') || ip.location.startsWith('!local')
 						? ''
@@ -182,8 +99,8 @@
 		{#if service.file}
 			<span
 				class="float-right cursor-pointer text-3xl"
-				on:click={() => addPort('Output')}
-				on:keydown={() => addPort('Output')}>+</span
+				on:click={() => addPort('Output', service)}
+				on:keydown={() => addPort('Output', service)}>+</span
 			>
 		{/if}
 	</h4>
@@ -192,8 +109,8 @@
 			{#each service.outputPorts as op}
 				<li
 					class="text-xl cursor-pointer my-2"
-					on:click={(e) => openPortSidebar(e, 'op')}
-					on:keydown={(e) => openPortSidebar(e, 'op')}
+					on:click={(e) => openPortFromServiceSidebar(e, service, 'op')}
+					on:keydown={(e) => openPortFromServiceSidebar(e, service, 'op')}
 				>
 					{op.name}{op.location.startsWith('!local') || op.location.startsWith('local')
 						? ''
@@ -209,8 +126,8 @@
 			{#each service.embeddings as embed}
 				<li
 					class="text-xl cursor-pointer my-2"
-					on:click={() => openServiceSidebar(embed.id)}
-					on:keydown={() => openServiceSidebar(embed.id)}
+					on:click={() => openServiceIdSidebar(embed.id)}
+					on:keydown={() => openServiceIdSidebar(embed.id)}
 				>
 					{embed.name}
 				</li>

@@ -21,11 +21,13 @@ import jolie.cli.CommandLineParser;
 import jolie.lang.CodeCheckException;
 import jolie.lang.parse.ParserException;
 import jolie.lang.parse.ast.OLSyntaxNode;
+import jolie.lang.parse.ast.Program;
 import jolie.lang.parse.ast.ServiceNode;
 import jolie.lang.parse.module.ModuleException;
 import jolie.lang.parse.module.ModuleParsingConfiguration;
 import jolie.lang.parse.module.Modules;
 import jolie.lang.parse.module.Modules.ModuleParsedResult;
+import joliex.jolievisualize.Deployment.Build;
 import joliex.jolievisualize.Deployment.DockerCompose;
 
 public class JolieVisualize {
@@ -69,8 +71,30 @@ public class JolieVisualize {
         }
 
         Path p = Paths.get(pathName);
-        final List<Network> listOfNetworks = new ArrayList<>();
 
+        if (!shouldGenerateDeployment) {
+            generateVisualizeJSON(p, args);
+        } else {
+            // switch (deploymentType) {
+            // case "docker_compose":
+            // DockerCompose dc = new DockerCompose(
+            // si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()));
+            // System.out.println(dc.generateComposeFile());
+            // break;
+            // case "kubernetes":
+            // // Not implemented
+            // break;
+            // default:
+            // break;
+            // }
+            // // create build folder
+            // Build build = new Build(listOfNetworks);
+        }
+    }
+
+    private static void generateVisualizeJSON(Path p, String[] args) throws FileNotFoundException, IOException,
+            ParseException, ParserException, ModuleException, CommandLineException, CodeCheckException {
+        final List<Network> listOfNetworks = new ArrayList<>();
         if (p.getFileName().toString().toLowerCase().endsWith(".json")) {
             List<List<TopLevelDeploy>> tlds = getTopLevelDeployment(p);
             for (List<TopLevelDeploy> tldList : tlds) {
@@ -94,23 +118,8 @@ public class JolieVisualize {
                 listOfNetworks.add(n);
             }
             SystemInspector si = new SystemInspector(listOfNetworks);
-            if (!shouldGenerateDeployment) {
-                JSONObject o = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
-                System.out.println(o.toJSONString());
-            } else {
-                switch (deploymentType) {
-                    case "docker_compose":
-                        DockerCompose dc = new DockerCompose(
-                                si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()));
-                        System.out.println(dc.generateComposeFile());
-                        break;
-                    case "kubernetes":
-                        // Not implemented
-                        break;
-                    default:
-                        break;
-                }
-            }
+            JSONObject o = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
+            System.out.println(o.toJSONString());
         } else {
             System.out.println("Invalid - argument must be a .json file");
         }

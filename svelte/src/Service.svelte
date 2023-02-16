@@ -12,24 +12,23 @@
 		removeFromNetwork
 	} from './lib/network';
 	import { getServicePatternType } from './lib/patterns';
+	import { drawGhostNodeOnDrag, drawService } from './lib/draw';
 	import {
-		disembed,
-		drawService,
-		embed,
 		getAllServices,
 		getHoveredPolygon,
 		getServiceFromCoords,
 		isAncestor,
-		isDockerService,
-		renderGhostNodeOnDrag
+		isDockerService
 	} from './lib/service';
 	import {
 		clearSidebar,
 		current_sidebar_element,
+		openServiceInSidebar,
 		openSidebar,
 		SidebarElement
 	} from './lib/sidebar';
 	import Port from './Port.svelte';
+	import { disembed, embed } from './lib/refactoring/embedding';
 
 	export let serviceNode: ElkNode;
 	export let parent: Service | undefined;
@@ -48,7 +47,7 @@
 	} else selected = false;
 
 	const dispatcher = createEventDispatcher();
-	const expandService = () => {
+	const expandService = (): void => {
 		if (service.embeddings === undefined || service.embeddings.length === 0) return;
 		expanded = true;
 		if ($current_sidebar_element.hist_type === 4) clearSidebar();
@@ -58,7 +57,7 @@
 			action: 'expandService'
 		});
 	};
-	const shrinkService = () => {
+	const shrinkService = (): void => {
 		expanded = false;
 		if ($current_sidebar_element.hist_type === 4) clearSidebar();
 		dispatcher('message', {
@@ -68,18 +67,7 @@
 		});
 	};
 
-	const openServiceInSidebar = (event: Event) => {
-		if (event instanceof PointerEvent && event.shiftKey) return;
-		if (dragged > 1) {
-			dragged = 0;
-			return;
-		}
-		const sbElem = new SidebarElement(0, service.name);
-		sbElem.service = service;
-		openSidebar(sbElem, $current_sidebar_element);
-	};
-
-	const handleChildEvent = (event: CustomEvent) => {
+	const handleChildEvent = (event: CustomEvent): void => {
 		dispatcher('message', {
 			serviceID: event.detail.serviceID,
 			serviceName: event.detail.serviceName,
@@ -97,10 +85,7 @@
 				const tmp = new SidebarElement(4, 'Selection');
 				tmp.serviceList = $current_sidebar_element.serviceList.filter((t) => t.id !== service.id);
 				selected = false;
-				openSidebar(
-					tmp.serviceList.length == 0 ? new SidebarElement(-1, '') : tmp,
-					$current_sidebar_element
-				);
+				openSidebar(tmp.serviceList.length == 0 ? new SidebarElement(-1, '') : tmp);
 				return;
 			}
 			const sbElem =
@@ -109,7 +94,7 @@
 					: new SidebarElement(4, 'Selection');
 			if (sbElem.serviceList === undefined) sbElem.serviceList = [];
 			sbElem.serviceList.push(service);
-			openSidebar(sbElem, $current_sidebar_element);
+			openSidebar(sbElem);
 		}
 		if (e.shiftKey || (!service.file && !isDockerService(service))) return;
 		dragged = 1;
@@ -180,7 +165,7 @@
 	let prevPoly: Element;
 	const dragListener = (e: MouseEvent) => {
 		if (!dragging) return;
-		renderGhostNodeOnDrag(serviceNode, e, startX, startY);
+		drawGhostNodeOnDrag(serviceNode, e, startX, startY);
 		const polyUnder = getHoveredPolygon(e);
 		if (polyUnder === undefined || polyUnder.parentElement.getAttribute('id') === serviceNode.id) {
 			if (prevPoly) prevPoly.setAttribute('style', 'stroke-width: 0.4');
@@ -223,7 +208,7 @@
 			? 'fill-amber-600'
 			: 'fill-service'}"
 		style="stroke-width: 0.4"
-		on:dblclick|stopPropagation={openServiceInSidebar}
+		on:dblclick|stopPropagation={() => openServiceInSidebar(service, dragged)}
 		on:mousedown|stopPropagation={startDrag}
 	/>
 	{#if service.embeddings && service.embeddings.length > 0}
@@ -268,7 +253,7 @@
 	{/if}
 	<text
 		class="cursor-pointer select-none {isDockerService(service) ? 'fill-zinc-100' : 'fill-black'}"
-		on:dblclick|stopPropagation={openServiceInSidebar}
+		on:dblclick|stopPropagation={() => openServiceInSidebar(service, dragged)}
 		on:mousedown|stopPropagation={startDrag}>{service.name}</text
 	>
 	{#if serviceNode.edges && serviceNode.edges.length > 0}

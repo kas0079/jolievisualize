@@ -2,14 +2,9 @@
 	import ELK, { type ElkNode } from 'elkjs/lib/elk.bundled';
 	import Edge from './Edge.svelte';
 	import { generateVisFile, loading, services, setDataString, vscode } from './lib/data';
-	import {
-		handleExpandServiceEvent,
-		handleShrinkServiceEvent,
-		rerenderGraph
-	} from './lib/eventHandlers';
-	import { createSystemGraph } from './lib/graph';
-	import { current_popup, noPopup } from './lib/popup';
-	import { updateRanges } from './lib/service';
+	import { createSystemGraph, rerenderGraph } from './lib/graph';
+	import { closePopup, current_popup } from './lib/popup';
+	import { handleExpandServiceEvent, handleShrinkServiceEvent, updateRanges } from './lib/service';
 	import { clearSidebar, current_sidebar_element } from './lib/sidebar';
 	import Network from './Network.svelte';
 	import Popup from './Popup.svelte';
@@ -89,7 +84,6 @@
 
 	const handleKeyboard = async (event: KeyboardEvent) => {
 		if (event.key === '.') {
-			console.log(generateVisFile());
 		}
 		//close sidebar & popup
 		if (event.key === 'Escape') {
@@ -99,7 +93,7 @@
 			}
 			if ($current_popup.title === '') return;
 			await $current_popup.cancel();
-			current_popup.set(noPopup);
+			closePopup();
 			await resetGraph();
 		}
 		if (event.key === 'Enter') {
@@ -109,7 +103,7 @@
 
 			const res = $current_popup.confirm($current_popup.values);
 			if (!res) await $current_popup.cancel();
-			current_popup.set(noPopup);
+			closePopup();
 			if (!res) await resetGraph();
 		}
 	};

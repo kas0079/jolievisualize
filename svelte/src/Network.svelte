@@ -3,22 +3,14 @@
 	import { afterUpdate } from 'svelte';
 	import Edge from './Edge.svelte';
 	import { vscode } from './lib/data';
+	import { drawNetwork } from './lib/draw';
 	import Port from './Port.svelte';
 	import Service from './Service.svelte';
 
 	export let network: ElkNode;
 
-	const drawNetwork = () => {
-		d3.select(`#${network.id}`).attr('transform', `translate(${network.x}, ${network.y})`);
-		d3.select(`#${network.id} > rect`)
-			.attr('x', 0)
-			.attr('y', 0)
-			.attr('width', network.width)
-			.attr('height', network.height);
-	};
-
 	afterUpdate(() => {
-		drawNetwork();
+		drawNetwork(network);
 	});
 </script>
 

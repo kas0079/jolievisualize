@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { types, vscode } from '../lib/data';
-	import { current_sidebar_element, openSidebar, primitives, SidebarElement } from '../lib/sidebar';
+	import { vscode } from '../lib/data';
+	import { openTypeSidebar } from '../lib/sidebar';
 
 	export let type: Type;
 
@@ -19,17 +19,6 @@
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
 		}
-	};
-
-	const openTypeSidebar = (typename: string) => {
-		if (primitives.includes(typename.toLowerCase())) return;
-		const type = types.find((t) => t.name === typename);
-
-		if (type === undefined) return;
-
-		const sbElemt = new SidebarElement(3, typename);
-		sbElemt.type = type;
-		openSidebar(sbElemt, $current_sidebar_element);
 	};
 </script>
 

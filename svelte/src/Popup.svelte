@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { current_popup, noPopup } from './lib/popup';
+	import { closePopup, current_popup } from './lib/popup';
 
 	const dispatcher = createEventDispatcher();
 	const cancel = async () => {
 		await $current_popup.cancel();
-		current_popup.set(noPopup);
+		closePopup();
 		dispatcher('cancel');
 	};
 
 	const confirm = async () => {
 		const res = $current_popup.confirm($current_popup.values);
 		if (!res) await cancel();
-		else current_popup.set(noPopup);
+		else closePopup();
 	};
 </script>
 

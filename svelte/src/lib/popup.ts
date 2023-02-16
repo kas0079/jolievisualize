@@ -13,7 +13,6 @@ export class PopUp {
 		}
 	) {
 		this.title = title;
-
 		fields.forEach((f) => this.values.push({ field: f, val: '' }));
 		this.confirm = confirm;
 		this.cancel = cancel;
@@ -30,7 +29,13 @@ export class PopUp {
 	};
 }
 
-export const noPopup = new PopUp('', []);
+const noPopup = new PopUp('', []);
 export const current_popup = writable(noPopup);
 
-// TODO write functions similar to sidebar
+export const openPopup = (title: string, fields: string[], confirm?, cancel?): void => {
+	current_popup.set(new PopUp(title, fields, confirm, cancel));
+};
+
+export const closePopup = (): void => {
+	current_popup.set(noPopup);
+};

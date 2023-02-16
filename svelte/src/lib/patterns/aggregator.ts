@@ -1,17 +1,15 @@
-import { PopUp, current_popup } from '../popup';
+import { openPopup } from '../popup';
 import { clearSidebar } from '../sidebar';
 
-export const createAggregator = (svcs: Service[]) => {
+export const createAggregator = (svcs: Service[]): void => {
 	svcs.forEach((svc) => {});
-
-	const pu = new PopUp(
+	openPopup(
 		'Add location for each service',
 		svcs.flatMap((t) => t.name + ' location').concat('Aggregator location'),
-		(vals) => {
+		(vals: { field: string; val: string }[]) => {
 			return true;
 		},
 		async () => {}
 	);
 	clearSidebar();
-	current_popup.set(pu);
 };

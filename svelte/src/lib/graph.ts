@@ -1,7 +1,25 @@
 import type { ElkExtendedEdge, ElkNode, ElkPort } from 'elkjs/lib/elk-api';
-import { isDockerService } from './service';
+import { getAllServices, isDockerService } from './service';
+import { services } from './data';
 
 export const portSize = 5;
+
+export const rerenderGraph = (graph: ElkNode) => {
+	const allSvcs = getAllServices(services);
+
+	graph.children.forEach((network) => {
+		network.children.forEach((serviceNode) => {
+			rerenderService(serviceNode, allSvcs);
+		});
+		network.edges = getTopLevelEdges(
+			allSvcs.filter((svc) =>
+				network.children.flatMap((t) => t.labels[1].text)?.includes(`${svc.id}`)
+			)
+		);
+	});
+	graph.edges = getTopLevelEdges(services.flat());
+	return graph;
+};
 
 export const createSystemGraph = (services: Service[][]): ElkNode => {
 	const children = getNetworkNodes(services);
@@ -19,7 +37,7 @@ export const createSystemGraph = (services: Service[][]): ElkNode => {
 	};
 };
 
-export const getAllElkNodes = (root: ElkNode) => {
+export const getAllElkNodes = (root: ElkNode): ElkNode[] => {
 	return root.children.flatMap((t) => getChildNodesRecursive(t));
 };
 
@@ -75,6 +93,41 @@ export const getTopLevelEdges = (services: Service[]): ElkExtendedEdge[] => {
 	return tle.concat(connectDockerPorts(services));
 };
 
+export const getInternalEdges = (service: Service): ElkExtendedEdge[] => {
+	const res: ElkExtendedEdge[] = [];
+	service.outputPorts?.forEach((op) => {
+		service.embeddings?.forEach((embed) => {
+			embed.inputPorts?.forEach((ip) => {
+				if (ip.location === op.location)
+					res.push({
+						id: `${service.name}${service.id}${op.name}-${embed.name}${embed.id}${ip.name}`,
+						sources: [`${service.name}${service.id}-${op.name}`],
+						targets: [`${embed.name}${embed.id}-${ip.name}`]
+					});
+			});
+		});
+	});
+	return res;
+};
+
+const rerenderService = (serviceNode: ElkNode, allSvcs: Service[]) => {
+	const svc = allSvcs.find((t) => `${t.id}` === serviceNode.labels[1].text);
+	if (!serviceNode.children[0].id.startsWith('!leaf')) {
+		serviceNode.children.forEach((child) => {
+			rerenderService(child, allSvcs);
+		});
+		_rerender(serviceNode, svc, false);
+	} else {
+		_rerender(serviceNode, svc, true);
+	}
+};
+
+const _rerender = (serviceNode: ElkNode, service: Service, omitLocals: boolean) => {
+	serviceNode.id = `${service.name}${service.id}`;
+	serviceNode.ports = getElkPorts(service, omitLocals);
+	if (!omitLocals) serviceNode.edges = getInternalEdges(service);
+};
+
 const connectDockerPorts = (services: Service[]): ElkExtendedEdge[] => {
 	const tle: ElkExtendedEdge[] = [];
 	services.forEach((svc) => {
@@ -123,7 +176,7 @@ const getTopLevelServices = (services: Service[]): ElkNode[] => {
 	return tls;
 };
 
-const getChildNodesRecursive = (node: ElkNode, result: ElkNode[] = []) => {
+const getChildNodesRecursive = (node: ElkNode, result: ElkNode[] = []): ElkNode[] => {
 	result.push(node);
 	node.children?.forEach((c) => {
 		if (c.id === '!leaf') return;

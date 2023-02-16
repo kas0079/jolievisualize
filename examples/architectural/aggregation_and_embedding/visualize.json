@@ -2,9 +2,16 @@
 	[
 		{
 			"file": "client.ol"
-		},
+		}
+	],
+	[
 		{
 			"file": "aggregator.ol"
+		}
+	],
+	[
+		{
+			"file": "fax.ol"
 		}
 	]
 ]
