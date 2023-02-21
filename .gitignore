@@ -6,3 +6,4 @@ yarn.lock
 java/target/
 web/
 tests/
+build/
