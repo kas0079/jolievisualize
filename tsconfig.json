@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "commonjs",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"removeComments": true,
+		"forceConsistentCasingInFileNames": true,
+		"strictPropertyInitialization": false,
+		"noPropertyAccessFromIndexSignature": false,
+		"outDir": "./"
+	},
+	"include": ["./ts"],
+	"exclude": ["./web", "./svelte"],
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"display": "Recommended"
+}

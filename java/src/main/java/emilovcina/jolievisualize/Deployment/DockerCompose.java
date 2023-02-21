@@ -27,6 +27,10 @@ public class DockerCompose {
         return str.toString();
     }
 
+    public JolieSystem getSystem() {
+        return this.system;
+    }
+
     private String genServices() {
         StringBuilder svcs = new StringBuilder("services:\n");
         for (int i = 0; i < system.getNetworks().size(); i++) {
@@ -46,7 +50,11 @@ public class DockerCompose {
                     continue;
                 svcs.append("    " + svc.getName() + svc.getId() + ":\n");
 
-                svcs.append("        image: " + (svc.getImage() != null ? svc.getImage() : "[INSERT_IMAGE]") + "\n");
+                if (svc.getImage() != null)
+                    svcs.append("        image: " + svc.getImage() + "\n");
+                else
+                    svcs.append("        build: ./" + svc.getName() + "\n");
+
                 if (svc instanceof Docker) {
                     Docker d = ((Docker) svc);
                     svcs.append("        ports:\n");
@@ -61,6 +69,11 @@ public class DockerCompose {
                     svcs.append("        replicas: " + replicaMap.get(svcName) + "\n");
                     replicaMap.put(svcName, 0);
                 }
+                if (svc.getParamFile() != null && svc.getParamFile().endsWith(".ini")) {
+                    svcs.append(" volumes:\n");
+                    svcs.append(" - " + svc.getParamFile() + ":/var/temp\n");
+                }
+
                 svcs.append("        networks:\n");
                 addNetworks(svc, i, system.getNetworks(), svcs);
             }
@@ -132,7 +145,7 @@ public class DockerCompose {
     private void getPorts(List<InputPort> portList, StringBuilder strBuilder) {
         Set<Integer> seenPorts = new HashSet<>();
         portList.forEach(port -> {
-            if (port.getLocation().equalsIgnoreCase("local"))
+            if (port.getLocation().equalsIgnoreCase("local") || port.getLocation().endsWith(".ini"))
                 return;
             seenPorts.add(
                     Integer.parseInt(

@@ -91,7 +91,7 @@ public class Service {
     }
 
     public void addDependencyFile(String filePath) {
-        if (filePath.equalsIgnoreCase(this.uri))
+        if (filePath.equalsIgnoreCase(this.uri) || filePath.equals(""))
             return;
         this.dependencies.add(filePath);
     }
@@ -106,6 +106,10 @@ public class Service {
 
     public String getImage() {
         return image;
+    }
+
+    public String getParamFile() {
+        return this.paramFile;
     }
 
     public void addCourier(Courier c) {

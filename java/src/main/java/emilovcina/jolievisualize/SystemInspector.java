@@ -138,16 +138,20 @@ public class SystemInspector {
         String protocol = "";
         String location = "";
         String annotation = "";
+        CodeRange locationRange = null;
+        CodeRange protocolRange = null;
         if (ipi.getDocumentation().isPresent()) {
             String doc = ipi.getDocumentation().get();
             if (doc.startsWith("@jolievisualize"))
                 annotation = doc.replaceFirst("@jolievisualize", "");
         }
         if (ipi.protocol() instanceof VariableExpressionNode) {
-            String t = getParamFromPath(((VariableExpressionNode) ipi.protocol()).variablePath(), params);
-            if (!t.equals(""))
-                protocol = t;
-            else
+            Pair<String, ConstantStringExpression> t = getParamFromPath(
+                    ((VariableExpressionNode) ipi.protocol()).variablePath(), params);
+            if (t != null) {
+                protocol = t.key();
+                protocolRange = getCodeRange("protocol", t.value().context());
+            } else
                 protocol = !ipi.protocolId().equals("") ? ipi.protocolId() : "sodep";
         } else
             protocol = !ipi.protocolId().equals("") ? ipi.protocolId() : "sodep";
@@ -156,9 +160,12 @@ public class SystemInspector {
             location = "local";
         else {
             if (ipi.location() instanceof VariableExpressionNode) {
-                String t = getParamFromPath(((VariableExpressionNode) ipi.location()).variablePath(), params);
-                if (!t.equals(""))
-                    location = t;
+                Pair<String, ConstantStringExpression> t = getParamFromPath(
+                        ((VariableExpressionNode) ipi.location()).variablePath(), params);
+                if (t != null) {
+                    location = t.key();
+                    locationRange = getCodeRange("location", t.value().context());
+                }
             } else
                 location = (ipi.location().toString().endsWith("/")
                         ? ipi.location().toString().substring(0, ipi.location().toString().length() -
@@ -187,9 +194,14 @@ public class SystemInspector {
         if (annotation.length() > 0)
             result.setAnnotation(annotation.trim());
         if (service.getUri() != null && service.getUri().length() > 0) {
-            if (ipi.protocol() != null)
+            if (protocolRange != null)
+                result.addCodeRange(protocolRange);
+            else if (ipi.protocol() != null)
                 result.addCodeRange(getCodeRange("protocol", ipi.protocol().context()));
-            if (ipi.location() != null)
+
+            if (locationRange != null)
+                result.addCodeRange(locationRange);
+            else if (ipi.location() != null)
                 result.addCodeRange(getCodeRange("location", ipi.location().context()));
             result.addCodeRange(getCodeRange("port", ipi.context()));
         }
@@ -263,16 +275,20 @@ public class SystemInspector {
         String protocol = "";
         String location = "";
         String annotation = "";
+        CodeRange locationRange = null;
+        CodeRange protocolRange = null;
         if (opi.getDocumentation().isPresent()) {
             String doc = opi.getDocumentation().get();
             if (doc.startsWith("@jolievisualize"))
                 annotation = doc.replaceFirst("@jolievisualize", "");
         }
         if (opi.protocol() instanceof VariableExpressionNode) {
-            String t = getParamFromPath(((VariableExpressionNode) opi.protocol()).variablePath(), params);
-            if (!t.equals(""))
-                protocol = t;
-            else
+            Pair<String, ConstantStringExpression> t = getParamFromPath(
+                    ((VariableExpressionNode) opi.protocol()).variablePath(), params);
+            if (t != null) {
+                protocol = t.key();
+                protocolRange = getCodeRange("protocol", t.value().context());
+            } else
                 protocol = !opi.protocolId().equals("") ? opi.protocolId() : "sodep";
 
         } else
@@ -282,24 +298,32 @@ public class SystemInspector {
             location = "local";
         else {
             if (opi.location() instanceof VariableExpressionNode) {
-                String t = getParamFromPath(((VariableExpressionNode) opi.location()).variablePath(), params);
-                if (!t.equals(""))
-                    location = t;
+                Pair<String, ConstantStringExpression> t = getParamFromPath(
+                        ((VariableExpressionNode) opi.location()).variablePath(), params);
+                if (t != null) {
+                    location = t.key();
+                    locationRange = getCodeRange("location", t.value().context());
+                }
             } else
                 location = (opi.location().toString().endsWith("/")
                         ? opi.location().toString().substring(0, opi.location().toString().length() -
                                 1)
                         : opi.location().toString());
         }
+
         OutputPort op = new OutputPort(opi.id(), protocol, location);
 
         if (annotation.length() > 0)
             op.setAnnotation(annotation.trim());
         if (service.getUri() != null && service.getUri().length() > 0) {
-            if (opi.protocol() != null) {
+            if (protocolRange != null)
+                op.addCodeRange(protocolRange);
+            else if (opi.protocol() != null)
                 op.addCodeRange(getCodeRange("protocol", opi.protocol().context()));
-            }
-            if (opi.location() != null)
+
+            if (locationRange != null)
+                op.addCodeRange(locationRange);
+            else if (opi.location() != null)
                 op.addCodeRange(getCodeRange("location", opi.location().context()));
             op.addCodeRange(getCodeRange("port", opi.context()));
         }
@@ -384,20 +408,20 @@ public class SystemInspector {
         return type;
     }
 
-    private String getParamFromPath(VariablePathNode vpn, JSONObject params) {
+    private Pair<String, ConstantStringExpression> getParamFromPath(VariablePathNode vpn, JSONObject params) {
         Object obj = null;
+        ConstantStringExpression cres = null;
         for (int i = 1; i < vpn.path().size(); i++) {
             Pair<OLSyntaxNode, OLSyntaxNode> o = vpn.path().get(i);
-            if (o.key() != null) {
-                ConstantStringExpression cse = (ConstantStringExpression) o.key();
-                obj = params.get(cse.value());
-                if (obj == null)
-                    return "";
+            if (o.key() != null && o.key() instanceof ConstantStringExpression) {
+                cres = (ConstantStringExpression) o.key();
+                ;
+                obj = params.get(cres.value());
             }
         }
         if (obj instanceof String)
-            return (String) obj;
-        return "";
+            return new Pair<String, ConstantStringExpression>((String) obj, cres);
+        return null;
     }
 
     private boolean operationExistsInInterface(OperationDeclaration od) {

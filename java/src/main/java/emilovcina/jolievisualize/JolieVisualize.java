@@ -14,6 +14,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import emilovcina.jolievisualize.Deployment.Build;
+import emilovcina.jolievisualize.Deployment.DockerCompose;
 import jolie.Interpreter;
 import jolie.JolieURLStreamHandlerFactory;
 import jolie.cli.CommandLineException;
@@ -57,41 +59,40 @@ public class JolieVisualize {
             return;
         }
 
-        boolean shouldGenerateDeployment = false;
         String deploymentType = "";
 
         for (int i = 6; i < args.length; i++) {
-            if (args[i].equals("--docker-compose")) {
-                shouldGenerateDeployment = true;
+            if (args[i].equals("--docker-compose"))
                 deploymentType = "docker_compose";
-            }
+            if (args[i].equals("--kubernetes"))
+                deploymentType = "kubernetes";
         }
 
         Path p = Paths.get(pathName);
 
-        if (!shouldGenerateDeployment) {
-            List<Network> networks = generateVisualizeJSON(p, args);
-            networks.forEach(network -> network.getServices()
-                    .forEach(s -> s.getDependencies().forEach(d -> System.out.println(d))));
+        SystemInspector si = new SystemInspector(parseNetworks(p, args));
+
+        if (deploymentType.equals("")) {
+            JSONObject o = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
+            System.out.println(o.toJSONString());
         } else {
             switch (deploymentType) {
                 case "docker_compose":
-                    // DockerCompose dc = new DockerCompose(
-                    // si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()));
-                    // System.out.println(dc.generateComposeFile());
+                    DockerCompose dc = new DockerCompose(
+                            si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()));
+                    System.out.println(new Build(dc.getSystem(),
+                            dc.generateComposeFile()).toJSON().toJSONString());
                     break;
                 case "kubernetes":
-                    // Not implemented
+                    // ! Not implemented
                     break;
                 default:
                     break;
             }
-            // create build folder
-            // Build build = new Build(listOfNetworks);
         }
     }
 
-    private static List<Network> generateVisualizeJSON(Path p, String[] args) throws FileNotFoundException, IOException,
+    private static List<Network> parseNetworks(Path p, String[] args) throws FileNotFoundException, IOException,
             ParseException, ParserException, ModuleException, CommandLineException, CodeCheckException {
         final List<Network> listOfNetworks = new ArrayList<>();
         if (p.getFileName().toString().toLowerCase().endsWith(".json")) {
@@ -116,9 +117,6 @@ public class JolieVisualize {
                 }
                 listOfNetworks.add(n);
             }
-            SystemInspector si = new SystemInspector(listOfNetworks);
-            JSONObject o = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
-            System.out.println(o.toJSONString());
         } else {
             System.out.println("Invalid - argument must be a .json file");
         }

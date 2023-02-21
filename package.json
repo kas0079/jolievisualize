@@ -8,7 +8,8 @@
 		"email": "emovc18@student.sdu.dk"
 	},
 	"scripts": {
-		"build": "npm run build:java && npm run build:svelte",
+		"build": "npm run build:ts && npm run build:java && npm run build:svelte",
+		"build:ts": "tsc -p .",
 		"build:java": "cd java/ && mvn clean && mvn install && cd ../",
 		"build:svelte": "cd svelte/ && npm run build && cd ../",
 		"local": "npm pack && rm ../jolievisualize-0.0.1.tgz && mv jolievisualize-0.0.1.tgz ../jolievisualize-0.0.1.tgz"
@@ -21,7 +22,10 @@
 			"indirectDependencies": {}
 		}
 	},
-	"dependencies": {
-		"express": "^4.18.2"
+	"bin": {
+		"jvbuild": "node deploy.js"
+	},
+	"devDependencies": {
+		"@types/node": "^18.14.0"
 	}
 }

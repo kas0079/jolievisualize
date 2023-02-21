@@ -1,8 +1,6 @@
 #!/bin/sh
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-cd $SCRIPT_DIR
-## Jolie v 1.10.0:
-#java -cp java -ea:jolie... -ea:joliex... -Djava.rmi.server.codebase=file:/$JOLIE_HOME/extensions/rmi.jar -cp $JOLIE_HOME/lib/libjolie.jar:$JOLIE_HOME/lib/automaton.jar:$JOLIE_HOME/lib/jolie-js.jar::$JOLIE_HOME/lib/json_simple.jar:$JOLIE_HOME/jolie.jar:$JOLIE_HOME/jolie-cli.jar:./jolievisualize.jar joliex.jolievisualize.JolieVisualize -l ./lib/*:$JOLIE_HOME/lib:$JOLIE_HOME/javaServices/*:$JOLIE_HOME/extensions/* -i $JOLIE_HOME/include -p $JOLIE_HOME/packages:./packages "$@"
+cd $SCRIPT_DIR/../
 
 ## Jolie v1.11.0:
 java -ea:jolie... -ea:joliex... -Djava.rmi.server.codebase=file:/$JOLIE_HOME/extensions/rmi.jar -cp $JOLIE_HOME/lib/libjolie.jar:$JOLIE_HOME/lib/automaton.jar:$JOLIE_HOME/lib/commons-text.jar:$JOLIE_HOME/lib/jolie-js.jar:$JOLIE_HOME/lib/json-simple.jar:$JOLIE_HOME/jolie.jar:$JOLIE_HOME/jolie-cli.jar:./jolievisualize.jar emilovcina.jolievisualize.JolieVisualize -l ./lib/*:$JOLIE_HOME/lib:$JOLIE_HOME/javaServices/*:$JOLIE_HOME/extensions/* -i $JOLIE_HOME/include -p $JOLIE_HOME/packages "$@"
