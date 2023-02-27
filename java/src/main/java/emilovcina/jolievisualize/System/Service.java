@@ -19,6 +19,8 @@ public class Service {
 
     private String uri;
     private String paramFile;
+    private JSONObject paramJSON;
+    private JSONObject envJSON;
 
     private List<OutputPort> outputPorts = new ArrayList<>();
     private List<InputPort> inputPorts = new ArrayList<>();
@@ -31,8 +33,9 @@ public class Service {
     private String image;
 
     private List<CodeRange> codeRanges = new ArrayList<>();
-
     private Set<String> dependencies = new HashSet<>();
+    private List<String> volumes = new ArrayList<>();
+    private String args;
 
     public Service(long id) {
         this.id = id;
@@ -62,9 +65,20 @@ public class Service {
 
         if (paramFile != null && paramFile.length() > 0)
             map.put("paramFile", paramFile);
+        else if (paramJSON != null)
+            map.put("params", paramJSON);
 
         if (bindingPortName != null)
             map.put("parentPort", bindingPortName);
+
+        if (volumes.size() > 0)
+            map.put("volumes", volumes);
+
+        if (args != null)
+            map.put("args", args);
+
+        if (envJSON != null)
+            map.put("env", envJSON);
 
         if (outputPorts.size() > 0) {
             List<JSONObject> opListTmp = new ArrayList<>();
@@ -90,6 +104,14 @@ public class Service {
         return new JSONObject(map);
     }
 
+    public String getArgs() {
+        return args;
+    }
+
+    public void setArgs(String args) {
+        this.args = args;
+    }
+
     public void addDependencyFile(String filePath) {
         if (filePath.equalsIgnoreCase(this.uri) || filePath.equals(""))
             return;
@@ -110,6 +132,14 @@ public class Service {
 
     public String getParamFile() {
         return this.paramFile;
+    }
+
+    public List<String> getVolumes() {
+        return this.volumes;
+    }
+
+    public void addVolume(String conf) {
+        this.volumes.add(conf);
     }
 
     public void addCourier(Courier c) {
@@ -160,6 +190,14 @@ public class Service {
             }
     }
 
+    public JSONObject getEnvJSON() {
+        return envJSON;
+    }
+
+    public void setEnvJSON(JSONObject envJSON) {
+        this.envJSON = envJSON;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -200,5 +238,13 @@ public class Service {
 
     public void addCodeRange(CodeRange cr) {
         codeRanges.add(cr);
+    }
+
+    public void setParamJSON(JSONObject params) {
+        this.paramJSON = params;
+    }
+
+    public JSONObject getParamJSON() {
+        return this.paramJSON;
     }
 }

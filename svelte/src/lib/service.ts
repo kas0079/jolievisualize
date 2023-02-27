@@ -99,7 +99,7 @@ export const transposeRange = (
 };
 
 export const isDockerService = (service: Service): boolean => {
-	return service.image && service.ports && !service.file;
+	return service.image && !service.file;
 };
 
 export const deepCopyService = (service: Service): Service => {

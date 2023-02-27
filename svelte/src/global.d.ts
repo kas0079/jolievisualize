@@ -12,9 +12,12 @@ type TLD = {
 	target?: string;
 	name?: string;
 	instances?: number;
-	paramFile?: string;
+	params?: object | string;
+	env?: object;
+	args?: string;
 	image?: string;
 	ports?: string[];
+	volumes?: string[];
 };
 
 type Data = {
@@ -36,6 +39,10 @@ type Service = {
 	image?: string;
 	ports?: DockerPort[];
 	paramFile?: string;
+	params?: object;
+	env?: object;
+	args?: string;
+	volumes?: string[];
 	parentPort: string | undefined;
 	parent: Service | undefined;
 };

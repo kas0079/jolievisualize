@@ -1,23 +1,71 @@
 package emilovcina.jolievisualize.Deployment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import emilovcina.jolievisualize.Network;
+import org.json.simple.JSONObject;
+
+import emilovcina.jolievisualize.Deployment.Build.BuildFolder;
 import emilovcina.jolievisualize.System.Docker;
 import emilovcina.jolievisualize.System.InputPort;
 import emilovcina.jolievisualize.System.JolieSystem;
+import emilovcina.jolievisualize.System.Network;
 import emilovcina.jolievisualize.System.Service;
 
 public class DockerCompose {
 
-    private final JolieSystem system;
+    private class ComposeService {
+        public Service service;
+        public String name;
+        public BuildFolder folder;
+        public int replicas;
+        public boolean isDocker = false;
+        public Set<Integer> networks;
+        public int currentNetwork;
 
-    public DockerCompose(JolieSystem system) {
+        @Override
+        public boolean equals(Object other) {
+            if (!(other instanceof ComposeService))
+                return false;
+            ComposeService oc = (ComposeService) other;
+            if (this.service.getId() == oc.service.getId())
+                return true;
+            if (isDocker && oc.isDocker) {
+                Docker dockerSvc = (Docker) service;
+                Docker otherSvc = (Docker) oc.service;
+                return dockerSvc.getName().equals(otherSvc.getName())
+                        && dockerSvc.getImage().equals(otherSvc.getImage())
+                        && dockerSvc.getPorts().entrySet().containsAll(otherSvc.getPorts().entrySet())
+                        && otherSvc.getPorts().entrySet().containsAll(dockerSvc.getPorts().entrySet())
+                        && this.currentNetwork == oc.currentNetwork
+                        && oc.networks.containsAll(this.networks)
+                        && this.networks.containsAll(oc.networks)
+                        && isEnvMatching(dockerSvc.getEnvJSON(), otherSvc.getEnvJSON());
+            } else if (isDocker && !oc.isDocker || !isDocker && oc.isDocker)
+                return false;
+            return this.service.getName().equals(oc.service.getName())
+                    && this.service.getUri().equals(oc.service.getUri())
+                    && this.currentNetwork == oc.currentNetwork
+                    && oc.networks.containsAll(this.networks)
+                    && this.networks.containsAll(oc.networks)
+                    && isEnvMatching(this.service.getEnvJSON(), oc.service.getEnvJSON())
+                    && oc.service.getVolumes().containsAll(this.service.getVolumes())
+                    && this.service.getVolumes().containsAll(oc.service.getVolumes());
+        }
+    }
+
+    private final JolieSystem system;
+    private final List<BuildFolder> folders;
+
+    public DockerCompose(JolieSystem system, List<BuildFolder> folders) {
         this.system = system;
+        this.folders = folders;
     }
 
     public String generateComposeFile() {
@@ -27,59 +75,103 @@ public class DockerCompose {
         return str.toString();
     }
 
-    public JolieSystem getSystem() {
-        return this.system;
-    }
-
     private String genServices() {
-        StringBuilder svcs = new StringBuilder("services:\n");
+        StringBuilder strBuilder = new StringBuilder("services:\n");
         for (int i = 0; i < system.getNetworks().size(); i++) {
-            Map<String, Integer> replicaMap = new HashMap<>();
-            for (int j = 0; j < system.getNetworks().get(i).getServices().size(); j++) {
-                Service svc = system.getNetworks().get(i).getServices().get(j);
-                String svcName = svc.getName() + svc.getUri();
-                if (replicaMap.containsKey(svcName)) {
-                    replicaMap.put(svcName, replicaMap.get(svcName) + 1);
-                } else
-                    replicaMap.put(svcName, 1);
-            }
-            for (int j = 0; j < system.getNetworks().get(i).getServices().size(); j++) {
-                Service svc = system.getNetworks().get(i).getServices().get(j);
-                String svcName = svc.getName() + svc.getUri();
-                if (replicaMap.get(svcName) == 0)
-                    continue;
-                svcs.append("    " + svc.getName() + svc.getId() + ":\n");
-
+            List<ComposeService> services = getComposeServices(system.getNetworks().get(i).getServices(), i);
+            services.forEach(cs -> {
+                Service svc = cs.service;
+                strBuilder.append("    " + cs.name + ":\n");
                 if (svc.getImage() != null)
-                    svcs.append("        image: " + svc.getImage() + "\n");
+                    strBuilder.append("        image: " + svc.getImage() + "\n");
                 else
-                    svcs.append("        build: ./" + svc.getName() + "\n");
+                    strBuilder.append("        build: ./" + cs.folder.name + "\n");
 
-                if (svc instanceof Docker) {
+                if (cs.isDocker) {
                     Docker d = ((Docker) svc);
-                    svcs.append("        ports:\n");
-                    d.getPorts().forEach((ep, ip) -> svcs.append("            - \"" + ep + ":" + ip + "\"\n"));
+                    strBuilder.append("        ports:\n");
+                    d.getPorts().forEach((ep, ip) -> strBuilder.append("            - \"" + ep + ":" + ip +
+                            "\"\n"));
                 } else {
-                    if (svc.getInputPorts().size() > 0) {
-                        svcs.append("        ports:\n");
-                        getPorts(svc.getInputPorts(), svcs);
+                    if (svc.getInputPorts().size() > 0 && DeployUtils.getExposedPorts(svc.getInputPorts()).size() > 0) {
+                        strBuilder.append("        ports:\n");
+                        getPorts(svc.getInputPorts(), strBuilder);
                     }
                 }
-                if (replicaMap.get(svcName) > 1) {
-                    svcs.append("        replicas: " + replicaMap.get(svcName) + "\n");
-                    replicaMap.put(svcName, 0);
+                if (cs.replicas > 1) {
+                    strBuilder.append("        replicas: " + cs.replicas + "\n");
                 }
-                if (svc.getParamFile() != null && svc.getParamFile().endsWith(".ini")) {
-                    svcs.append(" volumes:\n");
-                    svcs.append(" - " + svc.getParamFile() + ":/var/temp\n");
+                if (svc.getVolumes().size() > 0) {
+                    strBuilder.append("        volumes:\n");
+                    for (String s : svc.getVolumes()) {
+                        strBuilder.append("            - type: bind\n" + "              source: -res"
+                                + (s.startsWith("/") ? "" : "/") + s
+                                + "\n              target: /var/temp/" + s + "\n");
+                    }
                 }
-
-                svcs.append("        networks:\n");
-                addNetworks(svc, i, system.getNetworks(), svcs);
-            }
+                if (svc.getEnvJSON() != null) {
+                    strBuilder.append("        environment:\n");
+                    for (Object o : svc.getEnvJSON().keySet()) {
+                        Object val = svc.getEnvJSON().get(o);
+                        if (val instanceof Long)
+                            strBuilder.append(
+                                    "           - " + ((String) o) + "=" + ((Long) svc.getEnvJSON().get(o)) + "\n");
+                        else
+                            strBuilder.append(
+                                    "           - " + ((String) o) + "=" + ((String) svc.getEnvJSON().get(o)) + "\n");
+                    }
+                }
+                strBuilder.append("        networks:\n");
+                addNetworks(svc, cs.currentNetwork, system.getNetworks(), strBuilder);
+            });
         }
+        return strBuilder.toString();
+    }
 
-        return svcs.append("\n").toString();
+    private List<ComposeService> getComposeServices(List<Service> serviceList,
+            int currentNetwork) {
+        List<ComposeService> res = new ArrayList<>();
+        serviceList.forEach(svc -> {
+            ComposeService cs = new ComposeService();
+            if (svc instanceof Docker)
+                cs.isDocker = true;
+            cs.service = svc;
+            cs.name = svc.getName() + svc.getId();
+            cs.networks = findNetworks(svc, currentNetwork, system.getNetworks());
+            // cs.volume.addAll(svc.getVolume());
+            cs.replicas = 1;
+            cs.currentNetwork = currentNetwork;
+            cs.folder = findBuildFolder(svc);
+            ComposeService tmp = containComposeService(cs, res);
+            if (tmp == null || isNewService(svc))
+                res.add(cs);
+            else
+                tmp.replicas++;
+        });
+        return res;
+    }
+
+    private boolean isNewService(Service service) {
+        if (service instanceof Docker)
+            return false;
+        BuildFolder tmp = findBuildFolder(service);
+        return tmp.name.equals(service.getId() + service.getName());
+    }
+
+    private BuildFolder findBuildFolder(Service service) {
+        List<BuildFolder> tmp = folders.stream()
+                .filter(t -> t.target.equals(service.getName()) && t.mainFile.equals(service.getUri()))
+                .collect(Collectors.toList());
+        Optional<BuildFolder> specific = tmp.stream().filter(t -> t.name.equals(service.getId() + service.getName()))
+                .findFirst();
+        if (specific.isPresent())
+            return specific.get();
+        return tmp.isEmpty() ? null : tmp.get(0);
+    }
+
+    private ComposeService containComposeService(ComposeService cs, List<ComposeService> list) {
+        List<ComposeService> tmp = list.stream().filter(t -> t.equals(cs)).collect(Collectors.toList());
+        return tmp.isEmpty() ? null : tmp.get(0);
     }
 
     private void addNetworks(Service svc, int currNetwork, List<Network> allNetworks, StringBuilder strBuilder) {
@@ -97,10 +189,7 @@ public class DockerCompose {
             if (currNetwork == i)
                 continue;
             Network n = allNetworks.get(i);
-            // TODO check if this is working
             n.getServices().forEach(s -> {
-                // if (s.getInputPorts().size() == 0)
-                // return;
                 svc.getInputPorts().forEach(ip -> {
                     if (ip.getLocation().equalsIgnoreCase("local"))
                         return;
@@ -143,14 +232,7 @@ public class DockerCompose {
     }
 
     private void getPorts(List<InputPort> portList, StringBuilder strBuilder) {
-        Set<Integer> seenPorts = new HashSet<>();
-        portList.forEach(port -> {
-            if (port.getLocation().equalsIgnoreCase("local") || port.getLocation().endsWith(".ini"))
-                return;
-            seenPorts.add(
-                    Integer.parseInt(
-                            port.getLocation().substring(port.getLocation().lastIndexOf(":") + 1).split("/")[0]));
-        });
+        Set<Integer> seenPorts = DeployUtils.getExposedPorts(portList);
         seenPorts.forEach(port -> strBuilder.append("            - \"" + port + ":" + port + "\"\n"));
     }
 
@@ -163,5 +245,25 @@ public class DockerCompose {
         }
 
         return networks.toString();
+    }
+
+    private boolean isEnvMatching(JSONObject j1, JSONObject j2) {
+        Map<String, Object> m1 = new HashMap<>();
+        Map<String, Object> m2 = new HashMap<>();
+
+        if (j1 == null && j2 == null)
+            return true;
+        if ((j1 == null) != (j2 == null))
+            return false;
+
+        for (Object o : j1.keySet())
+            m1.put((String) o, j1.get((String) o));
+        for (Object o : j2.keySet())
+            m2.put((String) o, j2.get((String) o));
+
+        if (m1.size() != m2.size())
+            return false;
+        return m1.entrySet().stream()
+                .allMatch(e -> e.getValue().equals(m2.get(e.getKey())));
     }
 }

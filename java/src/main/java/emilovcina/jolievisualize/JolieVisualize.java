@@ -15,7 +15,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import emilovcina.jolievisualize.Deployment.Build;
-import emilovcina.jolievisualize.Deployment.DockerCompose;
+import emilovcina.jolievisualize.Deployment.Build.BuildMethod;
+import emilovcina.jolievisualize.System.Network;
 import jolie.Interpreter;
 import jolie.JolieURLStreamHandlerFactory;
 import jolie.cli.CommandLineException;
@@ -78,15 +79,14 @@ public class JolieVisualize {
         } else {
             switch (deploymentType) {
                 case "docker_compose":
-                    DockerCompose dc = new DockerCompose(
-                            si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()));
-                    System.out.println(new Build(dc.getSystem(),
-                            dc.generateComposeFile()).toJSON().toJSONString());
+                    System.out.println(
+                            new Build(si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()),
+                                    BuildMethod.DOCKER_COMPOSE).toJSON().toJSONString());
                     break;
                 case "kubernetes":
-                    // ! Not implemented
-                    break;
-                default:
+                    System.out.println(
+                            new Build(si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()),
+                                    BuildMethod.KUBERNETES).toJSON().toJSONString());
                     break;
             }
         }
@@ -100,19 +100,19 @@ public class JolieVisualize {
             for (List<TopLevelDeploy> tldList : tlds) {
                 Network n = new Network();
                 for (TopLevelDeploy tld : tldList) {
-                    JSONObject params = null;
-                    if (tld.getParams() != null)
-                        params = readParams(Paths.get(tld.getPath() + "/" + tld.getParams()));
+                    if (tld.getParams() != null && tld.getParamJSON() == null) {
+                        tld.setParamJSON(readParams(Paths.get(tld.getPath() + "/" + tld.getParams())));
+                    }
                     if (tld.getFilename() == null) {
-                        n.addNetwork(tld, null, null);
+                        n.addNetwork(tld, null);
                         continue;
                     }
                     for (ServiceNode sn : parseFile(tld.getFilename(), tld.getPath(), args)) {
                         if (tld.getName() != null) {
                             if (tld.getName().equals(sn.name()))
-                                n.addNetwork(tld, sn, params);
+                                n.addNetwork(tld, sn);
                         } else
-                            n.addNetwork(tld, sn, params);
+                            n.addNetwork(tld, sn);
                     }
                 }
                 listOfNetworks.add(n);
@@ -157,8 +157,21 @@ public class JolieVisualize {
                         tld.setFilename((String) o.get("file"));
                     if (o.get("instances") != null)
                         tld.setNumberOfInstances((long) o.get("instances"));
-                    if (o.get("params") != null)
-                        tld.setParams((String) o.get("params"));
+                    if (o.get("args") != null)
+                        tld.setArgs((String) o.get("args"));
+                    if (o.get("params") != null) {
+                        if (o.get("params") instanceof String)
+                            tld.setParams((String) o.get("params"));
+                        else if (o.get("params") instanceof JSONObject)
+                            tld.setParamJSON((JSONObject) o.get("params"));
+                    }
+                    if (o.get("env") != null) {
+                        if (o.get("env") instanceof JSONObject)
+                            tld.setEnvJSON((JSONObject) o.get("env"));
+                    }
+                    if (o.get("volumes") != null)
+                        for (Object s : ((JSONArray) o.get("volumes")))
+                            tld.addVolume((String) s);
                     if (o.get("image") != null)
                         tld.setImage((String) o.get("image"));
                     if (o.get("ports") != null)

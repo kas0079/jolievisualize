@@ -11,6 +11,7 @@ import emilovcina.jolievisualize.System.Docker;
 import emilovcina.jolievisualize.System.InputPort;
 import emilovcina.jolievisualize.System.Interface;
 import emilovcina.jolievisualize.System.JolieSystem;
+import emilovcina.jolievisualize.System.Network;
 import emilovcina.jolievisualize.System.OutputPort;
 import emilovcina.jolievisualize.System.Service;
 import emilovcina.jolievisualize.System.Type;
@@ -67,16 +68,23 @@ public class SystemInspector {
     }
 
     private void inspectServiceNodes(Network n) {
-        n.getNetwork().forEach((tld, pair) -> {
+        n.getNetwork().forEach((tld, sn) -> {
             for (int i = 0; i < tld.getNumberOfInstances(); i++) {
                 if (tld.getFilename() == null && tld.getImage() != null)
                     n.addService(createDockerService(tld));
                 else {
-                    Service svc = createService(pair.key(), pair.value());
+                    Service svc = createService(sn, tld.getParamJSON());
                     if (tld.getImage() != null)
                         svc.setImage(tld.getImage());
                     if (tld.getParams() != null)
                         svc.setParamFile(tld.getParams());
+                    if (tld.getArgs() != null)
+                        svc.setArgs(tld.getArgs());
+                    if (tld.getEnvJSON() != null)
+                        svc.setEnvJSON(tld.getEnvJSON());
+                    if (tld.getVolumes().size() > 0)
+                        for (String conf : tld.getVolumes())
+                            svc.addVolume(conf);
                     n.addService(svc);
                 }
             }
@@ -111,13 +119,14 @@ public class SystemInspector {
         s.setName(sn.name());
         s.addCodeRange(getCodeRange("svc_name", sn.context()));
         s.setUri(getLocalUri(sn.context()));
+        s.setParamJSON(params);
         for (OLSyntaxNode ol : sn.program().children()) {
             if (ol instanceof ExecutionInfo)
                 s.setExectionInfo((ExecutionInfo) ol);
             else if (ol instanceof OutputPortInfo) {
-                s.addOutputPort(createOutputPort((OutputPortInfo) ol, params, s));
+                s.addOutputPort(createOutputPort((OutputPortInfo) ol, s));
             } else if (ol instanceof InputPortInfo)
-                s.addInputPort(createInputPort((InputPortInfo) ol, params, s));
+                s.addInputPort(createInputPort((InputPortInfo) ol, s));
             else if (ol instanceof CourierDefinitionNode)
                 s.addCourier(createCourier((CourierDefinitionNode) ol));
             else if (ol instanceof EmbedServiceNode) {
@@ -134,7 +143,7 @@ public class SystemInspector {
         return s;
     }
 
-    private InputPort createInputPort(InputPortInfo ipi, JSONObject params, Service service) {
+    private InputPort createInputPort(InputPortInfo ipi, Service service) {
         String protocol = "";
         String location = "";
         String annotation = "";
@@ -147,7 +156,7 @@ public class SystemInspector {
         }
         if (ipi.protocol() instanceof VariableExpressionNode) {
             Pair<String, ConstantStringExpression> t = getParamFromPath(
-                    ((VariableExpressionNode) ipi.protocol()).variablePath(), params);
+                    ((VariableExpressionNode) ipi.protocol()).variablePath(), service.getParamJSON());
             if (t != null) {
                 protocol = t.key();
                 protocolRange = getCodeRange("protocol", t.value().context());
@@ -161,7 +170,7 @@ public class SystemInspector {
         else {
             if (ipi.location() instanceof VariableExpressionNode) {
                 Pair<String, ConstantStringExpression> t = getParamFromPath(
-                        ((VariableExpressionNode) ipi.location()).variablePath(), params);
+                        ((VariableExpressionNode) ipi.location()).variablePath(), service.getParamJSON());
                 if (t != null) {
                     location = t.key();
                     locationRange = getCodeRange("location", t.value().context());
@@ -271,7 +280,7 @@ public class SystemInspector {
         return i;
     }
 
-    private OutputPort createOutputPort(OutputPortInfo opi, JSONObject params, Service service) {
+    private OutputPort createOutputPort(OutputPortInfo opi, Service service) {
         String protocol = "";
         String location = "";
         String annotation = "";
@@ -284,7 +293,7 @@ public class SystemInspector {
         }
         if (opi.protocol() instanceof VariableExpressionNode) {
             Pair<String, ConstantStringExpression> t = getParamFromPath(
-                    ((VariableExpressionNode) opi.protocol()).variablePath(), params);
+                    ((VariableExpressionNode) opi.protocol()).variablePath(), service.getParamJSON());
             if (t != null) {
                 protocol = t.key();
                 protocolRange = getCodeRange("protocol", t.value().context());
@@ -299,7 +308,7 @@ public class SystemInspector {
         else {
             if (opi.location() instanceof VariableExpressionNode) {
                 Pair<String, ConstantStringExpression> t = getParamFromPath(
-                        ((VariableExpressionNode) opi.location()).variablePath(), params);
+                        ((VariableExpressionNode) opi.location()).variablePath(), service.getParamJSON());
                 if (t != null) {
                     location = t.key();
                     locationRange = getCodeRange("location", t.value().context());
@@ -413,9 +422,8 @@ public class SystemInspector {
         ConstantStringExpression cres = null;
         for (int i = 1; i < vpn.path().size(); i++) {
             Pair<OLSyntaxNode, OLSyntaxNode> o = vpn.path().get(i);
-            if (o.key() != null && o.key() instanceof ConstantStringExpression) {
+            if (o.key() != null) {
                 cres = (ConstantStringExpression) o.key();
-                ;
                 obj = params.get(cres.value());
             }
         }

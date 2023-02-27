@@ -7,8 +7,6 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
-import emilovcina.jolievisualize.Network;
-
 public class JolieSystem {
     private long highestID = -1;
     private long highestInterfaceID = -1;

@@ -3,14 +3,20 @@ package emilovcina.jolievisualize;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+
 public class TopLevelDeploy {
     private String name;
     private long instances;
     private String file;
     private String params;
+    private JSONObject paramJSON;
+    private JSONObject envJSON;
     private String path;
+    private String args;
 
     private String image;
+    private List<String> volumes = new ArrayList<>();
     private List<String> ports = new ArrayList<>();
 
     public TopLevelDeploy() {
@@ -28,11 +34,38 @@ public class TopLevelDeploy {
         res.instances = this.instances;
         res.file = this.file;
         res.params = this.params;
+        res.paramJSON = this.paramJSON;
         res.path = this.path;
+        res.args = this.args;
 
         res.image = this.image;
+        this.volumes.forEach((p) -> res.volumes.add(p));
         this.ports.forEach((p) -> res.ports.add(p));
         return res;
+    }
+
+    public String getArgs() {
+        return args;
+    }
+
+    public void setArgs(String args) {
+        this.args = args;
+    }
+
+    public JSONObject getParamJSON() {
+        return this.paramJSON;
+    }
+
+    public void setParamJSON(JSONObject o) {
+        this.paramJSON = o;
+    }
+
+    public JSONObject getEnvJSON() {
+        return envJSON;
+    }
+
+    public void setEnvJSON(JSONObject envJSON) {
+        this.envJSON = envJSON;
     }
 
     public String getImage() {
@@ -73,6 +106,14 @@ public class TopLevelDeploy {
 
     public void setFilename(String filename) {
         this.file = filename;
+    }
+
+    public void addVolume(String filename) {
+        this.volumes.add(filename);
+    }
+
+    public List<String> getVolumes() {
+        return this.volumes;
     }
 
     public long getNumberOfInstances() {

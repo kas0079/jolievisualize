@@ -9,6 +9,7 @@ const dockerComposeBuild = (visFile: string, buildRoot: string): BuildInfo => {
 		path.join(buildRoot, "docker-compose.yml"),
 		build.deployment
 	);
+
 	return build;
 };
 
@@ -55,6 +56,13 @@ const makeDeploymentFolders = (args: string[]): void => {
 			});
 		});
 
+		folder.volumes?.forEach((vol) => {
+			fs.cpSync(
+				path.join(path.join(path.dirname(visFile)), vol),
+				path.join(buildRoot, "-res", vol)
+			);
+		});
+
 		const dockerFileContent = makeDockerfile(folder);
 		fs.writeFileSync(
 			path.join(buildRoot, folder.name, "Dockerfile"),
@@ -65,8 +73,8 @@ const makeDeploymentFolders = (args: string[]): void => {
 
 const getDockerComposeData = (visfile: string): string => {
 	const res = exec.execFileSync(
-		`${__dirname}/scripts/dockercompose`,
-		[`${visfile}`],
+		`${__dirname}/visualize`,
+		[`${visfile}`, "--docker-compose"],
 		{ timeout: 4000 }
 	);
 	if (!res) return `ERROR`;
@@ -74,14 +82,13 @@ const getDockerComposeData = (visfile: string): string => {
 };
 
 const makeDockerfile = (folder: Folder): string => {
-	//todo add multiple exposed ports
 	return `FROM jolielang/jolie\n${
 		folder.expose
 			? "EXPOSE " + folder.expose.map((t) => t + " ") + "\n"
 			: ""
-	}COPY . .\nCMD jolie ${folder.params ? "--params " + folder.params : ""} ${
-		folder.main
-	}`;
+	}COPY . .\nCMD jolie --service ${folder.target}${
+		folder.params ? " --params " + folder.params : ""
+	}${folder.args ? " " + folder.args : ""} ${folder.main}`;
 };
 
 if (process.argv.length < 3) {
@@ -98,8 +105,11 @@ type BuildInfo = {
 
 type Folder = {
 	name: string;
+	target: string;
 	main: string;
 	expose?: number[];
+	args?: string;
 	files: string[];
 	params?: string;
+	volumes?: string[];
 };
