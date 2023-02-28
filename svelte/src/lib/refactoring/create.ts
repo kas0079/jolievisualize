@@ -6,7 +6,7 @@ export const addPort = (type: string, service: Service) => {
 		`Create new ${type.toLowerCase()} port`,
 		['name', 'protocol', 'location', 'interfaces'],
 		(vals: { field: string; val: string }[]) => {
-			if (vals.filter((t) => t.val === '').length > 0) return false;
+			if (vals.filter((t) => t.val === '' && t.field !== '').length > 0) return false;
 			const tmp_interfaces = [];
 			vals
 				.find((t) => t.field === 'interfaces')
@@ -43,6 +43,7 @@ export const addPort = (type: string, service: Service) => {
 			vscode.postMessage({
 				command: `newPort`,
 				save: true,
+				fromPopup: true,
 				detail: {
 					file: service.file,
 					portType: type === 'Input' ? 'inputPort' : 'outputPort',

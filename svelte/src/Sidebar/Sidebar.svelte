@@ -72,27 +72,20 @@
 					port={$current_sidebar_element.port}
 					portType={$current_sidebar_element.portType}
 					parentID={$current_sidebar_element.port_parentID}
-					on:opensidebar
-					on:popup
 					on:reloadgraph
 				/>
 			{/if}
 			{#if $current_sidebar_element.hist_type === 0}
-				<ServiceSidebar
-					service={$current_sidebar_element.service}
-					on:opensidebar
-					on:popup
-					on:reloadgraph
-				/>
+				<ServiceSidebar service={$current_sidebar_element.service} on:reloadgraph />
 			{/if}
 			{#if $current_sidebar_element.hist_type === 2}
-				<InterfaceSidebar interf={$current_sidebar_element.interf} on:opensidebar />
+				<InterfaceSidebar interf={$current_sidebar_element.interf} />
 			{/if}
 			{#if $current_sidebar_element.hist_type === 3}
-				<TypeSidebar type={$current_sidebar_element.type} on:opensidebar />
+				<TypeSidebar type={$current_sidebar_element.type} />
 			{/if}
 			{#if $current_sidebar_element.hist_type === 4}
-				<SelectionSidebar serviceList={$current_sidebar_element.serviceList} />
+				<SelectionSidebar serviceList={$current_sidebar_element.serviceList} on:reloadgraph />
 			{/if}
 		</div>
 	</div>

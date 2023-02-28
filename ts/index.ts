@@ -5,8 +5,10 @@ const getData = (
 		path: string;
 	}[]
 ): string => {
+	console.log(__dirname);
+
 	const res = exec.execFileSync(
-		`${__dirname}/visualize`,
+		`${__dirname}/../visualize`,
 		[`${visfile[0].path}`],
 		{ timeout: 4000 }
 	);
@@ -21,7 +23,7 @@ const getBuildData = (
 	method: string
 ): string => {
 	const res = exec.execFileSync(
-		`${__dirname}/visualize`,
+		`${__dirname}/../visualize`,
 		[`${visfile[0].path}`, `--${method}`],
 		{ timeout: 4000 }
 	);

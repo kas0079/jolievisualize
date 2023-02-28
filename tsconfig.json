@@ -9,8 +9,9 @@
 		"forceConsistentCasingInFileNames": true,
 		"strictPropertyInitialization": false,
 		"noPropertyAccessFromIndexSignature": false,
-		"outDir": "./js"
+		"outDir": "./out"
 	},
+	"include": ["./ts", "index.d.ts"],
 	"exclude": ["./web", "./svelte"],
 	"$schema": "https://json.schemastore.org/tsconfig",
 	"display": "Recommended"

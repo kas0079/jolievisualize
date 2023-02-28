@@ -16,21 +16,28 @@
 	};
 </script>
 
-<div class="w-full h-full absolute top-0 left-0" style="background-color: rgba(0,0,0,0.8)">
-	<div
-		class="absolute bg-gray-800 text-white top-12 rounded-md w-8/12 sm:w-auto"
-		style="left: 50%;transform: translateX(-50%)"
-	>
+<div
+	class="w-full h-full absolute top-0 left-0 flex justify-center"
+	style="background-color: rgba(0,0,0,0.8)"
+>
+	<div class="absolute bg-gray-800 max-h-[800px] text-white top-12 rounded-md">
 		<h2 class="text-center text-xl my-2 px-3">{$current_popup.title}</h2>
-		<div class="px-5 grid gap-2 mt-4" style="grid-template-columns: auto 1fr;">
+		<div
+			class="px-5 grid gap-2 mt-4 max-h-[600px] overflow-scroll"
+			style="grid-template-columns: auto 1fr;"
+		>
 			{#each $current_popup.values as val}
-				<p class="grid self-center">{val.field}:</p>
-				<input
-					class="grid text-gray-900 p-2 rounded-sm self-center"
-					type="text"
-					placeholder={val.field}
-					bind:value={val.val}
-				/>
+				{#if val.field !== ''}
+					<p class="grid self-center">{val.field}:</p>
+					<input
+						class="grid text-gray-900 p-2 rounded-sm self-center"
+						type="text"
+						placeholder={val.field}
+						bind:value={val.val}
+					/>
+				{:else}
+					<hr class="col-span-2" />
+				{/if}
 			{/each}
 		</div>
 

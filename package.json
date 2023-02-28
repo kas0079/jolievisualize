@@ -2,10 +2,10 @@
 	"name": "jolievisualize",
 	"version": "0.0.1",
 	"description": "Tool for visualizing and refactoring Jolie architecture",
-	"main": "js/index.js",
+	"main": "out/index.js",
 	"author": {
 		"name": "Emil Ovcina",
-		"email": "emovc18@student.sdu.dk"
+		"email": "emilovcina@gmail.com"
 	},
 	"scripts": {
 		"build": "npm run build:ts && npm run build:java && npm run build:svelte",
@@ -23,7 +23,7 @@
 		}
 	},
 	"bin": {
-		"jvbuild": "node js/deployment.js"
+		"jvbuild": "node out/deployment.js"
 	},
 	"devDependencies": {
 		"@types/node": "^18.14.0"

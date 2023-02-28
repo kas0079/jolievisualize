@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { createAggregator } from '../lib/patterns/aggregator';
-
 	export let serviceList: Service[];
 </script>
 

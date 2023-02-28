@@ -16,7 +16,7 @@ const dockerComposeBuild = (visFile: string, buildRoot: string): BuildInfo => {
 const makeDeploymentFolders = (args: string[]): void => {
 	const visFile = args[0] ?? "./visualize.json";
 	const buildRoot = args[1] ?? "./build";
-	const deployMethod = args[2] ?? "dockercompose";
+	const deployMethod = args[2] ?? "docker-compose";
 
 	if (fs.existsSync(buildRoot)) fs.rmSync(buildRoot, { recursive: true });
 
@@ -25,7 +25,7 @@ const makeDeploymentFolders = (args: string[]): void => {
 	let build;
 
 	switch (deployMethod) {
-		case "dockercompose":
+		case "docker-compose":
 			build = dockerComposeBuild(visFile, buildRoot);
 			break;
 		case "kubernetes":

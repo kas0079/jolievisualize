@@ -1,7 +1,7 @@
 import { services, vscode } from '../data';
 import { addServiceToNetwork } from '../network';
 import { openPopup } from '../popup';
-import { deepCopyService, findRange, getAllServices } from '../service';
+import { deepCopyServiceNewId, findRange, getAllServices } from '../service';
 
 export const embed = async (service: Service, parent: Service, netwrkId: number): Promise<void> => {
 	const parentPort = getParentPortName(service, parent);
@@ -35,7 +35,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 		` Create new local ports for ${service.name} and ${parent.name} `,
 		['input port name', 'output port name', 'protocol', 'interfaces'],
 		(vals: { field: string; val: string }[]) => {
-			if (vals.filter((t) => t.val === '').length > 0) return false;
+			if (vals.filter((t) => t.val === '' && t.field !== '').length > 0) return false;
 
 			const tmp_interfaces: { name: string }[] = [];
 			vals
@@ -73,7 +73,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 			if (parents.length >= 1) {
 				parents.forEach((prnt) => {
 					if (!prnt.embeddings) prnt.embeddings = [];
-					const svc = deepCopyService(service);
+					const svc = deepCopyServiceNewId(service);
 					svc.parent = prnt;
 					prnt.embeddings.push(svc);
 					if (!prnt.outputPorts) prnt.outputPorts = [];

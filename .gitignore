@@ -4,7 +4,7 @@ package-lock.json
 yarn.lock
 .vscode/
 java/target/
+out/
 web/
-js/
 tests/
 build/

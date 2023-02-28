@@ -102,7 +102,7 @@ export const isDockerService = (service: Service): boolean => {
 	return service.image && !service.file;
 };
 
-export const deepCopyService = (service: Service): Service => {
+export const deepCopyServiceNewId = (service: Service): Service => {
 	return {
 		id: getNextId(getAllServices(services)),
 		execution: service.execution,
@@ -112,12 +112,34 @@ export const deepCopyService = (service: Service): Service => {
 		paramFile: service.paramFile,
 		parent: service.parent,
 		parentPort: service.parentPort,
-		embeddings: service.embeddings ? service.embeddings.map((t) => deepCopyService(t)) : [],
+		embeddings: service.embeddings ? service.embeddings.map((t) => deepCopyServiceNewId(t)) : [],
 		inputPorts: service.inputPorts ? service.inputPorts.map((t) => deepCopyPort(t)) : [],
 		outputPorts: service.outputPorts ? service.outputPorts.map((t) => deepCopyPort(t)) : [],
 		image: service.image,
 		ports: service.ports
 	};
+};
+
+// export const deepCopyService = (service: Service): Service => {
+// 	return {
+// 		id: service.id,
+// 		execution: service.execution,
+// 		file: service.file,
+// 		name: service.name,
+// 		ranges: deepCopyRanges(service.ranges),
+// 		paramFile: service.paramFile,
+// 		parent: service.parent,
+// 		parentPort: service.parentPort,
+// 		embeddings: service.embeddings ? service.embeddings.map((t) => deepCopyService(t)) : [],
+// 		inputPorts: service.inputPorts ? service.inputPorts.map((t) => deepCopyPort(t)) : [],
+// 		outputPorts: service.outputPorts ? service.outputPorts.map((t) => deepCopyPort(t)) : [],
+// 		image: service.image,
+// 		ports: service.ports
+// 	};
+// };
+
+export const getNextId = (services: Service[]): number => {
+	return services.flatMap((t) => t.id).sort((a, b) => b - a)[0] + 1;
 };
 
 const deepCopyPort = (port: Port): Port => {
@@ -129,12 +151,8 @@ const deepCopyPort = (port: Port): Port => {
 		annotation: port.annotation,
 		protocol: port.protocol,
 		ranges: deepCopyRanges(port.ranges)
-		// more stuff
+		// todo more stuff
 	};
-};
-
-const getNextId = (services: Service[]): number => {
-	return services.flatMap((t) => t.id).sort((a, b) => b - a)[0] + 1;
 };
 
 const getElementBelowGhost = (e: MouseEvent): Element[] => {
