@@ -34,6 +34,14 @@ export const resetData = () => {
 	name = pd.name;
 };
 
+export const sendVisData = async () => {
+	if (!vscode) return;
+	vscode.postMessage({
+		command: 'visData',
+		detail: JSON.stringify(generateVisFile())
+	});
+};
+
 export const generateVisFile = (): VisFile => {
 	const content: TLD[][] = [];
 	services.forEach((serviceList) => {

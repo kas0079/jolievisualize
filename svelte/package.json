@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"type": "module",
+	"types": "src/global.d.ts",
 	"scripts": {
 		"build": "mkdir -p ../web && cp ./index.html ../web/index.html && webpack --node-env=production --config ./webpack.config.cjs",
 		"dev": "mkdir -p ../web && cp ./index.html ../web/index.html && webpack --watch"

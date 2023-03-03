@@ -74,14 +74,14 @@ type Port = {
 	ranges?: CodeRange[];
 	redirects?: Redirect[];
 	resource?: string;
-	interfaces: { name: string }[];
+	interfaces?: { name: string }[];
 	file: string | undefined;
 };
 
 type Aggregate = {
 	name: string;
-	collection: { name: string }[];
-	extender: Interface;
+	collection?: { name: string }[];
+	extender?: Interface;
 };
 
 type Redirect = {

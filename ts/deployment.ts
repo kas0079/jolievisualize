@@ -73,7 +73,7 @@ const makeDeploymentFolders = (args: string[]): void => {
 
 const getDockerComposeData = (visfile: string): string => {
 	const res = exec.execFileSync(
-		`${__dirname}/visualize`,
+		`${__dirname}/../visualize`,
 		[`${visfile}`, "--docker-compose"],
 		{ timeout: 4000 }
 	);

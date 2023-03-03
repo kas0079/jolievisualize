@@ -58,16 +58,14 @@ public class Build {
             tmp.put("files", folder.files);
             if (folder.params != null)
                 tmp.put("params", folder.params);
-            // if (folder.volumes.size() > 0)
-            // tmp.put("volumes", folder.volumes);
-            // if (folder.exposed != null && folder.exposed.size() > 0)
-            // tmp.put("expose", folder.exposed);
+            if (folder.volumes.size() > 0)
+                tmp.put("volumes", folder.volumes);
+            if (folder.exposed != null && folder.exposed.size() > 0)
+                tmp.put("expose", folder.exposed);
             foldersJSON.add(new JSONObject(tmp));
         });
         map.put("folders", foldersJSON);
-
         map.put("deployment", deploymentString);
-
         return new JSONObject(map);
     }
 
@@ -107,9 +105,15 @@ public class Build {
 
     private BuildFolder containsBuildFolder(BuildFolder bf, List<BuildFolder> list) {
         List<BuildFolder> res = list.stream()
-                .filter(t -> bf.files.containsAll(t.files) && t.files.containsAll(bf.files)
+                .filter(t -> bf.files.containsAll(t.files)
+                        && t.files.containsAll(bf.files)
                         && t.mainFile.equals(bf.mainFile)
-                        && t.params.equals(bf.params) && t.args.equals(bf.args) && t.target.equals(bf.target))
+                        && (((t.params == null) == (bf.params == null))
+                                && (t.params != null && bf.params != null && t.params.equals(bf.params)))
+                        && (((t.args == null) == (bf.args == null))
+                                && (t.args != null && bf.args != null && t.args.equals(bf.args)))
+                        && (((t.target == null) == (bf.target == null))
+                                && (t.target != null && bf.target != null && t.target.equals(bf.target))))
                 .collect(Collectors.toList());
         return res.isEmpty() ? null : res.get(0);
     }

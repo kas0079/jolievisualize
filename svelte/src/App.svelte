@@ -1,7 +1,14 @@
 <script lang="ts">
 	import ELK, { type ElkNode } from 'elkjs/lib/elk.bundled';
 	import Edge from './Edge.svelte';
-	import { generateVisFile, loading, services, setDataString, vscode } from './lib/data';
+	import {
+		generateVisFile,
+		loading,
+		sendVisData,
+		services,
+		setDataString,
+		vscode
+	} from './lib/data';
 	import { createSystemGraph, rerenderGraph } from './lib/graph';
 	import { closePopup, current_popup } from './lib/popup';
 	import { handleExpandServiceEvent, handleShrinkServiceEvent, updateRanges } from './lib/service';
@@ -31,14 +38,6 @@
 			);
 			currentGraph = await elk.layout(createSystemGraph(services));
 		}
-	};
-
-	const sendVisData = async () => {
-		if (!vscode) return;
-		vscode.postMessage({
-			command: 'visData',
-			detail: JSON.stringify(generateVisFile())
-		});
 	};
 
 	const vsCodeMessage = async (event: MessageEvent<any>) => {
@@ -77,7 +76,7 @@
 		if (event.detail.action === 'expandService') handleExpandServiceEvent(event, currentGraph);
 		else if (event.detail.action === 'shrinkService') handleShrinkServiceEvent(event, currentGraph);
 		else if (event.detail.action === 'reset') {
-			resetGraph();
+			await resetGraph();
 			return;
 		}
 		await rerender();
@@ -85,6 +84,7 @@
 
 	const handleKeyboard = async (event: KeyboardEvent) => {
 		if (event.key === '.') {
+			await resetGraph();
 		}
 		//close sidebar & popup
 		if (event.key === 'Escape') {
