@@ -27,7 +27,7 @@
 			dispatcher('reloadgraph');
 			if (!vscode) return;
 			vscode.postMessage({
-				command: `renameService`,
+				command: `rename.service`,
 				save: true,
 				detail: {
 					filename: service.file,

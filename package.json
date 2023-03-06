@@ -3,7 +3,6 @@
 	"version": "0.0.1",
 	"description": "Tool for visualizing and refactoring Jolie architecture",
 	"main": "out/index.js",
-	"types": "svelte/src/global.d.ts",
 	"author": {
 		"name": "Emil Ovcina",
 		"email": "emilovcina@gmail.com"
@@ -15,7 +14,7 @@
 		"build:svelte": "cd svelte/ && npm run build && cd ../",
 		"local": "npm pack && rm ../jolievisualize-0.0.1.tgz && mv jolievisualize-0.0.1.tgz ../jolievisualize-0.0.1.tgz"
 	},
-	"license": "ISC",
+	"license": "MIT",
 	"jolie": {
 		"dependencies": {},
 		"maven": {

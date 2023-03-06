@@ -41,7 +41,7 @@ export const addPort = (type: string, service: Service) => {
 
 			if (!vscode) return;
 			vscode.postMessage({
-				command: `newPort`,
+				command: `create.port`,
 				save: true,
 				fromPopup: true,
 				detail: {
