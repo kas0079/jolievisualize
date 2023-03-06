@@ -4,6 +4,17 @@ import { openPopup } from '../popup';
 import { getNextId } from '../service';
 import { clearSidebar } from '../sidebar';
 
+export const isAggregateable = (svcs: Service[]): { reason: string; aggregateable: boolean } => {
+	let res = true;
+	let reason = '';
+	svcs.forEach((svc) => {
+		if (!res) return;
+		res = svc.parent === undefined;
+		if (!res) reason = 'All services must be top-level services';
+	});
+	return { reason, aggregateable: res };
+};
+
 export const createAggregator = (svcs: Service[]): void => {
 	openPopup(
 		'Add location and interfaces for each service',

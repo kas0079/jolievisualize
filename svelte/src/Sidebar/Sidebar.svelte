@@ -23,6 +23,25 @@
 		else if (x > window.innerWidth - 20) x = window.innerWidth - 20;
 		x -= event.movementX;
 	};
+
+	const openFile = () => {
+		const file = $current_sidebar_element.service
+			? $current_sidebar_element.service.file
+			: $current_sidebar_element.port
+			? $current_sidebar_element.port.file
+			: $current_sidebar_element.interf
+			? $current_sidebar_element.interf.file
+			: $current_sidebar_element.type
+			? $current_sidebar_element.type.file
+			: '';
+		if (vscode)
+			vscode.postMessage({
+				command: 'open.file',
+				detail: {
+					file
+				}
+			});
+	};
 </script>
 
 <svelte:window
@@ -47,7 +66,7 @@
 		<div class="m-auto w-full min-w-fit text-white px-6 select-none">
 			<div class="font-mono text-xl mt-4 flex gap-5 justify-between flex-row-reverse">
 				<p
-					class="w-fit cursor-pointer text-4xl -mt-1"
+					class="w-fit cursor-pointer text-4xl -mt-1 self-center"
 					on:click={() => {
 						clearSidebar();
 					}}
@@ -57,8 +76,17 @@
 				>
 					&#x2715;
 				</p>
+				{#if vscode && (($current_sidebar_element.service && $current_sidebar_element.service.file) || ($current_sidebar_element.port && $current_sidebar_element.port.file) || ($current_sidebar_element.interf && $current_sidebar_element.interf.file) || ($current_sidebar_element.type && $current_sidebar_element.type.file))}
+					<p
+						class="w-fit cursor-pointer text-2xl -mt-3 self-center"
+						on:click={() => openFile()}
+						on:keypress={() => openFile()}
+					>
+						&#10100;&#10101;
+					</p>
+				{/if}
 				<p
-					class="text-4xl -mt-1 h-0 cursor-pointer w-fit"
+					class="text-4xl -mt-1 h-0 cursor-pointer w-fit self-start"
 					on:click={() => {
 						backSidebar();
 					}}

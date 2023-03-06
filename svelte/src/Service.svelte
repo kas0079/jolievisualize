@@ -185,7 +185,7 @@
 	});
 
 	afterUpdate(() => {
-		drawService(serviceNode, expanded);
+		drawService(serviceNode, service.name, expanded);
 	});
 </script>
 
@@ -254,8 +254,8 @@
 	<text
 		class="cursor-pointer select-none {isDockerService(service) ? 'fill-zinc-100' : 'fill-black'}"
 		on:dblclick|stopPropagation={() => openServiceInSidebar(service, dragged)}
-		on:mousedown|stopPropagation={startDrag}>{service.name}</text
-	>
+		on:mousedown|stopPropagation={startDrag}
+	/>
 	{#if serviceNode.edges && serviceNode.edges.length > 0}
 		{#each serviceNode.edges as edge}
 			{#if edge.sections}
