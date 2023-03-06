@@ -3,12 +3,7 @@
 	import { afterUpdate } from 'svelte';
 	import { drawPort } from './lib/draw';
 	import { isDockerService } from './lib/service';
-	import {
-		current_sidebar_element,
-		openPortSidebar,
-		openSidebar,
-		SidebarElement
-	} from './lib/sidebar';
+	import { openPortSidebar } from './lib/sidebar';
 
 	export let portNode: ElkPort;
 	export let parentService: Service;
