@@ -52,7 +52,6 @@ export const drawService = (serviceNode: ElkNode, serviceName: string, expanded:
 		.attr('y', expanded ? 5 : h / 2 + 1)
 		.attr('text-anchor', 'middle')
 		.attr('x', w)
-		.text(serviceName)
 		.style('font', '4px sans-serif')
 		.on('mouseover', () => {
 			d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.8');
@@ -61,20 +60,7 @@ export const drawService = (serviceNode: ElkNode, serviceName: string, expanded:
 			d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.4');
 		});
 
-	// let isNameTooLong = isTextTooLong(
-	// 	document.querySelector(`#${serviceNode.id} > text`),
-	// 	document.querySelector(`#${serviceNode.id} > polygon`),
-	// 	serviceName
-	// );
-	// while (isNameTooLong) {
-	// 	const txt = d3.select(`#${serviceNode.id} > text`).text() as string;
-	// 	d3.select(`#${serviceNode.id} > text`).text(txt.substring(0, txt.length - 4) + '...');
-	// 	isNameTooLong = isTextTooLong(
-	// 		document.querySelector(`#${serviceNode.id} > text`),
-	// 		document.querySelector(`#${serviceNode.id} > polygon`),
-	// 		serviceName
-	// 	);
-	// }
+	fitNameInShape(serviceNode, serviceName, expanded);
 };
 
 export const drawGhostNodeOnDrag = (
@@ -122,15 +108,29 @@ export const drawPort = (portNode: ElkNode): void => {
 		.attr('height', portNode.height ?? 0);
 };
 
-const isTextTooLong = (
-	textElement: Element,
-	serviceShape: Element,
-	serviceName: string
-): boolean => {
-	const padding = portSize * 5;
+const fitNameInShape = (serviceNode: ElkNode, serviceName: string, expanded: boolean) => {
+	//sometimes the points of the polygon are not populated, so skip and wait until they are.
+	if (!document.querySelector(`#${serviceNode.id} > polygon`)) return;
+	const check = document.querySelector(`#${serviceNode.id} > polygon`).getAttribute('points');
+	if (!check || check === '0,0 0,0 0,0 0,0 0,0 0,0') return;
+
+	const text = document.querySelector(`#${serviceNode.id} > text`);
+	const poly = document.querySelector(`#${serviceNode.id} > polygon`);
+
+	d3.select(`#${serviceNode.id} > text`).text(serviceName);
+	let newName = serviceName;
+	while (isTextTooLong(text, poly, expanded)) {
+		newName = newName.substring(0, newName.length - 2);
+		d3.select(`#${serviceNode.id} > text`).text(newName);
+	}
+	if (serviceName !== newName)
+		d3.select(`#${serviceNode.id} > text`).text(newName.substring(0, newName.length - 3) + '...');
+};
+
+const isTextTooLong = (textElement: Element, serviceShape: Element, expanded: boolean): boolean => {
 	if (!textElement || !serviceShape) return false;
 	const textRect = textElement.getBoundingClientRect();
 	const svcRect = serviceShape.getBoundingClientRect();
 	if (!textElement.getBoundingClientRect() || !serviceShape.getBoundingClientRect()) return false;
-	return textRect.width >= svcRect.width - padding && serviceName.length > 4;
+	return textRect.width + (expanded ? 15 : 0) > svcRect.width;
 };

@@ -3,6 +3,7 @@
 	import { afterUpdate, beforeUpdate, createEventDispatcher, tick } from 'svelte';
 	import Edge from './Edge.svelte';
 	import { loading, services, vscode } from './lib/data';
+	import { drawGhostNodeOnDrag, drawService } from './lib/draw';
 	import {
 		addServiceToNetwork,
 		getClickedNetworkGroupId,
@@ -12,7 +13,7 @@
 		removeFromNetwork
 	} from './lib/network';
 	import { getServicePatternType } from './lib/patterns';
-	import { drawGhostNodeOnDrag, drawService } from './lib/draw';
+	import { disembed, embed } from './lib/refactoring/embedding';
 	import {
 		getAllServices,
 		getHoveredPolygon,
@@ -28,7 +29,6 @@
 		SidebarElement
 	} from './lib/sidebar';
 	import Port from './Port.svelte';
-	import { disembed, embed } from './lib/refactoring/embedding';
 
 	export let serviceNode: ElkNode;
 	export let parent: Service | undefined;
@@ -184,7 +184,7 @@
 		annotationType = getServicePatternType(service);
 	});
 
-	afterUpdate(() => {
+	afterUpdate(async () => {
 		drawService(serviceNode, service.name, expanded);
 	});
 </script>
@@ -254,8 +254,8 @@
 	<text
 		class="cursor-pointer select-none {isDockerService(service) ? 'fill-zinc-100' : 'fill-black'}"
 		on:dblclick|stopPropagation={() => openServiceInSidebar(service, dragged)}
-		on:mousedown|stopPropagation={startDrag}
-	/>
+		on:mousedown|stopPropagation={startDrag}>{service.name}</text
+	>
 	{#if serviceNode.edges && serviceNode.edges.length > 0}
 		{#each serviceNode.edges as edge}
 			{#if edge.sections}
