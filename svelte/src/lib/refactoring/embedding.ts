@@ -162,14 +162,16 @@ export const disembed = async (service: Service): Promise<void> => {
 	const parentPortName = parentPort?.name;
 
 	const portsToRemove = service.inputPorts
-		.filter((ip) => ip.location.startsWith('!local'))
-		.map((ip) => {
-			return {
-				filename: ip.file,
-				portType: 'inputPort',
-				range: findRange(ip, 'port')
-			};
-		});
+		? service.inputPorts
+				.filter((ip) => ip.location.startsWith('!local'))
+				.map((ip) => {
+					return {
+						filename: ip.file,
+						portType: 'inputPort',
+						range: findRange(ip, 'port')
+					};
+				})
+		: [];
 
 	if (parentPort && parentPort.location.startsWith('!local')) {
 		portsToRemove.push({

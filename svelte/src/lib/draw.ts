@@ -1,5 +1,6 @@
 import { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api';
 import { portSize } from './graph';
+import { tick } from 'svelte';
 
 export const drawNetwork = (network: ElkNode): void => {
 	d3.select(`#${network.id}`).attr('transform', `translate(${network.x}, ${network.y})`);
@@ -20,7 +21,7 @@ export const drawEdge = (edge: ElkExtendedEdge): void => {
 	d3.select(`#${edge.id}`).attr('d', drawPath);
 };
 
-export const drawService = (serviceNode: ElkNode, expanded: boolean): void => {
+export const drawService = (serviceNode: ElkNode, serviceName: string, expanded: boolean): void => {
 	serviceNode.x = serviceNode.x ?? 0;
 	serviceNode.y = serviceNode.y ?? 0;
 	serviceNode.width = serviceNode.width ?? 0;
@@ -49,9 +50,10 @@ export const drawService = (serviceNode: ElkNode, expanded: boolean): void => {
 		});
 
 	d3.select(`#${serviceNode.id} > text`)
-		.attr('x', w)
-		.attr('text-anchor', 'middle')
 		.attr('y', expanded ? 5 : h / 2 + 1)
+		.attr('text-anchor', 'middle')
+		.attr('x', w)
+		.text(serviceName)
 		.style('font', '4px sans-serif')
 		.on('mouseover', () => {
 			d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.8');
@@ -59,6 +61,21 @@ export const drawService = (serviceNode: ElkNode, expanded: boolean): void => {
 		.on('mouseleave', () => {
 			d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.4');
 		});
+
+	let isNameTooLong = isTextTooLong(
+		document.querySelector(`#${serviceNode.id} > text`),
+		document.querySelector(`#${serviceNode.id} > polygon`),
+		serviceName
+	);
+	while (isNameTooLong) {
+		const txt = d3.select(`#${serviceNode.id} > text`).text() as string;
+		d3.select(`#${serviceNode.id} > text`).text(txt.substring(0, txt.length - 4) + '...');
+		isNameTooLong = isTextTooLong(
+			document.querySelector(`#${serviceNode.id} > text`),
+			document.querySelector(`#${serviceNode.id} > polygon`),
+			serviceName
+		);
+	}
 };
 
 export const drawGhostNodeOnDrag = (
@@ -104,4 +121,17 @@ export const drawPort = (portNode: ElkNode): void => {
 		.attr('y', 0)
 		.attr('width', portNode.width ?? 0)
 		.attr('height', portNode.height ?? 0);
+};
+
+const isTextTooLong = (
+	textElement: Element,
+	serviceShape: Element,
+	serviceName: string
+): boolean => {
+	const padding = portSize * 5;
+	if (!textElement || !serviceShape) return false;
+	const textRect = textElement.getBoundingClientRect();
+	const svcRect = serviceShape.getBoundingClientRect();
+	if (!textElement.getBoundingClientRect() || !serviceShape.getBoundingClientRect()) return false;
+	return textRect.width >= svcRect.width - padding && serviceName.length > 4;
 };
