@@ -48,7 +48,7 @@
 			if (editType === 'location') change = `\"${change}\"`;
 			if (!port.file) return;
 			vscode.postMessage({
-				command: 'renamePort',
+				command: 'rename.port',
 				save: true,
 				detail: {
 					filename: port.file,

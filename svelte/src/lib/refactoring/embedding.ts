@@ -5,7 +5,7 @@ import { deepCopyServiceNewId, findRange, getAllServices } from '../service';
 
 export const embed = async (service: Service, parent: Service, netwrkId: number): Promise<void> => {
 	const parentPort = getParentPortName(service, parent);
-	if (vscode && !parentPort) vscode.postMessage({ command: 'getRanges' });
+	if (vscode && !parentPort) vscode.postMessage({ command: 'get.ranges' });
 	const oldParent = service.parent;
 	await disembed(service);
 	service.parent = parent;
@@ -19,7 +19,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 		const pport = parent.outputPorts.find((t) => t.name === parentPort);
 		if (!vscode) return;
 		vscode.postMessage({
-			command: 'addEmbed',
+			command: 'create.embed',
 			save: true,
 			detail: {
 				filename: parent.file,
@@ -91,7 +91,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 					: findRange(service.inputPorts[0], 'port');
 
 				vscode.postMessage({
-					command: 'addEmbed',
+					command: 'create.embed',
 					detail: {
 						filename: parent.file,
 						embedName: service.name,
@@ -102,7 +102,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 				});
 
 				vscode.postMessage({
-					command: 'newPort',
+					command: 'create.port',
 					detail: {
 						file: parent.file,
 						range: parentRange,
@@ -118,7 +118,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 				});
 
 				vscode.postMessage({
-					command: 'newPort',
+					command: 'create.port',
 					save: true,
 					fromPopup: true,
 					detail: {
@@ -208,10 +208,10 @@ export const disembed = async (service: Service): Promise<void> => {
 
 	if (vscode) {
 		if (portsToRemove.length > 0)
-			vscode.postMessage({ command: 'removePorts', detail: { ports: portsToRemove } });
+			vscode.postMessage({ command: 'remove.ports', detail: { ports: portsToRemove } });
 		if (parent)
 			vscode.postMessage({
-				command: 'removeEmbed',
+				command: 'remove.embed',
 				save: true,
 				detail: {
 					filename: parent.file,

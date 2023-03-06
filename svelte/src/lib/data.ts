@@ -37,7 +37,7 @@ export const resetData = () => {
 export const sendVisData = async () => {
 	if (!vscode) return;
 	vscode.postMessage({
-		command: 'visData',
+		command: 'set.data',
 		detail: JSON.stringify(generateVisFile())
 	});
 };
