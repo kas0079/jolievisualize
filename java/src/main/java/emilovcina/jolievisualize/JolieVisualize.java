@@ -204,7 +204,7 @@ public class JolieVisualize {
 
         ModuleParsingConfiguration mpc = new ModuleParsingConfiguration(
                 conf.charset(), conf.includePaths(),
-                conf.packagePaths(), conf.jolieClassLoader(), conf.constants(), true);
+                conf.packagePaths(), conf.jolieClassLoader(), conf.constants(), true, false);
 
         ModuleParsedResult mpr = Modules.parseModule(mpc, conf.inputStream(),
                 conf.programFilepath().toURI());
