@@ -1,6 +1,7 @@
 /// <reference types="svelte"/>
 
 declare const d3: D3;
+declare const dataFromServer: string;
 declare function acquireVsCodeApi();
 
 type VisFile = {
