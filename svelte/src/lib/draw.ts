@@ -1,6 +1,5 @@
-import { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api';
+import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api';
 import { portSize } from './graph';
-import { tick } from 'svelte';
 
 export const drawNetwork = (network: ElkNode): void => {
 	d3.select(`#${network.id}`).attr('transform', `translate(${network.x}, ${network.y})`);

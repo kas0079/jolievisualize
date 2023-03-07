@@ -1,6 +1,7 @@
 {
 	"extends": "@tsconfig/svelte/tsconfig.json",
 	"compilerOptions": {
+		"ignoreDeprecations": "5.0",
 		"rootDir": "./src",
 		"lib": ["ES2022", "DOM"]
 	},

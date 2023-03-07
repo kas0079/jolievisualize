@@ -9,11 +9,10 @@
 	export let service: Service;
 
 	let tmp = '';
-	const saveInnerHTML = (event: MouseEvent) => {
-		if (service.file === undefined && vscode === undefined) return;
+	const saveInnerHTML = (event: MouseEvent): void => {
 		const elem = event.target as Element;
 		tmp = elem.innerHTML;
-		elem.setAttribute('contenteditable', 'true');
+		if (service.file !== undefined) elem.setAttribute('contenteditable', 'true');
 	};
 
 	const dispatcher = createEventDispatcher();
@@ -23,6 +22,10 @@
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
+			if (!service.file) {
+				elem.innerHTML = tmp;
+				return;
+			}
 			service.name = change;
 			dispatcher('reloadgraph');
 			if (!vscode) return;

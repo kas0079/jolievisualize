@@ -1,15 +1,13 @@
 <script lang="ts">
-	import { vscode } from '../lib/data';
 	import { openTypeSidebar } from '../lib/sidebar';
 
 	export let type: Type;
 
 	let tmp = '';
-	const saveInnerHTML = (event: MouseEvent) => {
-		if (type.file === undefined && vscode === undefined) return;
+	const saveInnerHTML = (event: MouseEvent): void => {
 		const elem = event.target as Element;
 		tmp = elem.innerHTML;
-		elem.setAttribute('contenteditable', 'true');
+		if (type.file !== undefined) elem.setAttribute('contenteditable', 'true');
 	};
 
 	const finishEdit = (event: KeyboardEvent) => {
@@ -18,6 +16,7 @@
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
+			// ! not implemented
 		}
 	};
 </script>

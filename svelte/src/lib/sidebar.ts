@@ -1,11 +1,10 @@
 import { writable } from 'svelte/store';
 import { interfaces, services, types } from './data';
 import { getAllServices } from './service';
-import { ElkNode } from 'elkjs/lib/elk-api';
+import type { ElkNode } from 'elkjs/lib/elk-api';
 
 export const primitives = ['int', 'void', 'string', 'double', 'bool', 'long', 'raw'];
 
-//TODO all open operations in one place
 export const openTypeSidebar = (typename: string) => {
 	if (primitives.includes(typename.toLowerCase())) return;
 	const type = types.find((t) => t.name === typename);
@@ -112,7 +111,6 @@ export class SidebarElement {
 	service: Service | undefined;
 	serviceList: Service[];
 
-	//TODO refactor
 	equals(other: SidebarElement): boolean {
 		if (this.hist_type !== other.hist_type) return false;
 		if (
@@ -122,8 +120,9 @@ export class SidebarElement {
 			this.port_parentID !== this.port_parentID
 		)
 			return false;
-		if (this.interf?.name !== other.interf?.name) return false;
-		if (this.type?.name !== other.type?.name) return false;
+		if (this.interf?.name !== other.interf?.name || this.interf?.file !== other.interf?.file)
+			return false;
+		if (this.type?.name !== other.type?.name || this.type?.file !== other.type?.file) return false;
 		if (this.service?.id !== other.service?.id) return false;
 		return true;
 	}

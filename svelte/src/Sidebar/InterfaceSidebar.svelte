@@ -1,23 +1,21 @@
 <script lang="ts">
-	import { vscode } from '../lib/data';
 	import { openTypeSidebar, primitives } from '../lib/sidebar';
 
 	export let interf: Interface;
 
 	let tmp = '';
 	const saveInnerHTML = (event: MouseEvent): void => {
-		if (interf.file === undefined && vscode === undefined) return;
 		const elem = event.target as Element;
 		tmp = elem.innerHTML;
-		elem.setAttribute('contenteditable', 'true');
+		if (interf.file !== undefined) elem.setAttribute('contenteditable', 'true');
 	};
-
 	const finishEdit = (event: KeyboardEvent): void => {
 		if (event.key === 'Enter') {
 			const elem = event.target as Element;
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
+			// ! not implemented
 		}
 	};
 </script>

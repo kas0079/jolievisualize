@@ -1,4 +1,4 @@
-import { ElkNode } from 'elkjs/lib/elk-api';
+import type { ElkNode } from 'elkjs/lib/elk-api';
 import { services, vscode } from './data';
 import { getAllElkNodes, getElkPorts, getInternalEdges } from './graph';
 

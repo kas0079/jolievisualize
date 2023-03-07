@@ -17,10 +17,9 @@
 
 	let tmp = '';
 	const saveInnerHTML = (event: MouseEvent): void => {
-		if (port.file === undefined && vscode === undefined) return;
 		const elem = event.target as Element;
 		tmp = elem.innerHTML;
-		elem.setAttribute('contenteditable', 'true');
+		if (port.file !== undefined) elem.setAttribute('contenteditable', 'true');
 	};
 
 	const dispatcher = createEventDispatcher();
@@ -30,6 +29,10 @@
 			elem.removeAttribute('contenteditable');
 			let change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
+			if (!port.file) {
+				elem.innerHTML = tmp;
+				return;
+			}
 			switch (editType) {
 				case 'protocol':
 					port.protocol = change;
