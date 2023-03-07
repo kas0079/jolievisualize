@@ -1,6 +1,6 @@
 import type { ElkNode } from 'elkjs/lib/elk-api';
 import { services, vscode } from './data';
-import { getAllElkNodes, getElkPorts, getInternalEdges } from './graph';
+import { getAllElkNodes, getElkPorts, getInternalEdges, getTopLevelEdges } from './graph';
 
 export const updateRanges = (data: Data): void => {
 	const allSvc = getAllServices(services);
@@ -29,6 +29,7 @@ export const handleExpandServiceEvent = (event: CustomEvent, graph: ElkNode) => 
 	serviceNode.children = [];
 	serviceNode.ports = getElkPorts(service, false);
 	serviceNode.edges = getInternalEdges(service);
+	if (service.embeddings) serviceNode.edges.push(...getTopLevelEdges(service.embeddings));
 
 	service.embeddings.forEach((embed) => {
 		serviceNode.children.push({

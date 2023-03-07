@@ -3,7 +3,40 @@ import { addServiceToNetwork } from '../network';
 import { openPopup } from '../popup';
 import { deepCopyServiceNewId, findRange, getAllServices } from '../service';
 
-export const embed = async (service: Service, parent: Service, netwrkId: number): Promise<void> => {
+export const embed = async (service: Service, parent: Service, netwrkId: number) => {
+	const parentPort = getParentPortName(service, parent);
+	const oldParent = service.parent;
+	if (!parent.embeddings) parent.embeddings = [];
+	if (!service.inputPorts) service.inputPorts = [];
+	if (!parent.outputPorts) parent.outputPorts = [];
+	//if a port already exists between the two services
+	if (parentPort) {
+		await disembed(service);
+		service.parentPort = parentPort;
+		service.parent = parent;
+		parent.embeddings.push(service);
+		const pport = parent.outputPorts.find((t) => t.name === parentPort);
+		if (!vscode) return;
+		vscode.postMessage({
+			command: 'create.embed',
+			save: true,
+			detail: {
+				filename: parent.file,
+				embedName: service.name,
+				embedPort: service.parentPort,
+				isFirst: false,
+				range: findRange(pport, 'port')
+			}
+		});
+		return;
+	}
+};
+
+export const embed2 = async (
+	service: Service,
+	parent: Service,
+	netwrkId: number
+): Promise<void> => {
 	const parentPort = getParentPortName(service, parent);
 	if (vscode && !parentPort) vscode.postMessage({ command: 'get.ranges' });
 	const oldParent = service.parent;
@@ -34,7 +67,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	openPopup(
 		` Create new local ports for ${service.name} and ${parent.name} `,
 		['input port name', 'output port name', 'protocol', 'interfaces'],
-		(vals: { field: string; val: string }[]) => {
+		async (vals: { field: string; val: string }[]) => {
 			if (vals.filter((t) => t.val === '' && t.field !== '').length > 0) return false;
 
 			const tmp_interfaces: { name: string }[] = [];

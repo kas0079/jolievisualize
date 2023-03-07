@@ -125,7 +125,9 @@ const rerenderService = (serviceNode: ElkNode, allSvcs: Service[]) => {
 const _rerender = (serviceNode: ElkNode, service: Service, omitLocals: boolean) => {
 	serviceNode.id = `${service.name}${service.id}`;
 	serviceNode.ports = getElkPorts(service, omitLocals);
-	if (!omitLocals) serviceNode.edges = getInternalEdges(service);
+	serviceNode.edges = [];
+	if (service.embeddings) serviceNode.edges.push(...getTopLevelEdges(service.embeddings));
+	if (!omitLocals) serviceNode.edges.push(...getInternalEdges(service));
 };
 
 const connectDockerPorts = (services: Service[]): ElkExtendedEdge[] => {

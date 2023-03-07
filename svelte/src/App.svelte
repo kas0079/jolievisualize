@@ -80,7 +80,7 @@
 
 	const handleKeyboard = async (event: KeyboardEvent) => {
 		if (event.key === '.') {
-			await resetGraph();
+			console.log(currentGraph);
 		}
 		//close sidebar & popup
 		if (event.key === 'Escape') {
