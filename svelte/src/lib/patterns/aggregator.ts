@@ -32,7 +32,7 @@ export const createAggregator = (svcs: Service[]): void => {
 					.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
 
 				let location = vals.find((t) => t.field === `${s.id}${s.name} location`)?.val;
-				if (location === 'local') location = `!local_${s.name}${s.id}`;
+				if (location === 'local') location = `!local_${s.id}${s.name}`;
 				const p = {
 					file: s.file,
 					interfaces: tmp_interfaces,
@@ -70,7 +70,7 @@ export const createAggregator = (svcs: Service[]): void => {
 				aggr.push({ name: s.name });
 				let location = vals.find((t) => t.field === `${s.id}${s.name} location`)?.val;
 				if (location === 'local') {
-					location = `!local_${s.name}${s.id}`;
+					location = `!local_${s.id}${s.name}`;
 					embeds.push(s);
 					embeddings.push({ name: s.name, port: s.name });
 				}

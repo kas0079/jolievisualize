@@ -4,9 +4,8 @@ export class PopUp {
 	constructor(
 		title: string,
 		fields: string[],
-
-		confirm = (vals: { field: string; val: string }[]): boolean => {
-			return false;
+		confirm = (vals: { field: string; val: string }[]): Promise<boolean> => {
+			return new Promise<boolean>((res) => res(false));
 		},
 		cancel = (): Promise<void> => {
 			return;
@@ -21,8 +20,8 @@ export class PopUp {
 	title = '';
 
 	values: { field: string; val: string }[] = [];
-	confirm = (vals: { field: string; val: string }[]): boolean => {
-		return false;
+	confirm = (vals: { field: string; val: string }[]): Promise<boolean> => {
+		return new Promise<boolean>((res) => res(false));
 	};
 	cancel = (): Promise<void> => {
 		return;

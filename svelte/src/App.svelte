@@ -80,7 +80,7 @@
 
 	const handleKeyboard = async (event: KeyboardEvent) => {
 		if (event.key === '.') {
-			console.log(currentGraph);
+			await rerender();
 		}
 		//close sidebar & popup
 		if (event.key === 'Escape') {
@@ -98,10 +98,11 @@
 			clearSidebar();
 			if ($current_popup.title === '') return;
 
-			const res = $current_popup.confirm($current_popup.values);
+			const res = await $current_popup.confirm($current_popup.values);
 			if (!res) await $current_popup.cancel();
 			closePopup();
 			if (!res) await resetGraph();
+			await rerender();
 		}
 	};
 </script>
@@ -131,7 +132,7 @@
 			<div class="absolute top-0 left-0 w-screen h-screen" />
 		{/if}
 		{#if $current_popup.values.length > 0}
-			<Popup on:cancel={resetGraph} />
+			<Popup on:cancel={resetGraph} on:rerender={rerender} />
 		{/if}
 	</main>
 {/await}

@@ -25,7 +25,6 @@ export const handleExpandServiceEvent = (event: CustomEvent, graph: ElkNode) => 
 	const serviceNode = getAllElkNodes(graph).find(
 		(t) => t.id === event.detail.serviceName + event.detail.serviceID
 	);
-
 	serviceNode.children = [];
 	serviceNode.ports = getElkPorts(service, false);
 	serviceNode.edges = getInternalEdges(service);
@@ -48,8 +47,8 @@ export const handleShrinkServiceEvent = (event: CustomEvent, graph: ElkNode) => 
 	);
 
 	serviceNode.ports = getElkPorts(service);
-	serviceNode.children = [{ id: '!leaf' }];
 	serviceNode.edges = [];
+	serviceNode.children = [{ id: '!leaf' }];
 };
 
 export const getServiceFromCoords = (e: MouseEvent, services: Service[][]): Service | undefined => {

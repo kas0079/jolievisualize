@@ -156,10 +156,9 @@
 		)
 			return;
 		await tick();
-		removeFromNetwork(service, svcNwId);
 		await embed(service, droppedOnSvc, svcNwId);
-		if (vscode) loading.set(true);
 		dispatcher('message', { action: 'reset' });
+		if (vscode) loading.set(true);
 	};
 
 	let prevPoly: Element;

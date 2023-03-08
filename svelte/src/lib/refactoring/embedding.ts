@@ -1,14 +1,16 @@
 import { services, vscode } from '../data';
-import { addServiceToNetwork } from '../network';
+import { addServiceToNetwork, removeFromNetwork } from '../network';
 import { openPopup } from '../popup';
 import { deepCopyServiceNewId, findRange, getAllServices } from '../service';
 
-export const embed = async (service: Service, parent: Service, netwrkId: number) => {
+export const embed = async (service: Service, parent: Service, netwrkId: number): Promise<void> => {
 	const parentPort = getParentPortName(service, parent);
 	const oldParent = service.parent;
+	removeFromNetwork(service, netwrkId);
 	if (!parent.embeddings) parent.embeddings = [];
 	if (!service.inputPorts) service.inputPorts = [];
 	if (!parent.outputPorts) parent.outputPorts = [];
+
 	//if a port already exists between the two services
 	if (parentPort) {
 		await disembed(service);
@@ -30,6 +32,120 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 		});
 		return;
 	}
+	openPopup(
+		` Create new local ports for ${service.name} and ${parent.name} `,
+		['input port name', 'output port name', 'protocol', 'interfaces'],
+		async (vals: { field: string; val: string }[]) => {
+			if (vals.filter((t) => t.val === '' && t.field !== '').length > 0) return false;
+			const tmp_interfaces: { name: string }[] = [];
+			vals
+				.find((t) => t.field === 'interfaces')
+				?.val.split(',')
+				.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
+
+			const newIP: Port = {
+				file: service.file,
+				location: `!local_${service.id}${service.name}`,
+				protocol: vals.find((t) => t.field === 'protocol').val,
+				name: vals.find((t) => t.field === 'input port name').val,
+				interfaces: tmp_interfaces
+			};
+
+			const newOP: Port = {
+				file: service.file,
+				location: `!local_${service.id}${service.name}`,
+				protocol: vals.find((t) => t.field === 'protocol').val,
+				name: vals.find((t) => t.field === 'output port name').val,
+				interfaces: tmp_interfaces
+			};
+
+			await disembed(service);
+			service.parentPort = parentPort;
+			service.parent = parent;
+			parent.embeddings.push(service);
+
+			service.parentPort = vals.find((t) => t.field === 'output port name').val;
+
+			const isParentFirst = parent.outputPorts.length === 0;
+			const isSvcFirst = service.inputPorts.length === 0;
+
+			service.inputPorts.push(newIP);
+			parent.outputPorts.push(newOP);
+
+			const parents = getAllServices(services).filter(
+				(t) => t.name === parent.name && t.file === parent.file && t.id !== parent.id
+			);
+			if (parents.length >= 1) {
+				parents.forEach((prnt) => {
+					if (!prnt.embeddings) prnt.embeddings = [];
+					const svc = deepCopyServiceNewId(service);
+					svc.parent = prnt;
+					prnt.embeddings.push(svc);
+					if (!prnt.outputPorts) prnt.outputPorts = [];
+					prnt.outputPorts.push(newOP);
+				});
+			}
+
+			if (vscode && parent) {
+				const parentRange = isParentFirst
+					? findRange(parent, 'svc_name')
+					: findRange(parent.outputPorts[0], 'port');
+
+				const svcRange = isSvcFirst
+					? findRange(service, 'svc_name')
+					: findRange(service.inputPorts[0], 'port');
+
+				vscode.postMessage({
+					command: 'create.embed',
+					detail: {
+						filename: parent.file,
+						embedName: service.name,
+						embedPort: service.parentPort,
+						isFirst: isParentFirst,
+						range: parentRange
+					}
+				});
+
+				vscode.postMessage({
+					command: 'create.port',
+					detail: {
+						file: parent.file,
+						range: parentRange,
+						portType: 'outputPort',
+						isFirst: isParentFirst,
+						port: {
+							name: newOP.name,
+							location: 'local',
+							protocol: newOP.protocol,
+							interfaces: vals.find((t) => t.field === 'interfaces').val
+						}
+					}
+				});
+
+				vscode.postMessage({
+					command: 'create.port',
+					save: true,
+					fromPopup: true,
+					detail: {
+						file: service.file,
+						range: svcRange,
+						portType: 'inputPort',
+						isFirst: isSvcFirst,
+						port: {
+							name: newIP.name,
+							location: 'local',
+							protocol: newIP.protocol,
+							interfaces: vals.find((t) => t.field === 'interfaces').val
+						}
+					}
+				});
+			}
+			return true;
+		},
+		async () => {
+			if (!oldParent) addServiceToNetwork(service, netwrkId);
+		}
+	);
 };
 
 export const embed2 = async (

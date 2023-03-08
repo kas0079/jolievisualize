@@ -10,9 +10,12 @@
 	};
 
 	const confirm = async () => {
-		const res = $current_popup.confirm($current_popup.values);
+		const res = await $current_popup.confirm($current_popup.values);
 		if (!res) await cancel();
-		else closePopup();
+		else {
+			closePopup();
+			dispatcher('rerender');
+		}
 	};
 </script>
 

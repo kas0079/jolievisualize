@@ -65,8 +65,8 @@ const connectEmbeds = (service: Service): void => {
 		);
 		if (corrInputPort === undefined) return;
 
-		corrOutputPort.location = `!local_${embed.name}${embed.id}`;
-		corrInputPort.location = `!local_${embed.name}${embed.id}`;
+		corrOutputPort.location = `!local_${embed.id}${embed.name}`;
+		corrInputPort.location = `!local_${embed.id}${embed.name}`;
 	});
 };
 
