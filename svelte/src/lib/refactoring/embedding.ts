@@ -1,4 +1,4 @@
-import { services, vscode } from '../data';
+import { loading, services, vscode } from '../data';
 import { addServiceToNetwork, removeFromNetwork } from '../network';
 import { openPopup } from '../popup';
 import { deepCopyServiceNewId, findRange, getAllServices } from '../service';
@@ -59,7 +59,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 				interfaces: tmp_interfaces
 			};
 
-			await disembed(service);
+			await disembed(service, false);
 			service.parentPort = parentPort;
 			service.parent = parent;
 			parent.embeddings.push(service);
@@ -144,11 +144,12 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 		},
 		async () => {
 			if (!oldParent) addServiceToNetwork(service, netwrkId);
+			loading.set(false);
 		}
 	);
 };
 
-export const disembed = async (service: Service): Promise<void> => {
+export const disembed = async (service: Service, not_embed_subroutine = true): Promise<void> => {
 	if (!service.parent) return;
 	const parent = service.parent;
 	const otherInstances = getAllServices(services).filter(
@@ -210,7 +211,7 @@ export const disembed = async (service: Service): Promise<void> => {
 		if (parent)
 			vscode.postMessage({
 				command: 'remove.embed',
-				save: true,
+				save: not_embed_subroutine,
 				detail: {
 					filename: parent.file,
 					range: findRange(parent, `embed_${service.name}`)

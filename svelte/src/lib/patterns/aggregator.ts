@@ -131,7 +131,8 @@ export const createAggregator = (svcs: Service[]): void => {
 			aggrSvc.embeddings = embeds;
 			sendVisData();
 			return true;
-		}
+		},
+		async () => {}
 	);
 	clearSidebar();
 };
