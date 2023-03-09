@@ -17,7 +17,7 @@
 <h1 class="text-center text-4xl mt-1 mb-4">Selection</h1>
 
 <p class="text-2xl pb-2">Apply Pattern:</p>
-<div class="mb-2 w-full flex flex-wrap gap-2 justify-center items-center">
+<div class="mb-2 w-full flex flex-wrap gap-2 justify-center item-center">
 	{#if aggregateable}
 		<button
 			class="bg-slate-900 border px-3 py-2 hover:bg-slate-700"
@@ -27,8 +27,7 @@
 		<button
 			class="bg-slate-600 border px-3 py-2  border-slate-400 text-slate-400"
 			disabled
-			title={aggregateableReason}
-			on:click={() => createAggregator(serviceList)}>Aggregator</button
+			title={aggregateableReason}>Aggregator</button
 		>
 	{/if}
 
@@ -41,8 +40,7 @@
 		<button
 			class="bg-slate-600 border px-3 py-2  border-slate-400 text-slate-400"
 			disabled
-			title="Not Implemented"
-			on:click={() => createAggregator(serviceList)}>Circuit Breaker</button
+			title="Not Implemented">Circuit Breaker</button
 		>
 	{/if}
 
@@ -55,8 +53,7 @@
 		<button
 			class="bg-slate-600 border px-3 py-2  border-slate-400 text-slate-400"
 			disabled
-			title="Not Implemented"
-			on:click={() => createAggregator(serviceList)}>Redirector</button
+			title="Not Implemented">Redirector</button
 		>
 	{/if}
 </div>
