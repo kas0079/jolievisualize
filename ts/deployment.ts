@@ -37,12 +37,27 @@ const makeDeploymentFolders = (args: string[]): void => {
 
 	build.folders.forEach((folder) => {
 		fs.mkdirSync(path.join(buildRoot, folder.name), { recursive: true });
-		if (fs.existsSync(path.join(path.dirname(visFile), "package.json")))
+		let jpm = false;
+		if (
+			fs.existsSync(
+				path.join(
+					path.dirname(visFile),
+					path.dirname(folder.main),
+					"package.json"
+				)
+			)
+		) {
 			fs.cpSync(
-				path.join(path.dirname(visFile), "package.json"),
+				path.join(
+					path.dirname(visFile),
+					path.dirname(folder.main),
+					"package.json"
+				),
 				path.join(buildRoot, folder.name, "package.json"),
 				{ recursive: true }
 			);
+			jpm = true;
+		}
 
 		const mainPath = path.join(path.dirname(visFile), folder.main);
 		fs.cpSync(mainPath, path.join(buildRoot, folder.name, folder.main), {
@@ -64,7 +79,7 @@ const makeDeploymentFolders = (args: string[]): void => {
 			);
 		});
 
-		const dockerFileContent = makeDockerfile(folder);
+		const dockerFileContent = makeDockerfile(folder, jpm);
 		fs.writeFileSync(
 			path.join(buildRoot, folder.name, "Dockerfile"),
 			dockerFileContent
@@ -82,14 +97,16 @@ const getDockerComposeData = (visfile: string): string => {
 	return res.toString();
 };
 
-const makeDockerfile = (folder: Folder): string => {
+const makeDockerfile = (folder: Folder, jpm: boolean): string => {
 	return `FROM jolielang/jolie\n${
 		folder.expose
 			? "EXPOSE " + folder.expose.map((t) => t + " ") + "\n"
 			: ""
-	}COPY . .\nCMD jolie --service ${folder.target}${
-		folder.params ? " --params " + folder.params : ""
-	}${folder.args ? " " + folder.args : ""} ${folder.main}`;
+	}COPY . .\n${jpm ? "RUN jpm install\n" : ""}CMD jolie --service ${
+		folder.target
+	}${folder.params ? " --params " + folder.params : ""}${
+		folder.args ? " " + folder.args : ""
+	} ${folder.main}`;
 };
 
 if (process.argv.length < 3) {
