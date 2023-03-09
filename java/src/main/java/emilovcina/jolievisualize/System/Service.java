@@ -139,7 +139,12 @@ public class Service {
     }
 
     public void addVolume(String conf) {
-        this.volumes.add(conf);
+        if (conf.startsWith("./"))
+            this.volumes.add(conf.substring(2));
+        else if (conf.startsWith("/"))
+            this.volumes.add(conf.substring(1));
+        else
+            this.volumes.add(conf);
     }
 
     public void addCourier(Courier c) {
