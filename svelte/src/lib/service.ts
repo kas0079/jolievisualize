@@ -23,7 +23,7 @@ export const handleExpandServiceEvent = (event: CustomEvent, graph: ElkNode) => 
 	// !TODO zoom to bounding box https://observablehq.com/@d3/zoom-to-bounding-box
 	const service = getAllServices(services).find((t) => t.id === event.detail.serviceID);
 	const serviceNode = getAllElkNodes(graph).find(
-		(t) => t.id === event.detail.serviceName + event.detail.serviceID
+		(t) => t.id === 's' + event.detail.serviceID + event.detail.serviceName
 	);
 	serviceNode.children = [];
 	serviceNode.ports = getElkPorts(service, false);
@@ -32,7 +32,7 @@ export const handleExpandServiceEvent = (event: CustomEvent, graph: ElkNode) => 
 
 	service.embeddings.forEach((embed) => {
 		serviceNode.children.push({
-			id: `${embed.name}${embed.id}`,
+			id: `s${embed.name}${embed.id}`,
 			labels: [{ text: 'service' }, { text: `${embed.id}` }],
 			ports: getElkPorts(embed),
 			children: [{ id: '!leaf' }]
@@ -43,7 +43,7 @@ export const handleExpandServiceEvent = (event: CustomEvent, graph: ElkNode) => 
 export const handleShrinkServiceEvent = (event: CustomEvent, graph: ElkNode) => {
 	const service = getAllServices(services).find((t) => t.id === event.detail.serviceID);
 	const serviceNode = getAllElkNodes(graph).find(
-		(t) => t.id === event.detail.serviceName + event.detail.serviceID
+		(t) => t.id === 's' + event.detail.serviceID + event.detail.serviceName
 	);
 
 	serviceNode.ports = getElkPorts(service);
@@ -85,7 +85,7 @@ export const findRange = (obj: Service | Port, name: string): SimpleRange => {
 	return res.range;
 };
 
-export const transposeRange = (
+const transposeRange = (
 	range: SimpleRange,
 	startLine: number,
 	startChar: number,
@@ -166,7 +166,7 @@ const getElementBelowGhost = (e: MouseEvent): Element[] => {
 
 const getServiceFromPolygon = (elem: Element, services: Service[][]): Service => {
 	return getAllServices(services).find(
-		(t) => t.name + t.id === elem.parentElement.getAttribute('id')
+		(t) => 's' + t.id + t.name === elem.parentElement.getAttribute('id')
 	);
 };
 
