@@ -122,7 +122,6 @@
 		const droppedOnSvc = getServiceFromCoords(e, services);
 		const networkId = getClickedNetworkGroupId(e);
 		const svcNwId = getServiceNetworkId(service);
-
 		if (!droppedOnSvc) {
 			//dropped on network
 			if (networkId === undefined) {
