@@ -36,27 +36,29 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 		` Create new local ports for ${service.name} and ${parent.name} `,
 		['input port name', 'output port name', 'protocol', 'interfaces'],
 		async (vals: { field: string; val: string }[]) => {
-			if (vals.filter((t) => t.val === '' && t.field !== '').length > 0) return false;
+			if (vals.filter((t) => t.val === '' && t.field !== '' && t.field !== 'interfaces').length > 0)
+				return false;
 			const tmp_interfaces: { name: string }[] = [];
-			vals
-				.find((t) => t.field === 'interfaces')
-				?.val.split(',')
-				.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
+			if (vals.find((t) => t.field === 'interfaces').val.trim() !== '')
+				vals
+					.find((t) => t.field === 'interfaces')
+					?.val.split(',')
+					.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
 
 			const newIP: Port = {
 				file: service.file,
 				location: `!local_${service.id}${service.name}`,
-				protocol: vals.find((t) => t.field === 'protocol').val,
-				name: vals.find((t) => t.field === 'input port name').val,
-				interfaces: tmp_interfaces
+				protocol: vals.find((t) => t.field === 'protocol').val.trim(),
+				name: vals.find((t) => t.field === 'input port name').val.trim(),
+				interfaces: tmp_interfaces.length === 0 ? undefined : tmp_interfaces
 			};
 
 			const newOP: Port = {
 				file: service.file,
 				location: `!local_${service.id}${service.name}`,
-				protocol: vals.find((t) => t.field === 'protocol').val,
-				name: vals.find((t) => t.field === 'output port name').val,
-				interfaces: tmp_interfaces
+				protocol: vals.find((t) => t.field === 'protocol').val.trim(),
+				name: vals.find((t) => t.field === 'output port name').val.trim(),
+				interfaces: tmp_interfaces.length === 0 ? undefined : tmp_interfaces
 			};
 
 			await disembed(service, false);
@@ -117,7 +119,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 							name: newOP.name,
 							location: 'local',
 							protocol: newOP.protocol,
-							interfaces: vals.find((t) => t.field === 'interfaces').val
+							interfaces: vals.find((t) => t.field === 'interfaces').val.trim()
 						}
 					}
 				});
@@ -135,7 +137,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 							name: newIP.name,
 							location: 'local',
 							protocol: newIP.protocol,
-							interfaces: vals.find((t) => t.field === 'interfaces').val
+							interfaces: vals.find((t) => t.field === 'interfaces').val.trim()
 						}
 					}
 				});
