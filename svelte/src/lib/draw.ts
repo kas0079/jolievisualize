@@ -119,18 +119,18 @@ const fitNameInShape = (serviceNode: ElkNode, serviceName: string, expanded: boo
 
 	d3.select(`#${serviceNode.id} > text`).text(serviceName);
 	let newName = serviceName;
-	while (isTextTooLong(text, poly, expanded)) {
-		newName = newName.substring(0, newName.length - 2);
+	while (isTextTooLong(text, poly)) {
+		newName = newName.substring(0, newName.length - 1);
 		d3.select(`#${serviceNode.id} > text`).text(newName);
 	}
 	if (serviceName !== newName)
 		d3.select(`#${serviceNode.id} > text`).text(newName.substring(0, newName.length - 3) + '...');
 };
 
-const isTextTooLong = (textElement: Element, serviceShape: Element, expanded: boolean): boolean => {
+const isTextTooLong = (textElement: Element, serviceShape: Element): boolean => {
 	if (!textElement || !serviceShape) return false;
 	const textRect = textElement.getBoundingClientRect();
 	const svcRect = serviceShape.getBoundingClientRect();
 	if (!textElement.getBoundingClientRect() || !serviceShape.getBoundingClientRect()) return false;
-	return textRect.width + (expanded ? 15 : 0) > svcRect.width;
+	return textRect.width + 20 > svcRect.width;
 };
