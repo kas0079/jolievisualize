@@ -178,8 +178,8 @@
 	beforeUpdate(() => {
 		expanded = serviceNode.children[0].id !== '!leaf';
 		service = parent
-			? parent.embeddings.find((t) => t.name + '' + t.id === serviceNode.id)
-			: getAllServices(services).find((t) => t.name + '' + t.id === serviceNode.id);
+			? parent.embeddings.find((t) => t.id === +serviceNode.labels[1].text)
+			: getAllServices(services).find((t) => t.id === +serviceNode.labels[1].text);
 		annotationType = getServicePatternType(service);
 	});
 

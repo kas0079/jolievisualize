@@ -60,35 +60,26 @@ public class JolieVisualize {
             return;
         }
 
-        String deploymentType = "";
+        BuildMethod deploymentType = null;
 
         for (int i = 6; i < args.length; i++) {
             if (args[i].equals("--docker-compose"))
-                deploymentType = "docker_compose";
+                deploymentType = BuildMethod.DOCKER_COMPOSE;
             if (args[i].equals("--kubernetes"))
-                deploymentType = "kubernetes";
+                deploymentType = BuildMethod.KUBERNETES;
         }
 
         Path p = Paths.get(pathName);
 
         SystemInspector si = new SystemInspector(parseNetworks(p, args));
 
-        if (deploymentType.equals("")) {
+        if (deploymentType == null) {
             JSONObject o = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
             System.out.println(o.toJSONString());
         } else {
-            switch (deploymentType) {
-                case "docker_compose":
-                    System.out.println(
-                            new Build(si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()),
-                                    BuildMethod.DOCKER_COMPOSE).toJSON().toJSONString());
-                    break;
-                case "kubernetes":
-                    System.out.println(
-                            new Build(si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()),
-                                    BuildMethod.KUBERNETES).toJSON().toJSONString());
-                    break;
-            }
+            System.out.println(
+                    new Build(si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()),
+                            deploymentType).toJSON().toJSONString());
         }
     }
 

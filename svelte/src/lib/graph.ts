@@ -45,7 +45,7 @@ export const getElkPorts = (service: Service, omitLocals = true): ElkPort[] => {
 	const ports: ElkPort[] = [];
 	service.inputPorts?.forEach((ip) => {
 		ports.push({
-			id: `${service.name}${service.id}-${ip.name}`,
+			id: `p${service.id}${service.name}-${ip.name}`,
 			labels: [{ text: 'ip' }, { text: ip.name }],
 			width: portSize,
 			height: portSize
@@ -54,7 +54,7 @@ export const getElkPorts = (service: Service, omitLocals = true): ElkPort[] => {
 	service.outputPorts?.forEach((op) => {
 		if ((op.location.startsWith('!local') || op.location.startsWith('local')) && omitLocals) return;
 		ports.push({
-			id: `${service.name}${service.id}-${op.name}`,
+			id: `p${service.id}${service.name}-${op.name}`,
 			labels: [{ text: 'op' }, { text: op.name }],
 			width: portSize,
 			height: portSize
@@ -80,9 +80,9 @@ export const getTopLevelEdges = (services: Service[]): ElkExtendedEdge[] => {
 				inputSvc.inputPorts.forEach((ip) => {
 					if (op.location === ip.location && op.protocol === ip.protocol) {
 						tle.push({
-							id: `${outputSvc.name}${outputSvc.id}${op.name}-${inputSvc.name}${inputSvc.id}${ip.name}`,
-							sources: [`${outputSvc.name}${outputSvc.id}-${op.name}`],
-							targets: [`${inputSvc.name}${inputSvc.id}-${ip.name}`]
+							id: `e${outputSvc.id}${outputSvc.name}${op.name}-${inputSvc.id}${inputSvc.name}${ip.name}`,
+							sources: [`p${outputSvc.id}${outputSvc.name}-${op.name}`],
+							targets: [`p${inputSvc.id}${inputSvc.name}-${ip.name}`]
 						});
 					}
 				});
@@ -100,9 +100,9 @@ export const getInternalEdges = (service: Service): ElkExtendedEdge[] => {
 			embed.inputPorts?.forEach((ip) => {
 				if (ip.location === op.location)
 					res.push({
-						id: `${service.name}${service.id}${op.name}-${embed.name}${embed.id}${ip.name}`,
-						sources: [`${service.name}${service.id}-${op.name}`],
-						targets: [`${embed.name}${embed.id}-${ip.name}`]
+						id: `e${service.id}${service.name}${op.name}-${embed.id}${embed.name}${ip.name}`,
+						sources: [`p${service.id}${service.name}-${op.name}`],
+						targets: [`p${embed.id}${embed.name}-${ip.name}`]
 					});
 			});
 		});
@@ -123,7 +123,7 @@ const rerenderService = (serviceNode: ElkNode, allSvcs: Service[]) => {
 };
 
 const _rerender = (serviceNode: ElkNode, service: Service, omitLocals: boolean) => {
-	serviceNode.id = `${service.name}${service.id}`;
+	serviceNode.id = `s${service.id}${service.name}`;
 	serviceNode.ports = getElkPorts(service, omitLocals);
 	serviceNode.edges = [];
 	if (!omitLocals) {
@@ -142,18 +142,18 @@ const connectDockerPorts = (services: Service[]): ElkExtendedEdge[] => {
 				other.outputPorts?.forEach((op) => {
 					if (op.location === p.location) {
 						tle.push({
-							id: `${svc.name}${other.id}${op.name}-${svc.name}${svc.id}${p.name}`,
-							sources: [`${other.name}${other.id}-${op.name}`],
-							targets: [`${svc.name}${svc.id}-${p.name}`]
+							id: `e${svc.id}${other.name}${op.name}-${svc.id}${svc.name}${p.name}`,
+							sources: [`p${other.id}${other.name}-${op.name}`],
+							targets: [`p${svc.id}${svc.name}-${p.name}`]
 						});
 					}
 				});
 				other.inputPorts?.forEach((op) => {
 					if (op.location === p.location) {
 						tle.push({
-							id: `${svc.name}${other.id}${op.name}-${svc.name}${svc.id}${p.name}`,
-							sources: [`${other.name}${other.id}-${op.name}`],
-							targets: [`${svc.name}${svc.id}-${p.name}`]
+							id: `e${svc.id}${other.name}${op.name}-${svc.id}${svc.name}${p.name}`,
+							sources: [`p${other.id}${other.name}-${op.name}`],
+							targets: [`p${svc.id}${svc.name}-${p.name}`]
 						});
 					}
 				});
@@ -167,7 +167,7 @@ const getTopLevelServices = (services: Service[]): ElkNode[] => {
 	const tls: ElkNode[] = [];
 	services.forEach((svc) => {
 		tls.push({
-			id: `${svc.name}${svc.id}`,
+			id: `s${svc.id}${svc.name}`,
 			labels: [{ text: 'service' }, { text: `${svc.id}` }],
 			ports: getElkPorts(svc),
 			children: [{ id: '!leaf' }],
@@ -195,7 +195,7 @@ const getNetworkPorts = (serviceList: Service[], networkName: string): ElkPort[]
 		svc.inputPorts?.forEach((ip) => {
 			if (ip.location.startsWith('!local')) return;
 			ports.push({
-				id: `${networkName}${svc.id}-${ip.name}`,
+				id: `p${networkName}${svc.id}-${ip.name}`,
 				labels: [{ text: 'ip' }, { text: ip.name }, { text: ip.location }],
 				layoutOptions: {
 					'port.side': 'NORTH'
@@ -208,7 +208,7 @@ const getNetworkPorts = (serviceList: Service[], networkName: string): ElkPort[]
 		svc.outputPorts?.forEach((op) => {
 			if (op.location.startsWith('!local')) return;
 			ports.push({
-				id: `${networkName}${svc.id}-${op.name}`,
+				id: `p${networkName}${svc.id}-${op.name}`,
 				labels: [{ text: 'op' }, { text: op.name }, { text: op.location }],
 				layoutOptions: {
 					'port.side': 'SOUTH'
@@ -235,9 +235,9 @@ const getEdgesToNetworkPorts = (
 			);
 			if (portNode === undefined) return;
 			res.push({
-				id: `${networkName}${svc.id}-${ip.name}IP`,
+				id: `e${networkName}${svc.id}-${ip.name}IP`,
 				sources: [portNode.id],
-				targets: [`${svc.name}${svc.id}-${ip.name}`]
+				targets: [`p${svc.id}${svc.name}-${ip.name}`]
 			});
 		});
 		svc.outputPorts?.forEach((op) => {
@@ -247,9 +247,9 @@ const getEdgesToNetworkPorts = (
 			);
 			if (portNode === undefined) return;
 			res.push({
-				id: `${networkName}${svc.id}-${op.name}OP`,
+				id: `e${networkName}${svc.id}-${op.name}OP`,
 				sources: [portNode.id],
-				targets: [`${svc.name}${svc.id}-${op.name}`]
+				targets: [`p${svc.id}${svc.name}-${op.name}`]
 			});
 		});
 	});
