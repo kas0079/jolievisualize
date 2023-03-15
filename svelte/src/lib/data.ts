@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 import { preprocess } from './preprocess';
 import { isDockerService } from './service';
+import { error, removeError } from './error';
 
 export const vscode = acquireVsCodeApi();
 
@@ -18,6 +19,13 @@ export let types = processedData.types;
 export let name = processedData.name;
 
 export const setDataString = (data: string) => {
+	const err = checkForError(data);
+	if (err) {
+		resetData();
+		error.set(JSON.parse(data));
+		return;
+	}
+	removeError();
 	json = JSON.parse(data);
 	processedData = preprocess(json);
 	services = processedData.services;
@@ -27,7 +35,7 @@ export const setDataString = (data: string) => {
 };
 
 export const resetData = () => {
-	let pd: Data = preprocess(json);
+	const pd: Data = preprocess(json);
 	services = pd.services;
 	interfaces = pd.interfaces;
 	types = pd.types;
@@ -77,6 +85,11 @@ export const generateVisFile = (): VisFile => {
 	return {
 		content
 	};
+};
+
+const checkForError = (json: string) => {
+	const j = JSON.parse(json);
+	return j.error;
 };
 
 const makeDockerPorts = (ports: DockerPort[]): string[] => {

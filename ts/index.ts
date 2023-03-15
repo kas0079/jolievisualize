@@ -1,13 +1,16 @@
 import * as exec from "child_process";
 
 const getData = (visfile: { path: string }): string => {
-	const res = exec.execFileSync(
-		`${__dirname}/../visualize`,
-		[`${visfile.path}`],
-		{ timeout: 4000 }
-	);
-	if (!res) return `ERROR`;
-	return res.toString();
+	try {
+		const res = exec.execFileSync(
+			`${__dirname}/../visualize`,
+			[`${visfile.path}`],
+			{ timeout: 4000 }
+		);
+		return res.toString();
+	} catch {
+		return JSON.stringify({ error: true, file: visfile });
+	}
 };
 
 const getBuildData = (
@@ -16,13 +19,16 @@ const getBuildData = (
 	},
 	method: string
 ): string => {
-	const res = exec.execFileSync(
-		`${__dirname}/../visualize`,
-		[`${visfile.path}`, `--${method}`],
-		{ timeout: 4000 }
-	);
-	if (!res) return `ERROR`;
-	return res.toString();
+	try {
+		const res = exec.execFileSync(
+			`${__dirname}/../visualize`,
+			[`${visfile.path}`, `--${method}`],
+			{ timeout: 4000 }
+		);
+		return res.toString();
+	} catch {
+		return JSON.stringify({ error: true, file: visfile });
+	}
 };
 
 module.exports = {

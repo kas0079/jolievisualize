@@ -1,15 +1,14 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as exec from "child_process";
+const main = require("./index");
 
 const dockerComposeBuild = (visFile: string, buildRoot: string): BuildInfo => {
-	const buildJson = getDockerComposeData(visFile);
+	const buildJson = main.getBuildData(visFile);
 	const build = JSON.parse(buildJson) as BuildInfo;
 	fs.writeFileSync(
 		path.join(buildRoot, "docker-compose.yml"),
 		build.deployment
 	);
-
 	return build;
 };
 
@@ -85,16 +84,6 @@ const makeDeploymentFolders = (args: string[]): void => {
 			dockerFileContent
 		);
 	});
-};
-
-const getDockerComposeData = (visfile: string): string => {
-	const res = exec.execFileSync(
-		`${__dirname}/../visualize`,
-		[`${visfile}`, "--docker-compose"],
-		{ timeout: 4000 }
-	);
-	if (!res) return `ERROR`;
-	return res.toString();
 };
 
 const makeDockerfile = (folder: Folder, jpm: boolean): string => {
