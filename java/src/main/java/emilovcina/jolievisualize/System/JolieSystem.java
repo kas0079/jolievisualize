@@ -1,5 +1,6 @@
 package emilovcina.jolievisualize.System;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,12 +12,14 @@ public class JolieSystem {
     private long highestID = -1;
     private long highestInterfaceID = -1;
     private String name;
+    private Path visFilePath;
     private List<Interface> listOfInterfaces = new ArrayList<>();
     private List<Type> listOfTypes = new ArrayList<>();
     private List<Network> networks;
 
-    public JolieSystem(List<Network> networks) {
+    public JolieSystem(List<Network> networks, Path visFile) {
         this.networks = networks;
+        this.visFilePath = visFile;
     }
 
     public long getNextID() {
@@ -33,6 +36,10 @@ public class JolieSystem {
 
     public String getName() {
         return name;
+    }
+
+    public Path getVisFilePath() {
+        return this.visFilePath;
     }
 
     public List<Network> getNetworks() {

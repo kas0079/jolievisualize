@@ -91,6 +91,8 @@ public class Build {
                     bf.volumes.addAll(service.getVolumes());
                 if (service.getInputPorts().size() > 0)
                     bf.exposed.addAll(DeployUtils.getExposedPorts(service.getInputPorts()));
+                if (service.getPorts().size() > 0)
+                    bf.exposed.addAll(service.getPorts().values());
 
                 BuildFolder tmp = containsBuildFolder(bf, res);
                 if (tmp == null)

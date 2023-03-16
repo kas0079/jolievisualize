@@ -71,7 +71,7 @@ public class JolieVisualize {
 
         Path p = Paths.get(pathName);
 
-        SystemInspector si = new SystemInspector(parseNetworks(p, args));
+        SystemInspector si = new SystemInspector(parseNetworks(p, args), p);
 
         if (deploymentType == null) {
             JSONObject o = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
@@ -148,6 +148,8 @@ public class JolieVisualize {
                         tld.setFilename((String) o.get("file"));
                     if (o.get("instances") != null)
                         tld.setNumberOfInstances((long) o.get("instances"));
+                    if (o.get("container") != null)
+                        tld.setContainerName((String) o.get("container"));
                     if (o.get("args") != null)
                         tld.setArgs((String) o.get("args"));
                     if (o.get("params") != null) {
@@ -156,10 +158,9 @@ public class JolieVisualize {
                         else if (o.get("params") instanceof JSONObject)
                             tld.setParamJSON((JSONObject) o.get("params"));
                     }
-                    if (o.get("env") != null) {
+                    if (o.get("env") != null)
                         if (o.get("env") instanceof JSONObject)
                             tld.setEnvJSON((JSONObject) o.get("env"));
-                    }
                     if (o.get("volumes") != null)
                         for (Object s : ((JSONArray) o.get("volumes")))
                             tld.addVolume((String) s);

@@ -1,5 +1,6 @@
 package emilovcina.jolievisualize;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -47,8 +48,8 @@ import jolie.util.Pair;
 public class SystemInspector {
     private final JolieSystem system;
 
-    public SystemInspector(List<Network> networks) {
-        system = new JolieSystem(networks);
+    public SystemInspector(List<Network> networks, Path visFilePath) {
+        system = new JolieSystem(networks, visFilePath);
     }
 
     public JSONObject createJSON(String name) {
@@ -74,12 +75,15 @@ public class SystemInspector {
                     n.addService(createDockerService(tld));
                 else {
                     Service svc = createService(sn, tld.getParamJSON());
+                    addDockerPorts(tld, svc);
                     if (tld.getImage() != null)
                         svc.setImage(tld.getImage());
                     if (tld.getParams() != null)
                         svc.setParamFile(tld.getParams());
                     if (tld.getArgs() != null)
                         svc.setArgs(tld.getArgs());
+                    if (tld.getContainerName() != null)
+                        svc.setContainerName(tld.getContainerName());
                     if (tld.getEnvJSON() != null)
                         svc.setEnvJSON(tld.getEnvJSON());
                     if (tld.getVolumes().size() > 0)
@@ -93,25 +97,29 @@ public class SystemInspector {
 
     private Docker createDockerService(TopLevelDeploy tld) {
         Docker docker = new Docker(system.getNextID());
-
         docker.setImage(tld.getImage());
         docker.setName(tld.getName());
-
-        if (tld.getPorts() != null && !tld.getPorts().isEmpty())
-            tld.getPorts().forEach(port -> {
-                int eport = 0;
-                int iport = 0;
-                if (port.contains(":")) {
-                    eport = Integer.parseInt(port.split(":")[0]);
-                    iport = Integer.parseInt(port.split(":")[1]);
-                } else {
-                    eport = Integer.parseInt(port);
-                    iport = eport;
-                }
-                docker.addDockerPort(eport, iport);
-            });
-
+        if (tld.getContainerName() != null)
+            docker.setContainerName(tld.getContainerName());
+        addDockerPorts(tld, docker);
         return docker;
+    }
+
+    private void addDockerPorts(TopLevelDeploy tld, Service s) {
+        if (tld.getPorts() == null || tld.getPorts().isEmpty())
+            return;
+        tld.getPorts().forEach(port -> {
+            int eport = 0;
+            int iport = 0;
+            if (port.contains(":")) {
+                eport = Integer.parseInt(port.split(":")[0]);
+                iport = Integer.parseInt(port.split(":")[1]);
+            } else {
+                eport = Integer.parseInt(port);
+                iport = eport;
+            }
+            s.addDockerPort(eport, iport);
+        });
     }
 
     private Service createService(ServiceNode sn, JSONObject params) {

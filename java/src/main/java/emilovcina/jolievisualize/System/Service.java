@@ -31,11 +31,14 @@ public class Service {
     private String bindingPortName;
 
     private String image;
+    private String containerName;
 
     private List<CodeRange> codeRanges = new ArrayList<>();
     private Set<String> dependencies = new HashSet<>();
     private List<String> volumes = new ArrayList<>();
     private String args;
+
+    private Map<Integer, Integer> dockerPorts = new HashMap<>();
 
     public Service(long id) {
         this.id = id;
@@ -80,6 +83,17 @@ public class Service {
         if (envJSON != null)
             map.put("env", envJSON);
 
+        if (dockerPorts.size() > 0) {
+            List<JSONObject> portTmp = new ArrayList<>();
+            dockerPorts.forEach((i, o) -> {
+                Map<String, Object> tmp = new HashMap<>();
+                tmp.put("iport", i);
+                tmp.put("eport", o);
+                portTmp.add(new JSONObject(tmp));
+            });
+            map.put("ports", portTmp);
+        }
+
         if (outputPorts.size() > 0) {
             List<JSONObject> opListTmp = new ArrayList<>();
             for (OutputPort op : outputPorts)
@@ -100,6 +114,9 @@ public class Service {
                 childTmp.add(s.toJSON());
             map.put("embeddings", childTmp);
         }
+
+        if (containerName != null)
+            map.put("container", containerName);
 
         return new JSONObject(map);
     }
@@ -136,6 +153,14 @@ public class Service {
 
     public List<String> getVolumes() {
         return this.volumes;
+    }
+
+    public String getContainerName() {
+        return containerName;
+    }
+
+    public void setContainerName(String name) {
+        this.containerName = name;
     }
 
     public void addVolume(String conf) {
@@ -251,5 +276,13 @@ public class Service {
 
     public JSONObject getParamJSON() {
         return this.paramJSON;
+    }
+
+    public Map<Integer, Integer> getPorts() {
+        return dockerPorts;
+    }
+
+    public void addDockerPort(int outPort, int inPort) {
+        dockerPorts.put(outPort, inPort);
     }
 }

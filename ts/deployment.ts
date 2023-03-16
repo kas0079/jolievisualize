@@ -2,8 +2,11 @@ import * as fs from "fs";
 import * as path from "path";
 const main = require("./index");
 
-const dockerComposeBuild = (visFile: string, buildRoot: string): BuildInfo => {
-	const buildJson = main.getBuildData(visFile);
+const dockerComposeBuild = (
+	visFile: { path: string },
+	buildRoot: string
+): BuildInfo => {
+	const buildJson = main.getBuildData(visFile, "docker-compose");
 	const build = JSON.parse(buildJson) as BuildInfo;
 	fs.writeFileSync(
 		path.join(buildRoot, "docker-compose.yml"),
@@ -13,7 +16,7 @@ const dockerComposeBuild = (visFile: string, buildRoot: string): BuildInfo => {
 };
 
 const makeDeploymentFolders = (args: string[]): void => {
-	const visFile = args[0] ?? "./visualize.json";
+	const visFile = { path: args[0] ?? "./visualize.json" };
 	const buildRoot = args[1] ?? "./build";
 	const deployMethod = args[2] ?? "docker-compose";
 
@@ -40,7 +43,7 @@ const makeDeploymentFolders = (args: string[]): void => {
 		if (
 			fs.existsSync(
 				path.join(
-					path.dirname(visFile),
+					path.dirname(visFile.path),
 					path.dirname(folder.main),
 					"package.json"
 				)
@@ -48,7 +51,7 @@ const makeDeploymentFolders = (args: string[]): void => {
 		) {
 			fs.cpSync(
 				path.join(
-					path.dirname(visFile),
+					path.dirname(visFile.path),
 					path.dirname(folder.main),
 					"package.json"
 				),
@@ -58,13 +61,13 @@ const makeDeploymentFolders = (args: string[]): void => {
 			jpm = true;
 		}
 
-		const mainPath = path.join(path.dirname(visFile), folder.main);
+		const mainPath = path.join(path.dirname(visFile.path), folder.main);
 		fs.cpSync(mainPath, path.join(buildRoot, folder.name, folder.main), {
 			recursive: true,
 		});
 
 		folder.files.forEach((file) => {
-			const OLPath = path.join(path.dirname(visFile), file);
+			const OLPath = path.join(path.dirname(visFile.path), file);
 			fs.cpSync(OLPath, path.join(buildRoot, folder.name, file), {
 				recursive: true,
 			});
@@ -72,7 +75,7 @@ const makeDeploymentFolders = (args: string[]): void => {
 
 		folder.volumes?.forEach((vol) => {
 			fs.cpSync(
-				path.join(path.join(path.dirname(visFile)), vol),
+				path.join(path.join(path.dirname(visFile.path)), vol),
 				path.join(buildRoot, "-res", vol),
 				{ recursive: true }
 			);

@@ -14,6 +14,7 @@ public class TopLevelDeploy {
     private JSONObject envJSON;
     private String path;
     private String args;
+    private String containerName;
 
     private String image;
     private List<String> volumes = new ArrayList<>();
@@ -37,6 +38,7 @@ public class TopLevelDeploy {
         res.paramJSON = this.paramJSON;
         res.path = this.path;
         res.args = this.args;
+        res.containerName = this.containerName;
 
         res.image = this.image;
         this.volumes.forEach((p) -> res.volumes.add(p));
@@ -70,6 +72,14 @@ public class TopLevelDeploy {
 
     public String getImage() {
         return this.image;
+    }
+
+    public void setContainerName(String name) {
+        this.containerName = name;
+    }
+
+    public String getContainerName() {
+        return this.containerName;
     }
 
     public void setImage(String image) {
