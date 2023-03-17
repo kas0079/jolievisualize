@@ -90,7 +90,10 @@
 				>
 					{ip.name}{ip.location.startsWith('!local') || ip.location.startsWith('!local')
 						? ''
-						: ' - ' + ip.location} - {ip.protocol}
+						: ' - ' +
+						  (ip.location.startsWith('auto:')
+								? ip.location.substring(0, ip.location.indexOf(':', 6))
+								: ip.location)} - {ip.protocol}
 				</li>
 			{/each}
 		</ul>
@@ -116,7 +119,10 @@
 				>
 					{op.name}{op.location.startsWith('!local') || op.location.startsWith('local')
 						? ''
-						: ' - ' + op.location} - {op.protocol}
+						: ' - ' +
+						  (op.location.startsWith('auto:')
+								? op.location.substring(0, op.location.indexOf(':', 6))
+								: op.location)} - {op.protocol}
 				</li>
 			{/each}
 		</ul>

@@ -29,6 +29,10 @@
 			elem.removeAttribute('contenteditable');
 			let change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
+			if (editType === 'location' && port.location.startsWith('auto:')) {
+				elem.innerHTML = tmp;
+				return;
+			}
 			if (!port.file) {
 				elem.innerHTML = tmp;
 				return;
@@ -103,7 +107,10 @@
 		<h4 class="text-2xl mb-2">
 			Location: <span
 				on:click|stopPropagation={saveInnerHTML}
-				on:keydown|stopPropagation={(e) => finishEdit(e, 'location')}>{port.location}</span
+				on:keydown|stopPropagation={(e) => finishEdit(e, 'location')}
+				>{port.location.startsWith('auto:')
+					? port.location.substring(0, port.location.indexOf(':', 6))
+					: port.location}</span
 			>
 		</h4>
 	{/if}
