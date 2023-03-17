@@ -44,6 +44,7 @@ export const getAllElkNodes = (root: ElkNode): ElkNode[] => {
 export const getElkPorts = (service: Service, omitLocals = true): ElkPort[] => {
 	const ports: ElkPort[] = [];
 	service.inputPorts?.forEach((ip) => {
+		if ((ip.location.startsWith('!local') || ip.location === 'local') && !service.parent) return;
 		ports.push({
 			id: `p${service.id}${service.name}-${ip.name}`,
 			labels: [{ text: 'ip' }, { text: ip.name }],
@@ -52,7 +53,7 @@ export const getElkPorts = (service: Service, omitLocals = true): ElkPort[] => {
 		});
 	});
 	service.outputPorts?.forEach((op) => {
-		if ((op.location.startsWith('!local') || op.location.startsWith('local')) && omitLocals) return;
+		if ((op.location.startsWith('!local') || op.location === 'local') && omitLocals) return;
 		ports.push({
 			id: `p${service.id}${service.name}-${op.name}`,
 			labels: [{ text: 'op' }, { text: op.name }],

@@ -88,7 +88,7 @@
 					on:click={(e) => openPortFromServiceSidebar(e, service, 'ip')}
 					on:keydown={(e) => openPortFromServiceSidebar(e, service, 'ip')}
 				>
-					{ip.name}{ip.location.startsWith('!local') || ip.location.startsWith('!local')
+					{ip.name}{ip.location.startsWith('!local') || ip.location === 'local'
 						? ''
 						: ' - ' +
 						  (ip.location.startsWith('auto:')

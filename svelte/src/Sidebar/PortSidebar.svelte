@@ -103,7 +103,7 @@
 		<h4 class="text-2xl mb-2">Resource: {port.resource}</h4>
 	{/if}
 
-	{#if !port.location.startsWith('!local')}
+	{#if !port.location.startsWith('!local') && !(port.location === 'local')}
 		<h4 class="text-2xl mb-2">
 			Location: <span
 				on:click|stopPropagation={saveInnerHTML}

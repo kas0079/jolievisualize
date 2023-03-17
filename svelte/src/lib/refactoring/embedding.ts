@@ -10,6 +10,9 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	if (!parent.embeddings) parent.embeddings = [];
 	if (!service.inputPorts) service.inputPorts = [];
 	if (!parent.outputPorts) parent.outputPorts = [];
+	const otherInstances = getAllServices(services).filter(
+		(t) => t.name === service.name && t.file === service.file && t.id !== service.id
+	);
 
 	//if a port already exists between the two services
 	if (parentPort) {
@@ -88,6 +91,17 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 				});
 			}
 
+			otherInstances.forEach((oi) => {
+				if (!oi.inputPorts) oi.inputPorts = [];
+				oi.inputPorts.push({
+					file: newIP.file,
+					location: `local`,
+					protocol: newIP.protocol,
+					name: newIP.name,
+					interfaces: newIP.interfaces
+				});
+			});
+
 			if (vscode && parent) {
 				const parentRange = isParentFirst
 					? findRange(parent, 'svc_name')
@@ -164,9 +178,10 @@ export const disembed = async (service: Service, not_embed_subroutine = true): P
 
 	const portsToRemove = service.inputPorts
 		? service.inputPorts
-				.filter((ip) => ip.location.startsWith('!local'))
+				.filter((ip) => ip.location === parentPort.location)
 				.map((ip) => {
 					return {
+						portName: ip.name,
 						filename: ip.file,
 						portType: 'inputPort',
 						range: findRange(ip, 'port')
@@ -178,30 +193,35 @@ export const disembed = async (service: Service, not_embed_subroutine = true): P
 		portsToRemove.push({
 			filename: parentPort.file,
 			portType: 'outputPort',
-			range: findRange(parentPort, 'port')
+			range: findRange(parentPort, 'port'),
+			portName: ''
 		});
 		if (parent.outputPorts)
 			parent.outputPorts = parent.outputPorts.filter((t) => t.name !== parentPortName);
 	}
 
 	if (service.inputPorts)
-		service.inputPorts = service.inputPorts.filter((ip) => !ip.location.startsWith('!local'));
+		service.inputPorts = service.inputPorts.filter(
+			(ip) => !containsPortToRemove(ip, portsToRemove)
+		);
 
 	service.parentPort = undefined;
 
 	if (otherInstances.length > 0) {
 		otherInstances.forEach((oi) => {
-			if (oi.parent.file !== parent.file || oi.parent.name !== parent.name) return;
-			if (oi.parent.outputPorts)
-				oi.parent.outputPorts = oi.parent.outputPorts.filter((t) => t.name !== parentPortName);
-			if (oi.parent.embeddings)
-				oi.parent.embeddings = oi.parent.embeddings.filter(
-					(t) => t.file !== service.file && t.name !== service.name
-				);
 			if (oi.inputPorts)
-				oi.inputPorts = oi.inputPorts.filter((t) => !t.location.startsWith('!local'));
-			oi.parent = undefined;
-			oi.parentPort = undefined;
+				oi.inputPorts = oi.inputPorts.filter((t) => !containsPortToRemove(t, portsToRemove));
+			if (oi.parent) {
+				if (parent.file !== oi.parent.file || oi.parent.name !== parent.name) return;
+				if (oi.parent.outputPorts)
+					oi.parent.outputPorts = oi.parent.outputPorts.filter((t) => t.name !== parentPortName);
+				if (oi.parent.embeddings)
+					oi.parent.embeddings = oi.parent.embeddings.filter(
+						(t) => t.file !== service.file && t.name !== service.name
+					);
+				oi.parent = undefined;
+				oi.parentPort = undefined;
+			}
 		});
 	}
 
@@ -220,6 +240,18 @@ export const disembed = async (service: Service, not_embed_subroutine = true): P
 				}
 			});
 	}
+};
+
+const containsPortToRemove = (
+	port: Port,
+	portsToRemove: { portName: string; range: SimpleRange; portType: string; filename: string }[]
+): boolean => {
+	let res = false;
+	portsToRemove.forEach((ptr) => {
+		if (res === true) return;
+		res = ptr.filename === port.file && ptr.portType === 'inputPort' && ptr.portName === port.name;
+	});
+	return res;
 };
 
 const getParentPortName = (inSvc: Service, outSvc: Service): string | undefined => {
