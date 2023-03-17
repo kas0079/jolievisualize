@@ -62,6 +62,7 @@ export const generateVisFile = (): VisFile => {
 					ports: makeDockerPorts(svc.ports),
 					instances: getNumberOfDockerInstances(svc, serviceList)
 				};
+				if (svc.container) tld.container = svc.container;
 				if (svc.env) tld.env = svc.env;
 				if (svc.volumes && svc.volumes.length > 0) tld.volumes = svc.volumes;
 				if (!tldIncludesDocker(tldList, tld)) tldList.push(tld);
@@ -74,6 +75,7 @@ export const generateVisFile = (): VisFile => {
 				image: svc.image,
 				args: svc.args
 			};
+			if (svc.container) tld.container = svc.container;
 			if (svc.params) tld.params = svc.params;
 			else if (svc.paramFile) tld.params = svc.paramFile;
 			if (svc.env) tld.env = svc.env;

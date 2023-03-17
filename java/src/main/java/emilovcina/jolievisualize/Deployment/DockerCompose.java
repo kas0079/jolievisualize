@@ -47,7 +47,11 @@ public class DockerCompose {
                         && this.currentNetwork == oc.currentNetwork
                         && oc.networks.containsAll(this.networks)
                         && this.networks.containsAll(oc.networks)
-                        && isEnvMatching(dockerSvc.getEnvJSON(), otherSvc.getEnvJSON());
+                        && isEnvMatching(dockerSvc.getEnvJSON(), otherSvc.getEnvJSON())
+                        && DeployUtils.checkStringAttribute(
+                                dockerSvc.getContainerName() == null ? dockerSvc.getName()
+                                        : dockerSvc.getContainerName(),
+                                otherSvc.getContainerName() == null ? otherSvc.getName() : otherSvc.getContainerName());
             } else if (isDocker && !oc.isDocker || !isDocker && oc.isDocker)
                 return false;
             return this.service.getName().equals(oc.service.getName())
@@ -57,7 +61,10 @@ public class DockerCompose {
                     && this.networks.containsAll(oc.networks)
                     && isEnvMatching(this.service.getEnvJSON(), oc.service.getEnvJSON())
                     && oc.service.getVolumes().containsAll(this.service.getVolumes())
-                    && oc.service.getContainerName().equals(this.service.getContainerName())
+                    && DeployUtils.checkStringAttribute(this.service.getContainerName() == null ? this.service.getName()
+                            : this.service.getContainerName(),
+                            oc.service.getContainerName() == null ? oc.service.getName()
+                                    : oc.service.getContainerName())
                     && this.service.getVolumes().containsAll(oc.service.getVolumes());
         }
     }

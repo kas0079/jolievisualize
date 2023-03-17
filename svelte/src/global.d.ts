@@ -18,6 +18,7 @@ type TLD = {
 	args?: string;
 	image?: string;
 	ports?: string[];
+	container?: string;
 	volumes?: string[];
 };
 
@@ -44,6 +45,7 @@ type Service = {
 	env?: object;
 	args?: string;
 	volumes?: string[];
+	container?: string;
 	parentPort: string | undefined;
 	parent: Service | undefined;
 };

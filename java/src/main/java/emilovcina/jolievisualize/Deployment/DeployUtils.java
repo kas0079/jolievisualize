@@ -23,6 +23,12 @@ public class DeployUtils {
         return seenPorts;
     }
 
+    public static boolean checkStringAttribute(String attr1, String attr2) {
+        if (attr1 == null && attr2 == null)
+            return true;
+        return ((attr2 == null) == (attr1 == null)) && attr2.equals(attr1);
+    }
+
     private static boolean isNumeric(String strNum) {
         if (strNum == null)
             return false;

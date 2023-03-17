@@ -110,12 +110,9 @@ public class Build {
                 .filter(t -> bf.files.containsAll(t.files)
                         && t.files.containsAll(bf.files)
                         && t.mainFile.equals(bf.mainFile)
-                        && (((t.params == null) == (bf.params == null))
-                                && (t.params != null && bf.params != null && t.params.equals(bf.params)))
-                        && (((t.args == null) == (bf.args == null))
-                                && (t.args != null && bf.args != null && t.args.equals(bf.args)))
-                        && (((t.target == null) == (bf.target == null))
-                                && (t.target != null && bf.target != null && t.target.equals(bf.target))))
+                        && DeployUtils.checkStringAttribute(bf.params, t.params)
+                        && DeployUtils.checkStringAttribute(bf.args, t.args)
+                        && DeployUtils.checkStringAttribute(bf.target, t.target))
                 .collect(Collectors.toList());
         return res.isEmpty() ? null : res.get(0);
     }
