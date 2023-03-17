@@ -61,12 +61,15 @@ public class JolieVisualize {
         }
 
         BuildMethod deploymentType = null;
+        String buildFolder = null;
 
         for (int i = 6; i < args.length; i++) {
             if (args[i].equals("--docker-compose"))
                 deploymentType = BuildMethod.DOCKER_COMPOSE;
             if (args[i].equals("--kubernetes"))
                 deploymentType = BuildMethod.KUBERNETES;
+            if (args[i].equals("--build"))
+                buildFolder = args[i + 1];
         }
 
         Path p = Paths.get(pathName);
@@ -79,7 +82,7 @@ public class JolieVisualize {
         } else {
             System.out.println(
                     new Build(si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()),
-                            deploymentType).toJSON().toJSONString());
+                            deploymentType, buildFolder).toJSON().toJSONString());
         }
     }
 

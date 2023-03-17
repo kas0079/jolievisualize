@@ -64,10 +64,12 @@ public class DockerCompose {
 
     private final JolieSystem system;
     private final List<BuildFolder> folders;
+    private final String buildFolder;
 
-    public DockerCompose(JolieSystem system, List<BuildFolder> folders) {
+    public DockerCompose(JolieSystem system, List<BuildFolder> folders, String buildFolder) {
         this.system = system;
         this.folders = folders;
+        this.buildFolder = buildFolder;
     }
 
     public String generateComposeFile() {
@@ -118,7 +120,8 @@ public class DockerCompose {
                     strBuilder.append("        volumes:\n");
                     for (String s : svc.getVolumes()) {
                         strBuilder.append("            - type: bind\n" + "              source: "
-                                + system.getVisFilePath().getParent().toAbsolutePath().toString() + "/-res"
+                                + system.getVisFilePath().getParent().toAbsolutePath().toString() + buildFolder
+                                + "/-res"
                                 + (s.startsWith("/") ? "" : "/") + s
                                 + "\n              target: /var/temp/" + s + "\n");
                     }

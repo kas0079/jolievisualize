@@ -17,12 +17,13 @@ const getBuildData = (
 	visfile: {
 		path: string;
 	},
-	method: string
+	method: string,
+	buildFolder: string
 ): string => {
 	try {
 		const res = exec.execFileSync(
 			`${__dirname}/../visualize`,
-			[`${visfile.path}`, `--${method}`],
+			[`${visfile.path}`, `--${method}`, `--build`, `${buildFolder}`],
 			{ timeout: 4000 }
 		);
 		return res.toString();

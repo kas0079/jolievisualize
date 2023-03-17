@@ -31,13 +31,13 @@ public class Build {
     private final List<BuildFolder> folders;
     private String deploymentString;
 
-    public Build(JolieSystem system, BuildMethod method) {
+    public Build(JolieSystem system, BuildMethod method, String buildFolder) {
         this.system = system;
         this.folders = createFolders();
 
         switch (method) {
             case DOCKER_COMPOSE:
-                deploymentString = new DockerCompose(this.system, folders).generateComposeFile();
+                deploymentString = new DockerCompose(this.system, folders, buildFolder).generateComposeFile();
                 break;
             case KUBERNETES:
                 // ! not implemented

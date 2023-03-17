@@ -6,7 +6,7 @@ const dockerComposeBuild = (
 	visFile: { path: string },
 	buildRoot: string
 ): BuildInfo => {
-	const buildJson = main.getBuildData(visFile, "docker-compose");
+	const buildJson = main.getBuildData(visFile, "docker-compose", "/build");
 	const build = JSON.parse(buildJson) as BuildInfo;
 	fs.writeFileSync(
 		path.join(buildRoot, "docker-compose.yml"),
