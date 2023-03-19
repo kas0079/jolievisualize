@@ -2,33 +2,20 @@ import * as fs from "fs";
 import * as path from "path";
 const main = require("./index");
 
-const dockerComposeBuild = (
+const build = (
 	visFile: { path: string },
-	buildRoot: string
-): BuildInfo => {
-	const buildJson = main.getBuildData(visFile, "docker-compose", "/build");
-	const build = JSON.parse(buildJson) as BuildInfo;
-	fs.writeFileSync(
-		path.join(buildRoot, "docker-compose.yml"),
-		build.deployment
-	);
-	return build;
-};
+	buildFolder: string,
+	buildMethod: BuildMethod
+): void => {
+	if (fs.existsSync(buildFolder)) fs.rmSync(buildFolder, { recursive: true });
 
-const makeDeploymentFolders = (args: string[]): void => {
-	const visFile = { path: args[0] ?? "./visualize.json" };
-	const buildRoot = args[1] ?? "./build";
-	const deployMethod = args[2] ?? "docker-compose";
-
-	if (fs.existsSync(buildRoot)) fs.rmSync(buildRoot, { recursive: true });
-
-	fs.mkdirSync(buildRoot, { recursive: true });
+	fs.mkdirSync(buildFolder, { recursive: true });
 
 	let build;
 
-	switch (deployMethod) {
+	switch (buildMethod) {
 		case "docker-compose":
-			build = dockerComposeBuild(visFile, buildRoot);
+			build = dockerComposeBuild(visFile, buildFolder);
 			break;
 		case "kubernetes":
 			//! not implemented
@@ -38,7 +25,7 @@ const makeDeploymentFolders = (args: string[]): void => {
 	if (!build) return;
 
 	build.folders.forEach((folder) => {
-		fs.mkdirSync(path.join(buildRoot, folder.name), { recursive: true });
+		fs.mkdirSync(path.join(buildFolder, folder.name), { recursive: true });
 		let jpm = false;
 		if (
 			fs.existsSync(
@@ -55,20 +42,20 @@ const makeDeploymentFolders = (args: string[]): void => {
 					path.dirname(folder.main),
 					"package.json"
 				),
-				path.join(buildRoot, folder.name, "package.json"),
+				path.join(buildFolder, folder.name, "package.json"),
 				{ recursive: true }
 			);
 			jpm = true;
 		}
 
 		const mainPath = path.join(path.dirname(visFile.path), folder.main);
-		fs.cpSync(mainPath, path.join(buildRoot, folder.name, folder.main), {
+		fs.cpSync(mainPath, path.join(buildFolder, folder.name, folder.main), {
 			recursive: true,
 		});
 
 		folder.files.forEach((file) => {
 			const OLPath = path.join(path.dirname(visFile.path), file);
-			fs.cpSync(OLPath, path.join(buildRoot, folder.name, file), {
+			fs.cpSync(OLPath, path.join(buildFolder, folder.name, file), {
 				recursive: true,
 			});
 		});
@@ -76,17 +63,34 @@ const makeDeploymentFolders = (args: string[]): void => {
 		folder.volumes?.forEach((vol) => {
 			fs.cpSync(
 				path.join(path.join(path.dirname(visFile.path)), vol),
-				path.join(buildRoot, "-res", vol),
+				path.join(buildFolder, "-res", vol),
 				{ recursive: true }
 			);
 		});
 
 		const dockerFileContent = makeDockerfile(folder, jpm);
 		fs.writeFileSync(
-			path.join(buildRoot, folder.name, "Dockerfile"),
+			path.join(buildFolder, folder.name, "Dockerfile"),
 			dockerFileContent
 		);
 	});
+};
+
+const dockerComposeBuild = (
+	visFile: { path: string },
+	buildRoot: string
+): BuildInfo => {
+	const buildJson = main.getBuildData(
+		visFile,
+		"docker-compose",
+		formatBuildFolder(buildRoot)
+	);
+	const build = JSON.parse(buildJson) as BuildInfo;
+	fs.writeFileSync(
+		path.join(buildRoot, "docker-compose.yml"),
+		build.deployment
+	);
+	return build;
 };
 
 const makeDockerfile = (folder: Folder, jpm: boolean): string => {
@@ -101,25 +105,24 @@ const makeDockerfile = (folder: Folder, jpm: boolean): string => {
 	} ${folder.main}`;
 };
 
+const formatBuildFolder = (folder: string): string => {
+	let res = "";
+	if (!folder.startsWith("/")) res = "/" + folder;
+	if (folder.endsWith("/")) res.substring(0, res.length - 1);
+	return res;
+};
+
+const getBuildMethod = (methodString: string): BuildMethod => {
+	if (methodString === "kubernetes") return "kubernetes";
+	return "docker-compose";
+};
+
 if (process.argv.length < 3) {
 	console.log("Need input arguments.");
 	process.exit(1);
 }
-
-makeDeploymentFolders(process.argv.slice(2));
-
-type BuildInfo = {
-	deployment: string;
-	folders: Folder[];
-};
-
-type Folder = {
-	name: string;
-	target: string;
-	main: string;
-	expose?: number[];
-	args?: string;
-	files: string[];
-	params?: string;
-	volumes?: string[];
-};
+build(
+	{ path: process.argv[2] ?? "visualize.jolie.json" },
+	process.argv[3] ?? "build",
+	getBuildMethod(process.argv[4] ?? "docker-compose")
+);
