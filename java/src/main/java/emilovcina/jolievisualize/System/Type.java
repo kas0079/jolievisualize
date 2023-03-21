@@ -14,8 +14,6 @@ public class Type {
 
     private String leftType;
     private String rightType;
-    // private String leftUri;
-    // private String rightUri;
 
     private String uri;
 
@@ -42,10 +40,6 @@ public class Type {
 
         if (uri != null && uri.length() > 0)
             map.put("file", uri);
-        // if (leftUri != null && leftUri.length() > 0)
-        // map.put("leftFile", leftUri);
-        // if (rightUri != null && rightUri.length() > 0)
-        // map.put("rightFile", rightUri);
 
         if (subtypes.size() > 0) {
             List<JSONObject> subtypesTmp = new ArrayList<>();
@@ -58,6 +52,10 @@ public class Type {
         return new JSONObject(map);
     }
 
+    public void addSubType(Type type) {
+        subtypes.add(type);
+    }
+
     public void setLeftType(String left) {
         this.leftType = left;
     }
@@ -66,20 +64,12 @@ public class Type {
         this.rightType = right;
     }
 
-    // public void setLeftUri(String left) {
-    // this.leftUri = left;
-    // }
-
-    // public void setRightUri(String right) {
-    // this.rightUri = right;
-    // }
+    public String getUri() {
+        return this.uri;
+    }
 
     public void setUri(String uri) {
         this.uri = uri;
-    }
-
-    public String getUri() {
-        return this.uri;
     }
 
     public String getName() {
@@ -90,15 +80,11 @@ public class Type {
         this.name = name;
     }
 
-    public void addSubType(Type type) {
-        subtypes.add(type);
+    public String getType() {
+        return this.type;
     }
 
     public void setType(String name) {
         this.type = name;
-    }
-
-    public String getType() {
-        return this.type;
     }
 }

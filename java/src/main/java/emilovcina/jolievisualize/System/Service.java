@@ -121,46 +121,12 @@ public class Service {
         return new JSONObject(map);
     }
 
-    public String getArgs() {
-        return args;
-    }
-
-    public void setArgs(String args) {
-        this.args = args;
-    }
-
-    public void addDependencyFile(String filePath) {
-        if (filePath.equalsIgnoreCase(this.uri) || filePath.equals(""))
-            return;
-        this.dependencies.add(filePath);
-    }
-
-    public List<Courier> getCouriers() {
-        return this.couriers;
-    }
-
-    public Set<String> getDependencies() {
-        return this.dependencies;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public String getParamFile() {
-        return this.paramFile;
-    }
-
-    public List<String> getVolumes() {
-        return this.volumes;
-    }
-
-    public String getContainerName() {
-        return containerName;
-    }
-
-    public void setContainerName(String name) {
-        this.containerName = name;
+    public void removeChildWithID(long id) {
+        for (int i = 0; i < children.size(); i++)
+            if (children.get(i).id == id) {
+                children.remove(i);
+                return;
+            }
     }
 
     public void addVolume(String conf) {
@@ -184,6 +150,72 @@ public class Service {
         inputPorts.add(ip);
     }
 
+    public void addDependencyFile(String filePath) {
+        if (filePath.equalsIgnoreCase(this.uri) || filePath.equals(""))
+            return;
+        this.dependencies.add(filePath);
+    }
+
+    public void addCodeRange(CodeRange cr) {
+        codeRanges.add(cr);
+    }
+
+    public void addDockerPort(int outPort, int inPort) {
+        dockerPorts.put(outPort, inPort);
+    }
+
+    public void addChild(Service s) {
+        children.add(s);
+    }
+
+    public String getArgs() {
+        return args;
+    }
+
+    public void setArgs(String args) {
+        this.args = args;
+    }
+
+    public List<Courier> getCouriers() {
+        return this.couriers;
+    }
+
+    public Set<String> getDependencies() {
+        return this.dependencies;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getParamFile() {
+        return this.paramFile;
+    }
+
+    public void setParamFile(String filename) {
+        this.paramFile = filename;
+    }
+
+    public List<String> getVolumes() {
+        return this.volumes;
+    }
+
+    public String getContainerName() {
+        return containerName;
+    }
+
+    public void setContainerName(String name) {
+        this.containerName = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
     public void setName(String n) {
         this.name = n;
     }
@@ -192,32 +224,16 @@ public class Service {
         this.bindingPortName = n;
     }
 
+    public Service getParent() {
+        return parent;
+    }
+
     public void setParent(Service s) {
         parent = s;
     }
 
-    public void addChild(Service s) {
-        children.add(s);
-    }
-
     public void setUri(String uri) {
         this.uri = uri;
-    }
-
-    public void setParamFile(String filename) {
-        this.paramFile = filename;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void removeChildWithID(long id) {
-        for (int i = 0; i < children.size(); i++)
-            if (children.get(i).id == id) {
-                children.remove(i);
-                return;
-            }
     }
 
     public JSONObject getEnvJSON() {
@@ -228,16 +244,8 @@ public class Service {
         this.envJSON = envJSON;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public long getId() {
         return this.id;
-    }
-
-    public Service getParent() {
-        return parent;
     }
 
     public List<Service> getChildren() {
@@ -266,23 +274,15 @@ public class Service {
         this.executionInfo = ei;
     }
 
-    public void addCodeRange(CodeRange cr) {
-        codeRanges.add(cr);
+    public JSONObject getParamJSON() {
+        return this.paramJSON;
     }
 
     public void setParamJSON(JSONObject params) {
         this.paramJSON = params;
     }
 
-    public JSONObject getParamJSON() {
-        return this.paramJSON;
-    }
-
     public Map<Integer, Integer> getPorts() {
         return dockerPorts;
-    }
-
-    public void addDockerPort(int outPort, int inPort) {
-        dockerPorts.put(outPort, inPort);
     }
 }

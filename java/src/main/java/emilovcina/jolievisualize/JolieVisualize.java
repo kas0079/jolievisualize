@@ -36,7 +36,9 @@ public class JolieVisualize {
     }
 
     /**
-     * @param args the command line arguments
+     * @param args
+     *            the command line arguments
+     *
      * @throws IOException
      * @throws FileNotFoundException
      * @throws ParseException
@@ -44,9 +46,8 @@ public class JolieVisualize {
      * @throws ModuleException
      * @throws ParserException
      */
-    public static void main(String[] args)
-            throws FileNotFoundException, IOException, ParseException, CommandLineException, ParserException,
-            ModuleException, CodeCheckException {
+    public static void main(String[] args) throws FileNotFoundException, IOException, ParseException,
+            CommandLineException, ParserException, ModuleException, CodeCheckException {
 
         if (args.length <= 6) {
             System.out.println("Invalid arguments, usage: ./visualize path/to/visualize.json");
@@ -80,9 +81,8 @@ public class JolieVisualize {
             JSONObject o = si.createJSON(p.getParent().toAbsolutePath().getFileName().toString());
             System.out.println(o.toJSONString());
         } else {
-            System.out.println(
-                    new Build(si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()),
-                            deploymentType, buildFolder).toJSON().toJSONString());
+            System.out.println(new Build(si.getJolieSystem(p.getParent().toAbsolutePath().getFileName().toString()),
+                    deploymentType, buildFolder).toJSON().toJSONString());
         }
     }
 
@@ -192,23 +192,19 @@ public class JolieVisualize {
         for (int i = 0; i < argList.size(); i++)
             modifiedArgs[i] = argList.get(i);
 
-        final CommandLineParser cmdParser = new CommandLineParser(modifiedArgs,
-                JolieVisualize.class.getClassLoader());
+        final CommandLineParser cmdParser = new CommandLineParser(modifiedArgs, JolieVisualize.class.getClassLoader());
 
         Interpreter.Configuration conf = cmdParser.getInterpreterConfiguration();
 
-        ModuleParsingConfiguration mpc = new ModuleParsingConfiguration(
-                conf.charset(), conf.includePaths(),
+        ModuleParsingConfiguration mpc = new ModuleParsingConfiguration(conf.charset(), conf.includePaths(),
                 conf.packagePaths(), conf.jolieClassLoader(), conf.constants(), true, false);
 
-        ModuleParsedResult mpr = Modules.parseModule(mpc, conf.inputStream(),
-                conf.programFilepath().toURI());
+        ModuleParsedResult mpr = Modules.parseModule(mpc, conf.inputStream(), conf.programFilepath().toURI());
 
         List<ServiceNode> res = new ArrayList<>();
-        for (OLSyntaxNode ol : mpr.mainProgram().children()) {
+        for (OLSyntaxNode ol : mpr.mainProgram().children())
             if (ol instanceof ServiceNode)
                 res.add((ServiceNode) ol);
-        }
 
         cmdParser.close();
         return res;

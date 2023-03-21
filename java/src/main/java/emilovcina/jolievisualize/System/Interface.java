@@ -37,38 +37,6 @@ public class Interface {
         return res;
     }
 
-    public long getID() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    public String getUri() {
-        return this.uri;
-    }
-
-    public void addRequestResponse(RequestResponseOperationDeclaration rrod) {
-        reqres.add(rrod);
-    }
-
-    public void addOneWay(OneWayOperationDeclaration ood) {
-        oneway.add(ood);
-    }
-
-    public List<RequestResponseOperationDeclaration> getRROperations() {
-        return this.reqres;
-    }
-
-    public List<OneWayOperationDeclaration> getOWOperations() {
-        return this.oneway;
-    }
-
     public JSONObject toJSON() {
         Map<String, Object> obj = new HashMap<>();
         obj.put("name", name);
@@ -101,5 +69,37 @@ public class Interface {
         }
 
         return new JSONObject(obj);
+    }
+
+    public void addRequestResponse(RequestResponseOperationDeclaration rrod) {
+        reqres.add(rrod);
+    }
+
+    public void addOneWay(OneWayOperationDeclaration ood) {
+        oneway.add(ood);
+    }
+
+    public long getID() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getUri() {
+        return this.uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public List<RequestResponseOperationDeclaration> getRROperations() {
+        return this.reqres;
+    }
+
+    public List<OneWayOperationDeclaration> getOWOperations() {
+        return this.oneway;
     }
 }

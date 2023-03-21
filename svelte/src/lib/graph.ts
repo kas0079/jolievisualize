@@ -2,9 +2,22 @@ import type { ElkExtendedEdge, ElkNode, ElkPort } from 'elkjs/lib/elk-api';
 import { getAllServices, isDockerService } from './service';
 import { services } from './data';
 
-export const portSize = 5;
+const systemElkLayoutOptions = {
+	'elk.algorithm': 'layered',
+	interactiveLayout: 'true',
+	'elk.direction': 'RIGHT',
+	'elk.hierarchyHandling': 'INCLUDE_CHILDREN'
+};
 
-export const rerenderGraph = (graph: ElkNode) => {
+const networkElkLayoutOptions = {
+	portConstraints: 'FIXED_SIDE',
+	'elk.layered.mergeEdge': 'true',
+	'elk.hierarchyHandling': 'INCLUDE_CHILDREN'
+};
+
+export const PORT_SIZE = 5;
+
+export const rerenderGraph = (graph: ElkNode): ElkNode => {
 	const allSvcs = getAllServices(services);
 
 	graph.children.forEach((network) => {
@@ -26,12 +39,7 @@ export const createSystemGraph = (services: Service[][]): ElkNode => {
 	const edges = getTopLevelEdges(services.flat());
 	return {
 		id: 'system',
-		layoutOptions: {
-			'elk.algorithm': 'layered',
-			interactiveLayout: 'true',
-			'elk.direction': 'RIGHT',
-			'elk.hierarchyHandling': 'INCLUDE_CHILDREN'
-		},
+		layoutOptions: systemElkLayoutOptions,
 		children,
 		edges
 	};
@@ -48,8 +56,8 @@ export const getElkPorts = (service: Service, omitLocals = true): ElkPort[] => {
 		ports.push({
 			id: `p${service.id}${service.name}-${ip.name}`,
 			labels: [{ text: 'ip' }, { text: ip.name }],
-			width: portSize,
-			height: portSize
+			width: PORT_SIZE,
+			height: PORT_SIZE
 		});
 	});
 	service.outputPorts?.forEach((op) => {
@@ -57,8 +65,8 @@ export const getElkPorts = (service: Service, omitLocals = true): ElkPort[] => {
 		ports.push({
 			id: `p${service.id}${service.name}-${op.name}`,
 			labels: [{ text: 'op' }, { text: op.name }],
-			width: portSize,
-			height: portSize
+			width: PORT_SIZE,
+			height: PORT_SIZE
 		});
 	});
 	return ports;
@@ -111,7 +119,7 @@ export const getInternalEdges = (service: Service): ElkExtendedEdge[] => {
 	return res;
 };
 
-const rerenderService = (serviceNode: ElkNode, allSvcs: Service[]) => {
+const rerenderService = (serviceNode: ElkNode, allSvcs: Service[]): void => {
 	const svc = allSvcs.find((t) => `${t.id}` === serviceNode.labels[1].text);
 	if (!serviceNode.children[0].id.startsWith('!leaf')) {
 		serviceNode.children.forEach((child) => {
@@ -123,7 +131,7 @@ const rerenderService = (serviceNode: ElkNode, allSvcs: Service[]) => {
 	}
 };
 
-const _rerender = (serviceNode: ElkNode, service: Service, omitLocals: boolean) => {
+const _rerender = (serviceNode: ElkNode, service: Service, omitLocals: boolean): void => {
 	serviceNode.id = `s${service.id}${service.name}`;
 	serviceNode.ports = getElkPorts(service, omitLocals);
 	serviceNode.edges = [];
@@ -190,89 +198,15 @@ const getChildNodesRecursive = (node: ElkNode, result: ElkNode[] = []): ElkNode[
 	return result;
 };
 
-const getNetworkPorts = (serviceList: Service[], networkName: string): ElkPort[] => {
-	const ports: ElkPort[] = [];
-	serviceList.forEach((svc) => {
-		svc.inputPorts?.forEach((ip) => {
-			if (ip.location.startsWith('!local')) return;
-			ports.push({
-				id: `p${networkName}${svc.id}-${ip.name}`,
-				labels: [{ text: 'ip' }, { text: ip.name }, { text: ip.location }],
-				layoutOptions: {
-					'port.side': 'NORTH'
-				},
-				width: portSize - 1,
-				height: portSize - 1
-			});
-		});
-
-		svc.outputPorts?.forEach((op) => {
-			if (op.location.startsWith('!local')) return;
-			ports.push({
-				id: `p${networkName}${svc.id}-${op.name}`,
-				labels: [{ text: 'op' }, { text: op.name }, { text: op.location }],
-				layoutOptions: {
-					'port.side': 'SOUTH'
-				},
-				width: portSize - 1,
-				height: portSize - 1
-			});
-		});
-	});
-	return ports;
-};
-
-const getEdgesToNetworkPorts = (
-	serviceList: Service[],
-	networkName: string,
-	ports: ElkPort[]
-): ElkExtendedEdge[] => {
-	const res: ElkExtendedEdge[] = [];
-	serviceList.forEach((svc) => {
-		svc.inputPorts?.forEach((ip) => {
-			if (ip.location.startsWith('!local')) return;
-			const portNode = ports.find(
-				(t) => t.labels[2].text === ip.location && t.labels[0].text === 'ip'
-			);
-			if (portNode === undefined) return;
-			res.push({
-				id: `e${networkName}${svc.id}-${ip.name}IP`,
-				sources: [portNode.id],
-				targets: [`p${svc.id}${svc.name}-${ip.name}`]
-			});
-		});
-		svc.outputPorts?.forEach((op) => {
-			if (op.location.startsWith('!local')) return;
-			const portNode = ports.find(
-				(t) => t.labels[2].text === op.location && t.labels[0].text === 'op'
-			);
-			if (portNode === undefined) return;
-			res.push({
-				id: `e${networkName}${svc.id}-${op.name}OP`,
-				sources: [portNode.id],
-				targets: [`p${svc.id}${svc.name}-${op.name}`]
-			});
-		});
-	});
-	return res;
-};
-
 const getNetworkNodes = (services: Service[][]): ElkNode[] => {
 	const children: ElkNode[] = [];
 	let count = 0;
 	services.forEach((serviceList) => {
-		const ports = getNetworkPorts(serviceList, `network${count}`);
-		const portEdges = getEdgesToNetworkPorts(serviceList, `network${count}`, ports);
 		children.push({
 			id: `network${count}`,
 			labels: [{ text: 'network' }],
-			layoutOptions: {
-				portConstraints: 'FIXED_SIDE',
-				'elk.layered.mergeEdge': 'true',
-				'elk.hierarchyHandling': 'INCLUDE_CHILDREN'
-			},
+			layoutOptions: networkElkLayoutOptions,
 			children: getTopLevelServices(serviceList),
-			// ports,
 			edges: getTopLevelEdges(serviceList)
 		});
 		count++;

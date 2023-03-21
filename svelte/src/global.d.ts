@@ -46,8 +46,8 @@ type Service = {
 	args?: string;
 	volumes?: string[];
 	container?: string;
-	parentPort: string | undefined;
-	parent: Service | undefined;
+	parentPort?: string;
+	parent?: Service;
 };
 
 type Interface = {
@@ -77,13 +77,13 @@ type Port = {
 	ranges?: CodeRange[];
 	redirects?: Redirect[];
 	resource?: string;
-	interfaces?: { name: string }[];
+	interfaces?: Name[];
 	file: string | undefined;
 };
 
 type Aggregate = {
 	name: string;
-	collection?: { name: string }[];
+	collection?: Name[];
 	extender?: Interface;
 };
 
@@ -94,10 +94,10 @@ type Redirect = {
 
 type Courier = {
 	name: string;
-	interfaceReqRes: { name: string }[];
-	interfaceOneWay: { name: string }[];
-	operationReqRes: { name: string }[];
-	operationOneWay: { name: string }[];
+	interfaceReqRes: Name[];
+	interfaceOneWay: Name[];
+	operationReqRes: Name[];
+	operationOneWay: Name[];
 };
 
 type DockerPort = {
@@ -107,10 +107,14 @@ type DockerPort = {
 
 type CodeRange = {
 	name: string;
-	range: SimpleRange;
+	range: TextRange;
 };
 
-type SimpleRange = {
+type TextRange = {
 	start: { line: number; char: number };
 	end: { line: number; char: number };
+};
+
+type Name = {
+	name: string;
 };

@@ -30,58 +30,6 @@ public class OutputPort {
         this.location = location;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getAnnotation() {
-        return annotation;
-    }
-
-    public String getProtocol() {
-        return protocol;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public Map<Long, String> getInterfaces() {
-        return interfaces;
-    }
-
-    public List<CodeRange> getCodeRanges() {
-        return codeRanges;
-    }
-
-    public void addInterface(Interface interf) {
-        interfaces.put(interf.getID(), interf.getName());
-    }
-
-    public void addCodeRange(CodeRange cr) {
-        codeRanges.add(cr);
-    }
-
-    public void addOneWayOperation(OneWayOperationDeclaration ood) {
-        this.owOperations.add(ood);
-    }
-
-    public void addReqResOpersation(RequestResponseOperationDeclaration rrd) {
-        this.rrOperations.add(rrd);
-    }
-
-    public List<RequestResponseOperationDeclaration> getRROperations() {
-        return this.rrOperations;
-    }
-
-    public List<OneWayOperationDeclaration> getOWOperations() {
-        return this.owOperations;
-    }
-
-    public void setAnnotation(String anno) {
-        this.annotation = anno;
-    }
-
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 
@@ -133,5 +81,57 @@ public class OutputPort {
         }
 
         return new JSONObject(map);
+    }
+
+    public void addInterface(Interface interf) {
+        interfaces.put(interf.getID(), interf.getName());
+    }
+
+    public void addCodeRange(CodeRange cr) {
+        codeRanges.add(cr);
+    }
+
+    public void addOneWayOperation(OneWayOperationDeclaration ood) {
+        this.owOperations.add(ood);
+    }
+
+    public void addReqResOpersation(RequestResponseOperationDeclaration rrd) {
+        this.rrOperations.add(rrd);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public Map<Long, String> getInterfaces() {
+        return interfaces;
+    }
+
+    public List<CodeRange> getCodeRanges() {
+        return codeRanges;
+    }
+
+    public List<RequestResponseOperationDeclaration> getRROperations() {
+        return this.rrOperations;
+    }
+
+    public List<OneWayOperationDeclaration> getOWOperations() {
+        return this.owOperations;
+    }
+
+    public String getAnnotation() {
+        return annotation;
+    }
+
+    public void setAnnotation(String anno) {
+        this.annotation = anno;
     }
 }

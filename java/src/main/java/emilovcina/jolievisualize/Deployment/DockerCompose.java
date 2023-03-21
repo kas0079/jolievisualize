@@ -44,8 +44,7 @@ public class DockerCompose {
                         && dockerSvc.getPorts().entrySet().containsAll(otherSvc.getPorts().entrySet())
                         && otherSvc.getPorts().entrySet().containsAll(dockerSvc.getPorts().entrySet())
                         && otherSvc.getContainerName().equals(dockerSvc.getContainerName())
-                        && this.currentNetwork == oc.currentNetwork
-                        && oc.networks.containsAll(this.networks)
+                        && this.currentNetwork == oc.currentNetwork && oc.networks.containsAll(this.networks)
                         && this.networks.containsAll(oc.networks)
                         && isEnvMatching(dockerSvc.getEnvJSON(), otherSvc.getEnvJSON())
                         && DeployUtils.checkStringAttribute(
@@ -55,14 +54,13 @@ public class DockerCompose {
             } else if (isDocker && !oc.isDocker || !isDocker && oc.isDocker)
                 return false;
             return this.service.getName().equals(oc.service.getName())
-                    && this.service.getUri().equals(oc.service.getUri())
-                    && this.currentNetwork == oc.currentNetwork
-                    && oc.networks.containsAll(this.networks)
-                    && this.networks.containsAll(oc.networks)
+                    && this.service.getUri().equals(oc.service.getUri()) && this.currentNetwork == oc.currentNetwork
+                    && oc.networks.containsAll(this.networks) && this.networks.containsAll(oc.networks)
                     && isEnvMatching(this.service.getEnvJSON(), oc.service.getEnvJSON())
                     && oc.service.getVolumes().containsAll(this.service.getVolumes())
-                    && DeployUtils.checkStringAttribute(this.service.getContainerName() == null ? this.service.getName()
-                            : this.service.getContainerName(),
+                    && DeployUtils.checkStringAttribute(
+                            this.service.getContainerName() == null ? this.service.getName()
+                                    : this.service.getContainerName(),
                             oc.service.getContainerName() == null ? oc.service.getName()
                                     : oc.service.getContainerName())
                     && this.service.getVolumes().containsAll(oc.service.getVolumes());
@@ -106,8 +104,7 @@ public class DockerCompose {
                 if (cs.isDocker) {
                     Docker d = ((Docker) svc);
                     strBuilder.append("        ports:\n");
-                    d.getPorts().forEach((ep, ip) -> strBuilder.append("            - \"" + ep + ":" + ip +
-                            "\"\n"));
+                    d.getPorts().forEach((ep, ip) -> strBuilder.append("            - \"" + ep + ":" + ip + "\"\n"));
                 } else {
                     if (svc.getPorts().size() > 0 || svc.getInputPorts().size() > 0
                             && DeployUtils.getExposedPorts(svc.getInputPorts()).size() > 0) {
@@ -116,8 +113,8 @@ public class DockerCompose {
                                 && DeployUtils.getExposedPorts(svc.getInputPorts()).size() > 0)
                             getPorts(svc.getInputPorts(), strBuilder);
                         if (svc.getPorts().size() > 0)
-                            svc.getPorts().forEach((ep, ip) -> strBuilder.append("            - \"" + ep + ":" + ip +
-                                    "\"\n"));
+                            svc.getPorts().forEach(
+                                    (ep, ip) -> strBuilder.append("            - \"" + ep + ":" + ip + "\"\n"));
                     }
                 }
                 if (cs.replicas > 1) {
@@ -128,9 +125,8 @@ public class DockerCompose {
                     for (String s : svc.getVolumes()) {
                         strBuilder.append("            - type: bind\n" + "              source: "
                                 + system.getVisFilePath().getParent().toAbsolutePath().toString() + buildFolder
-                                + "/-res"
-                                + (s.startsWith("/") ? "" : "/") + s
-                                + "\n              target: /var/temp/" + s + "\n");
+                                + "/-res" + (s.startsWith("/") ? "" : "/") + s + "\n              target: /var/temp/"
+                                + s + "\n");
                     }
                 }
                 if (svc.getEnvJSON() != null) {
@@ -152,8 +148,7 @@ public class DockerCompose {
         return strBuilder.toString();
     }
 
-    private List<ComposeService> getComposeServices(List<Service> serviceList,
-            int currentNetwork) {
+    private List<ComposeService> getComposeServices(List<Service> serviceList, int currentNetwork) {
         List<ComposeService> res = new ArrayList<>();
         serviceList.forEach(svc -> {
             ComposeService cs = new ComposeService();
@@ -162,7 +157,6 @@ public class DockerCompose {
             cs.service = svc;
             cs.name = svc.getName() + svc.getId();
             cs.networks = findNetworks(svc, currentNetwork, system.getNetworks());
-            // cs.volume.addAll(svc.getVolume());
             cs.replicas = 1;
             cs.currentNetwork = currentNetwork;
             cs.folder = findBuildFolder(svc);
@@ -287,7 +281,6 @@ public class DockerCompose {
 
         if (m1.size() != m2.size())
             return false;
-        return m1.entrySet().stream()
-                .allMatch(e -> e.getValue().equals(m2.get(e.getKey())));
+        return m1.entrySet().stream().allMatch(e -> e.getValue().equals(m2.get(e.getKey())));
     }
 }

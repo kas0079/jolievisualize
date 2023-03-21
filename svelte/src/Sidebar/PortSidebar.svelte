@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { beforeUpdate, createEventDispatcher } from 'svelte';
 	import { services, vscode } from '../lib/data';
-	import { findRange, getAllServices, isDockerService } from '../lib/service';
+	import { findRange, getAllServices, isDockerService, updateParentPortName } from '../lib/service';
 	import {
 		openAggregateSidebar,
 		openInterfaceSidebar,
@@ -13,9 +13,9 @@
 	export let portType: string;
 	export let parentID: number;
 
-	let isDockerPort = isDockerService(getAllServices(services).find((t) => t.id === parentID));
-
+	let isDockerPort: boolean;
 	let tmp = '';
+
 	const saveInnerHTML = (event: MouseEvent): void => {
 		const elem = event.target as Element;
 		tmp = elem.innerHTML;
@@ -42,6 +42,10 @@
 					port.protocol = change;
 					break;
 				case 'port_name':
+					if (portType === 'op') {
+						const service = getAllServices(services).find((t) => t.id === parentID);
+						updateParentPortName(service, port, change);
+					}
 					port.name = change;
 					break;
 				case 'location':

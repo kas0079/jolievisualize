@@ -17,12 +17,12 @@ public class Network {
         listOfServices.add(s);
     }
 
-    public List<Service> getServices() {
-        return listOfServices;
-    }
-
     public void addNetwork(TopLevelDeploy tld, ServiceNode n) {
         network.put(tld, n);
+    }
+
+    public List<Service> getServices() {
+        return listOfServices;
     }
 
     public Map<TopLevelDeploy, ServiceNode> getNetwork() {

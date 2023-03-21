@@ -19,26 +19,6 @@ public class Courier {
         this.name = name;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public void addInterfaceOneWay(String op) {
-        interfaceOneWay.add(op);
-    }
-
-    public void addInterfaceReqRes(String op) {
-        interfaceReqRes.add(op);
-    }
-
-    public void addOperationOneWay(String op) {
-        operationOneWay.add(op);
-    }
-
-    public void addOperationReqRes(String op) {
-        operationReqRes.add(op);
-    }
-
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
@@ -84,5 +64,25 @@ public class Courier {
         }
 
         return new JSONObject(map);
+    }
+
+    public void addInterfaceOneWay(String op) {
+        interfaceOneWay.add(op);
+    }
+
+    public void addInterfaceReqRes(String op) {
+        interfaceReqRes.add(op);
+    }
+
+    public void addOperationOneWay(String op) {
+        operationOneWay.add(op);
+    }
+
+    public void addOperationReqRes(String op) {
+        operationReqRes.add(op);
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

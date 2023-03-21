@@ -2,7 +2,7 @@
 	import { error } from './lib/error';
 	import { vscode } from './lib/data';
 
-	const reload = () => {
+	const reload = (): void => {
 		if (!vscode) {
 			location.reload();
 			return;

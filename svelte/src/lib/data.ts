@@ -4,7 +4,6 @@ import { isDockerService } from './service';
 import { error, removeError } from './error';
 
 export const vscode = acquireVsCodeApi();
-
 export const loading = writable(false);
 
 let json: Data = JSON.parse(
@@ -18,7 +17,7 @@ export let interfaces = processedData.interfaces;
 export let types = processedData.types;
 export let name = processedData.name;
 
-export const setDataString = (data: string) => {
+export const setDataString = (data: string): void => {
 	const err = checkForError(data);
 	if (err) {
 		resetData();
@@ -34,15 +33,7 @@ export const setDataString = (data: string) => {
 	name = processedData.name;
 };
 
-export const resetData = () => {
-	const pd: Data = preprocess(json);
-	services = pd.services;
-	interfaces = pd.interfaces;
-	types = pd.types;
-	name = pd.name;
-};
-
-export const sendVisData = async () => {
+export const sendVisData = async (): Promise<void> => {
 	if (!vscode) return;
 	vscode.postMessage({
 		command: 'set.data',
@@ -50,7 +41,7 @@ export const sendVisData = async () => {
 	});
 };
 
-export const generateVisFile = (): VisFile => {
+const generateVisFile = (): VisFile => {
 	const content: TLD[][] = [];
 	services.forEach((serviceList) => {
 		const tldList: TLD[] = [];
@@ -89,7 +80,15 @@ export const generateVisFile = (): VisFile => {
 	};
 };
 
-const checkForError = (json: string) => {
+const resetData = (): void => {
+	const pd: Data = preprocess(json);
+	services = pd.services;
+	interfaces = pd.interfaces;
+	types = pd.types;
+	name = pd.name;
+};
+
+const checkForError = (json: string): boolean => {
 	const j = JSON.parse(json);
 	return j.error;
 };
@@ -110,7 +109,7 @@ const tldIncludes = (tldList: TLD[], tld: TLD): boolean => {
 	);
 };
 
-const getNumberOfInstances = (svc: Service, svcList: Service[]) => {
+const getNumberOfInstances = (svc: Service, svcList: Service[]): number => {
 	let res = 0;
 	svcList.forEach((os) => {
 		if (os.file === svc.file && os.name === svc.name) res += 1;
@@ -118,7 +117,7 @@ const getNumberOfInstances = (svc: Service, svcList: Service[]) => {
 	return res;
 };
 
-const getNumberOfDockerInstances = (svc: Service, svcList: Service[]) => {
+const getNumberOfDockerInstances = (svc: Service, svcList: Service[]): number => {
 	let res = 0;
 	svcList.forEach((os) => {
 		if (os.image === svc.image && os.name === svc.name) res += 1;

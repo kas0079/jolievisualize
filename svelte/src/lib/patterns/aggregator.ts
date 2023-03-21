@@ -24,6 +24,7 @@ export const createAggregator = (svcs: Service[]): void => {
 		async (vals: { field: string; val: string }[]) => {
 			if (vals.filter((t) => t.val === '' && t.field !== '').length > 0) return false;
 			//todo validate inputs properly
+
 			const newIps = svcs.map((s) => {
 				const tmp_interfaces = [];
 				vals

@@ -3,13 +3,13 @@
 	import { closePopup, current_popup } from './lib/popup';
 
 	const dispatcher = createEventDispatcher();
-	const cancel = async () => {
+	const cancel = async (): Promise<void> => {
 		await $current_popup.cancel();
 		closePopup();
 		dispatcher('cancel');
 	};
 
-	const confirm = async () => {
+	const confirm = async (): Promise<void> => {
 		const res = await $current_popup.confirm($current_popup.values);
 		if (!res) await cancel();
 		else {

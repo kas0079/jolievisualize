@@ -17,18 +17,6 @@ public class InputPort extends OutputPort {
         super(name, protocol, location);
     }
 
-    public void addCourier(Courier c) {
-        couriers.add(c);
-    }
-
-    public void addRedirect(String name, String portName) {
-        redirects.put(name, portName);
-    }
-
-    public void addAggregate(Aggregate a) {
-        aggregates.add(a);
-    }
-
     @Override
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
@@ -108,5 +96,17 @@ public class InputPort extends OutputPort {
         }
 
         return new JSONObject(map);
+    }
+
+    public void addCourier(Courier c) {
+        couriers.add(c);
+    }
+
+    public void addRedirect(String name, String portName) {
+        redirects.put(name, portName);
+    }
+
+    public void addAggregate(Aggregate a) {
+        aggregates.add(a);
     }
 }

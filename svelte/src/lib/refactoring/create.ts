@@ -1,7 +1,7 @@
 import { vscode } from '../data';
 import { openPopup } from '../popup';
 
-export const addPort = (type: string, service: Service) => {
+export const createPort = (type: string, service: Service): void => {
 	openPopup(
 		`Create new ${type.toLowerCase()} port`,
 		['name', 'protocol', 'location', 'interfaces'],

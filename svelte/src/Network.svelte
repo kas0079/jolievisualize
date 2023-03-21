@@ -4,7 +4,6 @@
 	import Edge from './Edge.svelte';
 	import { vscode } from './lib/data';
 	import { drawNetwork } from './lib/draw';
-	import Port from './Port.svelte';
 	import Service from './Service.svelte';
 
 	export let network: ElkNode;
@@ -25,11 +24,6 @@
 		{#if network.edges && network.edges.length > 0}
 			{#each network.edges as edge}
 				<Edge {edge} white={vscode !== undefined} />
-			{/each}
-		{/if}
-		{#if network.ports && network.ports.length > 0}
-			{#each network.ports as port}
-				<Port portNode={port} parentService={undefined} />
 			{/each}
 		{/if}
 	</g>

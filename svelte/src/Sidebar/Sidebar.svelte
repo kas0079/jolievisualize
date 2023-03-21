@@ -24,16 +24,8 @@
 		x -= event.movementX;
 	};
 
-	const openFile = () => {
-		const file = $current_sidebar_element.service
-			? $current_sidebar_element.service.file
-			: $current_sidebar_element.port
-			? $current_sidebar_element.port.file
-			: $current_sidebar_element.interf
-			? $current_sidebar_element.interf.file
-			: $current_sidebar_element.type
-			? $current_sidebar_element.type.file
-			: '';
+	const openFile = (): void => {
+		const file = $current_sidebar_element.getFile();
 		if (vscode)
 			vscode.postMessage({
 				command: 'open.file',
@@ -76,7 +68,7 @@
 				>
 					&#x2715;
 				</p>
-				{#if vscode && (($current_sidebar_element.service && $current_sidebar_element.service.file) || ($current_sidebar_element.port && $current_sidebar_element.port.file) || ($current_sidebar_element.interf && $current_sidebar_element.interf.file) || ($current_sidebar_element.type && $current_sidebar_element.type.file))}
+				{#if vscode && $current_sidebar_element.getFile()}
 					<p
 						class="w-fit cursor-pointer text-2xl -mt-3 self-center"
 						on:click={() => openFile()}

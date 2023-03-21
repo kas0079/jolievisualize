@@ -9,11 +9,4 @@
 	afterUpdate(() => drawEdge(edge));
 </script>
 
-<path id={edge.id} class={white ? 'stroke-white' : 'stroke-black'} />
-
-<style>
-	path {
-		stroke-width: 0.5;
-		fill: none;
-	}
-</style>
+<path id={edge.id} class={`fill-none stroke-[0.5] ${white ? 'stroke-white' : 'stroke-black'}`} />

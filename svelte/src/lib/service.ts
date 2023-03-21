@@ -20,7 +20,7 @@ export const getAllServices = (services: Service[][]): Service[] => {
 };
 
 export const handleExpandServiceEvent = (event: CustomEvent, graph: ElkNode) => {
-	// !TODO zoom to bounding box https://observablehq.com/@d3/zoom-to-bounding-box
+	// todo: zoom to bounding box https://observablehq.com/@d3/zoom-to-bounding-box
 	const service = getAllServices(services).find((t) => t.id === event.detail.serviceID);
 	const serviceNode = getAllElkNodes(graph).find(
 		(t) => t.id === 's' + event.detail.serviceID + event.detail.serviceName
@@ -40,7 +40,7 @@ export const handleExpandServiceEvent = (event: CustomEvent, graph: ElkNode) => 
 	});
 };
 
-export const handleShrinkServiceEvent = (event: CustomEvent, graph: ElkNode) => {
+export const handleShrinkServiceEvent = (event: CustomEvent, graph: ElkNode): void => {
 	const service = getAllServices(services).find((t) => t.id === event.detail.serviceID);
 	const serviceNode = getAllElkNodes(graph).find(
 		(t) => t.id === 's' + event.detail.serviceID + event.detail.serviceName
@@ -78,24 +78,11 @@ export const isAncestor = (child: Service, anc: Service): boolean => {
 	return parent.id === anc.id;
 };
 
-export const findRange = (obj: Service | Port, name: string): SimpleRange => {
+export const findRange = (obj: Service | Port, name: string): TextRange => {
 	if (!vscode || !obj.ranges) return { start: { line: 0, char: 0 }, end: { line: 0, char: 0 } };
 	const res = obj.ranges.find((t) => t.name === name);
 	if (!res || !res.range) return { start: { line: 0, char: 0 }, end: { line: 0, char: 0 } };
 	return res.range;
-};
-
-const transposeRange = (
-	range: SimpleRange,
-	startLine: number,
-	startChar: number,
-	endLine: number,
-	endChar: number
-): SimpleRange => {
-	return {
-		start: { line: range.start.line + startLine, char: range.start.char + startChar },
-		end: { line: range.end.line + endLine, char: range.end.char + endChar }
-	};
 };
 
 export const isDockerService = (service: Service): boolean => {
@@ -122,6 +109,14 @@ export const deepCopyServiceNewId = (service: Service): Service => {
 
 export const getNextId = (services: Service[]): number => {
 	return services.flatMap((t) => t.id).sort((a, b) => b - a)[0] + 1;
+};
+
+export const updateParentPortName = (service: Service, port: Port, newName: string): void => {
+	if (service.embeddings && service.embeddings.length > 0)
+		service.embeddings.forEach((emb) => {
+			if (!emb.inputPorts || emb.inputPorts.length === 0 || !emb.parentPort) return;
+			if (emb.parentPort === port.name) emb.parentPort = newName;
+		});
 };
 
 const deepCopyPort = (port: Port): Port => {
@@ -189,8 +184,3 @@ const getRecursiveEmbedding = (service: Service, result: Service[] = []): Servic
 		});
 	return result;
 };
-
-// const getNumberOfTotalInstances = (service: Service) => {
-// 	const allServices = getAllServices(services);
-// 	return allServices.filter((t) => t.name === service.name && t.file === service.file).length - 1;
-// };

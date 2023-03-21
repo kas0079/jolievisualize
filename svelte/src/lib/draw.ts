@@ -1,5 +1,5 @@
 import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api';
-import { portSize } from './graph';
+import { PORT_SIZE } from './graph';
 
 export const drawNetwork = (network: ElkNode): void => {
 	d3.select(`#${network.id}`).attr('transform', `translate(${network.x}, ${network.y})`);
@@ -28,7 +28,7 @@ export const drawService = (serviceNode: ElkNode, serviceName: string, expanded:
 
 	const w = serviceNode.width / 2;
 	const h = serviceNode.height;
-	const sideOffset = Math.min(w / 4, portSize - 1);
+	const sideOffset = Math.min(w / 4, PORT_SIZE - 1);
 
 	d3.select(`#${serviceNode.id}`).attr(
 		'transform',
@@ -60,7 +60,7 @@ export const drawService = (serviceNode: ElkNode, serviceName: string, expanded:
 			d3.select(`#${serviceNode.id} > polygon`).attr('style', 'stroke-width: 0.4');
 		});
 
-	fitNameInShape(serviceNode, serviceName, expanded);
+	fitNameInShape(serviceNode, serviceName);
 };
 
 export const drawGhostNodeOnDrag = (
@@ -108,7 +108,7 @@ export const drawPort = (portNode: ElkNode): void => {
 		.attr('height', portNode.height ?? 0);
 };
 
-const fitNameInShape = (serviceNode: ElkNode, serviceName: string, expanded: boolean) => {
+const fitNameInShape = (serviceNode: ElkNode, serviceName: string): void => {
 	//sometimes the points of the polygon are not populated, so skip and wait until they are.
 	if (!document.querySelector(`#${serviceNode.id} > polygon`)) return;
 	const check = document.querySelector(`#${serviceNode.id} > polygon`).getAttribute('points');

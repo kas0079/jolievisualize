@@ -16,9 +16,7 @@ export class PopUp {
 		this.confirm = confirm;
 		this.cancel = cancel;
 	}
-
 	title = '';
-
 	values: { field: string; val: string }[] = [];
 	confirm = (vals: { field: string; val: string }[]): Promise<boolean> => {
 		return new Promise<boolean>((res) => res(false));

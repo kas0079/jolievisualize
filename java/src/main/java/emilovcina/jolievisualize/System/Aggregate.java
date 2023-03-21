@@ -13,18 +13,6 @@ public class Aggregate {
     private List<String> collection = new ArrayList<>();
     private Interface extender;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void addCollection(String s) {
-        collection.add(s);
-    }
-
-    public void setInterfaceExtension(Interface inter) {
-        this.extender = inter;
-    }
-
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 
@@ -45,5 +33,17 @@ public class Aggregate {
         }
 
         return new JSONObject(map);
+    }
+
+    public void addCollection(String s) {
+        collection.add(s);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setInterfaceExtension(Interface inter) {
+        this.extender = inter;
     }
 }

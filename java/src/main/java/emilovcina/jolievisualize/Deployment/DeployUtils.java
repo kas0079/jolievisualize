@@ -16,9 +16,8 @@ public class DeployUtils {
                 return;
             if (!isNumeric(port.getLocation().substring(port.getLocation().lastIndexOf(":") + 1).split("/")[0]))
                 return;
-            seenPorts.add(
-                    Integer.parseInt(
-                            port.getLocation().substring(port.getLocation().lastIndexOf(":") + 1).split("/")[0]));
+            seenPorts.add(Integer
+                    .parseInt(port.getLocation().substring(port.getLocation().lastIndexOf(":") + 1).split("/")[0]));
         });
         return seenPorts;
     }

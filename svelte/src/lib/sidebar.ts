@@ -5,7 +5,7 @@ import type { ElkNode } from 'elkjs/lib/elk-api';
 
 export const primitives = ['int', 'void', 'string', 'double', 'bool', 'long', 'raw'];
 
-export const openTypeSidebar = (typename: string) => {
+export const openTypeSidebar = (typename: string): void => {
 	if (primitives.includes(typename.toLowerCase())) return;
 	const type = types.find((t) => t.name === typename);
 
@@ -27,7 +27,7 @@ export const openSpecificInterfaceSidebar = (interf: Interface): void => {
 	openSidebar(sbElem);
 };
 
-export const openAggregateSidebar = (aggrName: string, parentID: number) => {
+export const openAggregateSidebar = (aggrName: string, parentID: number): void => {
 	const svc = getAllServices(services).find((t) => t.id === parentID);
 	if (svc === undefined) return;
 
@@ -50,7 +50,7 @@ export const openRedirectPortSidebar = (redirPortName: string, parentID: number)
 	openSidebar(sbPort);
 };
 
-export const openServiceIdSidebar = (id: number) => {
+export const openServiceIdSidebar = (id: number): void => {
 	const svc = getAllServices(services).find((t) => t.id === id);
 	if (svc === undefined) return;
 	const sbElem = new SidebarElement(0, svc.name);
@@ -68,7 +68,11 @@ export const openServiceInSidebar = (service: Service, dragged: number): void =>
 	openSidebar(sbElem);
 };
 
-export const openPortFromServiceSidebar = (event: Event, service: Service, portType: string) => {
+export const openPortFromServiceSidebar = (
+	event: Event,
+	service: Service,
+	portType: string
+): void => {
 	const elem = event.target as Element;
 	const portName = elem.textContent.split(' - ')[0];
 	let port: Port;
@@ -82,13 +86,14 @@ export const openPortFromServiceSidebar = (event: Event, service: Service, portT
 	openSidebar(sbElem);
 };
 
-export const openPortSidebar = (port: Port, portNode: ElkNode, parentID: number) => {
+export const openPortSidebar = (port: Port, portNode: ElkNode, parentID: number): void => {
 	const sbPort = new SidebarElement(1, port.name);
 	sbPort.port = port;
 	sbPort.port_parentID = parentID;
 	sbPort.portType = portNode.labels[0].text;
 	openSidebar(sbPort);
 };
+
 /**
  * Sidebar element:
  */
@@ -126,10 +131,23 @@ export class SidebarElement {
 		if (this.service?.id !== other.service?.id) return false;
 		return true;
 	}
+
+	getFile(): string | undefined {
+		return this.service
+			? this.service.file
+			: this.port
+			? this.port.file
+			: this.interf
+			? this.interf.file
+			: this.type
+			? this.type.file
+			: undefined;
+	}
 }
 
 const noSidebar = new SidebarElement(-1, '');
 const sidebarHistory: SidebarElement[] = [];
+
 export const current_sidebar_element = writable(noSidebar);
 
 export const openSidebar = (elem: SidebarElement, addToHistory = true): void => {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { vscode } from '../lib/data';
-	import { addPort } from '../lib/refactoring/create';
+	import { createPort } from '../lib/refactoring/create';
 	import { findRange, isDockerService } from '../lib/service';
 	import { openPortFromServiceSidebar, openServiceIdSidebar } from '../lib/sidebar';
 	import { getServicePatternType } from './../lib/patterns';
@@ -16,7 +16,7 @@
 	};
 
 	const dispatcher = createEventDispatcher();
-	const finishEdit = (event: KeyboardEvent) => {
+	const finishEdit = (event: KeyboardEvent): void => {
 		if (event.key === 'Enter') {
 			const elem = event.target as Element;
 			elem.removeAttribute('contenteditable');
@@ -75,8 +75,8 @@
 		{#if service.file}
 			<span
 				class="float-right cursor-pointer text-3xl"
-				on:click={() => addPort('Input', service)}
-				on:keydown={() => addPort('Input', service)}>+</span
+				on:click={() => createPort('Input', service)}
+				on:keydown={() => createPort('Input', service)}>+</span
 			>
 		{/if}
 	</h4>
@@ -104,8 +104,8 @@
 		{#if service.file}
 			<span
 				class="float-right cursor-pointer text-3xl"
-				on:click={() => addPort('Output', service)}
-				on:keydown={() => addPort('Output', service)}>+</span
+				on:click={() => createPort('Output', service)}
+				on:keydown={() => createPort('Output', service)}>+</span
 			>
 		{/if}
 	</h4>

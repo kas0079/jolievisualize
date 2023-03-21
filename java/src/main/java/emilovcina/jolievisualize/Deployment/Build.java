@@ -36,12 +36,12 @@ public class Build {
         this.folders = createFolders();
 
         switch (method) {
-            case DOCKER_COMPOSE:
-                deploymentString = new DockerCompose(this.system, folders, buildFolder).generateComposeFile();
-                break;
-            case KUBERNETES:
-                // ! not implemented
-                break;
+        case DOCKER_COMPOSE:
+            deploymentString = new DockerCompose(this.system, folders, buildFolder).generateComposeFile();
+            break;
+        case KUBERNETES:
+            // ! not implemented
+            break;
         }
     }
 
@@ -107,10 +107,8 @@ public class Build {
 
     private BuildFolder containsBuildFolder(BuildFolder bf, List<BuildFolder> list) {
         List<BuildFolder> res = list.stream()
-                .filter(t -> bf.files.containsAll(t.files)
-                        && t.files.containsAll(bf.files)
-                        && t.mainFile.equals(bf.mainFile)
-                        && DeployUtils.checkStringAttribute(bf.params, t.params)
+                .filter(t -> bf.files.containsAll(t.files) && t.files.containsAll(bf.files)
+                        && t.mainFile.equals(bf.mainFile) && DeployUtils.checkStringAttribute(bf.params, t.params)
                         && DeployUtils.checkStringAttribute(bf.args, t.args)
                         && DeployUtils.checkStringAttribute(bf.target, t.target))
                 .collect(Collectors.toList());

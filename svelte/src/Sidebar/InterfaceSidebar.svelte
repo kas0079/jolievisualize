@@ -15,7 +15,7 @@
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
-			// ! not implemented
+			//! not implemented
 		}
 	};
 </script>

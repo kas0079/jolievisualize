@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ElkPort } from 'elkjs/lib/elk.bundled';
-	import { afterUpdate } from 'svelte';
+	import { afterUpdate, beforeUpdate } from 'svelte';
 	import { drawPort } from './lib/draw';
 	import { isDockerService } from './lib/service';
 	import { openPortSidebar } from './lib/sidebar';
@@ -8,12 +8,16 @@
 	export let portNode: ElkPort;
 	export let parentService: Service;
 
-	let port =
-		portNode.labels[0].text === 'ip'
-			? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
-			: parentService.outputPorts.find((t) => t.name == portNode.labels[1].text);
+	let port: Port;
+	let isDockerPort: boolean;
 
-	let isDockerPort = isDockerService(parentService);
+	beforeUpdate(() => {
+		port =
+			portNode.labels[0].text === 'ip'
+				? parentService.inputPorts.find((t) => t.name == portNode.labels[1].text)
+				: parentService.outputPorts.find((t) => t.name == portNode.labels[1].text);
+		isDockerPort = isDockerService(parentService);
+	});
 
 	afterUpdate(() => {
 		drawPort(portNode);

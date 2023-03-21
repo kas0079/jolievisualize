@@ -22,52 +22,6 @@ public class JolieSystem {
         this.visFilePath = visFile;
     }
 
-    public long getNextID() {
-        return ++highestID;
-    }
-
-    public long getNextInterfaceID() {
-        return ++highestInterfaceID;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Path getVisFilePath() {
-        return this.visFilePath;
-    }
-
-    public List<Network> getNetworks() {
-        return networks;
-    }
-
-    public List<Interface> getInterfaces() {
-        return this.listOfInterfaces;
-    }
-
-    public Type addTypeIfUnique(Type type) {
-        for (int i = 0; i < listOfTypes.size(); i++)
-            if (listOfTypes.get(i).equals(type))
-                return listOfTypes.get(i);
-        listOfTypes.add(type);
-        return type;
-    }
-
-    public Interface addInterfaceIfUnique(Interface inter) {
-        for (int i = 0; i < listOfInterfaces.size(); i++)
-            if (listOfInterfaces.get(i).equals(inter)) {
-                highestInterfaceID--;
-                return listOfInterfaces.get(i);
-            }
-        listOfInterfaces.add(inter);
-        return inter;
-    }
-
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
@@ -92,5 +46,51 @@ public class JolieSystem {
         map.put("types", typeListTmp);
 
         return new JSONObject(map);
+    }
+
+    public Type addTypeIfUnique(Type type) {
+        for (int i = 0; i < listOfTypes.size(); i++)
+            if (listOfTypes.get(i).equals(type))
+                return listOfTypes.get(i);
+        listOfTypes.add(type);
+        return type;
+    }
+
+    public Interface addInterfaceIfUnique(Interface inter) {
+        for (int i = 0; i < listOfInterfaces.size(); i++)
+            if (listOfInterfaces.get(i).equals(inter)) {
+                highestInterfaceID--;
+                return listOfInterfaces.get(i);
+            }
+        listOfInterfaces.add(inter);
+        return inter;
+    }
+
+    public long getNextInterfaceID() {
+        return ++highestInterfaceID;
+    }
+
+    public long getNextID() {
+        return ++highestID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Path getVisFilePath() {
+        return this.visFilePath;
+    }
+
+    public List<Network> getNetworks() {
+        return networks;
+    }
+
+    public List<Interface> getInterfaces() {
+        return this.listOfInterfaces;
     }
 }

@@ -1,4 +1,4 @@
-export const patternAnnotations = ['aggregator', 'redirector'];
+const patternAnnotations = ['aggregator', 'redirector', 'circuit breaker'];
 
 export const getServicePatternType = (svc: Service): string => {
 	let res: string = '';

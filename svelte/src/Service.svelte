@@ -9,8 +9,7 @@
 		getClickedNetworkGroupId,
 		getNumberOfNetworks,
 		getNumberOfServicesInNetwork,
-		getServiceNetworkId,
-		removeFromNetwork
+		getServiceNetworkId
 	} from './lib/network';
 	import { getServicePatternType } from './lib/patterns';
 	import { disembed, embed } from './lib/refactoring/embedding';
@@ -41,6 +40,10 @@
 	let dragged = 0;
 	let dragging = false;
 
+	let pressTimer: number;
+	let startX: number, startY: number;
+	let prevPoly: Element;
+
 	$: if ($current_sidebar_element.hist_type === 4) {
 		if ($current_sidebar_element.serviceList.filter((t) => t.id === service.id).length > 0)
 			selected = true;
@@ -67,17 +70,7 @@
 		});
 	};
 
-	const handleChildEvent = (event: CustomEvent): void => {
-		dispatcher('message', {
-			serviceID: event.detail.serviceID,
-			serviceName: event.detail.serviceName,
-			action: event.detail.action
-		});
-	};
-
-	let pressTimer: number;
-	let startX: number, startY: number;
-	const startDrag = (e: MouseEvent) => {
+	const startDrag = (e: MouseEvent): void => {
 		if (e.button !== 0) return;
 		if (e.shiftKey) {
 			if (isDockerService(service)) return;
@@ -112,7 +105,7 @@
 		);
 	};
 
-	const endDrag = async (e: MouseEvent) => {
+	const endDrag = async (e: MouseEvent): Promise<void> => {
 		clearTimeout(pressTimer);
 		if (e.button !== 0 || e.shiftKey || dragged < 2) return;
 		const polygon = document.querySelector('#' + serviceNode.id).children[0];
@@ -161,8 +154,7 @@
 		if (vscode) loading.set(true);
 	};
 
-	let prevPoly: Element;
-	const dragListener = (e: MouseEvent) => {
+	const dragListener = (e: MouseEvent): void => {
 		if (!dragging) return;
 		drawGhostNodeOnDrag(serviceNode, e, startX, startY);
 		const polyUnder = getHoveredPolygon(e);
@@ -269,12 +261,7 @@
 	{/if}
 	{#if expanded}
 		{#each serviceNode.children as embed}
-			<svelte:self
-				serviceNode={embed}
-				parent={service}
-				on:message={handleChildEvent}
-				on:opensidebar
-			/>
+			<svelte:self serviceNode={embed} parent={service} on:message on:opensidebar />
 		{/each}
 	{/if}
 </g>

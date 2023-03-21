@@ -10,7 +10,7 @@
 		if (type.file !== undefined) elem.setAttribute('contenteditable', 'true');
 	};
 
-	const finishEdit = (event: KeyboardEvent) => {
+	const finishEdit = (event: KeyboardEvent): void => {
 		if (event.key === 'Enter') {
 			const elem = event.target as Element;
 			elem.removeAttribute('contenteditable');

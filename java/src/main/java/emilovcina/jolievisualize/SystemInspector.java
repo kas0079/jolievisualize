@@ -131,10 +131,6 @@ public class SystemInspector {
         for (OLSyntaxNode ol : sn.program().children()) {
             if (ol instanceof ExecutionInfo)
                 s.setExectionInfo((ExecutionInfo) ol);
-            else if (ol instanceof OutputPortInfo) {
-                s.addOutputPort(createOutputPort((OutputPortInfo) ol, s));
-            } else if (ol instanceof InputPortInfo)
-                s.addInputPort(createInputPort((InputPortInfo) ol, s));
             else if (ol instanceof CourierDefinitionNode)
                 s.addCourier(createCourier((CourierDefinitionNode) ol));
             else if (ol instanceof EmbedServiceNode) {
@@ -147,6 +143,12 @@ public class SystemInspector {
                 if (emb.getUri() != null)
                     s.addDependencyFile(emb.getUri());
             }
+        }
+        for (OLSyntaxNode ol : sn.program().children()) {
+            if (ol instanceof OutputPortInfo) {
+                s.addOutputPort(createOutputPort((OutputPortInfo) ol, s));
+            } else if (ol instanceof InputPortInfo)
+                s.addInputPort(createInputPort((InputPortInfo) ol, s));
         }
         return s;
     }
@@ -185,8 +187,7 @@ public class SystemInspector {
                 }
             } else
                 location = (ipi.location().toString().endsWith("/")
-                        ? ipi.location().toString().substring(0, ipi.location().toString().length() -
-                                1)
+                        ? ipi.location().toString().substring(0, ipi.location().toString().length() - 1)
                         : ipi.location().toString());
         }
 
@@ -323,8 +324,7 @@ public class SystemInspector {
                 }
             } else
                 location = (opi.location().toString().endsWith("/")
-                        ? opi.location().toString().substring(0, opi.location().toString().length() -
-                                1)
+                        ? opi.location().toString().substring(0, opi.location().toString().length() - 1)
                         : opi.location().toString());
         }
 

@@ -13,7 +13,6 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	const otherInstances = getAllServices(services).filter(
 		(t) => t.name === service.name && t.file === service.file && t.id !== service.id
 	);
-
 	//if a port already exists between the two services
 	if (parentPort) {
 		await disembed(service);
@@ -64,7 +63,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 				interfaces: tmp_interfaces.length === 0 ? undefined : tmp_interfaces
 			};
 
-			await disembed(service, false);
+			await disembed(service, true);
 			service.parentPort = parentPort;
 			service.parent = parent;
 			parent.embeddings.push(service);
@@ -165,7 +164,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	);
 };
 
-export const disembed = async (service: Service, not_embed_subroutine = true): Promise<void> => {
+export const disembed = async (service: Service, embed_subroutine = false): Promise<void> => {
 	if (!service.parent) return;
 	const parent = service.parent;
 	const otherInstances = getAllServices(services).filter(
@@ -237,7 +236,7 @@ export const disembed = async (service: Service, not_embed_subroutine = true): P
 		if (parent)
 			vscode.postMessage({
 				command: 'remove.embed',
-				save: not_embed_subroutine,
+				save: !embed_subroutine,
 				detail: {
 					filename: parent.file,
 					range: findRange(parent, `embed_${service.name}`)
@@ -248,7 +247,7 @@ export const disembed = async (service: Service, not_embed_subroutine = true): P
 
 const containsPortToRemove = (
 	port: Port,
-	portsToRemove: { portName: string; range: SimpleRange; portType: string; filename: string }[]
+	portsToRemove: { portName: string; range: TextRange; portType: string; filename: string }[]
 ): boolean => {
 	let res = false;
 	portsToRemove.forEach((ptr) => {

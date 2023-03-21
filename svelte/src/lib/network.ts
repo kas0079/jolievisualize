@@ -31,16 +31,16 @@ export const getNumberOfNetworks = (): number => {
 	return services.length;
 };
 
-export const getRoot = (svc: Service): Service => {
-	const tmp = svc.parent;
-	if (tmp) return getRoot(tmp);
-	return svc;
-};
-
 export const removeFromNetwork = (svc: Service, networkId: number): void => {
 	if (svc.parent || !services[networkId]) return;
 	services[networkId] = services[networkId].filter((t) => t.id !== svc.id);
 	if (services[networkId].length === 0) services.splice(networkId, 1);
+};
+
+const getRoot = (svc: Service): Service => {
+	const tmp = svc.parent;
+	if (tmp) return getRoot(tmp);
+	return svc;
 };
 
 const mouseIntersectWithRect = (e: MouseEvent, rect: DOMRect): boolean => {

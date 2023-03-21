@@ -74,32 +74,32 @@ public class TopLevelDeploy {
         return this.image;
     }
 
-    public void setContainerName(String name) {
-        this.containerName = name;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getContainerName() {
         return this.containerName;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public List<String> getPorts() {
-        return this.ports;
+    public void setContainerName(String name) {
+        this.containerName = name;
     }
 
     public void addPort(String port) {
         this.ports.add(port);
     }
 
-    public String getPath() {
-        return this.path;
+    public List<String> getPorts() {
+        return this.ports;
     }
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getPath() {
+        return this.path;
     }
 
     public String getName() {
@@ -126,19 +126,20 @@ public class TopLevelDeploy {
         return this.volumes;
     }
 
+    public void setNumberOfInstances(long number) {
+        this.instances = number;
+    }
+
     public long getNumberOfInstances() {
         return this.instances;
     }
 
-    public void setNumberOfInstances(long number) {
-        this.instances = number;
+    public void setParams(String params) {
+        this.params = params;
     }
 
     public String getParams() {
         return this.params;
     }
 
-    public void setParams(String params) {
-        this.params = params;
-    }
 }

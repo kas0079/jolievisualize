@@ -16,20 +16,23 @@
 	const elk = new ELK();
 	let currentGraph: ElkNode | undefined;
 
-	const getData = async () => {
+	const getData = async (): Promise<void> => {
 		if (vscode)
 			vscode.postMessage({
 				command: 'get.data'
 			});
-		else {
-			if (dataFromServer) {
-				setDataString(dataFromServer);
-				currentGraph = await elk.layout(createSystemGraph(services));
-			}
+		else if (dataFromServer) {
+			setDataString(dataFromServer);
+			currentGraph = await elk.layout(createSystemGraph(services));
 		}
 	};
 
-	const vsCodeMessage = async (event: MessageEvent<any>) => {
+	const layoutGraph = async (): Promise<void> => {
+		currentGraph = await elk.layout(createSystemGraph(services));
+		await getData();
+	};
+
+	const vsCodeMessage = async (event: MessageEvent<any>): Promise<void> => {
 		if (event.data.command === 'set.data') {
 			setDataString(event.data.data);
 			await rerender();
@@ -44,23 +47,18 @@
 		loading.set(false);
 	};
 
-	const resetGraph = async () => {
+	const resetGraph = async (): Promise<void> => {
 		currentGraph = undefined;
 		currentGraph = await elk.layout(createSystemGraph(services));
 		if (!vscode) return;
 		await sendVisData();
 	};
 
-	const layoutGraph = async () => {
-		currentGraph = await elk.layout(createSystemGraph(services));
-		await getData();
-	};
-
-	const rerender = async () => {
+	const rerender = async (): Promise<void> => {
 		currentGraph = await elk.layout(rerenderGraph(currentGraph));
 	};
 
-	const updateGraph = async (event: CustomEvent) => {
+	const updateGraph = async (event: CustomEvent): Promise<void> => {
 		if (currentGraph === undefined) return;
 		if (event.detail.action === 'expandService') handleExpandServiceEvent(event, currentGraph);
 		else if (event.detail.action === 'shrinkService') handleShrinkServiceEvent(event, currentGraph);
@@ -71,7 +69,7 @@
 		await rerender();
 	};
 
-	const handleKeyboard = async (event: KeyboardEvent) => {
+	const handleKeyboard = async (event: KeyboardEvent): Promise<void> => {
 		//close sidebar & popup
 		if (event.key === 'Escape') {
 			if ($current_sidebar_element.hist_type >= 0 && $current_popup.title === '') {
