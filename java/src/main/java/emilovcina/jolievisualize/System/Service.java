@@ -151,7 +151,7 @@ public class Service {
     }
 
     public void addDependencyFile(String filePath) {
-        if (filePath.equalsIgnoreCase(this.uri) || filePath.equals(""))
+        if (filePath == null || filePath.equalsIgnoreCase(this.uri) || filePath.equals(""))
             return;
         this.dependencies.add(filePath);
     }
