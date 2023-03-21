@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 export class PopUp {
 	constructor(
 		title: string,
-		fields: string[],
+		fields: { field: string; name?: string }[],
 		confirm = (vals: { field: string; val: string }[]): Promise<boolean> => {
 			return new Promise<boolean>((res) => res(false));
 		},
@@ -12,12 +12,14 @@ export class PopUp {
 		}
 	) {
 		this.title = title;
-		fields.forEach((f) => this.values.push({ field: f, val: '' }));
+		fields.forEach((f) =>
+			this.values.push({ field: f.field, val: '', fieldName: f.name ?? f.field })
+		);
 		this.confirm = confirm;
 		this.cancel = cancel;
 	}
 	title = '';
-	values: { field: string; val: string }[] = [];
+	values: { field: string; val: string; fieldName?: string }[] = [];
 	confirm = (vals: { field: string; val: string }[]): Promise<boolean> => {
 		return new Promise<boolean>((res) => res(false));
 	};
@@ -29,7 +31,12 @@ export class PopUp {
 const noPopup = new PopUp('', []);
 export const current_popup = writable(noPopup);
 
-export const openPopup = (title: string, fields: string[], confirm?, cancel?): void => {
+export const openPopup = (
+	title: string,
+	fields: { field: string; name?: string }[],
+	confirm?,
+	cancel?
+): void => {
 	current_popup.set(new PopUp(title, fields, confirm, cancel));
 };
 

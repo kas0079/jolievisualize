@@ -4,7 +4,7 @@ import { openPopup } from '../popup';
 export const createPort = (type: string, service: Service): void => {
 	openPopup(
 		`Create new ${type.toLowerCase()} port`,
-		['name', 'protocol', 'location', 'interfaces'],
+		[{ field: 'name' }, { field: 'protocol' }, { field: 'location' }, { field: 'interfaces' }],
 		(vals: { field: string; val: string }[]) => {
 			if (vals.filter((t) => t.val === '' && t.field !== '' && t.field !== 'interfaces').length > 0)
 				return false;

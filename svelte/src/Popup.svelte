@@ -31,11 +31,11 @@
 		>
 			{#each $current_popup.values as val}
 				{#if val.field !== ''}
-					<p class="grid self-center">{val.field}:</p>
+					<p class="grid self-center">{val.fieldName}:</p>
 					<input
 						class="grid text-gray-900 p-2 rounded-sm self-center"
 						type="text"
-						placeholder={val.field}
+						placeholder={val.fieldName}
 						bind:value={val.val}
 					/>
 				{:else}

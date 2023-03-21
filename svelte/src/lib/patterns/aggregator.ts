@@ -11,6 +11,10 @@ export const isAggregateable = (svcs: Service[]): { reason: string; aggregateabl
 		if (!res) return;
 		res = svc.parent === undefined;
 		if (!res) reason = 'All services must be top-level services';
+		res =
+			svcs.filter((t) => t.file === svc.file && t.name === svc.name && t.id !== svc.id).length ===
+			0;
+		if (!res) reason = 'Some of the chosen services are instances of the same service';
 	});
 	return { reason, aggregateable: res };
 };
@@ -18,13 +22,21 @@ export const isAggregateable = (svcs: Service[]): { reason: string; aggregateabl
 export const createAggregator = (svcs: Service[]): void => {
 	openPopup(
 		'Add location and interfaces for each service',
-		['Aggregator name', 'Aggregator protocol', 'Aggregator location', ''].concat(
-			...svcs.map((t) => [t.id + t.name + ' location', t.id + t.name + ' interfaces', ''])
+		[
+			{ field: 'Aggregator name' },
+			{ field: 'Aggregator protocol' },
+			{ field: 'Aggregator location' },
+			{ field: '' }
+		].concat(
+			...svcs.map((t) => [
+				{ field: t.id + t.name + ' location', name: `${t.name} location` },
+				{ field: t.id + t.name + ' interfaces', name: `${t.name} interfaces` },
+				{ field: '' }
+			])
 		),
 		async (vals: { field: string; val: string }[]) => {
 			if (vals.filter((t) => t.val === '' && t.field !== '').length > 0) return false;
 			//todo validate inputs properly
-
 			const newIps = svcs.map((s) => {
 				const tmp_interfaces = [];
 				vals
@@ -68,9 +80,9 @@ export const createAggregator = (svcs: Service[]): void => {
 					.find((t) => t.field === `${s.id}${s.name} interfaces`)
 					?.val.split(',')
 					.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
-				aggr.push({ name: s.name });
 				let location = vals.find((t) => t.field === `${s.id}${s.name} location`)?.val;
 				if (location === 'local') {
+					aggr.push({ name: s.name });
 					location = `!local_${s.id}${s.name}`;
 					embeds.push(s);
 					embeddings.push({ name: s.name, port: s.name });

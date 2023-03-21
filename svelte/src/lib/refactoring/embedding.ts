@@ -36,7 +36,12 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	}
 	openPopup(
 		` Create new local ports for ${service.name} and ${parent.name} `,
-		['input port name', 'output port name', 'protocol', 'interfaces'],
+		[
+			{ field: 'input port name' },
+			{ field: 'output port name' },
+			{ field: 'protocol' },
+			{ field: 'interfaces' }
+		],
 		async (vals: { field: string; val: string }[]) => {
 			if (vals.filter((t) => t.val === '' && t.field !== '' && t.field !== 'interfaces').length > 0)
 				return false;
