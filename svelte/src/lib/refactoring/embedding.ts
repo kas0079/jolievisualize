@@ -178,7 +178,11 @@ export const disembed = async (service: Service, not_embed_subroutine = true): P
 
 	const portsToRemove = service.inputPorts
 		? service.inputPorts
-				.filter((ip) => ip.location === parentPort.location)
+				.filter(
+					(ip) =>
+						ip.location === parentPort.location &&
+						(ip.location === 'local' || ip.location.startsWith('!local'))
+				)
 				.map((ip) => {
 					return {
 						portName: ip.name,

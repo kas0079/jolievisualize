@@ -14,7 +14,6 @@
 	import Zoom from './Zoom.svelte';
 
 	const elk = new ELK();
-
 	let currentGraph: ElkNode | undefined;
 
 	const getData = async () => {
@@ -39,7 +38,6 @@
 			setDataString(event.data.data);
 			currentGraph = await elk.layout(createSystemGraph(services));
 		} else if (event.data.command === 'set.ranges') {
-			console.log('GOT RANGES', event.data.data);
 			updateRanges(JSON.parse(event.data.data));
 			await rerender();
 		}
@@ -74,9 +72,6 @@
 	};
 
 	const handleKeyboard = async (event: KeyboardEvent) => {
-		if (event.key === '.') {
-			console.log(services);
-		}
 		//close sidebar & popup
 		if (event.key === 'Escape') {
 			if ($current_sidebar_element.hist_type >= 0 && $current_popup.title === '') {
@@ -104,7 +99,7 @@
 
 <svelte:window on:keydown={handleKeyboard} on:message|stopPropagation={vsCodeMessage} />
 {#await layoutGraph()}
-	<main><p>...loading</p></main>
+	<main><p>Loading...</p></main>
 {:then _}
 	{#if $error.error === true}
 		<Error />
