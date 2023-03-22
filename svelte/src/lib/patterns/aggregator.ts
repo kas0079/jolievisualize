@@ -4,6 +4,11 @@ import { openPopup } from '../popup';
 import { getNextId } from '../service';
 import { clearSidebar } from '../sidebar';
 
+/**
+ * Checks the aggregator pattern can be applied to a list of selected services.
+ * @param svcs list of selected services.
+ * @returns Whether of not they are aggregateable and if not, why it's not possible.
+ */
 export const isAggregateable = (svcs: Service[]): { reason: string; aggregateable: boolean } => {
 	let res = true;
 	let reason = '';
@@ -19,6 +24,12 @@ export const isAggregateable = (svcs: Service[]): { reason: string; aggregateabl
 	return { reason, aggregateable: res };
 };
 
+/**
+ * Opens a popup with the fields needed for the user to create the correct ports and the aggregator service.
+ * All ports, embeds and services are created and added to the system.
+ * everything is then send to vscode.
+ * @param svcs List of selected services
+ */
 export const createAggregator = (svcs: Service[]): void => {
 	openPopup(
 		'Add location and interfaces for each service',

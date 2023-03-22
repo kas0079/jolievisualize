@@ -8,6 +8,9 @@
 
 	export let network: ElkNode;
 
+	/**
+	 * After html page draw, draw network svg
+	 */
 	afterUpdate(() => {
 		drawNetwork(network);
 	});

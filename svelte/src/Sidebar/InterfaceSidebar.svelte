@@ -4,18 +4,28 @@
 	export let interf: Interface;
 
 	let tmp = '';
+	/**
+	 * When some elements are clicked on. Make the text editable and save the old text.
+	 * Used for editing information.
+	 * @param event MouseEvent
+	 */
 	const saveInnerHTML = (event: MouseEvent): void => {
 		const elem = event.target as Element;
 		tmp = elem.innerHTML;
 		if (interf.file !== undefined) elem.setAttribute('contenteditable', 'true');
 	};
+
+	/**
+	 * When user presses 'enter', save the new content and make the change in the data.
+	 * @param event Keyboard event
+	 */
 	const finishEdit = (event: KeyboardEvent): void => {
 		if (event.key === 'Enter') {
 			const elem = event.target as Element;
 			elem.removeAttribute('contenteditable');
 			const change = elem.innerHTML.trim().replaceAll('&nbsp;', '');
 			if (change === tmp) return;
-			//! not implemented
+			// ! NOT IMPLEMENTED
 		}
 	};
 </script>

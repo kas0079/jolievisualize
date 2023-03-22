@@ -2,6 +2,9 @@
 	import { error } from './lib/error';
 	import { vscode } from './lib/data';
 
+	/**
+	 * Clicking on reload on error screen either reloads page or tells vscode to parse code again
+	 */
 	const reload = (): void => {
 		if (!vscode) {
 			location.reload();

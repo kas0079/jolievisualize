@@ -1,6 +1,13 @@
 import { vscode } from '../data';
 import { openPopup } from '../popup';
 
+/**
+ * Opens a popup with the necessary fields to create a new port.
+ * the port is created and added to the system.
+ * the port is then send to vscode.
+ * @param type Type of port to create, "Input" or "Output"
+ * @param service service to add the port to.
+ */
 export const createPort = (type: string, service: Service): void => {
 	openPopup(
 		`Create new ${type.toLowerCase()} port`,

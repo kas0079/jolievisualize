@@ -3,6 +3,14 @@ import { addServiceToNetwork, removeFromNetwork } from '../network';
 import { openPopup } from '../popup';
 import { deepCopyServiceNewId, findRange, getAllServices } from '../service';
 
+/**
+ * Embeds a service inside another service. Also removing the service from its previous network.
+ * If no non-local ports exists between the two services, open a popup to create new ports.
+ * all information is sent to vscode on "confirm"
+ * @param service Service to embed
+ * @param parent new parent service of the embed
+ * @param netwrkId networkID of the embed before embedding
+ */
 export const embed = async (service: Service, parent: Service, netwrkId: number): Promise<void> => {
 	const parentPort = getParentPortName(service, parent);
 	const oldParent = service.parent;
@@ -13,7 +21,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	const otherInstances = getAllServices(services).filter(
 		(t) => t.name === service.name && t.file === service.file && t.id !== service.id
 	);
-	//if a port already exists between the two services
+	//if a non-local port already exists between the two services
 	if (parentPort) {
 		await disembed(service);
 		service.parentPort = parentPort;
@@ -169,6 +177,12 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	);
 };
 
+/**
+ * Disembeds a service from its current embedding.
+ * Removes the local ports and sends the corresponding information to vscode.
+ * @param service Service to disembev
+ * @param embed_subroutine if this function is called by 'embed' set to true
+ */
 export const disembed = async (service: Service, embed_subroutine = false): Promise<void> => {
 	if (!service.parent) return;
 	const parent = service.parent;
@@ -250,6 +264,12 @@ export const disembed = async (service: Service, embed_subroutine = false): Prom
 	}
 };
 
+/**
+ * Checks if a port is already in a list of ports to remove.
+ * @param port Port to check.
+ * @param portsToRemove list of ports to remove.
+ * @returns true if port is included in the list of ports to remove.
+ */
 const containsPortToRemove = (
 	port: Port,
 	portsToRemove: { portName: string; range: TextRange; portType: string; filename: string }[]
@@ -262,6 +282,12 @@ const containsPortToRemove = (
 	return res;
 };
 
+/**
+ * Finds the parent port name of two services who is connected via a port.
+ * @param inSvc Service with inputPort
+ * @param outSvc Service with outputPort
+ * @returns parent port name of the outputport or undefined if not found.
+ */
 const getParentPortName = (inSvc: Service, outSvc: Service): string | undefined => {
 	if (!outSvc.outputPorts || !inSvc.inputPorts) return undefined;
 	let res: string | undefined = undefined;

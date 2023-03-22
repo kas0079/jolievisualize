@@ -4,6 +4,9 @@
 	let zoom: any;
 	let svg: any;
 
+	/**
+	 * On initialize create zoom functionality
+	 */
 	onMount(() => {
 		const networkScale = 5;
 		zoom = d3

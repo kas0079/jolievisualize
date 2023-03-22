@@ -16,6 +16,9 @@
 	const elk = new ELK();
 	let currentGraph: ElkNode | undefined;
 
+	/**
+	 * Gets data from vscode or from the "/data" endpoint in express
+	 */
 	const getData = async (): Promise<void> => {
 		if (vscode)
 			vscode.postMessage({
@@ -27,11 +30,18 @@
 		}
 	};
 
+	/**
+	 * Initial layout call
+	 */
 	const layoutGraph = async (): Promise<void> => {
 		currentGraph = await elk.layout(createSystemGraph(services));
 		await getData();
 	};
 
+	/**
+	 * Listens for messages from vscode
+	 * @param event vscode message event
+	 */
 	const vsCodeMessage = async (event: MessageEvent<any>): Promise<void> => {
 		if (event.data.command === 'set.data') {
 			setDataString(event.data.data);
@@ -47,6 +57,9 @@
 		loading.set(false);
 	};
 
+	/**
+	 * Resets the graph by creating it again.
+	 */
 	const resetGraph = async (): Promise<void> => {
 		currentGraph = undefined;
 		currentGraph = await elk.layout(createSystemGraph(services));
@@ -54,10 +67,17 @@
 		await sendVisData();
 	};
 
+	/**
+	 * Rerenders the graph by rebuilding
+	 */
 	const rerender = async (): Promise<void> => {
 		currentGraph = await elk.layout(rerenderGraph(currentGraph));
 	};
 
+	/**
+	 * Listens for events from child components.
+	 * @param event Event from child components
+	 */
 	const updateGraph = async (event: CustomEvent): Promise<void> => {
 		if (currentGraph === undefined) return;
 		if (event.detail.action === 'expandService') handleExpandServiceEvent(event, currentGraph);
@@ -69,6 +89,10 @@
 		await rerender();
 	};
 
+	/**
+	 * Listens for keyboard events
+	 * @param event keyboard event
+	 */
 	const handleKeyboard = async (event: KeyboardEvent): Promise<void> => {
 		//close sidebar & popup
 		if (event.key === 'Escape') {

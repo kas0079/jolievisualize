@@ -1,5 +1,8 @@
 import { writable } from 'svelte/store';
 
+/**
+ * Class representing a popup screen.
+ */
 export class PopUp {
 	constructor(
 		title: string,
@@ -29,8 +32,18 @@ export class PopUp {
 }
 
 const noPopup = new PopUp('', []);
+/**
+ * Svelte store to keep global state of the current popup.
+ */
 export const current_popup = writable(noPopup);
 
+/**
+ * Opens a popup by setting the svelte store
+ * @param title Title string of the popup
+ * @param fields Fields of the popup
+ * @param confirm Callback for when the user clicks confirm
+ * @param cancel Callback for when the user clicks cancel
+ */
 export const openPopup = (
 	title: string,
 	fields: { field: string; name?: string }[],
@@ -40,6 +53,9 @@ export const openPopup = (
 	current_popup.set(new PopUp(title, fields, confirm, cancel));
 };
 
+/**
+ * Closes the popup by setting the svelte store
+ */
 export const closePopup = (): void => {
 	current_popup.set(noPopup);
 };

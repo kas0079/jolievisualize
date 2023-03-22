@@ -11,12 +11,20 @@
 	let resizeMode = false;
 	let x = 0;
 
+	/**
+	 * Clicking on resize bar starts resize mode
+	 * @param event MouseEvent
+	 */
 	const resizeStart = (event: MouseEvent): void => {
 		if (resizeMode) return;
 		resizeMode = true;
 		x = window.innerWidth - event.clientX;
 	};
 
+	/**
+	 * Moving the mouse while in resize mode resizes the sidebar
+	 * @param event MouseEvent
+	 */
 	const resize = (event: MouseEvent): void => {
 		if (!resizeMode) return;
 		if (x < 250) x = 250;
@@ -24,6 +32,9 @@
 		x -= event.movementX;
 	};
 
+	/**
+	 * Sends an 'open file' message to vscode
+	 */
 	const openFile = (): void => {
 		const file = $current_sidebar_element.getFile();
 		if (vscode)

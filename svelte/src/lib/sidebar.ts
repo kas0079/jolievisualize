@@ -3,8 +3,15 @@ import { interfaces, services, types } from './data';
 import { getAllServices } from './service';
 import type { ElkNode } from 'elkjs/lib/elk-api';
 
+/**
+ * Primitive Jolie types
+ */
 export const primitives = ['int', 'void', 'string', 'double', 'bool', 'long', 'raw'];
 
+/**
+ * Opens a type in the sidebar given a name of the type
+ * @param typename Name of type
+ */
 export const openTypeSidebar = (typename: string): void => {
 	if (primitives.includes(typename.toLowerCase())) return;
 	const type = types.find((t) => t.name === typename);
@@ -16,10 +23,18 @@ export const openTypeSidebar = (typename: string): void => {
 	openSidebar(sbElemt);
 };
 
+/**
+ * Displays interface information in the sidebar given the name of the interface
+ * @param interfName Name of interface
+ */
 export const openInterfaceSidebar = (interfName: string): void => {
 	openSpecificInterfaceSidebar(interfaces.find((t) => t.name === interfName));
 };
 
+/**
+ * Displays interface information in the sidebar given the interface object
+ * @param interf Interface object
+ */
 export const openSpecificInterfaceSidebar = (interf: Interface): void => {
 	if (!interf) return;
 	const sbElem = new SidebarElement(2, interf.name);
@@ -27,6 +42,11 @@ export const openSpecificInterfaceSidebar = (interf: Interface): void => {
 	openSidebar(sbElem);
 };
 
+/**
+ * Opens aggregate information in the sidebar given the name of the aggregate port
+ * @param aggrName Name of the aggregate port
+ * @param parentID ID of the parent service.
+ */
 export const openAggregateSidebar = (aggrName: string, parentID: number): void => {
 	const svc = getAllServices(services).find((t) => t.id === parentID);
 	if (svc === undefined) return;
@@ -40,6 +60,11 @@ export const openAggregateSidebar = (aggrName: string, parentID: number): void =
 	openSidebar(sbElem);
 };
 
+/**
+ * Opens redirect information in the sidebar given the name of the redirect port
+ * @param redirPortName Name of the redirect port
+ * @param parentID ID of the parent service.
+ */
 export const openRedirectPortSidebar = (redirPortName: string, parentID: number): void => {
 	const parent = getAllServices(services).find((t) => t.id === parentID);
 	const port = parent.outputPorts.find((t) => t.name === redirPortName);
@@ -50,6 +75,10 @@ export const openRedirectPortSidebar = (redirPortName: string, parentID: number)
 	openSidebar(sbPort);
 };
 
+/**
+ * Displays service information in the sidebar given the service ID
+ * @param id ID of the service
+ */
 export const openServiceIdSidebar = (id: number): void => {
 	const svc = getAllServices(services).find((t) => t.id === id);
 	if (svc === undefined) return;
@@ -58,6 +87,12 @@ export const openServiceIdSidebar = (id: number): void => {
 	openSidebar(sbElem);
 };
 
+/**
+ * Displays service information in the sidebar given the service object.
+ * If the service is being dragged, don't open the sidebar.
+ * @param service ID of the service
+ * @param dragged If the service is being dragged > 1, else 0
+ */
 export const openServiceInSidebar = (service: Service, dragged: number): void => {
 	if (dragged > 1) {
 		dragged = 0;
@@ -68,6 +103,12 @@ export const openServiceInSidebar = (service: Service, dragged: number): void =>
 	openSidebar(sbElem);
 };
 
+/**
+ * Displays port information in the sidebar by clicking on a port in the sidebar
+ * @param event Click Event
+ * @param service service which owns the port.
+ * @param portType type of port (input or output)
+ */
 export const openPortFromServiceSidebar = (
 	event: Event,
 	service: Service,
@@ -86,6 +127,12 @@ export const openPortFromServiceSidebar = (
 	openSidebar(sbElem);
 };
 
+/**
+ * Displays port information in the sidebar using the port object
+ * @param port Port object
+ * @param portNode ElkPort to get the port type from
+ * @param parentID Service ID of the parent of the port.
+ */
 export const openPortSidebar = (port: Port, portNode: ElkNode, parentID: number): void => {
 	const sbPort = new SidebarElement(1, port.name);
 	sbPort.port = port;
@@ -95,7 +142,7 @@ export const openPortSidebar = (port: Port, portNode: ElkNode, parentID: number)
 };
 
 /**
- * Sidebar element:
+ * Class representing a sidebar element:
  */
 export class SidebarElement {
 	/**
@@ -116,6 +163,11 @@ export class SidebarElement {
 	service: Service | undefined;
 	serviceList: Service[];
 
+	/**
+	 * compares equality of this and other sidebar element
+	 * @param other Other element
+	 * @returns
+	 */
 	equals(other: SidebarElement): boolean {
 		if (this.hist_type !== other.hist_type) return false;
 		if (
@@ -132,6 +184,9 @@ export class SidebarElement {
 		return true;
 	}
 
+	/**
+	 * @returns file URI of the object opened in the sidebar or undefined if no file attribute.
+	 */
 	getFile(): string | undefined {
 		return this.service
 			? this.service.file
@@ -148,8 +203,15 @@ export class SidebarElement {
 const noSidebar = new SidebarElement(-1, '');
 const sidebarHistory: SidebarElement[] = [];
 
+/**
+ * Svelte Store to keep global state of the current sidebar
+ */
 export const current_sidebar_element = writable(noSidebar);
 
+/**
+ * @param elem Sidebar Element to open
+ * @param addToHistory true if the current element should be kept in the history.
+ */
 export const openSidebar = (elem: SidebarElement, addToHistory = true): void => {
 	current_sidebar_element.update((current) => {
 		if (current && current.hist_type >= 0) {
@@ -160,6 +222,9 @@ export const openSidebar = (elem: SidebarElement, addToHistory = true): void => 
 	});
 };
 
+/**
+ * Goes back to the previous opened sidebar element
+ */
 export const backSidebar = (): void => {
 	if (sidebarHistory.length === 0) {
 		clearSidebar();
@@ -168,11 +233,17 @@ export const backSidebar = (): void => {
 	openSidebar(sidebarHistory.pop(), false);
 };
 
+/**
+ * Closes the sidebar
+ */
 export const clearSidebar = (): void => {
 	current_sidebar_element.set(noSidebar);
 	clearSidebarHistory();
 };
 
+/**
+ * Clears history of previous opened sidebar elements.
+ */
 const clearSidebarHistory = (): void => {
 	while (sidebarHistory.length > 0) sidebarHistory.pop();
 };

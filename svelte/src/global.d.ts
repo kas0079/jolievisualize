@@ -118,3 +118,8 @@ type TextRange = {
 type Name = {
 	name: string;
 };
+
+type ParsingError = {
+	error: boolean;
+	file?: { path: string };
+};

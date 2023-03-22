@@ -44,12 +44,19 @@
 	let startX: number, startY: number;
 	let prevPoly: Element;
 
+	/**
+	 * Runs everytime the Svelte Store for the sidebar is updated
+	 * Checks if the service is selected.
+	 */
 	$: if ($current_sidebar_element.hist_type === 4) {
 		if ($current_sidebar_element.serviceList.filter((t) => t.id === service.id).length > 0)
 			selected = true;
 	} else selected = false;
 
 	const dispatcher = createEventDispatcher();
+	/**
+	 * Sends a message to parent which expands this service, and forcing a rerender.
+	 */
 	const expandService = (): void => {
 		if (service.embeddings === undefined || service.embeddings.length === 0) return;
 		expanded = true;
@@ -60,6 +67,10 @@
 			action: 'expandService'
 		});
 	};
+
+	/**
+	 * Sends a message to parent which shrinks this service, and forcing a rerender.
+	 */
 	const shrinkService = (): void => {
 		expanded = false;
 		if ($current_sidebar_element.hist_type === 4) clearSidebar();
@@ -70,6 +81,10 @@
 		});
 	};
 
+	/**
+	 * Runs when a service is being dragged.
+	 * @param e MouseEvent
+	 */
 	const startDrag = (e: MouseEvent): void => {
 		if (e.button !== 0) return;
 		if (e.shiftKey) {
@@ -105,6 +120,10 @@
 		);
 	};
 
+	/**
+	 * Runs when a service is no longer being dragged
+	 * @param e MouseEvent
+	 */
 	const endDrag = async (e: MouseEvent): Promise<void> => {
 		clearTimeout(pressTimer);
 		if (e.button !== 0 || e.shiftKey || dragged < 2) return;
@@ -154,6 +173,9 @@
 		if (vscode) loading.set(true);
 	};
 
+	/**
+	 * MouseMove listener which gets information about what is being hovered etc.
+	 */
 	const dragListener = (e: MouseEvent): void => {
 		if (!dragging) return;
 		drawGhostNodeOnDrag(serviceNode, e, startX, startY);
@@ -167,6 +189,10 @@
 		prevPoly = polyUnder;
 	};
 
+	/**
+	 * Before HTML draw get the correct service object based on the ElkNode
+	 * Check the annotations, and check if the service is a docker service.
+	 */
 	beforeUpdate(() => {
 		expanded = serviceNode.children[0].id !== '!leaf';
 		service = parent
@@ -175,6 +201,9 @@
 		annotationType = getServicePatternType(service);
 	});
 
+	/**
+	 * After HTML draw. Draw the service svg
+	 */
 	afterUpdate(() => {
 		drawService(serviceNode, service.name, expanded);
 	});

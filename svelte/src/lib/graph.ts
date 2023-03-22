@@ -2,6 +2,9 @@ import type { ElkExtendedEdge, ElkNode, ElkPort } from 'elkjs/lib/elk-api';
 import { getAllServices, isDockerService } from './service';
 import { services } from './data';
 
+/**
+ * Settings for ELK
+ */
 const systemElkLayoutOptions = {
 	'elk.algorithm': 'layered',
 	interactiveLayout: 'true',
@@ -17,6 +20,11 @@ const networkElkLayoutOptions = {
 
 export const PORT_SIZE = 5;
 
+/**
+ * Rerenders by rebuilding the graph using the global list of services.
+ * @param graph Root ElkNode
+ * @returns ElkNode root of the rerendered graph.
+ */
 export const rerenderGraph = (graph: ElkNode): ElkNode => {
 	const allSvcs = getAllServices(services);
 
@@ -34,6 +42,11 @@ export const rerenderGraph = (graph: ElkNode): ElkNode => {
 	return graph;
 };
 
+/**
+ * Takes a list of networks and creates the ELK graph.
+ * @param services 2D List of services.
+ * @returns root of the elk graph
+ */
 export const createSystemGraph = (services: Service[][]): ElkNode => {
 	const children = getNetworkNodes(services);
 	const edges = getTopLevelEdges(services.flat());
@@ -45,10 +58,21 @@ export const createSystemGraph = (services: Service[][]): ElkNode => {
 	};
 };
 
+/**
+ * Gets all ElkNodes recursively.
+ * @param root Root of the ELK graph.
+ * @returns List of all ElkNodes.
+ */
 export const getAllElkNodes = (root: ElkNode): ElkNode[] => {
 	return root.children.flatMap((t) => getChildNodesRecursive(t));
 };
 
+/**
+ * Makes the Elk ports based on input and output ports of a service.
+ * @param service Service object to get the ports from
+ * @param omitLocals true if ports with local location should be omitted.
+ * @returns List of ElkPorts of the given service.
+ */
 export const getElkPorts = (service: Service, omitLocals = true): ElkPort[] => {
 	const ports: ElkPort[] = [];
 	service.inputPorts?.forEach((ip) => {
@@ -72,6 +96,11 @@ export const getElkPorts = (service: Service, omitLocals = true): ElkPort[] => {
 	return ports;
 };
 
+/**
+ * Gets edges between a list of services.
+ * @param services List of services
+ * @returns List of edges between the list of services.
+ */
 export const getTopLevelEdges = (services: Service[]): ElkExtendedEdge[] => {
 	const tle: ElkExtendedEdge[] = [];
 	services.forEach((outputSvc) => {
@@ -102,6 +131,11 @@ export const getTopLevelEdges = (services: Service[]): ElkExtendedEdge[] => {
 	return tle.concat(connectDockerPorts(services));
 };
 
+/**
+ * Gets internal edges of a service. This can be edges to embedded service ports.
+ * @param service Service object
+ * @returns List of Elk edges
+ */
 export const getInternalEdges = (service: Service): ElkExtendedEdge[] => {
 	const res: ElkExtendedEdge[] = [];
 	service.outputPorts?.forEach((op) => {
@@ -119,6 +153,12 @@ export const getInternalEdges = (service: Service): ElkExtendedEdge[] => {
 	return res;
 };
 
+/**
+ * Rerenders by rebuilding a service ElkNode by first finding the corresponding service object.
+ * This function should be used with the exported rerender function.
+ * @param serviceNode ElkNode of the service to be rerendered.
+ * @param allSvcs List of all services
+ */
 const rerenderService = (serviceNode: ElkNode, allSvcs: Service[]): void => {
 	const svc = allSvcs.find((t) => `${t.id}` === serviceNode.labels[1].text);
 	if (!serviceNode.children[0].id.startsWith('!leaf')) {
@@ -131,6 +171,12 @@ const rerenderService = (serviceNode: ElkNode, allSvcs: Service[]): void => {
 	}
 };
 
+/**
+ * Helper function for 'rerenderService'.
+ * @param serviceNode Elk Node of the service.
+ * @param service service object corresponding to the elk node
+ * @param omitLocals true if embedded services should be omitted
+ */
 const _rerender = (serviceNode: ElkNode, service: Service, omitLocals: boolean): void => {
 	serviceNode.id = `s${service.id}${service.name}`;
 	serviceNode.ports = getElkPorts(service, omitLocals);
@@ -141,6 +187,11 @@ const _rerender = (serviceNode: ElkNode, service: Service, omitLocals: boolean):
 	}
 };
 
+/**
+ * Creates Elk Edges between ports from docker services and jolie services.
+ * @param services List of services.
+ * @returns List of Elk Edges between the services.
+ */
 const connectDockerPorts = (services: Service[]): ElkExtendedEdge[] => {
 	const tle: ElkExtendedEdge[] = [];
 	services.forEach((svc) => {
@@ -172,6 +223,11 @@ const connectDockerPorts = (services: Service[]): ElkExtendedEdge[] => {
 	return tle;
 };
 
+/**
+ * Creates the Elk Nodes for top level services.
+ * @param services List of top level services.
+ * @returns List of Elk Nodes.
+ */
 const getTopLevelServices = (services: Service[]): ElkNode[] => {
 	const tls: ElkNode[] = [];
 	services.forEach((svc) => {
@@ -189,6 +245,12 @@ const getTopLevelServices = (services: Service[]): ElkNode[] => {
 	return tls;
 };
 
+/**
+ * Recursively gets an ElkNode's children nodes which are services.
+ * @param node ElkNode to get children of.
+ * @param result List of previous recursive step results
+ * @returns List of children ElkNodes
+ */
 const getChildNodesRecursive = (node: ElkNode, result: ElkNode[] = []): ElkNode[] => {
 	result.push(node);
 	node.children?.forEach((c) => {
@@ -198,6 +260,11 @@ const getChildNodesRecursive = (node: ElkNode, result: ElkNode[] = []): ElkNode[
 	return result;
 };
 
+/**
+ * Creates network llk nodes.
+ * @param services List of networks.
+ * @returns List of elk nodes.
+ */
 const getNetworkNodes = (services: Service[][]): ElkNode[] => {
 	const children: ElkNode[] = [];
 	let count = 0;

@@ -6,6 +6,9 @@ import { error, removeError } from './error';
 export const vscode = acquireVsCodeApi();
 export const loading = writable(false);
 
+/**
+ * Skeleton JSON data
+ */
 let json: Data = JSON.parse(
 	`{"name": " ", "interfaces":[], "types":[], "services":[[{"id":0, "name":" "}]]}`
 );
@@ -17,6 +20,11 @@ export let interfaces = processedData.interfaces;
 export let types = processedData.types;
 export let name = processedData.name;
 
+/**
+ * Parses, checks for parsing errors and preprocesses the data JSON data.
+ * @param data JSON string of the data to be parsed.
+ * @returns void
+ */
 export const setDataString = (data: string): void => {
 	const err = checkForError(data);
 	if (err) {
@@ -33,6 +41,10 @@ export const setDataString = (data: string): void => {
 	name = processedData.name;
 };
 
+/**
+ * Sends a message to vscode with the visualize json string.
+ * @returns Promise<void>
+ */
 export const sendVisData = async (): Promise<void> => {
 	if (!vscode) return;
 	vscode.postMessage({
@@ -41,6 +53,10 @@ export const sendVisData = async (): Promise<void> => {
 	});
 };
 
+/**
+ * Generates the content of the visualization JSON using the top-level services.
+ * @returns VisFile content
+ */
 const generateVisFile = (): VisFile => {
 	const content: TLD[][] = [];
 	services.forEach((serviceList) => {
@@ -80,6 +96,9 @@ const generateVisFile = (): VisFile => {
 	};
 };
 
+/**
+ * Resets the data to skeleton
+ */
 const resetData = (): void => {
 	const pd: Data = preprocess(json);
 	services = pd.services;
@@ -88,19 +107,41 @@ const resetData = (): void => {
 	name = pd.name;
 };
 
+/**
+ * Checks if the JSON parsed string contains an error field.
+ * @param json JSON string from the Java tool.
+ * @returns true if parsing error.
+ */
 const checkForError = (json: string): boolean => {
 	const j = JSON.parse(json);
 	return j.error;
 };
 
+/**
+ * Converts docker ports into strings for the visualize JSON file contents.
+ * @param ports List of docker ports
+ * @returns List of strings
+ */
 const makeDockerPorts = (ports: DockerPort[]): string[] => {
 	return ports.map((t) => `${t.eport}:${t.iport}`);
 };
 
+/**
+ * Checks if top level deployment list already has a docker top level deployment.
+ * @param tldList all top-level deployments
+ * @param tld top-level deployment
+ * @returns true if the list contains the docker deloyment
+ */
 const tldIncludesDocker = (tldList: TLD[], tld: TLD): boolean => {
 	return tldList.find((t) => t.image === tld.image) !== undefined;
 };
 
+/**
+ * Checks if list of top level deployments already contains the input tld.
+ * @param tldList list of top level deployments
+ * @param tld top level deployment
+ * @returns true if list contains the tld
+ */
 const tldIncludes = (tldList: TLD[], tld: TLD): boolean => {
 	return (
 		tldList.find(
@@ -109,6 +150,12 @@ const tldIncludes = (tldList: TLD[], tld: TLD): boolean => {
 	);
 };
 
+/**
+ * Finds the number of instances of a service in a list of services (network)
+ * @param svc service
+ * @param svcList list of services
+ * @returns number of instances of the service
+ */
 const getNumberOfInstances = (svc: Service, svcList: Service[]): number => {
 	let res = 0;
 	svcList.forEach((os) => {
@@ -117,6 +164,12 @@ const getNumberOfInstances = (svc: Service, svcList: Service[]): number => {
 	return res;
 };
 
+/**
+ * Finds the number of instances of a docker service in a list of services (network)
+ * @param svc docker service
+ * @param svcList list of services
+ * @returns number of instances of the docker service
+ */
 const getNumberOfDockerInstances = (svc: Service, svcList: Service[]): number => {
 	let res = 0;
 	svcList.forEach((os) => {

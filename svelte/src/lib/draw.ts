@@ -1,6 +1,10 @@
-import type { ElkExtendedEdge, ElkNode } from 'elkjs/lib/elk-api';
+import type { ElkExtendedEdge, ElkNode, ElkPort } from 'elkjs/lib/elk-api';
 import { PORT_SIZE } from './graph';
 
+/**
+ * Using D3. Draw the network rect svg
+ * @param network ElkNode of the network
+ */
 export const drawNetwork = (network: ElkNode): void => {
 	d3.select(`#${network.id}`).attr('transform', `translate(${network.x}, ${network.y})`);
 	d3.select(`#${network.id} > rect`)
@@ -10,6 +14,10 @@ export const drawNetwork = (network: ElkNode): void => {
 		.attr('height', network.height);
 };
 
+/**
+ * Using D3. Populate the points of the svg path using each section of the Elk Edge.
+ * @param edge Elk Edge
+ */
 export const drawEdge = (edge: ElkExtendedEdge): void => {
 	let drawPath = `M${edge.sections[0].startPoint.x},${edge.sections[0].startPoint.y} `;
 	edge.sections.forEach((s) => {
@@ -20,6 +28,12 @@ export const drawEdge = (edge: ElkExtendedEdge): void => {
 	d3.select(`#${edge.id}`).attr('d', drawPath);
 };
 
+/**
+ * Using D3. Draws the service polygon, text and adds the mouse listeners.
+ * @param serviceNode ElkNode of the service
+ * @param serviceName Service Name
+ * @param expanded true if the service should draw it's children as well.
+ */
 export const drawService = (serviceNode: ElkNode, serviceName: string, expanded: boolean): void => {
 	serviceNode.x = serviceNode.x ?? 0;
 	serviceNode.y = serviceNode.y ?? 0;
@@ -63,6 +77,13 @@ export const drawService = (serviceNode: ElkNode, serviceName: string, expanded:
 	fitNameInShape(serviceNode, serviceName);
 };
 
+/**
+ * Draws the ghost node of a service which follows the mouse
+ * @param serviceNode ElkNode of the service
+ * @param e MouseEvent used to get mouse position
+ * @param startX X coordinate of where the rendering started on the screen
+ * @param startY Y coordinate of where the rendering started on the screen
+ */
 export const drawGhostNodeOnDrag = (
 	serviceNode: ElkNode,
 	e: MouseEvent,
@@ -96,7 +117,11 @@ export const drawGhostNodeOnDrag = (
 	document.querySelector('main').appendChild(tmp);
 };
 
-export const drawPort = (portNode: ElkNode): void => {
+/**
+ * Using D3. Draws the Elk Port.
+ * @param portNode ElkPort to be drawn
+ */
+export const drawPort = (portNode: ElkPort): void => {
 	d3.select(`#${portNode.id}`).attr(
 		'transform',
 		`translate(${portNode.x ?? 0}, ${portNode.y ?? 0})`
@@ -108,6 +133,12 @@ export const drawPort = (portNode: ElkNode): void => {
 		.attr('height', portNode.height ?? 0);
 };
 
+/**
+ * Changes the service name to fit inside the service polygon.
+ * @param serviceNode ElkNode of the service
+ * @param serviceName Name of the service
+ * @returns void
+ */
 const fitNameInShape = (serviceNode: ElkNode, serviceName: string): void => {
 	//sometimes the points of the polygon are not populated, so skip and wait until they are.
 	if (!document.querySelector(`#${serviceNode.id} > polygon`)) return;
@@ -127,6 +158,12 @@ const fitNameInShape = (serviceNode: ElkNode, serviceName: string): void => {
 		d3.select(`#${serviceNode.id} > text`).text(newName.substring(0, newName.length - 3) + '...');
 };
 
+/**
+ * Checks if the svg text element is wider than the service polygon element
+ * @param textElement HTML element of the svg text.
+ * @param serviceShape HTML element of the service polygon
+ * @returns true if text if wider than polygon
+ */
 const isTextTooLong = (textElement: Element, serviceShape: Element): boolean => {
 	if (!textElement || !serviceShape) return false;
 	const textRect = textElement.getBoundingClientRect();

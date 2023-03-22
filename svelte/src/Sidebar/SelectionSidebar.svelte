@@ -8,6 +8,10 @@
 	let circuitbreakable = false;
 	let redirectable = false;
 
+	/**
+	 * Before HTML draw check if the selected services are aggregateable
+	 * Later: add checks for other patterns
+	 */
 	beforeUpdate(() => {
 		aggregateable = isAggregateable(serviceList).aggregateable;
 		aggregateableReason = isAggregateable(serviceList).reason;

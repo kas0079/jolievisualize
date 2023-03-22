@@ -11,6 +11,10 @@
 	let port: Port;
 	let isDockerPort: boolean;
 
+	/**
+	 * Before HTML draw get the correct port object based on the ElkPort
+	 * Also check if port is a part of a docker service.
+	 */
 	beforeUpdate(() => {
 		port =
 			portNode.labels[0].text === 'ip'
@@ -19,6 +23,9 @@
 		isDockerPort = isDockerService(parentService);
 	});
 
+	/**
+	 * After HTML draw, draw the port svg, and set file attribute
+	 */
 	afterUpdate(() => {
 		drawPort(portNode);
 		port =

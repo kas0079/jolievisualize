@@ -6,6 +6,9 @@
 	export let edge: ElkExtendedEdge;
 	export let white: boolean;
 
+	/**
+	 * After html page draw, draw edge svg
+	 */
 	afterUpdate(() => drawEdge(edge));
 </script>
 
