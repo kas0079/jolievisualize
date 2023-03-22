@@ -1,6 +1,6 @@
 {
-	"name": "jolievisualize",
-	"version": "0.0.1",
+	"name": "@ovcina/jolievisualize",
+	"version": "0.1.0",
 	"description": "Tool for visualizing and refactoring Jolie architecture",
 	"main": "out/index.js",
 	"author": {
