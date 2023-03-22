@@ -2,7 +2,7 @@
 
 This tools is used to visualize, refactor and build [Jolie](https://www.jolie-lang.org) projects. The tool is primarily an extension to a [vscode plugin](https://www.google.com) so installing this tool seperately is not recommended, since the refactoring capabilities is not supported without the vscode plugin. The visualization and building is still supported using this without the vscode plugin.
 
-[![Jolievisualize vscode example](https://i.imgur.com/KlO4bKw.png)](https://imgur.com/KlO4bKw)
+![Jolievisualize vscode example](https://i.imgur.com/KlO4bKw.png)
 
 ## Installation
 
@@ -33,6 +33,7 @@ npx jvbuild <path/to/visualize.json> [path/to/buildfolder] [method]
 ```
 
 Default build folder: `./build`
+
 Default build method: `docker-compose`
 
 ## Dependencies
