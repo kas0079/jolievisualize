@@ -2,6 +2,14 @@ import * as fs from "fs";
 import * as path from "path";
 const main = require("./index");
 
+/**
+ * Checks which build method should be used. Then generates the correct .yaml file content and
+ * creates the folders, copies dependencies and makes Dockerfiles.
+ * @param visFile object which contains a path to a file. This should be the visualization json file
+ * @param buildFolder The foldername of the build
+ * @param buildMethod "docker-compose" or "kubernetes"
+ * @returns void
+ */
 const build = (
 	visFile: { path: string },
 	buildFolder: string,
@@ -76,6 +84,12 @@ const build = (
 	});
 };
 
+/**
+ * Calls the method from index which runs the Java tool and generates the information about the build.
+ * @param visFile object which contains a path to a file. This should be the visualization json file.
+ * @param buildRoot build dir folder name.
+ * @returns BuildInfo which contains information about the folders in the build dir, and the yaml content
+ */
 const dockerComposeBuild = (
 	visFile: { path: string },
 	buildRoot: string
@@ -93,6 +107,12 @@ const dockerComposeBuild = (
 	return build;
 };
 
+/**
+ * Makes the Dockerfile content
+ * @param folder information about the folder which the Dockerfile should generate an image of
+ * @param jpm is the project is using JPM
+ * @returns Dockerfile content as string
+ */
 const makeDockerfile = (folder: Folder, jpm: boolean): string => {
 	return `FROM jolielang/jolie\n${
 		folder.expose
@@ -105,6 +125,11 @@ const makeDockerfile = (folder: Folder, jpm: boolean): string => {
 	} ${folder.main}`;
 };
 
+/**
+ * Formats the build folder name so the Java tool gets consistent input.
+ * @param folder build folder name
+ * @returns formatted build folder name
+ */
 const formatBuildFolder = (folder: string): string => {
 	let res = "";
 	if (!folder.startsWith("/")) res = "/" + folder;
@@ -112,11 +137,19 @@ const formatBuildFolder = (folder: string): string => {
 	return res;
 };
 
+/**
+ * Converts the string input to a supported build method. This assures that the build method get's a valid input
+ * @param methodString string input op the build method
+ * @returns BuildMethod which, for now, is "docker-compose" or "kubernetes"
+ */
 const getBuildMethod = (methodString: string): BuildMethod => {
 	if (methodString === "kubernetes") return "kubernetes";
 	return "docker-compose";
 };
 
+/**
+ * When the script is run on it's own: Check for CLI args and run the build method.
+ */
 if (process.argv.length < 3) {
 	console.log("Need input arguments.");
 	process.exit(1);
