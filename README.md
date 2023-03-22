@@ -16,7 +16,7 @@ npm install @ovcina/jolievisualize
 
 ## Usage
 
-If this tool is being used with the vscode plugin go to the plugin README, else keep reading:
+If this tool is being used with the [vscode plugin](https://www.google.com) go to the plugin README, else keep reading:
 
 ### Commands
 
