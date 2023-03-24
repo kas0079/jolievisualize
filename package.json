@@ -1,7 +1,7 @@
 {
 	"name": "@ovcina/jolievisualize",
 	"version": "1.0.0",
-	"description": "Tool for visualizing and refactoring Jolie architecture",
+	"description": "Tool for visualizing, refactoring and building Jolie projects.",
 	"main": "out/index.js",
 	"author": {
 		"name": "Emil Ovcina",
@@ -14,7 +14,7 @@
 		"build:svelte": "cd svelte/ && npm run build && cd ../",
 		"local": "npm pack && rm ../jolievisualize-1.0.0.tgz && mv jolievisualize-1.0.0.tgz ../jolievisualize-1.0.0.tgz"
 	},
-	"license": "MIT",
+	"license": "GNU",
 	"jolie": {
 		"dependencies": {},
 		"maven": {

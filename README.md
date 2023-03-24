@@ -6,6 +6,12 @@ The tool is primarily an extension to a [vscode plugin](https://github.com/EmilO
 
 ![Jolievisualize vscode example](https://i.imgur.com/KlO4bKw.png)
 
+## Requirements
+
+-   It is required that Jolie, version 1.11.0-git, is set up correctly. Look [here](https://www.jolie-lang.org/downloads.html) for further explanation on how to set up Jolie correctly.
+
+*   A JSON configuration file is used for getting information about the top-level services and networks. See the section on how to set up the visualization file.
+
 ## Installation
 
 Installing the vscode plugin automatically installs this package, but if the tool should be installed without the vscode plugin:
