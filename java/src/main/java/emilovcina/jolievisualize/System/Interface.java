@@ -37,6 +37,11 @@ public class Interface {
         return res;
     }
 
+    /**
+     * Makes this class into a JSON object
+     * 
+     * @return JSONObject
+     */
     public JSONObject toJSON() {
         Map<String, Object> obj = new HashMap<>();
         obj.put("name", name);
@@ -71,6 +76,10 @@ public class Interface {
         return new JSONObject(obj);
     }
 
+    /**
+     * =============================================
+     * LIST ADDERS:
+     */
     public void addRequestResponse(RequestResponseOperationDeclaration rrod) {
         reqres.add(rrod);
     }
@@ -79,6 +88,10 @@ public class Interface {
         oneway.add(ood);
     }
 
+    /**
+     * =============================================
+     * GETTERS AND SETTERS:
+     */
     public long getID() {
         return this.id;
     }

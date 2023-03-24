@@ -19,6 +19,11 @@ public class Courier {
         this.name = name;
     }
 
+    /**
+     * Makes this class into a JSON object
+     * 
+     * @return JSONObject
+     */
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
@@ -66,6 +71,10 @@ public class Courier {
         return new JSONObject(map);
     }
 
+    /**
+     * =============================================
+     * LIST ADDERS:
+     */
     public void addInterfaceOneWay(String op) {
         interfaceOneWay.add(op);
     }
@@ -82,6 +91,10 @@ public class Courier {
         operationReqRes.add(op);
     }
 
+    /**
+     * =============================================
+     * GETTERS AND SETTERS:
+     */
     public String getName() {
         return this.name;
     }

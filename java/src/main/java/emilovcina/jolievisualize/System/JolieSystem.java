@@ -22,6 +22,11 @@ public class JolieSystem {
         this.visFilePath = visFile;
     }
 
+    /**
+     * Makes this class into a JSON object
+     * 
+     * @return JSONObject
+     */
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
@@ -48,6 +53,10 @@ public class JolieSystem {
         return new JSONObject(map);
     }
 
+    /**
+     * =============================================
+     * LIST ADDERS:
+     */
     public Type addTypeIfUnique(Type type) {
         for (int i = 0; i < listOfTypes.size(); i++)
             if (listOfTypes.get(i).equals(type))
@@ -66,6 +75,10 @@ public class JolieSystem {
         return inter;
     }
 
+    /**
+     * =============================================
+     * GETTERS AND SETTERS:
+     */
     public long getNextInterfaceID() {
         return ++highestInterfaceID;
     }

@@ -45,6 +45,11 @@ public class Service {
         children = new ArrayList<>();
     }
 
+    /**
+     * Makes this class into a JSON object
+     * 
+     * @return JSONObject
+     */
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 
@@ -129,6 +134,10 @@ public class Service {
             }
     }
 
+    /**
+     * =============================================
+     * LIST ADDERS:
+     */
     public void addVolume(String conf) {
         if (conf.startsWith("./"))
             this.volumes.add(conf.substring(2));
@@ -168,6 +177,10 @@ public class Service {
         children.add(s);
     }
 
+    /**
+     * =============================================
+     * GETTERS AND SETTERS:
+     */
     public String getArgs() {
         return args;
     }

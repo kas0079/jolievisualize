@@ -13,6 +13,10 @@ public class Network {
 
     private List<Service> listOfServices = new ArrayList<>();
 
+    /**
+     * =============================================
+     * LIST ADDERS:
+     */
     public void addService(Service s) {
         listOfServices.add(s);
     }
@@ -21,6 +25,10 @@ public class Network {
         network.put(tld, n);
     }
 
+    /**
+     * =============================================
+     * GETTERS AND SETTERS:
+     */
     public List<Service> getServices() {
         return listOfServices;
     }

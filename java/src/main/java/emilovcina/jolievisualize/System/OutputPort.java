@@ -30,6 +30,11 @@ public class OutputPort {
         this.location = location;
     }
 
+    /**
+     * Makes this class into a JSON object
+     * 
+     * @return JSONObject
+     */
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 
@@ -83,6 +88,10 @@ public class OutputPort {
         return new JSONObject(map);
     }
 
+    /**
+     * =============================================
+     * LIST ADDERS:
+     */
     public void addInterface(Interface interf) {
         interfaces.put(interf.getID(), interf.getName());
     }
@@ -99,6 +108,10 @@ public class OutputPort {
         this.rrOperations.add(rrd);
     }
 
+    /**
+     * =============================================
+     * GETTERS AND SETTERS:
+     */
     public String getName() {
         return name;
     }

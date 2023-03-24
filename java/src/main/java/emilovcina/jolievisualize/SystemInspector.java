@@ -52,22 +52,41 @@ public class SystemInspector {
         system = new JolieSystem(networks, visFilePath);
     }
 
+    /**
+     * Creates a JSON Object based on the jolie system
+     * 
+     * @param name name of the system
+     * @return Json object of the system
+     */
     public JSONObject createJSON(String name) {
         return getJolieSystem(name).toJSON();
     }
 
+    /**
+     * Goes through the system and gets all the information.
+     * 
+     * @param name name of the system
+     * @return JolieSystem containing all needed information.
+     */
     public JolieSystem getJolieSystem(String name) {
         system.setName(name);
         inspectNetworks();
         return this.system;
     }
 
+    /**
+     * Goes through all networks and inspects the service nodes.
+     */
     private void inspectNetworks() {
         system.getNetworks().forEach(n -> {
             inspectServiceNodes(n);
         });
     }
 
+    /**
+     * Creates Service objects from Jolie service nodes
+     * Also handles Docker services
+     */
     private void inspectServiceNodes(Network n) {
         n.getNetwork().forEach((tld, sn) -> {
             for (int i = 0; i < tld.getNumberOfInstances(); i++) {
@@ -95,6 +114,12 @@ public class SystemInspector {
         });
     }
 
+    /**
+     * Helper method to create docker service
+     * 
+     * @param tld Top Level deployment of the docker service
+     * @return Docker service
+     */
     private Docker createDockerService(TopLevelDeploy tld) {
         Docker docker = new Docker(system.getNextID());
         docker.setImage(tld.getImage());
@@ -105,6 +130,12 @@ public class SystemInspector {
         return docker;
     }
 
+    /**
+     * Adds ports defined in the top level deployment to the (docker) service
+     * 
+     * @param tld Top Level deploymen
+     * @param s   (Docker) Service
+     */
     private void addDockerPorts(TopLevelDeploy tld, Service s) {
         if (tld.getPorts() == null || tld.getPorts().isEmpty())
             return;
@@ -122,6 +153,14 @@ public class SystemInspector {
         });
     }
 
+    /**
+     * Goes through the OLSyntaxNodes and gets the relevant nodes and creates
+     * corresponding objects.
+     * 
+     * @param sn     ServiceNode
+     * @param params JSON params
+     * @return Service Object
+     */
     private Service createService(ServiceNode sn, JSONObject params) {
         Service s = new Service(system.getNextID());
         s.setName(sn.name());
@@ -153,6 +192,14 @@ public class SystemInspector {
         return s;
     }
 
+    /**
+     * Parses the input port info and creates the corresponding input port object.
+     *
+     * @param ipi     InputPortInfo from the Jolie Parser
+     * @param service Service to add the port to, used for keeping track of
+     *                dependencies
+     * @return InputPort object
+     */
     private InputPort createInputPort(InputPortInfo ipi, Service service) {
         String protocol = "";
         String location = "";
@@ -239,6 +286,12 @@ public class SystemInspector {
         return result;
     }
 
+    /**
+     * Parses the courier node into the corresponding object
+     *
+     * @param cdn Courier Node
+     * @return Courier object
+     */
     private Courier createCourier(CourierDefinitionNode cdn) {
         Courier cou = new Courier(cdn.inputPortName());
         CourierChoiceStatement ccs = (CourierChoiceStatement) cdn.body();
@@ -257,6 +310,15 @@ public class SystemInspector {
         return cou;
     }
 
+    /**
+     * Parses the aggregation info from an input port node and creates the
+     * corresponding object
+     * also adds any interface extenders to the service.
+     * 
+     * @param aii Aggregation Info Node
+     * @param svc Service, used for keeping track of dependencies
+     * @return Courier object
+     */
     private Aggregate createAggregate(AggregationItemInfo aii, Service svc) {
         Aggregate aggr = new Aggregate();
         // Collection
@@ -275,6 +337,13 @@ public class SystemInspector {
         return aggr;
     }
 
+    /**
+     * Parses interface extender node and creates an Interface object
+     * 
+     * @param ied InterfaceExtender Node
+     * @param svc Service, used for keeping track of dependencies
+     * @return Interface object
+     */
     private Interface createInterfaceExtender(InterfaceExtenderDefinition ied, Service svc) {
         Interface i = createInterface(ied, svc);
         if (ied.defaultRequestResponseOperation() != null) {
@@ -289,6 +358,14 @@ public class SystemInspector {
         return i;
     }
 
+    /**
+     * Parses the output port info and creates the corresponding output port object.
+     * 
+     * @param opi     OutputportInro node from the Jolie Parser
+     * @param service Service to add the port to, used for keeping track of
+     *                dependencies
+     * @return OutputPort object
+     */
     private OutputPort createOutputPort(OutputPortInfo opi, Service service) {
         String protocol = "";
         String location = "";
@@ -362,6 +439,14 @@ public class SystemInspector {
         return op;
     }
 
+    /**
+     * Parses interface definitions and creates the corresponding Interface object
+     *
+     * @param id  Interface Definition Node
+     * @param svc Service using the interface, used for keeping track of
+     *            dependencies
+     * @return
+     */
     private Interface createInterface(InterfaceDefinition id, Service svc) {
         Interface result = new Interface(system.getNextInterfaceID(), id.name());
         id.operationsMap().forEach((k, v) -> {
@@ -381,11 +466,23 @@ public class SystemInspector {
         return system.addInterfaceIfUnique(result);
     }
 
+    /**
+     * Adds OneWay operation declaration to the global system
+     * 
+     * @param owod OneWay declaration
+     * @param svc  Service ref, used for keeping track of dependencies
+     */
     private void addOOType(OneWayOperationDeclaration owod, Service svc) {
         if (!NativeType.isNativeTypeKeyword(owod.requestType().name()))
             system.addTypeIfUnique(createType(owod.requestType(), svc));
     }
 
+    /**
+     * Adds ReqRes operation declaration to the global system
+     * 
+     * @param rrd ReqRes declaration
+     * @param svc Service ref, used for keeping track of dependencies
+     */
     private void addRRType(RequestResponseOperationDeclaration rrd, Service svc) {
         if (!NativeType.isNativeTypeKeyword(rrd.requestType().name()))
             system.addTypeIfUnique(createType(rrd.requestType(), svc));
@@ -393,6 +490,13 @@ public class SystemInspector {
             system.addTypeIfUnique(createType(rrd.responseType(), svc));
     }
 
+    /**
+     * Parses type definition node and creates the corrosponding type object
+     * 
+     * @param td  TypeDefinition Node
+     * @param svc Service ref, used for keeping track of dependencies
+     * @return Type object
+     */
     private Type createType(TypeDefinition td, Service svc) {
         Type type = new Type();
         if (td instanceof TypeDefinitionLink) {
@@ -425,6 +529,15 @@ public class SystemInspector {
         return type;
     }
 
+    /**
+     * Gets the value of a parameter in code by looking at the params parsed in with
+     * the service.
+     * 
+     * @param vpn    VariaplePathNode
+     * @param params JSON parameters
+     * @return Pair where the string is the param name and the corrosponding
+     *         ConstantStringExpression.
+     */
     private Pair<String, ConstantStringExpression> getParamFromPath(VariablePathNode vpn, JSONObject params) {
         Object obj = null;
         ConstantStringExpression cres = null;
@@ -440,6 +553,12 @@ public class SystemInspector {
         return null;
     }
 
+    /**
+     * Checks if operation already is defined in an interface.
+     * 
+     * @param od Operation Declaration
+     * @return true if any interface in the system has the operation.
+     */
     private boolean operationExistsInInterface(OperationDeclaration od) {
         if (od instanceof RequestResponseOperationDeclaration) {
             RequestResponseOperationDeclaration checkRR = (RequestResponseOperationDeclaration) od;
@@ -464,6 +583,13 @@ public class SystemInspector {
         return false;
     }
 
+    /**
+     * Parses the URI from the parsing context to a string path relative to the
+     * visualize json file
+     * 
+     * @param pc Parsing Context containing the source
+     * @return String of the relative path.
+     */
     private String getLocalUri(ParsingContext pc) {
         String uriString = pc.source().toString();
         String[] parts = uriString.split(system.getName(), 2);
@@ -472,12 +598,25 @@ public class SystemInspector {
         return parts[1];
     }
 
+    /**
+     * Gets the range of the embedServiceNode using the parsing context.
+     * 
+     * @param esn Embed Service Node
+     * @return CodeRange which spans over the embed line in the code.
+     */
     private CodeRange getEmbedCodeRange(EmbedServiceNode esn) {
         return new CodeRange("embed_" + esn.serviceName(), esn.bindingPort().context().startLine(),
                 esn.bindingPort().context().endLine(), esn.context().startColumn(),
                 esn.bindingPort().context().endColumn());
     }
 
+    /**
+     * Gets the range of code using the parsing context
+     * 
+     * @param name    Name of the code range
+     * @param context Parsing Context
+     * @return CodeRange which spans over the parsing context
+     */
     private CodeRange getCodeRange(String name, ParsingContext context) {
         return new CodeRange(name, context.startLine(), context.endLine(), context.startColumn(), context.endColumn());
     }

@@ -27,6 +27,11 @@ public class Type {
         return this.toJSON().equals(other.toJSON());
     }
 
+    /**
+     * Makes this class into a JSON object
+     * 
+     * @return JSONObject
+     */
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 
@@ -52,10 +57,18 @@ public class Type {
         return new JSONObject(map);
     }
 
+    /**
+     * =============================================
+     * LIST ADDERS:
+     */
     public void addSubType(Type type) {
         subtypes.add(type);
     }
 
+    /**
+     * =============================================
+     * GETTERS AND SETTERS:
+     */
     public void setLeftType(String left) {
         this.leftType = left;
     }

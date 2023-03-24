@@ -13,6 +13,11 @@ public class Docker extends Service {
         super(id);
     }
 
+    /**
+     * Makes this class into a JSON object
+     * 
+     * @return JSONObject
+     */
     @Override
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();

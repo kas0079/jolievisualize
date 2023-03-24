@@ -37,7 +37,7 @@ public class JolieVisualize {
 
     /**
      * @param args
-     *            the command line arguments
+     *             the command line arguments
      *
      * @throws IOException
      * @throws FileNotFoundException
@@ -64,6 +64,9 @@ public class JolieVisualize {
         BuildMethod deploymentType = null;
         String buildFolder = null;
 
+        /**
+         * Parse the command line arguments
+         */
         for (int i = 6; i < args.length; i++) {
             if (args[i].equals("--docker-compose"))
                 deploymentType = BuildMethod.DOCKER_COMPOSE;
@@ -86,6 +89,18 @@ public class JolieVisualize {
         }
     }
 
+    /**
+     * @param p    path to visualize json file
+     * @param args commnad line arguments used to parse each file
+     * @return List of network objects containing all top level services
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ParseException
+     * @throws ParserException
+     * @throws ModuleException
+     * @throws CommandLineException
+     * @throws CodeCheckException
+     */
     private static List<Network> parseNetworks(Path p, String[] args) throws FileNotFoundException, IOException,
             ParseException, ParserException, ModuleException, CommandLineException, CodeCheckException {
         final List<Network> listOfNetworks = new ArrayList<>();
@@ -117,6 +132,12 @@ public class JolieVisualize {
         return listOfNetworks;
     }
 
+    /**
+     * Reads a params file and returns the corresponding JSON object
+     * 
+     * @param params path to param file
+     * @return
+     */
     private static JSONObject readParams(Path params) {
         if (params == null)
             return null;
@@ -130,6 +151,15 @@ public class JolieVisualize {
         return null;
     }
 
+    /**
+     * Reads visualize json file
+     * 
+     * @param p path to visualize json file
+     * @return List of list of top level deployment objects
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ParseException
+     */
     private static List<List<TopLevelDeploy>> getTopLevelDeployment(Path p)
             throws FileNotFoundException, IOException, ParseException {
         List<List<TopLevelDeploy>> tlds = new ArrayList<>();
@@ -180,6 +210,19 @@ public class JolieVisualize {
         return tlds;
     }
 
+    /**
+     * Runs the Jolie parser and collects all the service nodes in a file.
+     * 
+     * @param filePath Path to the Jolie file.
+     * @param path     path to the visualization json file
+     * @param args     commands line arguments for the jolie parser
+     * @return List of servicenodes of the file.
+     * @throws CommandLineException
+     * @throws IOException
+     * @throws ParserException
+     * @throws ModuleException
+     * @throws CodeCheckException
+     */
     private static List<ServiceNode> parseFile(String filePath, String path, String[] args)
             throws CommandLineException, IOException, ParserException, ModuleException, CodeCheckException {
         List<String> argList = new ArrayList<>();

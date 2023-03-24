@@ -1,6 +1,6 @@
 # Jolievisualize
 
-This tools is used to visualize, refactor and build [Jolie](https://www.jolie-lang.org) projects. The tool is primarily an extension to a [vscode plugin](https://www.google.com) so installing this tool seperately is not recommended, since the refactoring capabilities is not supported without the vscode plugin. The visualization and building is still supported using this without the vscode plugin.
+This tools is used to visualize, refactor and build [Jolie](https://www.jolie-lang.org) projects. The tool is primarily an extension to a [vscode plugin](https://www.google.com) so installing this tool seperately is not recommended, since the refactoring capabilities are not supported without the vscode plugin. The visualization and building is still supported using this without the vscode plugin.
 
 ![Jolievisualize vscode example](https://i.imgur.com/KlO4bKw.png)
 

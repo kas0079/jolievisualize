@@ -17,6 +17,11 @@ public class InputPort extends OutputPort {
         super(name, protocol, location);
     }
 
+    /**
+     * Makes this class into a JSON object
+     * 
+     * @return JSONObject
+     */
     @Override
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
@@ -98,6 +103,10 @@ public class InputPort extends OutputPort {
         return new JSONObject(map);
     }
 
+    /**
+     * =============================================
+     * LIST ADDERS:
+     */
     public void addCourier(Courier c) {
         couriers.add(c);
     }

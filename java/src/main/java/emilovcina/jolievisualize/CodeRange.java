@@ -20,6 +20,11 @@ public class CodeRange {
         this.name = name;
     }
 
+    /**
+     * Makes this class into a JSON object
+     * 
+     * @return JSONObject
+     */
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> mapRange = new HashMap<>();

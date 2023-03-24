@@ -13,6 +13,11 @@ public class Aggregate {
     private List<String> collection = new ArrayList<>();
     private Interface extender;
 
+    /**
+     * Makes this class into a JSON object
+     * 
+     * @return JSONObject
+     */
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 
@@ -35,10 +40,18 @@ public class Aggregate {
         return new JSONObject(map);
     }
 
+    /**
+     * =============================================
+     * LIST ADDERS:
+     */
     public void addCollection(String s) {
         collection.add(s);
     }
 
+    /**
+     * =============================================
+     * GETTERS AND SETTERS:
+     */
     public void setName(String name) {
         this.name = name;
     }

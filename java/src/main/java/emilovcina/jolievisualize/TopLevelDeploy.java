@@ -29,6 +29,11 @@ public class TopLevelDeploy {
         this.instances = 1;
     }
 
+    /**
+     * Deep copies the object.
+     * 
+     * @return new topleveldeploy object.
+     */
     public TopLevelDeploy copy() {
         TopLevelDeploy res = new TopLevelDeploy();
         res.name = this.name;
@@ -46,6 +51,22 @@ public class TopLevelDeploy {
         return res;
     }
 
+    /**
+     * =============================================
+     * LIST ADDERS:
+     */
+    public void addPort(String port) {
+        this.ports.add(port);
+    }
+
+    public void addVolume(String filename) {
+        this.volumes.add(filename);
+    }
+
+    /**
+     * =============================================
+     * GETTERS AND SETTERS:
+     */
     public String getArgs() {
         return args;
     }
@@ -86,10 +107,6 @@ public class TopLevelDeploy {
         this.containerName = name;
     }
 
-    public void addPort(String port) {
-        this.ports.add(port);
-    }
-
     public List<String> getPorts() {
         return this.ports;
     }
@@ -116,10 +133,6 @@ public class TopLevelDeploy {
 
     public void setFilename(String filename) {
         this.file = filename;
-    }
-
-    public void addVolume(String filename) {
-        this.volumes.add(filename);
     }
 
     public List<String> getVolumes() {

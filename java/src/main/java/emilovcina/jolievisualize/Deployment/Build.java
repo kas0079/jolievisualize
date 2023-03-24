@@ -16,6 +16,9 @@ public class Build {
         DOCKER_COMPOSE, KUBERNETES
     }
 
+    /**
+     * Class representing a docker image folder
+     */
     public class BuildFolder {
         public String name;
         public String mainFile;
@@ -36,15 +39,21 @@ public class Build {
         this.folders = createFolders();
 
         switch (method) {
-        case DOCKER_COMPOSE:
-            deploymentString = new DockerCompose(this.system, folders, buildFolder).generateComposeFile();
-            break;
-        case KUBERNETES:
-            // ! not implemented
-            break;
+            case DOCKER_COMPOSE:
+                deploymentString = new DockerCompose(this.system, folders, buildFolder).generateComposeFile();
+                break;
+            case KUBERNETES:
+                // ! not implemented
+                break;
         }
     }
 
+    /**
+     * Makes this class into a JSON object containing build folders and deployment
+     * yaml
+     *
+     * @return JSONObject
+     */
     public JSONObject toJSON() {
         Map<String, Object> map = new HashMap<>();
 
@@ -69,6 +78,11 @@ public class Build {
         return new JSONObject(map);
     }
 
+    /**
+     * Creates build folders from the networks of the system
+     * 
+     * @return List of build folder objects
+     */
     private List<BuildFolder> createFolders() {
         List<BuildFolder> res = new ArrayList<>();
         system.getNetworks().forEach(network -> {
@@ -105,6 +119,14 @@ public class Build {
         return res;
     }
 
+    /**
+     * Checks if a build folder is contained in a list of build folders
+     * 
+     * @param bf   Build folder to check
+     * @param list List of build folders
+     * @return null if build folder is not contained, else, the matching build
+     *         folder in the list.
+     */
     private BuildFolder containsBuildFolder(BuildFolder bf, List<BuildFolder> list) {
         List<BuildFolder> res = list.stream()
                 .filter(t -> bf.files.containsAll(t.files) && t.files.containsAll(bf.files)
