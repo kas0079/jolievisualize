@@ -1,8 +1,0 @@
-[
-	[
-		{ "file": "svcs.ol", "target": "S1" },
-		{ "file": "svcs.ol", "target": "S2" },
-		{ "file": "svcs.ol", "target": "S3" },
-		{ "file": "svcs.ol", "target": "S4" }
-	]
-]
