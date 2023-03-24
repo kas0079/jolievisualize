@@ -2,7 +2,7 @@
 
 Visualize, refactor and build [Jolie](https://www.jolie-lang.org) projects!
 
-The tool is primarily an extension to a [vscode plugin](https://www.google.com) so installing this tool separately is not recommended since the refactoring capabilities are not supported without the vscode plugin. Visualization and building are still supported using this without the vscode plugin.
+The tool is primarily an extension to a [vscode plugin](https://github.com/EmilOvcina/vscode-jolievisualize) so installing this tool separately is not recommended since the refactoring capabilities are not supported without the vscode plugin. Visualization and building are still supported using this without the vscode plugin.
 
 ![Jolievisualize vscode example](https://i.imgur.com/KlO4bKw.png)
 
@@ -18,7 +18,7 @@ npm install @ovcina/jolievisualize
 
 ## Usage
 
-If this tool is being used with the [vscode plugin](https://www.google.com) go to the plugin README, else keep reading:
+If this tool is being used with the [vscode plugin](https://github.com/EmilOvcina/vscode-jolievisualize) go to the plugin README, else keep reading:
 
 ### Setting up the visualization config file
 
