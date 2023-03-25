@@ -1,4 +1,4 @@
-import { vscode } from '../data';
+import { interfaces, vscode } from '../data';
 import { openPopup } from '../popup';
 
 /**
@@ -15,7 +15,7 @@ export const createPort = (type: string, service: Service): void => {
 		(vals: { field: string; val: string }[]) => {
 			if (vals.filter((t) => t.val === '' && t.field !== '' && t.field !== 'interfaces').length > 0)
 				return false;
-			const tmp_interfaces = [];
+			const tmp_interfaces: { name: string }[] = [];
 			if (vals.find((t) => t.field === 'interfaces').val.trim() !== '')
 				vals
 					.find((t) => t.field === 'interfaces')
@@ -62,7 +62,9 @@ export const createPort = (type: string, service: Service): void => {
 						name: vals.find((t) => t.field === 'name')?.val.trim(),
 						protocol: vals.find((t) => t.field === 'protocol')?.val.trim(),
 						location: vals.find((t) => t.field === 'location')?.val.trim(),
-						interfaces: vals.find((t) => t.field === 'interfaces')?.val.trim()
+						interfaces: tmp_interfaces.map((t) => {
+							return { file: interfaces.find((i) => i.name === t.name)?.file, name: t.name };
+						})
 					}
 				}
 			});

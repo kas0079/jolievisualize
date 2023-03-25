@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Error from './Error.svelte';
 	import ELK, { type ElkNode } from 'elkjs/lib/elk.bundled';
 	import Edge from './Edge.svelte';
+	import Error from './Error.svelte';
 	import { loading, sendVisData, services, setDataString, vscode } from './lib/data';
 	import { error } from './lib/error';
 	import { createSystemGraph, rerenderGraph } from './lib/graph';

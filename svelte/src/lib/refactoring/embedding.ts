@@ -1,4 +1,4 @@
-import { loading, services, vscode } from '../data';
+import { interfaces, loading, services, vscode } from '../data';
 import { addServiceToNetwork, removeFromNetwork } from '../network';
 import { openPopup } from '../popup';
 import { deepCopyServiceNewId, findRange, getAllServices } from '../service';
@@ -35,6 +35,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 			detail: {
 				filename: parent.file,
 				embedName: service.name,
+				embedFile: service.file,
 				embedPort: service.parentPort,
 				isFirst: false,
 				range: findRange(pport, 'port')
@@ -128,6 +129,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 					detail: {
 						filename: parent.file,
 						embedName: service.name,
+						embedFile: service.file,
 						embedPort: service.parentPort,
 						isFirst: isParentFirst,
 						range: parentRange
@@ -145,7 +147,9 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 							name: newOP.name,
 							location: 'local',
 							protocol: newOP.protocol,
-							interfaces: vals.find((t) => t.field === 'interfaces').val.trim()
+							interfaces: tmp_interfaces.map((t) => {
+								return { file: interfaces.find((i) => i.name === t.name)?.file, name: t.name };
+							})
 						}
 					}
 				});
@@ -163,7 +167,9 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 							name: newIP.name,
 							location: 'local',
 							protocol: newIP.protocol,
-							interfaces: vals.find((t) => t.field === 'interfaces').val.trim()
+							interfaces: tmp_interfaces.map((t) => {
+								return { file: interfaces.find((i) => i.name === t.name)?.file, name: t.name };
+							})
 						}
 					}
 				});

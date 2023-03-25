@@ -1,4 +1,4 @@
-import { sendVisData, services, vscode } from '../data';
+import { interfaces, sendVisData, services, vscode } from '../data';
 import { getServiceNetworkId, removeFromNetwork } from '../network';
 import { openPopup } from '../popup';
 import { getNextId } from '../service';
@@ -49,7 +49,7 @@ export const createAggregator = (svcs: Service[]): void => {
 			if (vals.filter((t) => t.val === '' && t.field !== '').length > 0) return false;
 			//todo validate inputs properly
 			const newIps = svcs.map((s) => {
-				const tmp_interfaces = [];
+				const tmp_interfaces: { name: string }[] = [];
 				vals
 					.find((t) => t.field === `${s.id}${s.name} interfaces`)
 					?.val.split(',')
@@ -74,7 +74,9 @@ export const createAggregator = (svcs: Service[]): void => {
 					isFirst,
 					range,
 					file: p.file,
-					interfaces: vals.find((t) => t.field === `${s.id}${s.name} interfaces`)?.val,
+					interfaces: tmp_interfaces.map((t) => {
+						return { file: interfaces.find((i) => i.name === t.name)?.file, name: t.name };
+					}),
 					location: p.location,
 					protocol: p.protocol,
 					name: p.name
@@ -83,7 +85,7 @@ export const createAggregator = (svcs: Service[]): void => {
 
 			const aggr: { name: string }[] = [];
 			const embeds: Service[] = [];
-			const embeddings: { name: string; port: string }[] = [];
+			const embeddings: { name: string; port: string; file: string }[] = [];
 
 			const newOps: Port[] = svcs.map((s) => {
 				const tmp_interfaces = [];
@@ -92,15 +94,17 @@ export const createAggregator = (svcs: Service[]): void => {
 					?.val.split(',')
 					.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
 				let location = vals.find((t) => t.field === `${s.id}${s.name} location`)?.val;
+				aggr.push({ name: s.name });
 				if (location === 'local') {
-					aggr.push({ name: s.name });
 					location = `!local_${s.id}${s.name}`;
 					embeds.push(s);
-					embeddings.push({ name: s.name, port: s.name });
+					embeddings.push({ name: s.name, port: s.name, file: s.file });
 				}
 				return {
 					file: svcs[0].file,
-					interfaces: tmp_interfaces,
+					interfaces: tmp_interfaces.map((t) => {
+						return { file: interfaces.find((i) => i.name === t.name)?.file, name: t.name };
+					}),
 					location,
 					name: `${s.name}`,
 					protocol: vals.find((t) => t.field === `Aggregator protocol`)?.val
