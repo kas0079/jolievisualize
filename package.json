@@ -1,5 +1,5 @@
 {
-	"name": "jolievisualize",
+	"name": "@ovcina/jolievisualize",
 	"version": "1.0.0",
 	"description": "Tool for visualizing, refactoring and building Jolie projects.",
 	"main": "out/index.js",
