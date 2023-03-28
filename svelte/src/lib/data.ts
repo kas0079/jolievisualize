@@ -43,7 +43,7 @@ export const setDataString = (data: string): void => {
 
 /**
  * Sends a message to vscode with the visualize json string.
- * @returns Promise<void>
+ * @returns void
  */
 export const sendVisData = async (): Promise<void> => {
 	if (!vscode) return;

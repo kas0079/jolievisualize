@@ -37,6 +37,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 				embedName: service.name,
 				embedFile: service.file,
 				embedPort: service.parentPort,
+				embedAs: false,
 				isFirst: false,
 				range: findRange(pport, 'port')
 			}
@@ -138,24 +139,6 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 
 				vscode.postMessage({
 					command: 'create.port',
-					detail: {
-						file: parent.file,
-						range: parentRange,
-						portType: 'outputPort',
-						isFirst: isParentFirst,
-						port: {
-							name: newOP.name,
-							location: 'local',
-							protocol: newOP.protocol,
-							interfaces: tmp_interfaces.map((t) => {
-								return { file: interfaces.find((i) => i.name === t.name)?.file, name: t.name };
-							})
-						}
-					}
-				});
-
-				vscode.postMessage({
-					command: 'create.port',
 					save: true,
 					fromPopup: true,
 					detail: {
@@ -186,11 +169,12 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 /**
  * Disembeds a service from its current embedding.
  * Removes the local ports and sends the corresponding information to vscode.
- * @param service Service to disembev
+ * @param service Service to disembed
  * @param embed_subroutine if this function is called by 'embed' set to true
  */
 export const disembed = async (service: Service, embed_subroutine = false): Promise<void> => {
 	if (!service.parent) return;
+
 	const parent = service.parent;
 	const otherInstances = getAllServices(services).filter(
 		(t) => t.name === service.name && t.file === service.file && t.id !== service.id
@@ -200,22 +184,23 @@ export const disembed = async (service: Service, embed_subroutine = false): Prom
 	const parentPort = parent.outputPorts.find((t) => t.name === service.parentPort);
 	const parentPortName = parentPort?.name;
 
-	const portsToRemove = service.inputPorts
-		? service.inputPorts
-				.filter(
-					(ip) =>
-						ip.location === parentPort.location &&
-						(ip.location === 'local' || ip.location.startsWith('!local'))
-				)
-				.map((ip) => {
-					return {
-						portName: ip.name,
-						filename: ip.file,
-						portType: 'inputPort',
-						range: findRange(ip, 'port')
-					};
-				})
-		: [];
+	const portsToRemove =
+		service.inputPorts && parentPort
+			? service.inputPorts
+					.filter(
+						(ip) =>
+							ip.location === parentPort.location &&
+							(ip.location === 'local' || ip.location.startsWith('!local'))
+					)
+					.map((ip) => {
+						return {
+							portName: ip.name,
+							filename: ip.file,
+							portType: 'inputPort',
+							range: findRange(ip, 'port')
+						};
+					})
+			: [];
 
 	if (parentPort && parentPort.location.startsWith('!local')) {
 		portsToRemove.push({

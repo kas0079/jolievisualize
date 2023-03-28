@@ -177,10 +177,11 @@ public class SystemInspector {
                 Service emb = createService(esn.service(), null);
                 s.addCodeRange(getEmbedCodeRange(esn));
                 emb.setParent(s);
-                emb.setBindingPortName(esn.bindingPort().id());
                 s.addChild(emb);
                 if (emb.getUri() != null)
                     s.addDependencyFile(emb.getUri());
+                if (esn.hasBindingPort())
+                    emb.setBindingPortName(esn.bindingPort().id());
             }
         }
         for (OLSyntaxNode ol : sn.program().children()) {
@@ -605,9 +606,13 @@ public class SystemInspector {
      * @return CodeRange which spans over the embed line in the code.
      */
     private CodeRange getEmbedCodeRange(EmbedServiceNode esn) {
-        return new CodeRange("embed_" + esn.serviceName(), esn.bindingPort().context().startLine(),
-                esn.bindingPort().context().endLine(), esn.context().startColumn(),
-                esn.bindingPort().context().endColumn());
+        return esn.hasBindingPort()
+                ? new CodeRange("embed_" + esn.serviceName(), esn.bindingPort().context().startLine(),
+                        esn.bindingPort().context().endLine(), esn.context().startColumn(),
+                        esn.bindingPort().context().endColumn())
+                : new CodeRange("embed_" + esn.serviceName(), esn.context().startLine(), esn.context().endLine(),
+                        esn.context().startColumn(), esn.context().endColumn());
+
     }
 
     /**

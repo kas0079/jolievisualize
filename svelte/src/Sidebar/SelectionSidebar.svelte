@@ -67,7 +67,7 @@
 	<ul class="mb-4 list-disc mx-6">
 		{#each serviceList as svc}
 			<li class="text-xl my-2">
-				{svc.id}: {svc.name}
+				{svc.name}
 			</li>
 		{/each}
 	</ul>

@@ -74,10 +74,10 @@ const connectEmbeds = (service: Service): void => {
 	if (service.embeddings === undefined) return;
 	service.embeddings.forEach((embed) => {
 		connectEmbeds(embed);
+		embed.parent = service;
 
 		const corrOutputPort = service.outputPorts?.find((t) => embed.parentPort === t.name);
 		if (corrOutputPort === undefined) return;
-		embed.parent = service;
 
 		const corrInputPort = embed.inputPorts?.find(
 			(t) => t.location === 'local' && sharesInterface(t, corrOutputPort)

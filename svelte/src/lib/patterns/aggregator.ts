@@ -87,29 +87,31 @@ export const createAggregator = (svcs: Service[]): void => {
 			const embeds: Service[] = [];
 			const embeddings: { name: string; port: string; file: string }[] = [];
 
-			const newOps: Port[] = svcs.map((s) => {
-				const tmp_interfaces = [];
-				vals
-					.find((t) => t.field === `${s.id}${s.name} interfaces`)
-					?.val.split(',')
-					.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
-				let location = vals.find((t) => t.field === `${s.id}${s.name} location`)?.val;
-				aggr.push({ name: s.name });
-				if (location === 'local') {
-					location = `!local_${s.id}${s.name}`;
-					embeds.push(s);
-					embeddings.push({ name: s.name, port: s.name, file: s.file });
-				}
-				return {
-					file: svcs[0].file,
-					interfaces: tmp_interfaces.map((t) => {
-						return { file: interfaces.find((i) => i.name === t.name)?.file, name: t.name };
-					}),
-					location,
-					name: `${s.name}`,
-					protocol: vals.find((t) => t.field === `Aggregator protocol`)?.val
-				};
-			});
+			const newOps: Port[] = svcs
+				.map((s) => {
+					const tmp_interfaces = [];
+					vals
+						.find((t) => t.field === `${s.id}${s.name} interfaces`)
+						?.val.split(',')
+						.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
+					let location = vals.find((t) => t.field === `${s.id}${s.name} location`)?.val;
+					aggr.push({ name: s.name });
+					if (location === 'local') {
+						location = `!local_${s.id}${s.name}`;
+						embeds.push(s);
+						embeddings.push({ name: s.name, port: s.name, file: s.file });
+					}
+					return {
+						file: svcs[0].file,
+						interfaces: tmp_interfaces.map((t) => {
+							return { file: interfaces.find((i) => i.name === t.name)?.file, name: t.name };
+						}),
+						location,
+						name: `${s.name}`,
+						protocol: vals.find((t) => t.field === `Aggregator protocol`)?.val
+					};
+				})
+				.filter((t) => !t.location.startsWith('!local'));
 
 			const newAggrPort: Port = {
 				file: svcs[0].file,

@@ -1,6 +1,6 @@
 # Jolievisualize
 
-Visualize, refactor and build [Jolie](https://www.jolie-lang.org) projects!
+Visualize and refactor [Jolie](https://www.jolie-lang.org) projects!
 
 The tool is primarily an extension to a [vscode plugin](https://github.com/EmilOvcina/vscode-jolievisualize) so installing this tool separately is not recommended since the refactoring capabilities are not supported without the vscode plugin. Visualization and building are still supported using this without the vscode plugin.
 
@@ -10,7 +10,7 @@ The tool is primarily an extension to a [vscode plugin](https://github.com/EmilO
 
 -   It is required that Jolie, version 1.11.0-git, is set up correctly. Look [here](https://www.jolie-lang.org/downloads.html) for further explanation on how to set up Jolie correctly.
 
-*   A JSON configuration file is used for getting information about the top-level services and networks. See the section on how to set up the visualization file.
+*   A JSON configuration file is used for getting information about the top-level services and networks. See the section on how to set up the architecture file.
 
 ## Installation
 
@@ -26,9 +26,9 @@ npm install @ovcina/jolievisualize
 
 If this tool is being used with the [vscode plugin](https://github.com/EmilOvcina/vscode-jolievisualize) go to the plugin README, else keep reading:
 
-### Setting up the visualization config file
+### Setting up the config file
 
-Create a file called `visualize.jolie.json` at the root of the project. Paste this skeleton config JSON into the file:
+Create a file called `architecture.jolie.json` at the root of the project. Paste this skeleton config JSON into the file:
 
 ```JSON
 [
@@ -40,31 +40,31 @@ Create a file called `visualize.jolie.json` at the root of the project. Paste th
 
 Change the name and file name to a relevant service name the file which contains the service.
 
-Further configurations of the visualization file can be found under the _Visualize JSON File Structure_ section
+Further configurations of the architecture file can be found under the _Architecture JSON File Structure_ section
 
 ### Commands
 
 #### Visualize
 
 ```bash
-npx jolievisualize <path/to/visualize.json>
+npx jolievisualize <path/to/architecture.json>
 ```
 
-#### Build
+#### Generate Development Environment
 
 ```bash
-npx jvbuild <path/to/visualize.json> [path/to/buildfolder] [method]
+npx jvbuild <path/to/architecture.json> [path/to/folder] [method]
 ```
 
-Default build folder: `./build`
+Default folder: `./build`
 
-Default build method: `docker-compose`
+Default method: `docker-compose`
 
 ## Dependencies
 
 When the tool is being used without the vscode plugin, express is used to serve the UI as static assets and an endpoint, `/data`, is used to get the project data needed for visualization.
 
-## Visualize JSON File Structure
+## Architecture JSON File Structure
 
 The file contains an array of arrays of services. Each array in the enveloping array represents a network.
 
@@ -89,7 +89,7 @@ Here is a table of possible fields for a service:
 
 | **Field** | **Description**                                                                     | **Type**       | **Example**                                       |
 | --------- | ----------------------------------------------------------------------------------- | -------------- | ------------------------------------------------- |
-| file      | The location of a Jolie file relative to the visualization file                     | String         | `main.ol`                                         |
+| file      | The location of a Jolie file relative to the architecture file                      | String         | `main.ol`                                         |
 | target    | Name of the service in the file                                                     | String         | `MainService`                                     |
 | name      | Name of the service in the file                                                     | String         | `MainService`                                     |
 | instances | Number of instances of the service to be visualized                                 | Long           | `2`                                               |
