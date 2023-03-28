@@ -86,6 +86,7 @@ const generateVisFile = (): VisFile => {
 			if (svc.params) tld.params = svc.params;
 			else if (svc.paramFile) tld.params = svc.paramFile;
 			if (svc.env) tld.env = svc.env;
+			if (svc.ports) tld.ports = makeDockerPorts(svc.ports);
 			if (svc.volumes && svc.volumes.length > 0) tld.volumes = svc.volumes;
 			if (!tldIncludes(tldList, tld)) tldList.push(tld);
 		});
