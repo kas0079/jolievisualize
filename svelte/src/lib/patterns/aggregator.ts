@@ -64,6 +64,12 @@ export const createAggregator = (svcs: Service[]): void => {
 					name: vals.find((t) => t.field === `Aggregator name`)?.val,
 					protocol: vals.find((t) => t.field === `Aggregator protocol`)?.val
 				};
+				if (
+					!location.startsWith('!local') &&
+					s.inputPorts &&
+					s.inputPorts.find((t) => t.location === p.location)
+				)
+					return undefined;
 				const isFirst = s.inputPorts === undefined || s.inputPorts.length === 0;
 				const range = isFirst
 					? s.ranges.find((t) => t.name === 'svc_name').range
@@ -98,6 +104,7 @@ export const createAggregator = (svcs: Service[]): void => {
 					aggr.push({ name: s.name });
 					if (location === 'local') {
 						location = `!local_${s.id}${s.name}`;
+						s.parentPort = s.name;
 						embeds.push(s);
 						embeddings.push({ name: s.name, port: s.name, file: s.file });
 					}
@@ -111,7 +118,7 @@ export const createAggregator = (svcs: Service[]): void => {
 						protocol: vals.find((t) => t.field === `Aggregator protocol`)?.val
 					};
 				})
-				.filter((t) => !t.location.startsWith('!local'));
+				.filter((t) => !vscode || !t.location.startsWith('!local'));
 
 			const newAggrPort: Port = {
 				file: svcs[0].file,

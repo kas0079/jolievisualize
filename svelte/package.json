@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
-		"build": "mkdir -p ../web && cp ./index.html ../web/index.html && webpack --node-env=production --config ./webpack.config.cjs",
-		"dev": "mkdir -p ../web && cp ./index.html ../web/index.html && webpack --watch"
+		"build": "mkdir -p ../web && cp ./favicon.ico ../web/favicon.ico && cp ./index.html ../web/index.html && webpack --node-env=production --config ./webpack.config.cjs",
+		"dev": "mkdir -p ../web && cp ./favicon.ico ../web/favicon.ico && cp ./index.html ../web/index.html && webpack --watch"
 	},
 	"keywords": [],
 	"author": "",
