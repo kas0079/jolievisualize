@@ -24,6 +24,17 @@ export const openTypeSidebar = (typename: string): void => {
 };
 
 /**
+ * Opens a type in the sidebar given the type objecs.
+ * @param type type to open in sidebar.
+ */
+export const openTypeObjectInSidebar = (type: Type): void => {
+	if (type === undefined) return;
+	const sbElemt = new SidebarElement(3, type.name);
+	sbElemt.type = type;
+	openSidebar(sbElemt);
+};
+
+/**
  * Displays interface information in the sidebar given the name of the interface
  * @param interfName Name of interface
  */

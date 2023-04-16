@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
+import jolie.util.Pair;
+
 public class Type {
     private String name;
     private String type;
@@ -16,6 +18,7 @@ public class Type {
     private String rightType;
 
     private String uri;
+    private Pair<Integer, Integer> cardinality;
 
     @Override
     public boolean equals(Object o) {
@@ -45,6 +48,13 @@ public class Type {
 
         if (uri != null && uri.length() > 0)
             map.put("file", uri);
+
+        if (cardinality != null) {
+            Map<String, Object> cardTmp = new HashMap<>();
+            cardTmp.put("min", "" + cardinality.key());
+            cardTmp.put("max", cardinality.value() == Integer.MAX_VALUE ? "*" : ("" + cardinality.value()));
+            map.put("cardinality", cardTmp);
+        }
 
         if (subtypes.size() > 0) {
             List<JSONObject> subtypesTmp = new ArrayList<>();
@@ -99,5 +109,9 @@ public class Type {
 
     public void setType(String name) {
         this.type = name;
+    }
+
+    public void setCardinality(int min, int max) {
+        this.cardinality = new Pair<Integer, Integer>(min, max);
     }
 }

@@ -65,6 +65,7 @@ type Type = {
 	file: string;
 	leftType?: string;
 	rightType?: string;
+	cardinality?: { min: string; max: string };
 };
 
 type Port = {

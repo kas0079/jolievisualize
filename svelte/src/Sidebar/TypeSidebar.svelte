@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { openTypeSidebar } from '../lib/sidebar';
+	import { openTypeObjectInSidebar, openTypeSidebar } from '../lib/sidebar';
 
 	export let type: Type;
 
@@ -39,6 +39,18 @@
 </h1>
 <h4 class="text-2xl mb-2">Type: Type</h4>
 <h4 class="text-2xl mb-2">Root Type: {type.type ?? 'void'}</h4>
+{#if type.cardinality}
+	<h4 class="text-2xl mb-2">
+		Cardinality:
+		{#if type.cardinality.min === '0' && type.cardinality.max === '1'}
+			?
+		{:else if type.cardinality.min === '0' && type.cardinality.max === '*'}
+			*
+		{:else}
+			[{type.cardinality.min} , {type.cardinality.max}]
+		{/if}
+	</h4>
+{/if}
 {#if type.leftType && type.rightType}
 	<h4 class="text-2xl mb-2">
 		Left Type: <span
@@ -61,12 +73,22 @@
 	<ul class="mb-4 list-disc mx-6">
 		{#each type.subTypes as st}
 			<li class="text-xl my-2">
-				{st.name}: {st.type}
+				{st.name}
+				{#if st.cardinality}
+					{#if st.cardinality.min === '0' && st.cardinality.max === '1'}
+						?
+					{:else if st.cardinality.min === '0' && st.cardinality.max === '*'}
+						*
+					{:else}
+						[{st.cardinality.min} , {st.cardinality.max}]
+					{/if}
+				{/if}
+				: {st.type ?? 'void'}
 				{#if st.subTypes && st.subTypes.length > 0}
 					<span
 						class="cursor-pointer"
-						on:click={() => openTypeSidebar(st.name)}
-						on:keydown={() => openTypeSidebar(st.name)}>{'{...subtypes}'}</span
+						on:click={() => openTypeObjectInSidebar(st)}
+						on:keydown={() => openTypeObjectInSidebar(st)}>{'{...subtypes}'}</span
 					>
 				{/if}
 			</li>

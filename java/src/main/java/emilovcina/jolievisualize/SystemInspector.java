@@ -500,6 +500,8 @@ public class SystemInspector {
      */
     private Type createType(TypeDefinition td, Service svc) {
         Type type = new Type();
+        if (!(td.cardinality().min() == 1 && td.cardinality().max() == 1))
+            type.setCardinality(td.cardinality().min(), td.cardinality().max());
         if (td instanceof TypeDefinitionLink) {
             TypeDefinitionLink tdl = (TypeDefinitionLink) td;
             type.setName(tdl.simpleName());
