@@ -1,0 +1,15 @@
+[
+	[
+		{ "file": "/order/main.ol", "target": "Order", "instances": 1 },
+		{ "file": "/analytics/main.ol" },
+		{ "file": "/payment/main.ol" },
+		{ "file": "/notification/main.ol" },
+		{ "file": "/product/main.ol", "target": "Product", "instances": 1 },
+		{
+			"file": "/recommendation/main.ol",
+			"target": "Recommendation",
+			"instances": 1
+		},
+		{ "file": "/user/main.ol", "target": "User", "instances": 1 }
+	]
+]

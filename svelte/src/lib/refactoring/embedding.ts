@@ -44,6 +44,39 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 		});
 		return;
 	}
+	const localPort = service.inputPorts.find((t) => t.location === 'local');
+	if (localPort) {
+		await disembed(service);
+		service.parentPort = service.name;
+		service.parent = parent;
+		parent.embeddings.push(service);
+		localPort.location = `!local_${service.id}${service.name}`;
+		parent.outputPorts.push({
+			name: service.name,
+			file: parent.name,
+			location: `!local_${service.id}${service.name}`,
+			protocol: 'sodep'
+		});
+		const isParentFirst = parent.outputPorts.length === 0;
+		const parentRange = isParentFirst
+			? findRange(parent, 'svc_name')
+			: findRange(parent.outputPorts[0], 'port');
+		if (!vscode) return;
+		vscode.postMessage({
+			command: 'create.embed',
+			save: true,
+			detail: {
+				filename: parent.file,
+				embedName: service.name,
+				embedFile: service.file,
+				embedPort: service.parentPort,
+				embedAs: true,
+				isFirst: isParentFirst,
+				range: parentRange
+			}
+		});
+		return;
+	}
 	openPopup(
 		` Create new local ports for ${service.name} and ${parent.name} `,
 		[
@@ -177,7 +210,11 @@ export const disembed = async (service: Service, embed_subroutine = false): Prom
 
 	const parent = service.parent;
 	const otherInstances = getAllServices(services).filter(
-		(t) => t.name === service.name && t.file === service.file && t.id !== service.id
+		(t) =>
+			t.name === service.name &&
+			t.file === service.file &&
+			t.id !== service.id &&
+			t.parentPort == service.parentPort
 	);
 	service.parent = undefined;
 
@@ -224,7 +261,7 @@ export const disembed = async (service: Service, embed_subroutine = false): Prom
 		otherInstances.forEach((oi) => {
 			if (oi.inputPorts)
 				oi.inputPorts = oi.inputPorts.filter((t) => !containsPortToRemove(t, portsToRemove));
-			if (oi.parent) {
+			if (oi.parent && oi.parent.name === parent.name && oi.parent.file === parent.file) {
 				if (parent.file !== oi.parent.file || oi.parent.name !== parent.name) return;
 				if (oi.parent.outputPorts)
 					oi.parent.outputPorts = oi.parent.outputPorts.filter((t) => t.name !== parentPortName);
@@ -285,7 +322,7 @@ const getParentPortName = (inSvc: Service, outSvc: Service): string | undefined 
 	outSvc.outputPorts.forEach((op) => {
 		if (res) return;
 		inSvc.inputPorts.forEach((ip) => {
-			if (ip.location === op.location) {
+			if (ip.location === op.location && ip.protocol === op.protocol) {
 				res = op.name;
 				return;
 			}
