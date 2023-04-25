@@ -2,7 +2,15 @@
 	import ELK, { type ElkNode } from 'elkjs/lib/elk.bundled';
 	import Edge from './Edge.svelte';
 	import Error from './Error.svelte';
-	import { loading, sendVisData, services, setDataString, types, vscode } from './lib/data';
+	import {
+		interfaces,
+		loading,
+		sendVisData,
+		services,
+		setDataString,
+		types,
+		vscode
+	} from './lib/data';
 	import { error } from './lib/error';
 	import { createSystemGraph, rerenderGraph } from './lib/graph';
 	import { closePopup, current_popup } from './lib/popup';
@@ -94,9 +102,6 @@
 	 * @param event keyboard event
 	 */
 	const handleKeyboard = async (event: KeyboardEvent): Promise<void> => {
-		if (event.key === '.') {
-			console.log(types);
-		}
 		//close sidebar & popup
 		if (event.key === 'Escape') {
 			if ($current_sidebar_element.hist_type >= 0 && $current_popup.title === '') {

@@ -52,9 +52,13 @@ type Service = {
 
 type Interface = {
 	name: string;
-	reqres: { name: string; req: string; res: string }[];
-	oneway: { name: string; req: string }[];
-	types: Type[];
+	id: number;
+	reqres: {
+		name: string;
+		req: { name: string; file: string };
+		res: { name: string; file: string };
+	}[];
+	oneway: { name: string; file: string; req: { name: string; file: string } }[];
 	file: string;
 };
 

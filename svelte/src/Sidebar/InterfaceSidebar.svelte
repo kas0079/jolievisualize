@@ -46,15 +46,15 @@
 			<li class="text-xl my-2">
 				{rr.name} -
 				<span
-					class={primitives.includes(rr.req.toLowerCase()) ? '' : 'cursor-pointer'}
-					on:click={() => openTypeSidebar(rr.req)}
-					on:keydown={() => openTypeSidebar(rr.req)}>{rr.req}</span
+					class={primitives.includes(rr.req.name.toLowerCase()) ? '' : 'cursor-pointer'}
+					on:click={() => openTypeSidebar(rr.req.name, rr.req.file)}
+					on:keydown={() => openTypeSidebar(rr.req.name, rr.req.file)}>{rr.req.name}</span
 				>
 				,
 				<span
-					class={primitives.includes(rr.res.toLowerCase()) ? '' : 'cursor-pointer'}
-					on:click={() => openTypeSidebar(rr.res)}
-					on:keydown={() => openTypeSidebar(rr.res)}>{rr.res}</span
+					class={primitives.includes(rr.res.name.toLowerCase()) ? '' : 'cursor-pointer'}
+					on:click={() => openTypeSidebar(rr.res.name, rr.res.file)}
+					on:keydown={() => openTypeSidebar(rr.res.name, rr.res.file)}>{rr.res.name}</span
 				>
 			</li>
 		{/each}
@@ -68,9 +68,9 @@
 			<li class="text-xl cursor-pointer my-2">
 				{ow.name} -
 				<span
-					class={primitives.includes(ow.req.toLowerCase()) ? '' : 'cursor-pointer'}
-					on:click={() => openTypeSidebar(ow.req)}
-					on:keydown={() => openTypeSidebar(ow.req)}>{ow.req}</span
+					class={primitives.includes(ow.req.name.toLowerCase()) ? '' : 'cursor-pointer'}
+					on:click={() => openTypeSidebar(ow.req.name, ow.req.file)}
+					on:keydown={() => openTypeSidebar(ow.req.name, ow.req.file)}>{ow.req.name}</span
 				>
 			</li>
 		{/each}

@@ -12,9 +12,9 @@ export const primitives = ['int', 'void', 'string', 'double', 'bool', 'long', 'r
  * Opens a type in the sidebar given a name of the type
  * @param typename Name of type
  */
-export const openTypeSidebar = (typename: string): void => {
+export const openTypeSidebar = (typename: string, typefile?: string): void => {
 	if (primitives.includes(typename.toLowerCase())) return;
-	const type = types.find((t) => t.name === typename);
+	const type = types.find((t) => t.name === typename && (!typefile || t.file === typefile));
 
 	if (type === undefined) return;
 

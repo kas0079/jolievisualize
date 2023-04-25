@@ -1,6 +1,7 @@
 package emilovcina.jolievisualize;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -348,12 +349,15 @@ public class SystemInspector {
     private Interface createInterfaceExtender(InterfaceExtenderDefinition ied, Service svc) {
         Interface i = createInterface(ied, svc);
         if (ied.defaultRequestResponseOperation() != null) {
-            i.addRequestResponse(ied.defaultRequestResponseOperation());
+            i.addRequestResponse(ied.defaultRequestResponseOperation(),
+                    new Pair<String, String>(getLocalUri(ied.defaultRequestResponseOperation().requestType().context()),
+                            getLocalUri(ied.defaultRequestResponseOperation().responseType().context())));
             system.addTypeIfUnique(createType(ied.defaultRequestResponseOperation().requestType(), svc));
             system.addTypeIfUnique(createType(ied.defaultRequestResponseOperation().responseType(), svc));
         }
         if (ied.defaultOneWayOperation() != null) {
-            i.addOneWay(ied.defaultOneWayOperation());
+            i.addOneWay(ied.defaultOneWayOperation(),
+                    getLocalUri(ied.defaultOneWayOperation().requestType().context()));
             system.addTypeIfUnique(createType(ied.defaultOneWayOperation().requestType(), svc));
         }
         return i;
@@ -455,11 +459,12 @@ public class SystemInspector {
                 result.setUri(getLocalUri(v.context()));
             if (v instanceof RequestResponseOperationDeclaration) {
                 RequestResponseOperationDeclaration rrd = (RequestResponseOperationDeclaration) v;
-                result.addRequestResponse(rrd);
+                result.addRequestResponse(rrd, new Pair<String, String>(getLocalUri(rrd.requestType().context()),
+                        getLocalUri(rrd.responseType().context())));
                 addRRType(rrd, svc);
             } else if (v instanceof OneWayOperationDeclaration) {
                 OneWayOperationDeclaration owod = (OneWayOperationDeclaration) v;
-                result.addOneWay(owod);
+                result.addOneWay(owod, getLocalUri(owod.requestType().context()));
                 addOOType(owod, svc);
             }
         });
@@ -567,7 +572,9 @@ public class SystemInspector {
             RequestResponseOperationDeclaration checkRR = (RequestResponseOperationDeclaration) od;
             for (int i = 0; i < system.getInterfaces().size(); i++) {
                 for (int j = 0; j < system.getInterfaces().get(i).getRROperations().size(); j++) {
-                    RequestResponseOperationDeclaration rr = system.getInterfaces().get(i).getRROperations().get(j);
+                    List<RequestResponseOperationDeclaration> rrList = new ArrayList<>(
+                            system.getInterfaces().get(i).getRROperations().keySet());
+                    RequestResponseOperationDeclaration rr = rrList.get(i);
                     if (rr.id().equals(checkRR.id()) && rr.requestType().isEquivalentTo(checkRR.requestType())
                             && rr.responseType().isEquivalentTo(checkRR.responseType()))
                         return true;
@@ -577,7 +584,9 @@ public class SystemInspector {
             OneWayOperationDeclaration checkOW = (OneWayOperationDeclaration) od;
             for (int i = 0; i < system.getInterfaces().size(); i++) {
                 for (int j = 0; j < system.getInterfaces().get(i).getOWOperations().size(); j++) {
-                    OneWayOperationDeclaration ow = system.getInterfaces().get(i).getOWOperations().get(j);
+                    List<OneWayOperationDeclaration> owList = new ArrayList<>(
+                            system.getInterfaces().get(i).getOWOperations().keySet());
+                    OneWayOperationDeclaration ow = owList.get(j);
                     if (ow.id().equals(checkOW.id()) && ow.requestType().isEquivalentTo(checkOW.requestType()))
                         return true;
                 }

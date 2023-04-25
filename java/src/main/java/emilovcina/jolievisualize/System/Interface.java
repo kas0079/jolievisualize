@@ -9,13 +9,13 @@ import org.json.simple.JSONObject;
 
 import jolie.lang.parse.ast.OneWayOperationDeclaration;
 import jolie.lang.parse.ast.RequestResponseOperationDeclaration;
+import jolie.util.Pair;
 
 public class Interface {
     private String name;
     private long id;
-    private List<RequestResponseOperationDeclaration> reqres = new ArrayList<>();
-    private List<OneWayOperationDeclaration> oneway = new ArrayList<>();
-
+    private Map<RequestResponseOperationDeclaration, Pair<String, String>> reqres = new HashMap<>();
+    private Map<OneWayOperationDeclaration, String> oneway = new HashMap<>();
     private String uri;
 
     public Interface(long id, String name) {
@@ -52,11 +52,17 @@ public class Interface {
 
         if (reqres.size() > 0) {
             List<JSONObject> reqresList = new ArrayList<>();
-            for (RequestResponseOperationDeclaration rr : reqres) {
+            for (RequestResponseOperationDeclaration rr : reqres.keySet()) {
                 Map<String, Object> rrsObj = new HashMap<>();
                 rrsObj.put("name", rr.id());
-                rrsObj.put("req", rr.requestType().name());
-                rrsObj.put("res", rr.responseType().name());
+                Map<String, Object> reqType = new HashMap<>();
+                Map<String, Object> resType = new HashMap<>();
+                reqType.put("name", rr.requestType().name());
+                reqType.put("file", reqres.get(rr).key());
+                resType.put("name", rr.responseType().name());
+                resType.put("file", reqres.get(rr).value());
+                rrsObj.put("req", new JSONObject(reqType));
+                rrsObj.put("res", new JSONObject(resType));
                 reqresList.add(new JSONObject(rrsObj));
             }
             obj.put("reqres", reqresList);
@@ -64,10 +70,13 @@ public class Interface {
 
         if (oneway.size() > 0) {
             List<JSONObject> onewayList = new ArrayList<>();
-            for (OneWayOperationDeclaration ow : oneway) {
+            for (OneWayOperationDeclaration ow : oneway.keySet()) {
                 Map<String, Object> owsObj = new HashMap<>();
                 owsObj.put("name", ow.id());
-                owsObj.put("req", ow.requestType().name());
+                Map<String, Object> reqType = new HashMap<>();
+                reqType.put("name", ow.requestType().name());
+                reqType.put("file", oneway.get(ow));
+                owsObj.put("req", new JSONObject(reqType));
                 onewayList.add(new JSONObject(owsObj));
             }
             obj.put("oneway", onewayList);
@@ -80,12 +89,12 @@ public class Interface {
      * =============================================
      * LIST ADDERS:
      */
-    public void addRequestResponse(RequestResponseOperationDeclaration rrod) {
-        reqres.add(rrod);
+    public void addRequestResponse(RequestResponseOperationDeclaration rrod, Pair<String, String> filePair) {
+        reqres.put(rrod, filePair);
     }
 
-    public void addOneWay(OneWayOperationDeclaration ood) {
-        oneway.add(ood);
+    public void addOneWay(OneWayOperationDeclaration ood, String file) {
+        oneway.put(ood, file);
     }
 
     /**
@@ -108,11 +117,11 @@ public class Interface {
         this.uri = uri;
     }
 
-    public List<RequestResponseOperationDeclaration> getRROperations() {
+    public Map<RequestResponseOperationDeclaration, Pair<String, String>> getRROperations() {
         return this.reqres;
     }
 
-    public List<OneWayOperationDeclaration> getOWOperations() {
+    public Map<OneWayOperationDeclaration, String> getOWOperations() {
         return this.oneway;
     }
 }
