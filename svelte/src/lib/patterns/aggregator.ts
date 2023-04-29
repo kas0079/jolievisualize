@@ -48,46 +48,48 @@ export const createAggregator = (svcs: Service[]): void => {
 		async (vals: { field: string; val: string }[]) => {
 			if (vals.filter((t) => t.val === '' && t.field !== '').length > 0) return false;
 			//todo validate inputs properly
-			const newIps = svcs.map((s) => {
-				const tmp_interfaces: { name: string }[] = [];
-				vals
-					.find((t) => t.field === `${s.id}${s.name} interfaces`)
-					?.val.split(',')
-					.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
+			const newIps = svcs
+				.map((s) => {
+					const tmp_interfaces: { name: string }[] = [];
+					vals
+						.find((t) => t.field === `${s.id}${s.name} interfaces`)
+						?.val.split(',')
+						.forEach((str) => tmp_interfaces.push({ name: str.trim() }));
 
-				let location = vals.find((t) => t.field === `${s.id}${s.name} location`)?.val;
-				if (location === 'local') location = `!local_${s.id}${s.name}`;
-				const p = {
-					file: s.file,
-					interfaces: tmp_interfaces,
-					location,
-					name: vals.find((t) => t.field === `Aggregator name`)?.val,
-					protocol: vals.find((t) => t.field === `Aggregator protocol`)?.val
-				};
-				if (
-					!location.startsWith('!local') &&
-					s.inputPorts &&
-					s.inputPorts.find((t) => t.location === p.location)
-				)
-					return undefined;
-				const isFirst = s.inputPorts === undefined || s.inputPorts.length === 0;
-				const range = isFirst
-					? s.ranges.find((t) => t.name === 'svc_name').range
-					: s.inputPorts[0].ranges.find((t) => t.name === 'port').range;
-				if (!s.inputPorts) s.inputPorts = [];
-				s.inputPorts.push(p);
-				return {
-					isFirst,
-					range,
-					file: p.file,
-					interfaces: tmp_interfaces.map((t) => {
-						return { file: interfaces.find((i) => i.name === t.name)?.file, name: t.name };
-					}),
-					location: p.location,
-					protocol: p.protocol,
-					name: p.name
-				};
-			});
+					let location = vals.find((t) => t.field === `${s.id}${s.name} location`)?.val;
+					if (location === 'local') location = `!local_${s.id}${s.name}`;
+					const p = {
+						file: s.file,
+						interfaces: tmp_interfaces,
+						location,
+						name: vals.find((t) => t.field === `Aggregator name`)?.val,
+						protocol: vals.find((t) => t.field === `Aggregator protocol`)?.val
+					};
+					if (
+						!location.startsWith('!local') &&
+						s.inputPorts &&
+						s.inputPorts.find((t) => t.location === p.location)
+					)
+						return undefined;
+					const isFirst = s.inputPorts === undefined || s.inputPorts.length === 0;
+					const range = isFirst
+						? s.ranges.find((t) => t.name === 'svc_name').range
+						: s.inputPorts[0].ranges.find((t) => t.name === 'port').range;
+					if (!s.inputPorts) s.inputPorts = [];
+					s.inputPorts.push(p);
+					return {
+						isFirst,
+						range,
+						file: p.file,
+						interfaces: tmp_interfaces.map((t) => {
+							return { file: interfaces.find((i) => i.name === t.name)?.file, name: t.name };
+						}),
+						location: p.location,
+						protocol: p.protocol,
+						name: p.name
+					};
+				})
+				.filter((t) => t !== undefined);
 
 			const aggr: { name: string }[] = [];
 			const embeds: Service[] = [];

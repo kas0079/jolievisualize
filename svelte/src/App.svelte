@@ -2,24 +2,16 @@
 	import ELK, { type ElkNode } from 'elkjs/lib/elk.bundled';
 	import Edge from './Edge.svelte';
 	import Error from './Error.svelte';
-	import {
-		interfaces,
-		loading,
-		sendVisData,
-		services,
-		setDataString,
-		types,
-		vscode
-	} from './lib/data';
+	import Network from './Network.svelte';
+	import Popup from './Popup.svelte';
+	import Sidebar from './Sidebar/Sidebar.svelte';
+	import Zoom from './Zoom.svelte';
+	import { loading, sendVisData, services, setDataString, vscode } from './lib/data';
 	import { error } from './lib/error';
 	import { createSystemGraph, rerenderGraph } from './lib/graph';
 	import { closePopup, current_popup } from './lib/popup';
 	import { handleExpandServiceEvent, handleShrinkServiceEvent, updateRanges } from './lib/service';
 	import { clearSidebar, current_sidebar_element } from './lib/sidebar';
-	import Network from './Network.svelte';
-	import Popup from './Popup.svelte';
-	import Sidebar from './Sidebar/Sidebar.svelte';
-	import Zoom from './Zoom.svelte';
 
 	const elk = new ELK();
 	let currentGraph: ElkNode | undefined;

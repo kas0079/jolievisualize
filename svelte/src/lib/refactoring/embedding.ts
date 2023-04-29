@@ -21,6 +21,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	const otherInstances = getAllServices(services).filter(
 		(t) => t.name === service.name && t.file === service.file && t.id !== service.id
 	);
+	if (otherInstances.find((t) => t.parent && t.parent.id === parent.id)) return;
 	//if a non-local port already exists between the two services
 	if (parentPort) {
 		await disembed(service);
