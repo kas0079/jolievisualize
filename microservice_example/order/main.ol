@@ -1,6 +1,7 @@
 from ..notification.notificationInterface import NotificationIFace
 from ..analytics.analyticsInterface import AnalyticsIFace
 from ..payment.paymentInterface import PaymentIFace
+from .orderInterface import OrderIFace
 
 service Order {
     execution{ concurrent }

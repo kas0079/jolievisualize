@@ -574,7 +574,7 @@ public class SystemInspector {
                 for (int j = 0; j < system.getInterfaces().get(i).getRROperations().size(); j++) {
                     List<RequestResponseOperationDeclaration> rrList = new ArrayList<>(
                             system.getInterfaces().get(i).getRROperations().keySet());
-                    RequestResponseOperationDeclaration rr = rrList.get(i);
+                    RequestResponseOperationDeclaration rr = rrList.get(j);
                     if (rr.id().equals(checkRR.id()) && rr.requestType().isEquivalentTo(checkRR.requestType())
                             && rr.responseType().isEquivalentTo(checkRR.responseType()))
                         return true;

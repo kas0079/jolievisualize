@@ -8,7 +8,7 @@ service Product {
     inputPort IP {
         Location: "socket://localhost:7777"
         Protocol: sodep
-        Interfaces: ProductInterface
+        Interfaces: ProductIFace
     }
 
     outputPort Analytics {

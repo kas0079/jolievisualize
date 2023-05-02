@@ -59,7 +59,8 @@ public class JolieSystem {
      */
     public Type addTypeIfUnique(Type type) {
         for (int i = 0; i < listOfTypes.size(); i++)
-            if (listOfTypes.get(i).equals(type))
+            if (listOfTypes.get(i).getUri().equals(type.getUri())
+                    && listOfTypes.get(i).getName().equals(type.getName()))
                 return listOfTypes.get(i);
         listOfTypes.add(type);
         return type;
