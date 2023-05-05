@@ -21,7 +21,6 @@ public class DockerCompose {
      */
     private class ComposeService {
         public Service service;
-        public String name;
         public BuildFolder folder;
         public int replicas;
         public boolean isDocker = false;
@@ -100,7 +99,7 @@ public class DockerCompose {
             List<ComposeService> services = getComposeServices(system.getNetworks().get(i).getServices(), i);
             services.forEach(cs -> {
                 Service svc = cs.service;
-                strBuilder.append("    " + cs.name.toLowerCase() + ":\n");
+                strBuilder.append("    " + "s" + cs.service.getId() + "_" + cs.service.getName().toLowerCase() + ":\n");
                 if (svc.getContainerName() != null)
                     strBuilder.append("        container_name: " + svc.getContainerName() + "\n");
                 else
@@ -173,7 +172,6 @@ public class DockerCompose {
             if (svc instanceof Docker)
                 cs.isDocker = true;
             cs.service = svc;
-            cs.name = svc.getName() + svc.getId();
             cs.networks = findNetworks(svc, currentNetwork, system.getNetworks());
             cs.replicas = 1;
             cs.currentNetwork = currentNetwork;
