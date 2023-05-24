@@ -116,7 +116,11 @@ export const getTopLevelEdges = (services: Service[]): ElkExtendedEdge[] => {
 
 			outputSvc.outputPorts.forEach((op) => {
 				inputSvc.inputPorts.forEach((ip) => {
-					if (op.location === ip.location && op.protocol === ip.protocol) {
+					if (
+						op.location === ip.location &&
+						op.protocol === ip.protocol &&
+						!(op.location.startsWith('local') && ip.location.startsWith('local'))
+					) {
 						tle.push({
 							id: `e${outputSvc.id}${outputSvc.name}${op.name}-${inputSvc.id}${inputSvc.name}${ip.name}`,
 							sources: [`p${outputSvc.id}${outputSvc.name}-${op.name}`],

@@ -1,7 +1,7 @@
 {
 	"name": "jolievisualize",
 	"version": "1.0.0",
-	"description": "Tool for visualizing, refactoring and building Jolie projects.",
+	"description": "Tool for visualizing and refactoring Jolie projects.",
 	"main": "out/index.js",
 	"author": {
 		"name": "Emil Ovcina",
