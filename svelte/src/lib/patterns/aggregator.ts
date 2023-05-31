@@ -1,4 +1,4 @@
-import { interfaces, sendVisData, services, vscode } from '../data';
+import { interfaces, overwriteVisFile, services, vscode } from '../data';
 import { getServiceNetworkId, removeFromNetwork } from '../network';
 import { openPopup } from '../popup';
 import { getNextId } from '../service';
@@ -157,6 +157,7 @@ export const createAggregator = (svcs: Service[]): void => {
 				aggrSvc.embeddings = embeds;
 				return;
 			}
+			await overwriteVisFile();
 			vscode.postMessage({
 				command: 'create.pattern.aggregator',
 				fromPopup: true,
@@ -168,8 +169,6 @@ export const createAggregator = (svcs: Service[]): void => {
 				}
 			});
 			aggrSvc.embeddings = embeds;
-			sendVisData();
-			return true;
 		},
 		async () => {}
 	);

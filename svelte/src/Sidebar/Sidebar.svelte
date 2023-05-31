@@ -55,6 +55,7 @@
 />
 {#if $current_sidebar_element.hist_type >= 0}
 	<div
+		id="sidebar"
 		class="absolute top-0 right-0 w-8/12 sm:w-1/2 lg:w-4/12 xl:w-3/12 h-full bg-gray-800 overflow-x-hidden overflow-y-scroll"
 		style={x == 0 ? '' : `width: ${x}px;`}
 		in:fly={{ duration: 150, x: 1000 }}
@@ -121,3 +122,9 @@
 		</div>
 	</div>
 {/if}
+
+<style>
+	#sidebar::-webkit-scrollbar {
+		display: none;
+	}
+</style>

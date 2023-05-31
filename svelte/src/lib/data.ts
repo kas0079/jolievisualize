@@ -45,10 +45,10 @@ export const setDataString = (data: string): void => {
  * Sends a message to vscode with the visualize json string.
  * @returns void
  */
-export const sendVisData = async (): Promise<void> => {
+export const overwriteVisFile = async (): Promise<void> => {
 	if (!vscode) return;
 	vscode.postMessage({
-		command: 'set.data',
+		command: 'set.visfile',
 		detail: JSON.stringify(generateVisFile())
 	});
 };

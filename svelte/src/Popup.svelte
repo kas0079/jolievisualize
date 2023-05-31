@@ -33,6 +33,7 @@
 	<div class="absolute bg-gray-800 max-h-[800px] text-white top-12 rounded-md">
 		<h2 class="text-center text-xl my-2 px-3">{$current_popup.title}</h2>
 		<div
+			id="popup-content"
 			class="px-5 grid gap-2 mt-4 max-h-[600px] overflow-scroll"
 			style="grid-template-columns: auto 1fr;"
 		>
@@ -61,3 +62,9 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	#popup-content::-webkit-scrollbar {
+		display: none;
+	}
+</style>

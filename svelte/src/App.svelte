@@ -6,7 +6,7 @@
 	import Popup from './Popup.svelte';
 	import Sidebar from './Sidebar/Sidebar.svelte';
 	import Zoom from './Zoom.svelte';
-	import { loading, sendVisData, services, setDataString, vscode } from './lib/data';
+	import { loading, services, setDataString, vscode } from './lib/data';
 	import { error } from './lib/error';
 	import { createSystemGraph, rerenderGraph } from './lib/graph';
 	import { closePopup, current_popup } from './lib/popup';
@@ -63,8 +63,6 @@
 	const resetGraph = async (): Promise<void> => {
 		currentGraph = undefined;
 		currentGraph = await elk.layout(createSystemGraph(services));
-		if (!vscode) return;
-		await sendVisData();
 	};
 
 	/**

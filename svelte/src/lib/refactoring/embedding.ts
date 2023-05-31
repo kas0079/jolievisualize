@@ -1,4 +1,4 @@
-import { interfaces, loading, services, vscode } from '../data';
+import { interfaces, loading, overwriteVisFile, services, vscode } from '../data';
 import { addServiceToNetwork, removeFromNetwork } from '../network';
 import { openPopup } from '../popup';
 import { deepCopyServiceNewId, findRange, getAllServices } from '../service';
@@ -24,12 +24,13 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	if (otherInstances.find((t) => t.parent && t.parent.id === parent.id)) return;
 	//if a non-local port already exists between the two services
 	if (parentPort) {
-		await disembed(service);
+		await disembed(service, true);
 		service.parentPort = parentPort;
 		service.parent = parent;
 		parent.embeddings.push(service);
 		const pport = parent.outputPorts.find((t) => t.name === parentPort);
 		if (!vscode) return;
+		await overwriteVisFile();
 		vscode.postMessage({
 			command: 'create.embed',
 			save: true,
@@ -47,7 +48,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 	}
 	const localPort = service.inputPorts.find((t) => t.location === 'local');
 	if (localPort) {
-		await disembed(service);
+		await disembed(service, true);
 		service.parentPort = service.name;
 		service.parent = parent;
 		parent.embeddings.push(service);
@@ -63,6 +64,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 			? findRange(parent, 'svc_name')
 			: findRange(parent.outputPorts[0], 'port');
 		if (!vscode) return;
+		await overwriteVisFile();
 		vscode.postMessage({
 			command: 'create.embed',
 			save: true,
@@ -151,6 +153,7 @@ export const embed = async (service: Service, parent: Service, netwrkId: number)
 			});
 
 			if (vscode && parent) {
+				await overwriteVisFile();
 				const parentRange = isParentFirst
 					? findRange(parent, 'svc_name')
 					: findRange(parent.outputPorts[0], 'port');
@@ -279,17 +282,17 @@ export const disembed = async (service: Service, embed_subroutine = false): Prom
 	if (parent.embeddings) parent.embeddings = parent.embeddings.filter((t) => t.id !== service.id);
 
 	if (vscode) {
+		if (!embed_subroutine) await overwriteVisFile();
 		if (portsToRemove.length > 0)
 			vscode.postMessage({ command: 'remove.ports', detail: { ports: portsToRemove } });
-		if (parent)
-			vscode.postMessage({
-				command: 'remove.embed',
-				save: !embed_subroutine,
-				detail: {
-					filename: parent.file,
-					range: findRange(parent, `embed_${service.name}`)
-				}
-			});
+		vscode.postMessage({
+			command: 'remove.embed',
+			save: !embed_subroutine,
+			detail: {
+				filename: parent.file,
+				range: findRange(parent, `embed_${service.name}`)
+			}
+		});
 	}
 };
 

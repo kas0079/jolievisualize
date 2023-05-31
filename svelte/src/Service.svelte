@@ -2,7 +2,7 @@
 	import type { ElkNode } from 'elkjs/lib/elk.bundled';
 	import { afterUpdate, beforeUpdate, createEventDispatcher, tick } from 'svelte';
 	import Edge from './Edge.svelte';
-	import { loading, services, vscode } from './lib/data';
+	import { loading, overwriteVisFile, services, vscode } from './lib/data';
 	import { drawGhostNodeOnDrag, drawService } from './lib/draw';
 	import {
 		addServiceToNetwork,
@@ -143,6 +143,8 @@
 					if (vscode) loading.set(true);
 					await tick();
 					await disembed(service);
+				} else {
+					await overwriteVisFile();
 				}
 			} else {
 				if (
@@ -151,6 +153,9 @@
 				)
 					return;
 				addServiceToNetwork(service, networkId);
+				if (!service.parent) {
+					await overwriteVisFile();
+				}
 				if (!isDockerService(service)) {
 					if (vscode && service.parent) loading.set(true);
 					await tick();
