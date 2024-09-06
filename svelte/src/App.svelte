@@ -20,14 +20,22 @@
 	 * Gets data from vscode or from the "/data" endpoint in express
 	 */
 	const getData = async (): Promise<void> => {
-		if (vscode)
+		console.log('Svelte: Start of getData');
+		console.log(`Svelte: vscode: ${vscode}`);
+		if (vscode) {
+			console.log('Svelte: inside if');
+
 			vscode.postMessage({
 				command: 'get.data'
 			});
-		else if (dataFromServer) {
+		} else if (dataFromServer) {
+			console.log('Svelte: inside elseif');
+			console.log(`Svelte: dataFromServer= ${dataFromServer}`);
+
 			setDataString(dataFromServer);
 			currentGraph = await elk.layout(createSystemGraph(services));
 		}
+		console.log('Svelte: else');
 	};
 
 	/**

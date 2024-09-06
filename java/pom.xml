@@ -66,12 +66,12 @@
 		<dependency>
 			<groupId>org.jolie-lang</groupId>
 			<artifactId>jolie</artifactId>
-			<version>1.11.0-git</version>
+			<version>1.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jolie-lang</groupId>
 			<artifactId>jolie-cli</artifactId>
-			<version>1.11.0-git</version>
+			<version>1.11.0</version>
 		</dependency>
 	</dependencies>
 </project>
