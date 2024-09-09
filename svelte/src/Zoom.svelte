@@ -18,5 +18,9 @@
 		svg = d3.select('svg');
 		svg.call(zoom);
 		svg.call(zoom.scaleBy, networkScale);
+		svg.transition().duration(50).call(
+            zoom.transform,
+            d3.zoomIdentity.translate(0, 0).scale(4).translate(0, 0)
+        );
 	});
 </script>

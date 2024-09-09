@@ -22,6 +22,7 @@
 	const getData = async (): Promise<void> => {
 		console.log('Svelte: Start of getData');
 		console.log(`Svelte: vscode: ${vscode}`);
+		console.log(vscode);
 		if (vscode) {
 			console.log('Svelte: inside if');
 
@@ -42,8 +43,12 @@
 	 * Initial layout call
 	 */
 	const layoutGraph = async (): Promise<void> => {
+		console.log("Svelte: layoutGraph: printing services")
+		console.log(services);
 		currentGraph = await elk.layout(createSystemGraph(services));
 		await getData();
+		console.log("Svelte: layoutGraph: printing currentGraph")
+		console.log(currentGraph);
 	};
 
 	/**
@@ -58,6 +63,13 @@
 			currentGraph = undefined;
 			setDataString(event.data.data);
 			currentGraph = await elk.layout(createSystemGraph(services));
+			console.log("vsCodeMessage: event.data.data");
+			console.log(event.data.data);
+			console.log("vsCodeMessage: services");
+			console.log(services);
+			console.log("vsCodeMessage: currentGraph");
+			console.log(currentGraph);
+
 		} else if (event.data.command === 'set.ranges') {
 			updateRanges(JSON.parse(event.data.data));
 			await rerender();
